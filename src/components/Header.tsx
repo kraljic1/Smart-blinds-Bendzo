@@ -10,6 +10,10 @@ const Header: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Navigation link style with nav-font class for typography
+  const navLinkStyle = "px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white nav-font";
+  const mobileNavLinkStyle = "block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white nav-font";
+
   return (
     <header className="bg-white dark:bg-gray-800 shadow-sm fixed w-full z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,22 +25,22 @@ const Header: React.FC = () => {
               </Link>
             </div>
             <nav className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
-              <Link to="/products/roller-blinds" className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+              <Link to="/products/roller-blinds" className={navLinkStyle}>
                 Roller Blinds
               </Link>
-              <Link to="/products/zebra-blinds" className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+              <Link to="/products/zebra-blinds" className={navLinkStyle}>
                 Zebra Blinds
               </Link>
-              <Link to="/products/curtain-blinds" className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+              <Link to="/products/curtain-blinds" className={navLinkStyle}>
                 Curtain Blinds
               </Link>
-              <Link to="/products/accessories" className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+              <Link to="/products/accessories" className={navLinkStyle}>
                 Accessories
               </Link>
-              <Link to="/how-it-works" className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+              <Link to="/how-it-works" className={navLinkStyle}>
                 How It Works
               </Link>
-              <Link to="/support" className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+              <Link to="/support" className={navLinkStyle}>
                 Support
               </Link>
             </nav>
@@ -112,42 +116,42 @@ const Header: React.FC = () => {
         <div className="pt-2 pb-3 space-y-1">
           <Link 
             to="/products/roller-blinds"
-            className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            className={mobileNavLinkStyle}
             onClick={() => setIsMenuOpen(false)}
           >
             Roller Blinds
           </Link>
           <Link 
             to="/products/zebra-blinds"
-            className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            className={mobileNavLinkStyle}
             onClick={() => setIsMenuOpen(false)}
           >
             Zebra Blinds
           </Link>
           <Link 
             to="/products/curtain-blinds"
-            className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            className={mobileNavLinkStyle}
             onClick={() => setIsMenuOpen(false)}
           >
             Curtain Blinds
           </Link>
           <Link 
             to="/products/accessories"
-            className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            className={mobileNavLinkStyle}
             onClick={() => setIsMenuOpen(false)}
           >
             Accessories
           </Link>
           <Link 
             to="/how-it-works"
-            className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            className={mobileNavLinkStyle}
             onClick={() => setIsMenuOpen(false)}
           >
             How It Works
           </Link>
           <Link 
             to="/support"
-            className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+            className={mobileNavLinkStyle}
             onClick={() => setIsMenuOpen(false)}
           >
             Support
