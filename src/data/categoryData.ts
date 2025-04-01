@@ -19,22 +19,16 @@ export const categories: Category[] = [
     description: 'Classic smart blinds with smooth operation'
   },
   { 
-    id: 'daynight', 
-    name: 'Day & Night Blinds',
-    path: '/products/day-night-blinds',
+    id: 'zebra', 
+    name: 'Zebra Blinds',
+    path: '/products/zebra-blinds',
     description: 'Perfect balance of light and privacy'
   },
   { 
-    id: 'honeycomb', 
-    name: 'Honeycomb Blinds',
-    path: '/products/honeycomb-blinds',
-    description: 'Energy-efficient cellular shades'
-  },
-  { 
-    id: 'tracks', 
-    name: 'Curtain Tracks',
-    path: '/products/curtain-tracks',
-    description: 'Smart motorized curtain systems'
+    id: 'curtain', 
+    name: 'Curtain Blinds',
+    path: '/products/curtain-blinds',
+    description: 'Elegant curtain solutions for your windows'
   },
   { 
     id: 'accessories', 

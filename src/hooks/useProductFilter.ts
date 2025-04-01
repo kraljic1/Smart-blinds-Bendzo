@@ -2,9 +2,8 @@ import { useMemo } from 'react';
 import { Product } from '../types/product';
 import { 
   rollerBlinds, 
-  dayNightBlinds, 
-  honeycombBlinds, 
-  curtainTracks, 
+  zebraBlinds, 
+  curtainBlinds, 
   accessories 
 } from '../data/productData';
 
@@ -28,15 +27,13 @@ export const useProductFilter = (
 export const getProductsByCategory = (categoryId: string): Product[] => {
   switch (categoryId) {
     case 'all':
-      return [...rollerBlinds, ...dayNightBlinds, ...honeycombBlinds, ...curtainTracks, ...accessories];
+      return [...rollerBlinds, ...zebraBlinds, ...curtainBlinds, ...accessories];
     case 'roller':
       return rollerBlinds;
-    case 'daynight':
-      return dayNightBlinds;
-    case 'honeycomb':
-      return honeycombBlinds;
-    case 'tracks':
-      return curtainTracks;
+    case 'zebra':
+      return zebraBlinds;
+    case 'curtain':
+      return curtainBlinds;
     case 'accessories':
       return accessories;
     default:
@@ -53,17 +50,14 @@ export const createCategoryFilter = (categoryId: string): FilterFunction | undef
       return (product) => product.id.includes('essential') || 
                           product.id.includes('solar') || 
                           product.id.includes('comfort');
-    case 'daynight':
+    case 'zebra':
       return (product) => product.id.includes('luxe') || 
                           product.id.includes('premium-silver') || 
                           product.id.includes('deluxe');
-    case 'honeycomb':
-      return (product) => product.id.includes('eco') || 
-                          product.id.includes('thermal') || 
-                          product.id.includes('premium-cream');
-    case 'tracks':
-      return (product) => product.id.includes('track') || 
-                          product.id.includes('curtain');
+    case 'curtain':
+      return (product) => product.id.includes('curtain') || 
+                          product.id.includes('elegant') || 
+                          product.id.includes('premium-curtain');
     case 'accessories':
       return (product) => product.id.includes('remote') || 
                           product.id.includes('bridge') || 

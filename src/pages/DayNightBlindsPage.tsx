@@ -9,7 +9,7 @@ const DayNightBlindsPage = () => {
 
   const breadcrumbItems = [
     { label: 'Our Products', path: '/products' },
-    { label: 'Day & Night Blinds', path: '/products/day-night-blinds' }
+    { label: 'Zebra Blinds', path: '/products/zebra-blinds' }
   ];
 
   const products: Product[] = [
@@ -116,7 +116,7 @@ const DayNightBlindsPage = () => {
           <Breadcrumb items={breadcrumbItems} />
         </div>
 
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-16">Day & Night Blinds</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-16">Zebra Blinds</h1>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (

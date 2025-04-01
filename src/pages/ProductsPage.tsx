@@ -22,9 +22,8 @@ const ProductsPage: React.FC = () => {
     const path = location.pathname;
     if (path === '/products') return 'all';
     if (path.includes('roller-blinds')) return 'roller';
-    if (path.includes('day-night-blinds')) return 'daynight';
-    if (path.includes('honeycomb-blinds')) return 'honeycomb';
-    if (path.includes('curtain-tracks')) return 'tracks';
+    if (path.includes('zebra-blinds')) return 'zebra';
+    if (path.includes('curtain-blinds')) return 'curtain';
     if (path.includes('accessories')) return 'accessories';
     return 'all';
   };
@@ -57,9 +56,8 @@ const ProductsPage: React.FC = () => {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
             {currentCategoryId === 'all' ? 'All Products' : 
              currentCategoryId === 'roller' ? 'Roller Blinds' :
-             currentCategoryId === 'daynight' ? 'Day & Night Blinds' :
-             currentCategoryId === 'honeycomb' ? 'Honeycomb Blinds' :
-             currentCategoryId === 'tracks' ? 'Curtain Tracks' :
+             currentCategoryId === 'zebra' ? 'Zebra Blinds' :
+             currentCategoryId === 'curtain' ? 'Curtain Blinds' :
              'Accessories'}
           </h2>
           <ProductGrid 

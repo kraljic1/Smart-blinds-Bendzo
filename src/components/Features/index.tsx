@@ -1,4 +1,3 @@
-import React from 'react';
 import { Sun, Battery, Smartphone, Shield } from 'lucide-react';
 import FeatureCard from './FeatureCard';
 

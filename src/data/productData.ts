@@ -54,15 +54,15 @@ export const rollerBlinds: Product[] = [
   }
 ];
 
-// Day & Night Blinds
-export const dayNightBlinds: Product[] = [
+// Zebra blinds (formerly Day & Night Blinds)
+export const zebraBlinds: Product[] = [
   {
     id: "luxe-white",
     name: "Luxe White",
     price: 289.99,
     originalPrice: 319.99,
     image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Day & Night"],
+    features: ["Zebra"],
     colors: 3,
     fabricColor: "#FFFFFF"
   },
@@ -72,7 +72,7 @@ export const dayNightBlinds: Product[] = [
     price: 299.99,
     originalPrice: 329.99,
     image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Day & Night"],
+    features: ["Zebra"],
     colors: 2,
     fabricColor: "#C0C0C0"
   },
@@ -82,65 +82,31 @@ export const dayNightBlinds: Product[] = [
     price: 319.99,
     originalPrice: 349.99,
     image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Day & Night"],
+    features: ["Zebra"],
     colors: 1,
     fabricColor: "#383838"
   }
 ];
 
-// Honeycomb Blinds
-export const honeycombBlinds: Product[] = [
+// Curtain blinds
+export const curtainBlinds: Product[] = [
   {
-    id: "eco-white",
-    name: "Eco White",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Light filtering"],
-    colors: 4,
-    fabricColor: "#FFFFFF"
-  },
-  {
-    id: "thermal-grey",
-    name: "Thermal Grey",
-    price: 319.99,
-    originalPrice: 349.99,
-    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Blackout"],
-    colors: 3,
-    fabricColor: "#808080"
-  },
-  {
-    id: "premium-cream",
-    name: "Premium Cream",
-    price: 339.99,
-    originalPrice: 369.99,
-    image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Light filtering"],
-    colors: 2,
-    fabricColor: "#FFFDD0"
-  }
-];
-
-// Curtain Tracks
-export const curtainTracks: Product[] = [
-  {
-    id: "electric-curtain-track",
-    name: "Electric Curtain Track",
+    id: "elegant-curtain-blind",
+    name: "Elegant Curtain Blind",
     price: 355.88,
     originalPrice: 395.40,
     image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Motorized"],
-    colors: 1,
+    features: ["Light filtering"],
+    colors: 3,
     fabricColor: "#FFFFFF"
   },
   {
-    id: "premium-track-system",
-    name: "Premium Track System",
+    id: "premium-curtain-system",
+    name: "Premium Curtain System",
     price: 399.99,
     originalPrice: 449.99,
     image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Motorized"],
+    features: ["Blackout"],
     colors: 2,
     fabricColor: "#C0C0C0"
   }
@@ -203,8 +169,7 @@ export const accessories: Product[] = [
 // Combine all products for when we need the full list
 export const allProducts: Product[] = [
   ...rollerBlinds,
-  ...dayNightBlinds,
-  ...honeycombBlinds,
-  ...curtainTracks,
+  ...zebraBlinds,
+  ...curtainBlinds,
   ...accessories
 ]; 
