@@ -15,6 +15,7 @@ import SupportPage from './pages/SupportPage';
 import InstallationGuidePage from './pages/InstallationGuidePage';
 import ConnectivityGuidePage from './pages/ConnectivityGuidePage';
 import SmartControlGuidePage from './pages/SmartControlGuidePage';
+import ProductConfigurationPage from './pages/ProductConfigurationPage';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/products/zebra-blinds" element={<DayNightBlindsPage />} />
               <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
               <Route path="/products/accessories" element={<AccessoriesPage />} />
+              <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
               <Route path="/how-it-works" element={<HowItWorksPage />} />
               <Route path="/support" element={<SupportPage />} />
               <Route path="/installation-guide" element={<InstallationGuidePage />} />

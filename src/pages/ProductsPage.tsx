@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import ProductConfiguration from '../components/ProductConfiguration';
-import { Product } from '../types/product';
 import ProductHero from '../components/Products/ProductHero';
 import CategoryGrid from '../components/Products/CategoryGrid';
 import ProductGrid from '../components/Products/ProductGrid';
@@ -10,7 +8,6 @@ import { Category } from '../data/categoryData';
 
 const ProductsPage: React.FC = () => {
   const location = useLocation();
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   
   // Add useEffect to scroll to top when component mounts
   useEffect(() => {
@@ -37,10 +34,6 @@ const ProductsPage: React.FC = () => {
     console.log('Category changed to:', category.name);
   };
 
-  const handleRequestSample = (product: Product) => {
-    console.log('Requesting sample for:', product.name);
-  };
-
   return (
     <div className="pt-24 pb-32">
       {/* Hero Section */}
@@ -60,21 +53,9 @@ const ProductsPage: React.FC = () => {
              currentCategoryId === 'curtain' ? 'Curtain Blinds' :
              'Accessories'}
           </h2>
-          <ProductGrid 
-            products={products}
-            onConfigure={setSelectedProduct}
-            onRequestSample={handleRequestSample}
-          />
+          <ProductGrid products={products} />
         </div>
       </div>
-
-      {/* Product Configuration Modal */}
-      {selectedProduct && (
-        <ProductConfiguration 
-          product={selectedProduct}
-          onClose={() => setSelectedProduct(null)}
-        />
-      )}
     </div>
   );
 };

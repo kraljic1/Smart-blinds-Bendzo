@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sun, Moon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
 import {
   CardRoot,
@@ -12,11 +13,17 @@ import {
 
 interface ProductCardProps {
   product: Product;
-  onConfigure: (product: Product) => void;
-  onRequestSample: (product: Product) => void;
+  onConfigure?: (product: Product) => void;
+  onRequestSample?: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onConfigure }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleConfigure = () => {
+    navigate(`/products/configure/${product.id}`);
+  };
+
   return (
     <CardRoot>
       <div className="relative">
@@ -62,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onConfigure }) => {
 
         <CardActions>
           <button
-            onClick={() => onConfigure(product)}
+            onClick={handleConfigure}
             className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600"
           >
             Configure & Buy

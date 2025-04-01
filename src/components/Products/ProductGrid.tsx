@@ -5,15 +5,13 @@ import ProductCard from '../ProductCard';
 interface ProductGridProps {
   products: Product[];
   productsPerLoad?: number;
-  onConfigure: (product: Product) => void;
-  onRequestSample: (product: Product) => void;
+  onConfigure?: (product: Product) => void;
+  onRequestSample?: (product: Product) => void;
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ 
   products, 
-  productsPerLoad = 6, 
-  onConfigure, 
-  onRequestSample 
+  productsPerLoad = 6 
 }) => {
   const [visibleProducts, setVisibleProducts] = useState(productsPerLoad);
 
@@ -28,8 +26,6 @@ const ProductGrid: React.FC<ProductGridProps> = ({
           <ProductCard
             key={product.id}
             product={product}
-            onConfigure={onConfigure}
-            onRequestSample={onRequestSample}
           />
         ))}
       </div>
