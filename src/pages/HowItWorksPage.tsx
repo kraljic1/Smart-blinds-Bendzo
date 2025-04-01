@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Settings, Wifi, Smartphone, Sun, Moon, Shield, Battery } from 'lucide-react';
+import { Settings, Wifi, Smartphone, Sun, Shield, Battery } from 'lucide-react';
 
 const HowItWorksPage = () => {
   const features = [

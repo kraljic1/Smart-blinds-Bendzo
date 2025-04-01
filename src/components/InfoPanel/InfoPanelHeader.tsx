@@ -20,3 +20,5 @@ const InfoPanelHeader: React.FC<InfoPanelHeaderProps> = ({ onClose }) => {
     </div>
   );
 };
+
+export default InfoPanelHeader;

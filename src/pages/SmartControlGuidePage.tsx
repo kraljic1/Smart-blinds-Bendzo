@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Smartphone, Clock, Sun, Moon, Home } from 'lucide-react';
+import { Smartphone, Clock, Home } from 'lucide-react';
 
 const SmartControlGuidePage = () => {
   const features = [

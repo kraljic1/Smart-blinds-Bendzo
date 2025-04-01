@@ -23,3 +23,5 @@ const InfoPanelContent: React.FC = () => {
     </div>
   );
 };
+
+export default InfoPanelContent;
