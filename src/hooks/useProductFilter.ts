@@ -1,5 +1,12 @@
 import { useMemo } from 'react';
 import { Product } from '../types/product';
+import { 
+  rollerBlinds, 
+  dayNightBlinds, 
+  honeycombBlinds, 
+  curtainTracks, 
+  accessories 
+} from '../data/productData';
 
 type FilterFunction = (product: Product) => boolean;
 
@@ -17,7 +24,27 @@ export const useProductFilter = (
   return filteredProducts;
 };
 
-// Predefined filters
+// Get products by category ID
+export const getProductsByCategory = (categoryId: string): Product[] => {
+  switch (categoryId) {
+    case 'all':
+      return [...rollerBlinds, ...dayNightBlinds, ...honeycombBlinds, ...curtainTracks, ...accessories];
+    case 'roller':
+      return rollerBlinds;
+    case 'daynight':
+      return dayNightBlinds;
+    case 'honeycomb':
+      return honeycombBlinds;
+    case 'tracks':
+      return curtainTracks;
+    case 'accessories':
+      return accessories;
+    default:
+      return [];
+  }
+};
+
+// For legacy support or custom filtering
 export const createCategoryFilter = (categoryId: string): FilterFunction | undefined => {
   switch (categoryId) {
     case 'all':

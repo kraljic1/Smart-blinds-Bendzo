@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductConfiguration from '../components/ProductConfiguration';
 import { Product } from '../types/product';
-import { allProducts } from '../data/productData';
-import { Category } from '../data/categoryData';
 import ProductHero from '../components/Products/ProductHero';
 import CategoryGrid from '../components/Products/CategoryGrid';
 import ProductGrid from '../components/Products/ProductGrid';
-import { useProductFilter, createCategoryFilter } from '../hooks/useProductFilter';
+import { getProductsByCategory } from '../hooks/useProductFilter';
+import { Category } from '../data/categoryData';
 
 const ProductsPage: React.FC = () => {
   const location = useLocation();
@@ -31,8 +30,8 @@ const ProductsPage: React.FC = () => {
   };
 
   const currentCategoryId = getCurrentCategoryId();
-  const filterFn = createCategoryFilter(currentCategoryId);
-  const filteredProducts = useProductFilter(allProducts, filterFn);
+  // Get products directly by category
+  const products = getProductsByCategory(currentCategoryId);
 
   const handleCategoryChange = (category: Category) => {
     // This is handled by the navigate in CategoryGrid, just here for extensibility
@@ -54,16 +53,21 @@ const ProductsPage: React.FC = () => {
         <CategoryGrid onCategoryChange={handleCategoryChange} />
 
         {/* Products Section */}
-        {location.pathname === '/products' && (
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">All Products</h2>
-            <ProductGrid 
-              products={filteredProducts}
-              onConfigure={setSelectedProduct}
-              onRequestSample={handleRequestSample}
-            />
-          </div>
-        )}
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            {currentCategoryId === 'all' ? 'All Products' : 
+             currentCategoryId === 'roller' ? 'Roller Blinds' :
+             currentCategoryId === 'daynight' ? 'Day & Night Blinds' :
+             currentCategoryId === 'honeycomb' ? 'Honeycomb Blinds' :
+             currentCategoryId === 'tracks' ? 'Curtain Tracks' :
+             'Accessories'}
+          </h2>
+          <ProductGrid 
+            products={products}
+            onConfigure={setSelectedProduct}
+            onRequestSample={handleRequestSample}
+          />
+        </div>
       </div>
 
       {/* Product Configuration Modal */}

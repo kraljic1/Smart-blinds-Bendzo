@@ -1,7 +1,7 @@
 import { Product } from '../types/product';
 
-export const allProducts: Product[] = [
-  // Roller Blinds
+// Roller Blinds
+export const rollerBlinds: Product[] = [
   {
     id: "essential-anthracite",
     name: "Essential Anthracite",
@@ -51,8 +51,11 @@ export const allProducts: Product[] = [
     features: ["Light filtering"],
     colors: 5,
     fabricColor: "#FAF9F6"
-  },
-  // Day & Night Blinds
+  }
+];
+
+// Day & Night Blinds
+export const dayNightBlinds: Product[] = [
   {
     id: "luxe-white",
     name: "Luxe White",
@@ -82,8 +85,11 @@ export const allProducts: Product[] = [
     features: ["Day & Night"],
     colors: 1,
     fabricColor: "#383838"
-  },
-  // Honeycomb Blinds
+  }
+];
+
+// Honeycomb Blinds
+export const honeycombBlinds: Product[] = [
   {
     id: "eco-white",
     name: "Eco White",
@@ -113,8 +119,11 @@ export const allProducts: Product[] = [
     features: ["Light filtering"],
     colors: 2,
     fabricColor: "#FFFDD0"
-  },
-  // Curtain Tracks
+  }
+];
+
+// Curtain Tracks
+export const curtainTracks: Product[] = [
   {
     id: "electric-curtain-track",
     name: "Electric Curtain Track",
@@ -134,8 +143,11 @@ export const allProducts: Product[] = [
     features: ["Motorized"],
     colors: 2,
     fabricColor: "#C0C0C0"
-  },
-  // Accessories
+  }
+];
+
+// Accessories
+export const accessories: Product[] = [
   {
     id: "wifi-bridge",
     name: "Motionblinds Wi-Fi Bridge",
@@ -186,4 +198,13 @@ export const allProducts: Product[] = [
     colors: 1,
     fabricColor: "#FFFFFF"
   }
+];
+
+// Combine all products for when we need the full list
+export const allProducts: Product[] = [
+  ...rollerBlinds,
+  ...dayNightBlinds,
+  ...honeycombBlinds,
+  ...curtainTracks,
+  ...accessories
 ]; 
