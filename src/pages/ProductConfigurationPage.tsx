@@ -14,6 +14,11 @@ const ProductConfigurationPage = () => {
   const [isInfoPanelOpen, setIsInfoPanelOpen] = useState(false);
   const [allImages, setAllImages] = useState<string[]>([]);
 
+  // Scroll to top when page loads
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [productId]);
+
   // Fetch product data based on productId
   useEffect(() => {
     // In a real app, you would fetch from an API
@@ -246,6 +251,39 @@ const ProductConfigurationPage = () => {
                 <button className="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
                   CALCULATE PRICE
                 </button>
+              </div>
+              
+              {/* Additional product information */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div className="divide-y divide-gray-200 dark:divide-gray-700">
+                  <div className="p-4">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Product Features</h3>
+                    <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                      <li>Smart home integration</li>
+                      <li>Remote control operation</li>
+                      <li>Silent motor technology</li>
+                      <li>Energy efficient design</li>
+                      <li>UV protection fabric</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-4">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Specifications</h3>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div className="text-gray-500 dark:text-gray-400">Material</div>
+                      <div className="text-gray-900 dark:text-white">Premium Polyester</div>
+                      
+                      <div className="text-gray-500 dark:text-gray-400">Control</div>
+                      <div className="text-gray-900 dark:text-white">App / Remote / Voice</div>
+                      
+                      <div className="text-gray-500 dark:text-gray-400">Power Source</div>
+                      <div className="text-gray-900 dark:text-white">Electric (AC)</div>
+                      
+                      <div className="text-gray-500 dark:text-gray-400">Warranty</div>
+                      <div className="text-gray-900 dark:text-white">5 Years</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
