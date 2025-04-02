@@ -13,7 +13,7 @@ interface SEOProps {
   children?: React.ReactNode;
 }
 
-const SEO: React.FC<SEOProps> = ({
+export default function SEO({
   title,
   description,
   keywords,
@@ -23,7 +23,7 @@ const SEO: React.FC<SEOProps> = ({
   twitterCard = 'summary_large_image',
   canonicalUrl,
   children
-}) => {
+}: SEOProps) {
   // Use current URL if ogUrl or canonicalUrl is not provided
   const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
   const metaOgUrl = ogUrl || currentUrl;
@@ -56,6 +56,4 @@ const SEO: React.FC<SEOProps> = ({
       {children}
     </Helmet>
   );
-};
-
-export default SEO; 
+} 

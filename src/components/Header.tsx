@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTheme } from './ThemeProvider';
+import { useTheme } from '../hooks/useTheme';
 import { BasketIcon } from './Basket/BasketIcon';
 
 const Header: React.FC = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { isDark, toggle } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -63,11 +63,11 @@ const Header: React.FC = () => {
             <BasketIcon />
             
             <button 
-              onClick={toggleTheme}
+              onClick={toggle}
               className="ml-3 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {theme === 'dark' ? (
+              {isDark ? (
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"

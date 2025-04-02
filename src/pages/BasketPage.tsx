@@ -1,4 +1,3 @@
-import React from 'react';
 import { Basket } from '../components/Basket/Basket';
 import SEO from '../components/SEO';
 import Breadcrumb from '../components/Breadcrumb';

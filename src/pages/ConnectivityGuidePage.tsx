@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Wifi, Smartphone, Settings, CheckCircle } from 'lucide-react';
 

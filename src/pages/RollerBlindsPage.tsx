@@ -1,4 +1,3 @@
-import React from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
