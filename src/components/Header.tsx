@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from './ThemeProvider';
+import { BasketIcon } from './Basket/BasketIcon';
 
 const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
@@ -59,6 +60,8 @@ const Header: React.FC = () => {
           </div>
           
           <div className="flex items-center">
+            <BasketIcon />
+            
             <button 
               onClick={toggleTheme}
               className="ml-3 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
@@ -178,6 +181,13 @@ const Header: React.FC = () => {
                 onClick={handleCloseMenu}
               >
                 Support
+              </Link>
+              <Link 
+                to="/basket"
+                className={mobileNavLinkStyle}
+                onClick={handleCloseMenu}
+              >
+                Basket
               </Link>
             </div>
           </div>
