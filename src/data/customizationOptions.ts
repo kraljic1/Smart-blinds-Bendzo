@@ -163,7 +163,7 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
     options: [
       {
         id: 'links',
-        name: 'Links',
+        name: 'Left',
         price: 0,
       },
       {
