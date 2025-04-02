@@ -1,5 +1,5 @@
 import React from 'react';
-import { useBasketContext } from '../../context/BasketContext';
+import { useBasketContext } from '../../hooks/useBasketContext';
 import { BasketItem } from './BasketItem';
 import './Basket.css';
 

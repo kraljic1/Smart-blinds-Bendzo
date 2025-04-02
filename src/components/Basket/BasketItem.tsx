@@ -1,6 +1,6 @@
 import React from 'react';
 import { BasketItem as BasketItemType } from '../../hooks/useBasket';
-import { useBasketContext } from '../../context/BasketContext';
+import { useBasketContext } from '../../hooks/useBasketContext';
 import './BasketItem.css';
 
 interface BasketItemProps {

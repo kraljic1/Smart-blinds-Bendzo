@@ -5,8 +5,6 @@ interface ThemeProviderProps {
 }
 
 // ThemeProvider component - simply passes children through
-function ThemeProvider({ children }: ThemeProviderProps) {
+export function ThemeProvider({ children }: ThemeProviderProps) {
   return <>{children}</>;
-}
-
-export default ThemeProvider; 
+} 
