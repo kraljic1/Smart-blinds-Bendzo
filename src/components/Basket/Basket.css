@@ -18,6 +18,7 @@
   --checkout-btn-hover-bg: #059669;
   --empty-text-color: #6b7280;
   --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+  --title-color: #111827;
 }
 
 .dark {
@@ -33,6 +34,7 @@
   --checkout-btn-hover-bg: #059669;
   --empty-text-color: #a0aec0;
   --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --title-color: #f9fafb;
 }
 
 .basket-header {
@@ -49,6 +51,7 @@
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.025em;
+  color: var(--title-color);
 }
 
 .basket-clear-btn {
