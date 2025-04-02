@@ -350,9 +350,12 @@ const ProductConfigurationPage = () => {
                 ) : (
                   <>
                     <ProductCustomization 
+                      product={product}
                       options={customizationOptions}
                       selectedOptions={selectedOptions}
                       onOptionChange={handleOptionChange}
+                      width={typeof width === 'number' ? width : undefined}
+                      height={typeof height === 'number' ? height : undefined}
                     />
                     <PriceCalculator 
                       basePrice={product.price}

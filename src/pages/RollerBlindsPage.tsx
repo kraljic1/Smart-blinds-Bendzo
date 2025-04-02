@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import ProductConfiguration from '../components/ProductConfiguration';
+import React from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
 
 const RollerBlindsPage = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
   const breadcrumbItems = [
     { label: 'Our Products', path: '/products' },
     { label: 'Roller Blinds', path: '/products/roller-blinds' }
@@ -119,17 +116,9 @@ const RollerBlindsPage = () => {
             <ProductCard
               key={product.id}
               product={product}
-              onConfigure={setSelectedProduct}
             />
           ))}
         </div>
-
-        {selectedProduct && (
-          <ProductConfiguration 
-            product={selectedProduct}
-            onClose={() => setSelectedProduct(null)}
-          />
-        )}
       </div>
     </div>
   );

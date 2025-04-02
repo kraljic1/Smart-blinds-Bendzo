@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
-import AccessoryConfiguration from '../components/AccessoryConfiguration';
 
 const AccessoriesPage = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
   const breadcrumbItems = [
     { label: 'Our Products', path: '/products' },
     { label: 'Accessories', path: '/products/accessories' }
@@ -14,59 +11,44 @@ const AccessoriesPage = () => {
 
   const products: Product[] = [
     {
-      id: "wifi-bridge",
-      name: "Motionblinds Wi-Fi Bridge for Smartblinds CM-20",
-      price: 157.00,
-      originalPrice: 174.99,
-      image: "https://images.unsplash.com/photo-1557438159-51eec7a6c9e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      features: ["Wi-Fi"],
+      id: "remote-control-alexa",
+      name: "Remote Control with Alexa",
+      price: 49.99,
+      originalPrice: 59.99,
+      image: "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      features: ["Smart control"],
       colors: 1,
-      fabricColor: "#000000",
-      description: "Connect your smart blinds to your home network"
+      fabricColor: "#FFFFFF"
     },
     {
-      id: "5-channel-remote",
-      name: "Motionblinds 5-Channel Remote Control",
-      price: 33.95,
-      originalPrice: 39.95,
-      image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      features: ["Remote"],
+      id: "smart-hub-pro",
+      name: "Smart Hub Pro",
+      price: 99.99,
+      originalPrice: 129.99,
+      image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      features: ["Smart control"],
       colors: 1,
-      fabricColor: "#000000",
-      description: "Control up to 5 blinds or groups"
+      fabricColor: "#FFFFFF"
     },
     {
-      id: "15-channel-remote",
-      name: "Motionblinds 15-Channel Remote",
-      price: 53.95,
-      originalPrice: 59.95,
-      image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      features: ["Remote"],
-      colors: 1,
-      fabricColor: "#000000",
-      description: "Control up to 15 blinds or groups"
-    },
-    {
-      id: "smart-plug",
-      name: "Eve Energy – Smart Plug & Range Extender",
-      price: 39.95,
-      originalPrice: 44.95,
+      id: "usb-power-adapter",
+      name: "USB Power Adapter",
+      price: 19.99,
+      originalPrice: 24.99,
       image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      features: ["Smart"],
+      features: ["Power"],
       colors: 1,
-      fabricColor: "#FFFFFF",
-      description: "Smart plug with power monitoring"
+      fabricColor: "#FFFFFF"
     },
     {
-      id: "usb-c-cable",
-      name: "Smartblinds USB-C Charging Cable",
-      price: 14.99,
-      originalPrice: 19.99,
-      image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      features: ["Charging"],
+      id: "solar-charging-panel",
+      name: "Solar Charging Panel",
+      price: 79.99,
+      originalPrice: 99.99,
+      image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      features: ["Eco-friendly"],
       colors: 1,
-      fabricColor: "#FFFFFF",
-      description: "USB-C charging cable for smart blinds"
+      fabricColor: "#FFFFFF"
     }
   ];
 
@@ -76,29 +58,17 @@ const AccessoriesPage = () => {
         <div className="mb-8">
           <Breadcrumb items={breadcrumbItems} />
         </div>
-
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Accessories</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 mb-16">
-          Enhance your smart blinds experience with our range of accessories, from remote controls to connectivity solutions.
-        </p>
+        
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-16">Smart Accessories</h1>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
-              onConfigure={setSelectedProduct}
-              configureButtonText="Add to Cart"
             />
           ))}
         </div>
-
-        {selectedProduct && (
-          <AccessoryConfiguration 
-            product={selectedProduct}
-            onClose={() => setSelectedProduct(null)}
-          />
-        )}
       </div>
     </div>
   );

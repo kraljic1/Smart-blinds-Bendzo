@@ -2,7 +2,6 @@ import React from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
-import { useBasketContext } from '../context/BasketContext';
 import {
   CardRoot,
   CardImage,
@@ -17,18 +16,15 @@ interface ProductCardProps {
   onConfigure?: (product: Product) => void;
   onRequestSample?: (product: Product) => void;
   configureButtonText?: string;
-  showAddToBasket?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ 
   product, 
   onConfigure, 
   onRequestSample,
-  configureButtonText = "Configure & Buy",
-  showAddToBasket = true
+  configureButtonText = "Configure & Buy" 
 }) => {
   const navigate = useNavigate();
-  const { addItem } = useBasketContext();
 
   const handleConfigure = () => {
     if (onConfigure) {
@@ -42,10 +38,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     if (onRequestSample) {
       onRequestSample(product);
     }
-  };
-
-  const handleAddToBasket = () => {
-    addItem(product, 1);
   };
 
   return (
@@ -98,15 +90,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
           >
             {configureButtonText}
           </button>
-          
-          {showAddToBasket && (
-            <button
-              onClick={handleAddToBasket}
-              className="w-full mt-2 bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition uppercase dark:bg-green-500 dark:hover:bg-green-600"
-            >
-              Add to Basket
-            </button>
-          )}
           
           {onRequestSample && (
             <button

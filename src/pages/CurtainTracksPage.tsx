@@ -1,28 +1,36 @@
-import React, { useState } from 'react';
-import ProductConfiguration from '../components/ProductConfiguration';
+import React from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
 
 const CurtainTracksPage = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
   const breadcrumbItems = [
     { label: 'Our Products', path: '/products' },
-    { label: 'Curtain Tracks', path: '/products/curtain-tracks' }
+    { label: 'Curtain Tracks', path: '/products/curtain-blinds' }
   ];
 
-  const product: Product = {
-    id: "electric-curtain-track",
-    name: "Electric Curtain Track",
-    price: 355.88,
-    originalPrice: 395.40,
-    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Motorized"],
-    colors: 1,
-    fabricColor: "#FFFFFF",
-    description: "Transform your existing or new curtains into smart curtains with our cordless electric curtain tracks."
-  };
+  const products: Product[] = [
+    {
+      id: "ripplefold-track",
+      name: "Ripplefold Track",
+      price: 399.99,
+      originalPrice: 439.99,
+      image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      features: ["Light filtering"],
+      colors: 2,
+      fabricColor: "#AAAAAA"
+    },
+    {
+      id: "glider-track",
+      name: "Glider Track",
+      price: 349.99,
+      originalPrice: 389.99,
+      image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      features: ["Light filtering"],
+      colors: 2,
+      fabricColor: "#888888"
+    }
+  ];
 
   return (
     <div className="pt-24 pb-32">
@@ -30,25 +38,17 @@ const CurtainTracksPage = () => {
         <div className="mb-8">
           <Breadcrumb items={breadcrumbItems} />
         </div>
+        
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-16">Smart Curtain Tracks</h1>
 
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">ELECTRIC CURTAIN TRACKS</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 mb-16">
-          Transform your existing or new curtains into smart curtains with our cordless electric curtain tracks. Put together your made-to-measure electric curtain rail right away and experience the benefits!
-        </p>
-
-        <div className="max-w-sm">
-          <ProductCard
-            product={product}
-            onConfigure={setSelectedProduct}
-          />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
+          ))}
         </div>
-
-        {selectedProduct && (
-          <ProductConfiguration 
-            product={selectedProduct}
-            onClose={() => setSelectedProduct(null)}
-          />
-        )}
       </div>
     </div>
   );
