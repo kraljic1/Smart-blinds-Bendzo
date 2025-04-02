@@ -6,6 +6,31 @@
   display: block;
   color: inherit;
   text-decoration: none;
+  position: relative;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.basket-icon-link:after {
+  content: 'View Basket';
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.basket-icon-link:hover:after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .basket-icon {
@@ -13,21 +38,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
 }
 
-.basket-icon:hover {
-  color: var(--icon-hover-color, #4b5563);
+.basket-icon.light-mode {
+  color: #1f2937;
+}
+
+.basket-icon.dark-mode {
+  color: #f9fafb;
+}
+
+.basket-icon-link:hover .basket-icon {
+  transform: scale(1.1);
+  color: var(--icon-hover-color, #10b981);
 }
 
 .basket-icon-count {
   position: absolute;
   top: 0;
   right: 0;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background-color: var(--count-bg-color, #ef4444);
   color: white;
   font-size: 0.75rem;
@@ -37,6 +70,7 @@
   align-items: center;
   justify-content: center;
   transform: translate(25%, -25%);
+  transition: transform 0.2s;
 }
 
 .basket-preview {

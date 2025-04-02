@@ -192,7 +192,7 @@
 
 .checkout-button {
   flex: 1;
-  height: 42px;
+  height: 48px;
   background-color: #10b981;
   color: white;
   border: none;
@@ -200,10 +200,48 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+  padding: 0 16px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  min-width: 150px;
 }
 
 .checkout-button:hover {
   background-color: #059669;
+}
+
+/* Responsive styles for the checkout button */
+@media (max-width: 768px) {
+  .checkout-button {
+    font-size: 0.8rem;
+    height: 44px;
+    min-width: 120px;
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout-button {
+    font-size: 0.75rem;
+    height: 42px;
+    min-width: 100px;
+    padding: 0 10px;
+    letter-spacing: 0.3px;
+  }
+  
+  .price-calculator-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .checkout-button {
+    width: auto;
+    min-width: 180px;
+    max-width: 80%;
+  }
 }
 
 .price-calculator-delivery {

@@ -8,10 +8,12 @@ import { getProductsByCategory } from '../hooks/useProductFilter';
 import ProductCustomization, { CustomizationOption } from '../components/ProductCustomization';
 import PriceCalculator from '../components/PriceCalculator';
 import { defaultCustomizationOptions } from '../data/customizationOptions';
+import { useBasketContext } from '../hooks/useBasketContext';
 
 const ProductConfigurationPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
+  const { addItem } = useBasketContext();
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -148,8 +150,23 @@ const ProductConfigurationPage = () => {
   };
 
   const handleCheckout = () => {
-    // Handle checkout logic here
-    console.log('Proceeding to checkout with options:', selectedOptions);
+    if (product && typeof width === 'number' && typeof height === 'number') {
+      // Prepare options to save with the product
+      const options: Record<string, string | number | boolean> = {
+        width,
+        height,
+        ...selectedOptions
+      };
+      
+      // Add item to the basket
+      addItem(product, 1, options);
+      
+      // Show success message or navigate to basket
+      // Optional: navigate('/basket');
+      
+      // Show a confirmation toast
+      alert(`${product.name} has been added to your basket!`);
+    }
   };
 
   if (isLoading) {

@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useBasketContext } from '../../hooks/useBasketContext';
+import { useTheme } from '../../hooks/useTheme';
 import './BasketIcon.css';
 
 export function BasketIcon() {
   const { getItemCount } = useBasketContext();
-  const [showPreview, setShowPreview] = useState(false);
+  const { isDark } = useTheme();
   const itemCount = getItemCount();
 
   return (
-    <div 
-      className="basket-icon-container"
-      onMouseEnter={() => setShowPreview(true)}
-      onMouseLeave={() => setShowPreview(false)}
-    >
+    <div className="basket-icon-container">
       <Link to="/basket" className="basket-icon-link">
-        <div className="basket-icon">
+        <div className={`basket-icon ${isDark ? 'dark-mode' : 'light-mode'}`}>
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="24" 
@@ -36,17 +33,6 @@ export function BasketIcon() {
           )}
         </div>
       </Link>
-      
-      {showPreview && itemCount > 0 && (
-        <div className="basket-preview">
-          <div className="basket-preview-header">
-            <span>{itemCount} {itemCount === 1 ? 'item' : 'items'} in your basket</span>
-          </div>
-          <Link to="/basket" className="basket-preview-view-btn">
-            View Basket
-          </Link>
-        </div>
-      )}
     </div>
   );
 } 

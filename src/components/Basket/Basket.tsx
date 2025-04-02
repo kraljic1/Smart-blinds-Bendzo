@@ -1,18 +1,25 @@
 import React from 'react';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { BasketItem } from './BasketItem';
+import { Link, useNavigate } from 'react-router-dom';
 import './Basket.css';
 
 export function Basket() {
   const { items, clearBasket, getTotalPrice, getItemCount } = useBasketContext();
+  const navigate = useNavigate();
   const totalPrice = getTotalPrice();
   const itemCount = getItemCount();
+
+  const handleContinueShopping = () => {
+    navigate('/products');
+  };
 
   if (items.length === 0) {
     return (
       <div className="basket-empty">
         <h2>Your basket is empty</h2>
         <p>Add some products to your basket to see them here.</p>
+        <Link to="/products" className="basket-continue-btn">Browse Products</Link>
       </div>
     );
   }
@@ -47,7 +54,7 @@ export function Basket() {
         </div>
         
         <div className="basket-actions">
-          <button className="basket-continue-btn">Continue Shopping</button>
+          <button onClick={handleContinueShopping} className="basket-continue-btn">Continue Shopping</button>
           <button className="basket-checkout-btn">Proceed to Checkout</button>
         </div>
       </div>
