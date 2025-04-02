@@ -27,7 +27,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-sm fixed w-full z-10">
+    <header className="bg-white dark:bg-gray-800 shadow-sm fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
@@ -123,71 +123,66 @@ const Header: React.FC = () => {
         </div>
       </div>
       
-      {/* Mobile menu overlay */}
+      {/* Full overlay menu system */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-95 dark:bg-black dark:bg-opacity-95 z-40" onClick={handleCloseMenu} />
+        <>
+          {/* Completely opaque background overlay */}
+          <div 
+            className="fixed inset-0 bg-gray-900 dark:bg-gray-900 z-40" 
+            onClick={handleCloseMenu}
+          />
+          
+          {/* Menu content */}
+          <div 
+            className="fixed inset-0 pt-16 z-40 sm:hidden flex flex-col items-center justify-center text-center"
+          >
+            <div className="flex flex-col items-center w-full space-y-2">
+              <Link 
+                to="/products/roller-blinds"
+                className={mobileNavLinkStyle}
+                onClick={handleCloseMenu}
+              >
+                Roller Blinds
+              </Link>
+              <Link 
+                to="/products/zebra-blinds"
+                className={mobileNavLinkStyle}
+                onClick={handleCloseMenu}
+              >
+                Zebra Blinds
+              </Link>
+              <Link 
+                to="/products/curtain-blinds"
+                className={mobileNavLinkStyle}
+                onClick={handleCloseMenu}
+              >
+                Curtain Blinds
+              </Link>
+              <Link 
+                to="/products/accessories"
+                className={mobileNavLinkStyle}
+                onClick={handleCloseMenu}
+              >
+                Accessories
+              </Link>
+              <Link 
+                to="/how-it-works"
+                className={mobileNavLinkStyle}
+                onClick={handleCloseMenu}
+              >
+                How It Works
+              </Link>
+              <Link 
+                to="/support"
+                className={mobileNavLinkStyle}
+                onClick={handleCloseMenu}
+              >
+                Support
+              </Link>
+            </div>
+          </div>
+        </>
       )}
-      
-      {/* Mobile menu */}
-      <div 
-        className={`
-          ${isMenuOpen ? 'fixed' : 'hidden'} 
-          inset-0 
-          pt-16 
-          z-40 
-          sm:hidden 
-          flex 
-          flex-col 
-          items-center 
-          justify-center 
-          text-center
-        `}
-      >
-        <div className="flex flex-col items-center w-full space-y-2">
-          <Link 
-            to="/products/roller-blinds"
-            className={mobileNavLinkStyle}
-            onClick={handleCloseMenu}
-          >
-            Roller Blinds
-          </Link>
-          <Link 
-            to="/products/zebra-blinds"
-            className={mobileNavLinkStyle}
-            onClick={handleCloseMenu}
-          >
-            Zebra Blinds
-          </Link>
-          <Link 
-            to="/products/curtain-blinds"
-            className={mobileNavLinkStyle}
-            onClick={handleCloseMenu}
-          >
-            Curtain Blinds
-          </Link>
-          <Link 
-            to="/products/accessories"
-            className={mobileNavLinkStyle}
-            onClick={handleCloseMenu}
-          >
-            Accessories
-          </Link>
-          <Link 
-            to="/how-it-works"
-            className={mobileNavLinkStyle}
-            onClick={handleCloseMenu}
-          >
-            How It Works
-          </Link>
-          <Link 
-            to="/support"
-            className={mobileNavLinkStyle}
-            onClick={handleCloseMenu}
-          >
-            Support
-          </Link>
-        </div>
-      </div>
     </header>
   );
 };
