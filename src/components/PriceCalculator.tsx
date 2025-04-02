@@ -79,10 +79,6 @@ const PriceCalculator = ({
           ADD TO MY CART
         </button>
       </div>
-      
-      <div className="price-calculator-delivery">
-        Ordered today, delivered within 2 - 3 weeks!
-      </div>
     </div>
   );
 };
