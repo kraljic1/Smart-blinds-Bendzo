@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom styles */
 @import './styles/ProductCustomization.css';
 @import './styles/PriceCalculator.css';
 
+/* Custom styles */
 :root {
   font-family: Inter, Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

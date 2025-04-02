@@ -146,6 +146,7 @@
   overflow: hidden;
   border-radius: 6px;
   background-color: #f3f4f6;
+  position: relative;
 }
 
 .dark .option-image-container {
@@ -156,6 +157,29 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Improved visibility for image option text */
+.option-item:not(.text-only-option):not(.color-option) .option-content {
+  background-color: rgba(243, 244, 246, 0.85);
+  margin: 0 -12px -12px -12px;
+  padding: 8px 12px;
+  border-radius: 0 0 6px 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.dark .option-item:not(.text-only-option):not(.color-option) .option-content {
+  background-color: rgba(31, 41, 55, 0.85);
+}
+
+.option-item:not(.text-only-option):not(.color-option) .option-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dark .option-item:not(.text-only-option):not(.color-option) .option-name {
+  color: #f9fafb;
 }
 
 /* Color swatch styles */
@@ -214,6 +238,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 5;
 }
 
 .dark .option-item.selected .option-checkmark {

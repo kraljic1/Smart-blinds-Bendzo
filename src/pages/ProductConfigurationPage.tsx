@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Info, ArrowLeft, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { Product } from '../types/product';
+import SEO from '../components/SEO';
 import InfoPanel from '../components/InfoPanel';
 import { getProductsByCategory } from '../hooks/useProductFilter';
 import ProductCustomization, { CustomizationOption } from '../components/ProductCustomization';
@@ -177,6 +178,16 @@ const ProductConfigurationPage = () => {
 
   return (
     <div className="pt-20 pb-24 sm:pt-24 sm:pb-32">
+      {product && (
+        <SEO
+          title={`${product.name} - Configure Your Smart Blind | Smartblinds`}
+          description={`Customize your ${product.name} with our easy-to-use configurator. Choose dimensions, colors, and features to create the perfect smart blind for your home.`}
+          keywords={`smart blinds, ${product.name.toLowerCase()}, window automation, smart home, blinds configurator`}
+          ogType="product"
+          ogImage={product.image}
+        />
+      )}
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <button 
           onClick={handleGoBack}

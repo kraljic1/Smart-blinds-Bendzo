@@ -65,8 +65,8 @@ const ProductCustomization = ({
                   {value.price !== undefined && value.price > 0 && (
                     <span className="option-price">+€{value.price.toFixed(2)}</span>
                   )}
-                  {value.price !== undefined && value.price === 0 && option.textOnly && (
-                    <span className="option-price">€0.00</span>
+                  {value.price !== undefined && value.price === 0 && (
+                    <span className="option-price">€{value.price.toFixed(2)}</span>
                   )}
                 </div>
                 {selectedOptions[option.id] === value.id && (
