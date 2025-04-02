@@ -168,7 +168,7 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
       },
       {
         id: 'rechts',
-        name: 'Rechts',
+        name: 'Right',
         price: 0,
       },
     ],
