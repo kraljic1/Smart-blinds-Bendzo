@@ -15,13 +15,29 @@ interface ProductCardProps {
   product: Product;
   onConfigure?: (product: Product) => void;
   onRequestSample?: (product: Product) => void;
+  configureButtonText?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ 
+  product, 
+  onConfigure, 
+  onRequestSample,
+  configureButtonText = "Configure & Buy" 
+}) => {
   const navigate = useNavigate();
 
   const handleConfigure = () => {
-    navigate(`/products/configure/${product.id}`);
+    if (onConfigure) {
+      onConfigure(product);
+    } else {
+      navigate(`/products/configure/${product.id}`);
+    }
+  };
+
+  const handleRequestSample = () => {
+    if (onRequestSample) {
+      onRequestSample(product);
+    }
   };
 
   return (
@@ -72,8 +88,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             onClick={handleConfigure}
             className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600"
           >
-            Configure & Buy
+            {configureButtonText}
           </button>
+          
+          {onRequestSample && (
+            <button
+              onClick={handleRequestSample}
+              className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            >
+              Request Sample
+            </button>
+          )}
         </CardActions>
       </CardContent>
     </CardRoot>

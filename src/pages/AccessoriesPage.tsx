@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ProductConfiguration from '../components/ProductConfiguration';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
+import AccessoryConfiguration from '../components/AccessoryConfiguration';
 
 const AccessoriesPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -93,12 +93,13 @@ const AccessoriesPage = () => {
               product={product}
               onConfigure={setSelectedProduct}
               onRequestSample={handleRequestSample}
+              configureButtonText="Add to Cart"
             />
           ))}
         </div>
 
         {selectedProduct && (
-          <ProductConfiguration 
+          <AccessoryConfiguration 
             product={selectedProduct}
             onClose={() => setSelectedProduct(null)}
           />
