@@ -70,10 +70,6 @@ const AccessoriesPage = () => {
     }
   ];
 
-  const handleRequestSample = (product: Product) => {
-    console.log('Requesting sample for:', product.name);
-  };
-
   return (
     <div className="pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,7 +88,6 @@ const AccessoriesPage = () => {
               key={product.id}
               product={product}
               onConfigure={setSelectedProduct}
-              onRequestSample={handleRequestSample}
               configureButtonText="Add to Cart"
             />
           ))}

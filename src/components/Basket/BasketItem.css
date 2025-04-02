@@ -1,0 +1,141 @@
+.basket-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  position: relative;
+}
+
+.basket-item-image {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  margin-right: 1rem;
+}
+
+.basket-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.basket-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.basket-item-name {
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.basket-item-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.basket-item-option {
+  padding: 0.25rem 0.5rem;
+  background-color: var(--option-bg-color, #f3f4f6);
+  border-radius: 4px;
+  color: var(--option-text-color, #4b5563);
+}
+
+.basket-item-price {
+  font-weight: 500;
+  color: var(--price-color, #6b7280);
+  font-size: 0.875rem;
+}
+
+.basket-item-quantity {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.quantity-btn {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--btn-border-color, #d1d5db);
+  background-color: var(--btn-bg-color, #f9fafb);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+  background-color: var(--btn-hover-bg-color, #e5e7eb);
+}
+
+.quantity-input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid var(--input-border-color, #d1d5db);
+  border-radius: 4px;
+  padding: 0.25rem;
+  margin: 0 0.5rem;
+  font-size: 0.875rem;
+}
+
+.basket-item-subtotal {
+  font-weight: 600;
+  min-width: 70px;
+  text-align: right;
+}
+
+.basket-item-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: var(--remove-btn-color, #9ca3af);
+  padding: 0.25rem;
+  margin-left: 1rem;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.basket-item-remove:hover {
+  color: var(--remove-btn-hover-color, #ef4444);
+}
+
+@media (max-width: 768px) {
+  .basket-item {
+    flex-wrap: wrap;
+    padding: 1rem 0;
+  }
+  
+  .basket-item-details {
+    flex: 1 0 calc(100% - 110px);
+  }
+  
+  .basket-item-quantity {
+    order: 3;
+    margin: 1rem 1rem 0 0;
+  }
+  
+  .basket-item-subtotal {
+    order: 4;
+    margin-top: 1rem;
+  }
+  
+  .basket-item-remove {
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    margin: 0;
+  }
+} 

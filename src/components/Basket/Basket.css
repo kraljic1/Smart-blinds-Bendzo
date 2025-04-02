@@ -1,0 +1,127 @@
+.basket {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.basket-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.basket-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.basket-clear-btn {
+  background: none;
+  border: none;
+  color: var(--clear-btn-color, #ef4444);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: opacity 0.2s;
+}
+
+.basket-clear-btn:hover {
+  opacity: 0.8;
+}
+
+.basket-items {
+  margin-bottom: 2rem;
+}
+
+.basket-summary {
+  padding: 1.5rem;
+  background-color: var(--summary-bg-color, #f9fafb);
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.basket-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.basket-total-price {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--total-price-color, #111827);
+}
+
+.basket-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.basket-continue-btn,
+.basket-checkout-btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  font-size: 0.875rem;
+}
+
+.basket-continue-btn {
+  background-color: var(--continue-btn-bg, #f3f4f6);
+  color: var(--continue-btn-color, #111827);
+  flex: 1;
+}
+
+.basket-continue-btn:hover {
+  background-color: var(--continue-btn-hover-bg, #e5e7eb);
+}
+
+.basket-checkout-btn {
+  background-color: var(--checkout-btn-bg, #111827);
+  color: var(--checkout-btn-color, white);
+  flex: 2;
+}
+
+.basket-checkout-btn:hover {
+  background-color: var(--checkout-btn-hover-bg, #374151);
+}
+
+.basket-empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.basket-empty h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.basket-empty p {
+  color: var(--empty-text-color, #6b7280);
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 640px) {
+  .basket-actions {
+    flex-direction: column;
+  }
+  
+  .basket-continue-btn,
+  .basket-checkout-btn {
+    width: 100%;
+  }
+} 
