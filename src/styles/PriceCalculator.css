@@ -1,0 +1,219 @@
+.price-calculator {
+  margin-top: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.dark .price-calculator {
+  border-color: #374151;
+}
+
+.price-calculator-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  background-color: #f9fafb;
+  transition: background-color 0.2s;
+}
+
+.dark .price-calculator-summary {
+  background-color: #1f2937;
+}
+
+.price-calculator-summary:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .price-calculator-summary:hover {
+  background-color: #111827;
+}
+
+.price-calculator-total {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-calculator-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.dark .price-calculator-label {
+  color: #9ca3af;
+}
+
+.price-calculator-amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.dark .price-calculator-amount {
+  color: #f9fafb;
+}
+
+.price-calculator-toggle {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.dark .price-calculator-toggle {
+  color: #9ca3af;
+}
+
+.price-calculator-details {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.dark .price-calculator-details {
+  background-color: #111827;
+  border-color: #374151;
+}
+
+.price-calculator-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+}
+
+.price-calculator-item-name {
+  color: #4b5563;
+}
+
+.dark .price-calculator-item-name {
+  color: #d1d5db;
+}
+
+.price-calculator-item-price {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.dark .price-calculator-item-price {
+  color: #f9fafb;
+}
+
+.price-calculator-subtotal {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px dashed #e5e7eb;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.dark .price-calculator-subtotal {
+  color: #f9fafb;
+  border-color: #374151;
+}
+
+.price-calculator-tax {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.dark .price-calculator-tax {
+  color: #9ca3af;
+}
+
+.price-calculator-actions {
+  display: flex;
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  gap: 12px;
+}
+
+.dark .price-calculator-actions {
+  border-color: #374151;
+}
+
+.price-calculator-quantity {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dark .price-calculator-quantity {
+  border-color: #4b5563;
+}
+
+.quantity-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 40px;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.dark .quantity-button {
+  color: #d1d5db;
+}
+
+.quantity-button:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .quantity-button:hover {
+  background-color: #1f2937;
+}
+
+.quantity-input {
+  width: 40px;
+  height: 40px;
+  border: none;
+  text-align: center;
+  font-size: 1rem;
+  color: #1f2937;
+  background: none;
+}
+
+.dark .quantity-input {
+  color: #f9fafb;
+}
+
+.checkout-button {
+  flex: 1;
+  height: 42px;
+  background-color: #10b981;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.checkout-button:hover {
+  background-color: #059669;
+}
+
+.price-calculator-delivery {
+  padding: 12px 16px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  color: #10b981;
+  text-align: center;
+}
+
+.dark .price-calculator-delivery {
+  border-color: #374151;
+} 

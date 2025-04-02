@@ -4,6 +4,9 @@ import { Info, ArrowLeft, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react
 import { Product } from '../types/product';
 import InfoPanel from '../components/InfoPanel';
 import { getProductsByCategory } from '../hooks/useProductFilter';
+import ProductCustomization, { CustomizationOption } from '../components/ProductCustomization';
+import PriceCalculator from '../components/PriceCalculator';
+import { defaultCustomizationOptions } from '../data/customizationOptions';
 
 const ProductConfigurationPage = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -13,6 +16,14 @@ const ProductConfigurationPage = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isInfoPanelOpen, setIsInfoPanelOpen] = useState(false);
   const [allImages, setAllImages] = useState<string[]>([]);
+  
+  // New state variables for product customization
+  const [width, setWidth] = useState<number | ''>('');
+  const [height, setHeight] = useState<number | ''>('');
+  const [isCalculated, setIsCalculated] = useState(false);
+  const [customizationOptions, setCustomizationOptions] = useState<CustomizationOption[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [additionalCosts, setAdditionalCosts] = useState<{ name: string; price: number }[]>([]);
 
   // Scroll to top when page loads
   useEffect(() => {
@@ -49,6 +60,42 @@ const ProductConfigurationPage = () => {
     setIsLoading(false);
   }, [productId]);
 
+  // Set default selected options
+  useEffect(() => {
+    if (defaultCustomizationOptions.length > 0) {
+      const defaultSelections: Record<string, string> = {};
+      defaultCustomizationOptions.forEach(option => {
+        if (option.options.length > 0) {
+          defaultSelections[option.id] = option.options[0].id;
+        }
+      });
+      setSelectedOptions(defaultSelections);
+      setCustomizationOptions(defaultCustomizationOptions);
+    }
+  }, []);
+
+  // Update additional costs when selected options change
+  useEffect(() => {
+    if (isCalculated && Object.keys(selectedOptions).length > 0) {
+      const costs: { name: string; price: number }[] = [];
+      
+      customizationOptions.forEach(option => {
+        const selectedOptionId = selectedOptions[option.id];
+        if (selectedOptionId) {
+          const selectedValue = option.options.find(o => o.id === selectedOptionId);
+          if (selectedValue && selectedValue.price && selectedValue.price > 0) {
+            costs.push({
+              name: `${option.name}: ${selectedValue.name}`,
+              price: selectedValue.price
+            });
+          }
+        }
+      });
+      
+      setAdditionalCosts(costs);
+    }
+  }, [selectedOptions, isCalculated, customizationOptions]);
+
   const handleGoBack = () => {
     navigate(-1);
   };
@@ -72,6 +119,36 @@ const ProductConfigurationPage = () => {
 
   const handleThumbnailClick = (index: number) => {
     setSelectedImageIndex(index);
+  };
+
+  const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setWidth(value === '' ? '' : Number(value));
+  };
+
+  const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setHeight(value === '' ? '' : Number(value));
+  };
+
+  const handleCalculatePrice = () => {
+    if (typeof width === 'number' && typeof height === 'number' && width > 0 && height > 0) {
+      setIsCalculated(true);
+    } else {
+      alert('Please enter valid width and height values');
+    }
+  };
+
+  const handleOptionChange = (optionId: string, valueId: string) => {
+    setSelectedOptions(prev => ({
+      ...prev,
+      [optionId]: valueId
+    }));
+  };
+
+  const handleCheckout = () => {
+    // Handle checkout logic here
+    console.log('Proceeding to checkout with options:', selectedOptions);
   };
 
   if (isLoading) {
@@ -233,6 +310,8 @@ const ProductConfigurationPage = () => {
                       type="text"
                       placeholder="66 - 250 cm"
                       className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                      value={width}
+                      onChange={handleWidthChange}
                     />
                   </div>
                   <div>
@@ -244,13 +323,35 @@ const ProductConfigurationPage = () => {
                       type="text"
                       placeholder="30 - 350 cm"
                       className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                      value={height}
+                      onChange={handleHeightChange}
                     />
                   </div>
                 </div>
 
-                <button className="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
-                  CALCULATE PRICE
-                </button>
+                {!isCalculated ? (
+                  <button 
+                    className="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition"
+                    onClick={handleCalculatePrice}
+                  >
+                    CALCULATE PRICE
+                  </button>
+                ) : (
+                  <>
+                    <ProductCustomization 
+                      options={customizationOptions}
+                      selectedOptions={selectedOptions}
+                      onOptionChange={handleOptionChange}
+                    />
+                    <PriceCalculator 
+                      basePrice={product.price}
+                      width={typeof width === 'number' ? width : 0}
+                      height={typeof height === 'number' ? height : 0}
+                      additionalCosts={additionalCosts}
+                      onCheckout={handleCheckout}
+                    />
+                  </>
+                )}
               </div>
               
               {/* Additional product information */}
