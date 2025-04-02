@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Info, ArrowLeft } from 'lucide-react';
+import { Info, ArrowLeft, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { Product } from '../types/product';
 import InfoPanel from '../components/InfoPanel';
 import { getProductsByCategory } from '../hooks/useProductFilter';
@@ -10,8 +10,9 @@ const ProductConfigurationPage = () => {
   const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [isInfoPanelOpen, setIsInfoPanelOpen] = useState(false);
+  const [allImages, setAllImages] = useState<string[]>([]);
 
   // Fetch product data based on productId
   useEffect(() => {
@@ -31,7 +32,13 @@ const ProductConfigurationPage = () => {
     
     if (foundProduct) {
       setProduct(foundProduct);
-      setSelectedImage(foundProduct.image);
+      // Create array with main image first, followed by additional images
+      const images = [foundProduct.image];
+      if (foundProduct.images && foundProduct.images.length > 0) {
+        images.push(...foundProduct.images);
+      }
+      setAllImages(images);
+      setSelectedImageIndex(0);
     }
     
     setIsLoading(false);
@@ -44,6 +51,22 @@ const ProductConfigurationPage = () => {
   const handleInfoButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsInfoPanelOpen(true);
+  };
+
+  const handlePrevImage = () => {
+    setSelectedImageIndex((prevIndex) => 
+      prevIndex === 0 ? allImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prevIndex) => 
+      (prevIndex + 1) % allImages.length
+    );
+  };
+
+  const handleThumbnailClick = (index: number) => {
+    setSelectedImageIndex(index);
   };
 
   if (isLoading) {
@@ -84,26 +107,59 @@ const ProductConfigurationPage = () => {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
           <div className="grid md:grid-cols-2 gap-8 p-6">
             <div className="space-y-4">
-              <div className="aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg">
+              {/* Main product image with navigation arrows */}
+              <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600">
+                {allImages.length > 1 && (
+                  <>
+                    <button 
+                      onClick={handlePrevImage}
+                      className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                    </button>
+                    <button 
+                      onClick={handleNextImage}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                    </button>
+                  </>
+                )}
+                
+                {/* Zoom button */}
+                <button 
+                  className="absolute right-2 bottom-2 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                  aria-label="Zoom image"
+                >
+                  <ZoomIn className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                </button>
+                
                 <img 
-                  src={selectedImage}
+                  src={allImages[selectedImageIndex]}
                   alt={product.name}
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              {product.images && (
-                <div className="grid grid-cols-4 gap-2">
-                  {[product.image, ...(product.images || [])].map((image, i) => (
+              
+              {/* Thumbnail gallery */}
+              {allImages.length > 1 && (
+                <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
+                  {allImages.map((image, index) => (
                     <button 
-                      key={i} 
-                      className={`aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden border-2 ${
-                        selectedImage === image ? 'border-blue-600 dark:border-blue-400' : 'border-transparent'
+                      key={index} 
+                      onClick={() => handleThumbnailClick(index)}
+                      className={`flex-shrink-0 w-24 h-24 border-2 rounded-md overflow-hidden ${
+                        selectedImageIndex === index 
+                          ? 'border-blue-600 dark:border-blue-400' 
+                          : 'border-gray-200 dark:border-gray-700'
                       }`}
-                      onClick={() => setSelectedImage(image)}
+                      aria-label={`View image ${index + 1}`}
                     >
                       <img 
                         src={image}
-                        alt={`${product.name} view ${i + 1}`}
+                        alt={`${product.name} thumbnail ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
                     </button>
