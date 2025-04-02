@@ -1,9 +1,9 @@
+@import './styles/ProductCustomization.css';
+@import './styles/PriceCalculator.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import './styles/ProductCustomization.css';
-@import './styles/PriceCalculator.css';
 
 /* Custom styles */
 :root {
