@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../styles/ProductOptions.css';
 
 interface ProductOption {
@@ -23,6 +23,20 @@ const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
   price,
   onClose
 }) => {
+  const colorSwatchRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  
+  // Set background colors via JavaScript
+  useEffect(() => {
+    options.forEach((option, index) => {
+      if (option.type === 'color' && option.colorCode) {
+        const swatch = colorSwatchRefs.current.get(index);
+        if (swatch) {
+          swatch.style.backgroundColor = option.colorCode;
+        }
+      }
+    });
+  }, [options]);
+  
   return (
     <div className="product-modal">
       <div className="product-modal-header">
@@ -47,8 +61,11 @@ const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
           >
             {option.type === 'color' && option.colorCode && (
               <div 
+                ref={(el) => {
+                  if (el) colorSwatchRefs.current.set(index, el);
+                }}
                 className="product-option-color-swatch" 
-                style={{ backgroundColor: option.colorCode }}
+                data-color={option.colorCode}
               />
             )}
             <span className="product-option-label">{option.label}:</span>

@@ -1,4 +1,5 @@
 import { Info, Check } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { Product } from '../types/product';
 import '../styles/ProductCustomization.css';
 
@@ -29,6 +30,22 @@ const ProductCustomization = ({
   selectedOptions,
   onOptionChange,
 }: ProductCustomizationProps) => {
+  const colorSwatchRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  
+  // Set background colors via JavaScript
+  useEffect(() => {
+    options.forEach(option => {
+      option.options.forEach(value => {
+        if (value.color) {
+          const swatch = colorSwatchRefs.current.get(`${option.id}-${value.id}`);
+          if (swatch) {
+            swatch.style.backgroundColor = value.color;
+          }
+        }
+      });
+    });
+  }, [options]);
+
   return (
     <div className="product-customization">
       <h2 className="customization-title">Advanced Customization</h2>
@@ -59,8 +76,11 @@ const ProductCustomization = ({
                 )}
                 {value.color && (
                   <div 
+                    ref={(el) => {
+                      if (el) colorSwatchRefs.current.set(`${option.id}-${value.id}`, el);
+                    }}
                     className="color-swatch" 
-                    style={{ backgroundColor: value.color }}
+                    data-color={value.color}
                     aria-label={value.name}
                   ></div>
                 )}

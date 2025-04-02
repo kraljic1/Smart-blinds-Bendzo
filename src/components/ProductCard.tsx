@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
@@ -25,6 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   configureButtonText = "Configure & Buy" 
 }) => {
   const navigate = useNavigate();
+  const colorSwatchRef = useRef<HTMLDivElement>(null);
 
   const handleConfigure = () => {
     if (onConfigure) {
@@ -40,14 +41,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  // Set background color via JavaScript
+  useEffect(() => {
+    if (colorSwatchRef.current && product.fabricColor) {
+      colorSwatchRef.current.style.backgroundColor = product.fabricColor;
+    }
+  }, [product.fabricColor]);
+
   return (
     <CardRoot>
       <div className="relative">
         <CardImage src={product.image} alt={product.name} />
         <div className="absolute bottom-4 right-4">
           <div
-            className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md"
-            style={{ backgroundColor: product.fabricColor }}
+            ref={colorSwatchRef}
+            className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch"
+            data-color={product.fabricColor}
           />
         </div>
       </div>

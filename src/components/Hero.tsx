@@ -1,33 +1,39 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-// Import images
-import background1 from '../img/background-hero/background1.webp';
-import background2 from '../img/background-hero/background2.webp';
-import background3 from '../img/background-hero/background3.webp';
-import background4 from '../img/background-hero/background4.webp';
-import background5 from '../img/background-hero/background5.webp';
+interface HeroProps {
+  images: string[];
+  autoChangeInterval?: number; // in milliseconds
+}
 
-const Hero = () => {
-  // Carousel state
+const Hero: React.FC<HeroProps> = ({ 
+  images,
+  autoChangeInterval = 5000 
+}) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const imageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
   
-  const images = [
-    background1,
-    background2,
-    background3,
-    background4,
-    background5
-  ];
-
-  // Set up automatic carousel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 4500); // 4.5 seconds
-
-    return () => clearInterval(interval);
+  const changeImage = useCallback(() => {
+    setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
   }, [images.length]);
+  
+  // Handle auto-change of images
+  useEffect(() => {
+    if (images.length <= 1) return;
+    
+    const interval = setInterval(changeImage, autoChangeInterval);
+    return () => clearInterval(interval);
+  }, [changeImage, autoChangeInterval, images.length]);
+  
+  // Set background images via JavaScript
+  useEffect(() => {
+    images.forEach((img, index) => {
+      const imageDiv = imageRefs.current.get(index);
+      if (imageDiv) {
+        imageDiv.style.backgroundImage = `url(${img})`;
+      }
+    });
+  }, [images]);
 
   return (
     <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden">
@@ -35,12 +41,11 @@ const Hero = () => {
       {images.map((img, index) => (
         <div 
           key={index}
-          className="absolute top-0 w-full h-full bg-center bg-cover transition-opacity duration-1000 ease-in-out"
-          style={{
-            backgroundImage: `url(${img})`,
-            opacity: currentImageIndex === index ? 1 : 0,
-            zIndex: 0
+          ref={(el) => {
+            if (el) imageRefs.current.set(index, el);
           }}
+          className={`absolute top-0 w-full h-full bg-center bg-cover transition-opacity duration-1000 ease-in-out carousel-image ${currentImageIndex === index ? 'active' : ''}`}
+          data-bg-image={img}
         />
       ))}
       
