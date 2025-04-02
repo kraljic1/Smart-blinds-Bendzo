@@ -4,6 +4,7 @@ import '../styles/ProductCustomization.css';
 export interface CustomizationOption {
   id: string;
   name: string;
+  textOnly?: boolean;
   options: {
     id: string;
     name: string;
@@ -40,14 +41,14 @@ const ProductCustomization = ({
             </button>
           </div>
           
-          <div className={`option-selections ${option.id === 'color' ? 'color-grid' : ''}`}>
+          <div className={`option-selections ${option.id === 'color' ? 'color-grid' : ''} ${option.textOnly ? 'text-only-grid' : ''}`}>
             {option.options.map((value) => (
               <div
                 key={value.id}
-                className={`option-item ${selectedOptions[option.id] === value.id ? 'selected' : ''} ${value.color ? 'color-option' : ''}`}
+                className={`option-item ${selectedOptions[option.id] === value.id ? 'selected' : ''} ${value.color ? 'color-option' : ''} ${option.textOnly ? 'text-only-option' : ''}`}
                 onClick={() => onOptionChange(option.id, value.id)}
               >
-                {value.image && !value.color && (
+                {value.image && !value.color && !option.textOnly && (
                   <div className="option-image-container">
                     <img src={value.image} alt={value.name} className="option-image" />
                   </div>
@@ -59,12 +60,12 @@ const ProductCustomization = ({
                     aria-label={value.name}
                   ></div>
                 )}
-                <div className="option-content">
+                <div className={`option-content ${option.textOnly ? 'text-only-content' : ''}`}>
                   <span className="option-name">{value.name}</span>
                   {value.price !== undefined && value.price > 0 && (
                     <span className="option-price">+€{value.price.toFixed(2)}</span>
                   )}
-                  {value.price !== undefined && value.price === 0 && (
+                  {value.price !== undefined && value.price === 0 && option.textOnly && (
                     <span className="option-price">€0.00</span>
                   )}
                 </div>

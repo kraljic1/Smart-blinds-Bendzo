@@ -3,8 +3,6 @@ import { CustomizationOption } from '../components/ProductCustomization';
 // Using placeholder images from public sources
 const installationInsideImg = 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=300&h=200&q=80&fit=crop&auto=format';
 const installationOutsideImg = 'https://images.unsplash.com/photo-1630119852161-1b46ac627e8d?w=300&h=200&q=80&fit=crop&auto=format';
-const transparencyLightImg = 'https://images.unsplash.com/photo-1616627561839-074385245ff6?w=300&h=200&q=80&fit=crop&auto=format';
-const transparencyBlackoutImg = 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=300&h=200&q=80&fit=crop&auto=format';
 const bracketImg = 'https://images.unsplash.com/photo-1603803721487-57b3f92ee656?w=300&h=200&q=80&fit=crop&auto=format';
 const cassetteImg = 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=300&h=200&q=80&fit=crop&auto=format';
 
@@ -30,17 +28,16 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
   {
     id: 'transparency',
     name: 'Transparency',
+    textOnly: true,
     options: [
       {
         id: 'light',
         name: 'Light filtering',
-        image: transparencyLightImg,
         price: 0,
       },
       {
         id: 'blackout',
         name: 'Blackout',
-        image: transparencyBlackoutImg,
         price: 15.00,
       },
     ],
@@ -162,17 +159,16 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
   {
     id: 'motor_side',
     name: 'Motor Side',
+    textOnly: true,
     options: [
       {
         id: 'links',
         name: 'Links',
-        image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=300&h=200&q=80&fit=crop&auto=format',
         price: 0,
       },
       {
         id: 'rechts',
         name: 'Rechts',
-        image: 'https://images.unsplash.com/photo-1558317378-482868832b6f?w=300&h=200&q=80&fit=crop&auto=format',
         price: 0,
       },
     ],
@@ -203,24 +199,22 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
   },
   {
     id: 'remote',
-    name: 'Remote Control',
+    name: 'Would you like to add a remote control to your Smartblinds?',
+    textOnly: true,
     options: [
       {
         id: 'none',
         name: 'No',
-        image: 'https://images.unsplash.com/photo-1533478583204-680d4cf50c56?w=300&h=200&q=80&fit=crop&auto=format',
         price: 0,
       },
       {
         id: '5channel',
         name: '5-channel',
-        image: 'https://images.unsplash.com/photo-1581355637815-5b08602c5d27?w=300&h=200&q=80&fit=crop&auto=format',
         price: 45.00,
       },
       {
         id: '15channel',
         name: '15-channel',
-        image: 'https://images.unsplash.com/photo-1562949598-7d7e69c18d9e?w=300&h=200&q=80&fit=crop&auto=format',
         price: 65.00,
       },
     ],

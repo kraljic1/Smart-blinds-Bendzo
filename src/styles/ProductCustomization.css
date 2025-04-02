@@ -72,6 +72,10 @@
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
 }
 
+.text-only-grid {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
 .option-item {
   display: flex;
   flex-direction: column;
@@ -104,6 +108,33 @@
 .dark .option-item.selected {
   border-color: #3b82f6;
   background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Text-only option styles */
+.text-only-option {
+  padding: 10px 16px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  min-height: 50px;
+}
+
+.text-only-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.text-only-option .option-price {
+  margin-left: 8px;
+}
+
+.text-only-option.selected .option-checkmark {
+  position: static;
+  margin-left: 10px;
 }
 
 .option-image-container {
