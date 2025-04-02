@@ -8,11 +8,23 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    // When menu is open, prevent scrolling on the body
+    if (!isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   };
 
   // Navigation link style with nav-font class for typography
   const navLinkStyle = "px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white nav-font";
-  const mobileNavLinkStyle = "block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white nav-font";
+  const mobileNavLinkStyle = "block w-full px-3 py-4 text-xl font-medium text-center text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white nav-font";
+
+  // Handle closing the menu
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false);
+    document.body.style.overflow = '';
+  };
 
   return (
     <header className="bg-white dark:bg-gray-800 shadow-sm fixed w-full z-10">
@@ -71,7 +83,7 @@ const Header: React.FC = () => {
             <div className="ml-3 sm:hidden">
               <button
                 onClick={toggleMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white z-50"
                 aria-expanded={isMenuOpen}
               >
                 <span className="sr-only">Open main menu</span>
@@ -111,48 +123,66 @@ const Header: React.FC = () => {
         </div>
       </div>
       
+      {/* Mobile menu overlay */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-95 dark:bg-black dark:bg-opacity-95 z-40" onClick={handleCloseMenu} />
+      )}
+      
       {/* Mobile menu */}
-      <div className={`${isMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
-        <div className="pt-2 pb-3 space-y-1">
+      <div 
+        className={`
+          ${isMenuOpen ? 'fixed' : 'hidden'} 
+          inset-0 
+          pt-16 
+          z-40 
+          sm:hidden 
+          flex 
+          flex-col 
+          items-center 
+          justify-center 
+          text-center
+        `}
+      >
+        <div className="flex flex-col items-center w-full space-y-2">
           <Link 
             to="/products/roller-blinds"
             className={mobileNavLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleCloseMenu}
           >
             Roller Blinds
           </Link>
           <Link 
             to="/products/zebra-blinds"
             className={mobileNavLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleCloseMenu}
           >
             Zebra Blinds
           </Link>
           <Link 
             to="/products/curtain-blinds"
             className={mobileNavLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleCloseMenu}
           >
             Curtain Blinds
           </Link>
           <Link 
             to="/products/accessories"
             className={mobileNavLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleCloseMenu}
           >
             Accessories
           </Link>
           <Link 
             to="/how-it-works"
             className={mobileNavLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleCloseMenu}
           >
             How It Works
           </Link>
           <Link 
             to="/support"
             className={mobileNavLinkStyle}
-            onClick={() => setIsMenuOpen(false)}
+            onClick={handleCloseMenu}
           >
             Support
           </Link>
