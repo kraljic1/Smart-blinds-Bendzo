@@ -20,6 +20,7 @@ import SmartControlGuidePage from './pages/SmartControlGuidePage';
 import ProductConfigurationPage from './pages/ProductConfigurationPage';
 import PricingDemoPage from './pages/PricingDemoPage';
 import BasketPage from './pages/BasketPage';
+import ProductOptionDemoPage from './pages/ProductOptionDemoPage';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                   <Route path="/products/accessories" element={<AccessoriesPage />} />
                   <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
                   <Route path="/pricing-demo" element={<PricingDemoPage />} />
+                  <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
                   <Route path="/how-it-works" element={<HowItWorksPage />} />
                   <Route path="/support" element={<SupportPage />} />
                   <Route path="/installation-guide" element={<InstallationGuidePage />} />
