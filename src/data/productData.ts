@@ -131,7 +131,7 @@ export const rollerBlinds: Product[] = [
   // Comfort Collection
   {
     id: "comfort-beige",
-    name: "Comfort Beige",
+    name: "Essential - sand",
     price: 259.99,
     originalPrice: 289.99,
     image: essentialSandMain, // Reusing image for demo
@@ -143,7 +143,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "comfort-grey",
-    name: "Comfort Grey",
+    name: "Essential - light grey",
     price: 259.99,
     originalPrice: 289.99,
     image: essentialLightGreyMain, // Reusing image for demo
@@ -173,7 +173,7 @@ export const rollerBlinds: Product[] = [
   // Classic Collection
   {
     id: "classic-white",
-    name: "Classic White",
+    name: "Essential - white",
     price: 279.99,
     originalPrice: 309.99,
     image: essentialWhiteMain, // Reusing image for demo
@@ -185,7 +185,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "classic-black",
-    name: "Classic Black",
+    name: "Essential antracit",
     price: 279.99,
     originalPrice: 309.99,
     image: essentialAntracitMain, // Reusing image for demo
@@ -198,7 +198,7 @@ export const rollerBlinds: Product[] = [
   // Solar Collection
   {
     id: "solar-protection-white",
-    name: "Solar Protection White",
+    name: "Essential - white",
     price: 299.99,
     originalPrice: 329.99,
     image: essentialWhiteMain, // Reusing image for demo
@@ -228,7 +228,7 @@ export const rollerBlinds: Product[] = [
   // Screen Collection
   {
     id: "screen-grey",
-    name: "Screen Grey",
+    name: "Essential - light grey",
     price: 289.99,
     originalPrice: 319.99,
     image: essentialLightGreyMain, // Reusing image for demo
@@ -241,7 +241,7 @@ export const rollerBlinds: Product[] = [
   // Texture Collection
   {
     id: "texture-linen",
-    name: "Texture Linen",
+    name: "Essential - sand",
     price: 309.99,
     originalPrice: 339.99,
     image: essentialSandMain, // Reusing image for demo
