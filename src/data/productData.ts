@@ -43,36 +43,6 @@ export const rollerBlinds: Product[] = [
     fabricColor: "#2C3539"
   },
   {
-    id: "solar-black",
-    name: "Solar Black",
-    price: 239.34,
-    originalPrice: 265.93,
-    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Blackout"],
-    colors: 2,
-    fabricColor: "#000000"
-  },
-  {
-    id: "comfort-white",
-    name: "Comfort White",
-    price: 243.84,
-    originalPrice: 270.93,
-    image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Light filtering"],
-    colors: 1,
-    fabricColor: "#FFFFFF"
-  },
-  {
-    id: "comfort-sand-brown",
-    name: "Comfort Sand Brown",
-    price: 243.84,
-    originalPrice: 270.93,
-    image: "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Light filtering"],
-    colors: 1,
-    fabricColor: "#9F8170"
-  },
-  {
     id: "essential-sand",
     name: "Essential Sand",
     price: 239.57,
