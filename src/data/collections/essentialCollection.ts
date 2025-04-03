@@ -33,6 +33,11 @@ import essentialSandBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandB
 import essentialSandBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL2.webp';
 import essentialSandBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL3.webp';
 import essentialSandBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL4.webp';
+import essentialBeigeMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige.webp';
+import essentialBeige1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige1.webp';
+import essentialBeige2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige2.webp';
+import essentialBeige3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige3.webp';
+import essentialBeige4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige4.webp';
 
 // Essential Collection
 export const essentialCollection: Product[] = [
@@ -52,6 +57,24 @@ export const essentialCollection: Product[] = [
     features: ["Light filtering"],
     colors: 5,
     fabricColor: "#2C3539",
+    collection: "Essential"
+  },
+  {
+    id: "essential-beige",
+    name: "Essential Beige",
+    price: 239.57,
+    originalPrice: 266.19,
+    image: essentialBeigeMain,
+    images: [
+      essentialBeigeMain,
+      essentialBeige1,
+      essentialBeige2,
+      essentialBeige3,
+      essentialBeige4
+    ],
+    features: ["Light filtering"],
+    colors: 5,
+    fabricColor: "#E8D6B3",
     collection: "Essential"
   },
   {
