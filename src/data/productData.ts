@@ -27,8 +27,8 @@ import essentialWhite3 from '../img/rollerblinds/ESSENTIAL - WHITE/Essential - w
 // Roller Blinds
 export const rollerBlinds: Product[] = [
   {
-    id: "essential-anthracite",
-    name: "Essential Anthracite",
+    id: "essential-antracit",
+    name: "Essential antracit",
     price: 239.57,
     originalPrice: 266.19,
     image: essentialAntracitMain,
@@ -45,7 +45,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "essential-sand",
-    name: "Essential Sand",
+    name: "Essential - sand",
     price: 239.57,
     originalPrice: 266.18,
     image: essentialSandMain,
@@ -62,7 +62,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "essential-ocean",
-    name: "Essential Ocean",
+    name: "Essential ocean",
     price: 239.57,
     originalPrice: 266.18,
     image: essentialOceanMain,
@@ -79,7 +79,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "essential-light-grey",
-    name: "Essential Light Grey",
+    name: "Essential - light grey",
     price: 239.57,
     originalPrice: 266.18,
     image: essentialLightGreyMain,
@@ -96,7 +96,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "essential-off-white",
-    name: "Essential Off-White",
+    name: "Essential - off white",
     price: 239.57,
     originalPrice: 266.18,
     image: essentialOffWhiteMain,
@@ -113,7 +113,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "essential-white",
-    name: "Essential White",
+    name: "Essential - white",
     price: 239.57,
     originalPrice: 266.18,
     image: essentialWhiteMain,
@@ -155,7 +155,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "comfort-sand-brown",
-    name: "Comfort Sand Brown",
+    name: "Comfort - sand brown",
     price: 259.99,
     originalPrice: 289.99,
     image: essentialSandMain,
@@ -210,7 +210,7 @@ export const rollerBlinds: Product[] = [
   },
   {
     id: "solar-black",
-    name: "Solar Black",
+    name: "Solar - black",
     price: 299.99,
     originalPrice: 329.99,
     image: essentialAntracitMain,
