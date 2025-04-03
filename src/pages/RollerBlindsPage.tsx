@@ -6,6 +6,10 @@ import essentialOffWhiteMain from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Ess
 import essentialOffWhite1 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white1.webp';
 import essentialOffWhite2 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white2.webp';
 import essentialOffWhite3 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white3.webp';
+import essentialLightGreyMain from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey.webp';
+import essentialLightGrey1 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey1.webp';
+import essentialLightGrey2 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey2.webp';
+import essentialLightGrey3 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey3.webp';
 
 const RollerBlindsPage = () => {
   const breadcrumbItems = [
@@ -84,6 +88,22 @@ const RollerBlindsPage = () => {
       features: ["Light filtering"],
       colors: 1,
       fabricColor: "#2C3539"
+    },
+    {
+      id: "essential-light-grey",
+      name: "Essential Light Grey",
+      price: 239.57,
+      originalPrice: 266.18,
+      image: essentialLightGreyMain,
+      images: [
+        essentialLightGreyMain,
+        essentialLightGrey1,
+        essentialLightGrey2,
+        essentialLightGrey3
+      ],
+      features: ["Light filtering"],
+      colors: 5,
+      fabricColor: "#D3D3D3"
     },
     {
       id: "essential-off-white",
