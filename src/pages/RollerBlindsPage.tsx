@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { ProductFilterSidebar } from '../components/Filters';
-import { rollerBlinds } from '../data/productData';
+// Import roller blinds data directly
+import { rollerBlinds } from '../data/rollerblinds';
 import { Product } from '../types/product';
 
 const RollerBlindsPage = () => {

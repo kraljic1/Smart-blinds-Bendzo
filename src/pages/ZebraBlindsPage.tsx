@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { ProductFilterSidebar } from '../components/Filters';
-import { zebraBlinds } from '../data/productData';
+import { zebraBlinds } from '../data/zebrablinds';
 import { Product } from '../types/product';
 
 const ZebraBlindsPage = () => {
