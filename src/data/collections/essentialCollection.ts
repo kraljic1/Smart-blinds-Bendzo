@@ -23,6 +23,11 @@ import essentialWhiteMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHI
 import essentialWhite1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITE/Essential - white1.webp';
 import essentialWhite2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITE/Essential - white2.webp';
 import essentialWhite3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITE/Essential - white3.webp';
+import essentialSandBLMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL.webp';
+import essentialSandBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL1.webp';
+import essentialSandBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL2.webp';
+import essentialSandBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL3.webp';
+import essentialSandBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL4.webp';
 
 // Essential Collection
 export const essentialCollection: Product[] = [
@@ -58,6 +63,24 @@ export const essentialCollection: Product[] = [
     features: ["Light filtering"],
     colors: 5,
     fabricColor: "#C2B280",
+    collection: "Essential"
+  },
+  {
+    id: "essential-sand-blackout",
+    name: "Essential Sand",
+    price: 249.99,
+    originalPrice: 279.99,
+    image: essentialSandBLMain,
+    images: [
+      essentialSandBLMain,
+      essentialSandBL1,
+      essentialSandBL2,
+      essentialSandBL3,
+      essentialSandBL4
+    ],
+    features: ["Blackout"],
+    colors: 5,
+    fabricColor: "#D2B48C",
     collection: "Essential"
   },
   {
