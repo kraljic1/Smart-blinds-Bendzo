@@ -7,6 +7,18 @@ import essentialOffWhiteMain from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Ess
 import essentialOffWhite1 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white1.webp';
 import essentialOffWhite2 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white2.webp';
 import essentialOffWhite3 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white3.webp';
+import essentialLightGreyMain from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey.webp';
+import essentialLightGrey1 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey1.webp';
+import essentialLightGrey2 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey2.webp';
+import essentialLightGrey3 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey3.webp';
+import essentialSandMain from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand.webp';
+import essentialSand1 from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand1.webp';
+import essentialSand2 from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand2.webp';
+import essentialSand3 from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand3.webp';
+import essentialOceanMain from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean.webp';
+import essentialOcean1 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean1.webp';
+import essentialOcean2 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean2.webp';
+import essentialOcean3 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean3.webp';
 
 // Roller Blinds
 export const rollerBlinds: Product[] = [
@@ -57,6 +69,54 @@ export const rollerBlinds: Product[] = [
     fabricColor: "#9F8170"
   },
   {
+    id: "essential-sand",
+    name: "Essential Sand",
+    price: 239.57,
+    originalPrice: 266.18,
+    image: essentialSandMain,
+    images: [
+      essentialSandMain,
+      essentialSand1,
+      essentialSand2,
+      essentialSand3
+    ],
+    features: ["Light filtering"],
+    colors: 5,
+    fabricColor: "#C2B280"
+  },
+  {
+    id: "essential-ocean",
+    name: "Essential Ocean",
+    price: 239.57,
+    originalPrice: 266.18,
+    image: essentialOceanMain,
+    images: [
+      essentialOceanMain,
+      essentialOcean1,
+      essentialOcean2,
+      essentialOcean3
+    ],
+    features: ["Light filtering"],
+    colors: 5,
+    fabricColor: "#1CA3EC"
+  },
+  {
+    id: "essential-light-grey",
+    name: "Essential Light Grey",
+    price: 239.57,
+    originalPrice: 266.18,
+    image: essentialLightGreyMain,
+    images: [
+      essentialLightGreyMain,
+      essentialLightGrey1,
+      essentialLightGrey2,
+      essentialLightGrey3
+    ],
+    features: ["Light filtering"],
+    colors: 5,
+    fabricColor: "#D3D3D3"
+  },
+  {
     id: "essential-off-white",
     name: "Essential Off-White",
     price: 239.57,
@@ -71,6 +131,22 @@ export const rollerBlinds: Product[] = [
     features: ["Light filtering"],
     colors: 5,
     fabricColor: "#FAF9F6"
+  },
+  {
+    id: "essential-white",
+    name: "Essential White",
+    price: 239.57,
+    originalPrice: 266.18,
+    image: essentialOffWhiteMain,
+    images: [
+      essentialOffWhiteMain,
+      essentialOffWhite1,
+      essentialOffWhite2,
+      essentialOffWhite3
+    ],
+    features: ["Light filtering"],
+    colors: 5,
+    fabricColor: "#FFFFFF"
   }
 ];
 
