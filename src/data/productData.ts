@@ -153,6 +153,23 @@ export const rollerBlinds: Product[] = [
     fabricColor: "#808080",
     collection: "Comfort"
   },
+  {
+    id: "comfort-sand-brown",
+    name: "Comfort Sand Brown",
+    price: 259.99,
+    originalPrice: 289.99,
+    image: essentialSandMain,
+    images: [
+      essentialSandMain,
+      essentialSand1,
+      essentialSand2,
+      essentialSand3
+    ],
+    features: ["Blackout"],
+    colors: 3,
+    fabricColor: "#8B6942",
+    collection: "Comfort"
+  },
   // Classic Collection
   {
     id: "classic-white",
@@ -189,6 +206,23 @@ export const rollerBlinds: Product[] = [
     features: ["Screen"],
     colors: 2,
     fabricColor: "#FFFFFF",
+    collection: "Solar"
+  },
+  {
+    id: "solar-black",
+    name: "Solar Black",
+    price: 299.99,
+    originalPrice: 329.99,
+    image: essentialAntracitMain,
+    images: [
+      essentialAntracitMain,
+      essentialAntracit1,
+      essentialAntracit2,
+      essentialAntracit3
+    ],
+    features: ["Screen"],
+    colors: 2,
+    fabricColor: "#000000",
     collection: "Solar"
   },
   // Screen Collection
