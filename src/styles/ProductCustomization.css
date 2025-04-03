@@ -79,35 +79,43 @@
 .option-item {
   display: flex;
   flex-direction: column;
-  border: 2px solid #e5e7eb;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 12px;
   cursor: pointer;
   transition: all 0.2s;
   position: relative;
   height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .dark .option-item {
   border-color: #4b5563;
+  background-color: #1f2937;
 }
 
 .option-item:hover {
   border-color: #93c5fd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
 .dark .option-item:hover {
   border-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .option-item.selected {
   border-color: #2563eb;
   background-color: rgba(37, 99, 235, 0.05);
+  box-shadow: 0 0 0 1px #2563eb, 0 2px 4px rgba(37, 99, 235, 0.1);
 }
 
 .dark .option-item.selected {
   border-color: #3b82f6;
   background-color: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 1px #3b82f6, 0 2px 4px rgba(59, 130, 246, 0.2);
 }
 
 /* Text-only option styles */
@@ -185,6 +193,13 @@
 /* Color swatch styles */
 .color-option {
   padding: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.dark .color-option {
+  background-color: #1f2937;
+  border-color: #4b5563;
 }
 
 .color-swatch {
@@ -201,30 +216,8 @@
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-.option-content {
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
-}
-
-.option-name {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
-}
-
-.dark .option-name {
-  color: #e5e7eb;
-}
-
-.option-price {
-  font-size: 0.75rem;
-  color: #6b7280;
-  margin-top: 2px;
-}
-
-.dark .option-price {
-  color: #9ca3af;
+.color-option .option-content {
+  background-color: transparent;
 }
 
 .color-option .option-name {
@@ -391,5 +384,31 @@
 }
 
 .dark .option-group:has([class*="transparency"]) .option-price {
+  color: #9ca3af;
+}
+
+.option-content {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.option-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.dark .option-name {
+  color: #e5e7eb;
+}
+
+.option-price {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.dark .option-price {
   color: #9ca3af;
 } 
