@@ -38,11 +38,11 @@ import essentialBeige1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/
 import essentialBeige2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige2.webp';
 import essentialBeige3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige3.webp';
 import essentialBeige4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige4.webp';
-import essentialDarkGreyMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey.jpg';
-import essentialDarkGrey1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey1.jpg';
-import essentialDarkGrey2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey2.jpg';
-import essentialDarkGrey3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey3.jpg';
-import essentialDarkGrey4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey4.jpg';
+import essentialDarkGreyMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey.webp';
+import essentialDarkGrey1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey1.webp';
+import essentialDarkGrey2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey2.webp';
+import essentialDarkGrey3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey3.webp';
+import essentialDarkGrey4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey4.webp';
 
 // Essential Collection
 export const essentialCollection: Product[] = [
