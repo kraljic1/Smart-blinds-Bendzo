@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import essentialAntracitMain from '../../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit.webp';
 
 const ProductHero: React.FC = () => {
   return (
     <div className="relative h-[50vh] mb-24">
       <div className="absolute inset-0">
         <img 
-          src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+          src={essentialAntracitMain}
           alt="Smart blinds showcase"
           className="w-full h-full object-cover"
         />
