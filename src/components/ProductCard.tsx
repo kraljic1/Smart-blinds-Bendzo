@@ -49,7 +49,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }, [product.fabricColor]);
 
   return (
-    <CardRoot>
+    <CardRoot className="h-full flex flex-col">
       <div className="relative">
         <CardImage src={product.image} alt={product.name} />
         <div className="absolute bottom-4 right-4">
@@ -61,8 +61,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
 
-      <CardContent>
-        <CardTitle>{product.name.toUpperCase()}</CardTitle>
+      <CardContent className="flex-grow flex flex-col min-h-[240px]">
+        <div className="h-14 mb-2">
+          <CardTitle className="line-clamp-2 h-full flex items-center">
+            {product.name.toUpperCase()}
+          </CardTitle>
+        </div>
 
         <div className="flex items-center space-x-2 mb-4">
           {product.features.map((feature, i) => (
@@ -92,7 +96,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="mb-4"
         />
 
-        <CardActions>
+        <CardActions className="mt-auto">
           <button
             onClick={handleConfigure}
             className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600"

@@ -7,7 +7,7 @@ interface CardTitleProps {
 
 const CardTitle: React.FC<CardTitleProps> = ({ children, className = '' }) => {
   return (
-    <h3 className={`text-xl font-bold text-gray-900 dark:text-white mb-2 uppercase ${className}`}>
+    <h3 className={`text-xl font-bold text-gray-900 dark:text-white mb-2 uppercase overflow-hidden ${className}`}>
       {children}
     </h3>
   );
