@@ -11,6 +11,7 @@ const ZebraBlindsPage = () => {
   // Reset filters when component mounts
   useEffect(() => {
     setFilteredProducts(zebraBlinds);
+    console.log('ZebraBlindsPage mounted, product count:', zebraBlinds.length);
   }, []);
   
   const breadcrumbItems = [
@@ -30,12 +31,15 @@ const ZebraBlindsPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar with Filters */}
-          <div className="lg:col-span-1">
-            <ProductFilterSidebar
-              categoryId="zebra"
-              products={zebraBlinds}
-              onFilteredProductsChange={setFilteredProducts}
-            />
+          <div className="lg:col-span-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Filters</h2>
+            <div className="filter-container" style={{ minHeight: '400px' }}>
+              <ProductFilterSidebar
+                categoryId="zebra"
+                products={zebraBlinds}
+                onFilteredProductsChange={setFilteredProducts}
+              />
+            </div>
           </div>
 
           {/* Products Grid */}
