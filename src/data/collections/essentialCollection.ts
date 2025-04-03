@@ -38,6 +38,11 @@ import essentialBeige1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/
 import essentialBeige2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige2.webp';
 import essentialBeige3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige3.webp';
 import essentialBeige4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige4.webp';
+import essentialDarkGreyMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/archive/Essential dark grey.webp';
+import essentialDarkGrey1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/archive/Essential dark grey1.webp';
+import essentialDarkGrey2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/archive/Essential dark grey2.webp';
+import essentialDarkGrey3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/archive/Essential dark grey3.webp';
+import essentialDarkGrey4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/archive/Essential dark grey4.webp';
 
 // Essential Collection
 export const essentialCollection: Product[] = [
@@ -75,6 +80,24 @@ export const essentialCollection: Product[] = [
     features: ["Light filtering"],
     colors: 5,
     fabricColor: "#E8D6B3",
+    collection: "Essential"
+  },
+  {
+    id: "essential-dark-grey",
+    name: "Essential Dark Grey",
+    price: 239.57,
+    originalPrice: 266.19,
+    image: essentialDarkGreyMain,
+    images: [
+      essentialDarkGreyMain,
+      essentialDarkGrey1,
+      essentialDarkGrey2,
+      essentialDarkGrey3,
+      essentialDarkGrey4
+    ],
+    features: ["Light filtering"],
+    colors: 5,
+    fabricColor: "#4A4A4A",
     collection: "Essential"
   },
   {
