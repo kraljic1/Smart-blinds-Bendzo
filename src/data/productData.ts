@@ -1,4 +1,8 @@
 import { Product } from '../types/product';
+import essentialAntracitMain from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit.webp';
+import essentialAntracit1 from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit1.webp';
+import essentialAntracit2 from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit2.webp';
+import essentialAntracit3 from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit3.webp';
 
 // Roller Blinds
 export const rollerBlinds: Product[] = [
@@ -7,11 +11,11 @@ export const rollerBlinds: Product[] = [
     name: "Essential Anthracite",
     price: 239.57,
     originalPrice: 266.19,
-    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    image: essentialAntracitMain,
     images: [
-      "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+      essentialAntracit1,
+      essentialAntracit2,
+      essentialAntracit3
     ],
     features: ["Light filtering"],
     colors: 5,
