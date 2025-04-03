@@ -1,5 +1,6 @@
 @import './styles/ProductCustomization.css';
 @import './styles/PriceCalculator.css';
+@import './styles/FilterPanel.css';
 
 @tailwind base;
 @tailwind components;

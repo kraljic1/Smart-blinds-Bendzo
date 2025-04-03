@@ -11,7 +11,7 @@ export function Basket() {
   const itemCount = getItemCount();
 
   const handleContinueShopping = () => {
-    navigate('/products');
+    navigate('/products/roller-blinds');
   };
 
   if (items.length === 0) {
@@ -19,7 +19,7 @@ export function Basket() {
       <div className="basket-empty">
         <h2>Your basket is empty</h2>
         <p>Add some products to your basket to see them here.</p>
-        <Link to="/products" className="basket-continue-btn">Browse Products</Link>
+        <Link to="/products/roller-blinds" className="basket-continue-btn">Browse Our Products</Link>
       </div>
     );
   }

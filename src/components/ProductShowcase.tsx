@@ -30,10 +30,10 @@ const ProductShowcase = () => {
               ))}
             </ul>
             <Link
-              to="/products"
+              to="/products/roller-blinds"
               className="mt-8 inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-medium hover:bg-blue-700 transition"
             >
-              View All Products
+              View Our Products
             </Link>
           </div>
           <div className="relative">

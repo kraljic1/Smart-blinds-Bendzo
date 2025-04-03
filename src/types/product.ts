@@ -9,6 +9,7 @@ export interface Product {
   colors: number;
   fabricColor: string;
   description?: string;
+  collection?: string;
 }
 
 export interface BaseCardProps {

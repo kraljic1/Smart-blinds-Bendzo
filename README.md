@@ -103,7 +103,7 @@ smartblinds/
 
 ### Product Categories
 - Roller Blinds
-- Day & Night Blinds
+- Zebra Blinds
 - Honeycomb Blinds
 - Curtain Tracks
 - Accessories

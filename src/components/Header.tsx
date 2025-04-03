@@ -17,9 +17,9 @@ const Header: React.FC = () => {
     }
   };
 
-  // Navigation link style with nav-font class for typography
-  const navLinkStyle = "px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white nav-font";
-  const mobileNavLinkStyle = "block w-full px-3 py-4 text-xl font-medium text-center text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white nav-font";
+  // Navigation link style with enhanced hover effects
+  const navLinkStyle = "px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 relative group nav-font";
+  const mobileNavLinkStyle = "block w-full px-3 py-4 text-xl font-medium text-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 nav-font";
 
   // Handle closing the menu
   const handleCloseMenu = () => {
@@ -40,21 +40,27 @@ const Header: React.FC = () => {
             <nav className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
               <Link to="/products/roller-blinds" className={navLinkStyle}>
                 Roller Blinds
+                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
               <Link to="/products/zebra-blinds" className={navLinkStyle}>
                 Zebra Blinds
+                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
               <Link to="/products/curtain-blinds" className={navLinkStyle}>
                 Curtain Blinds
+                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
               <Link to="/products/accessories" className={navLinkStyle}>
                 Accessories
+                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
               <Link to="/how-it-works" className={navLinkStyle}>
                 How It Works
+                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
               <Link to="/support" className={navLinkStyle}>
                 Support
+                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
             </nav>
           </div>
@@ -64,7 +70,7 @@ const Header: React.FC = () => {
             
             <button 
               onClick={toggle}
-              className="ml-3 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+              className="ml-3 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
               aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {isDark ? (

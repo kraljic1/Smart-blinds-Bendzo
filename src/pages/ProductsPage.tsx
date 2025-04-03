@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductHero from '../components/Products/ProductHero';
 import CategoryGrid from '../components/Products/CategoryGrid';
 import ProductGrid from '../components/Products/ProductGrid';
+import { ProductFilterSidebar } from '../components/Filters';
 import { getProductsByCategory } from '../hooks/useProductFilter';
 import { Category } from '../data/categoryData';
+import { Product } from '../types/product';
 
 const ProductsPage: React.FC = () => {
   const location = useLocation();
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   
   // Add useEffect to scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [location.pathname]);
 
   // Determine current category from URL
   const getCurrentCategoryId = (): string => {
@@ -27,7 +30,12 @@ const ProductsPage: React.FC = () => {
 
   const currentCategoryId = getCurrentCategoryId();
   // Get products directly by category
-  const products = getProductsByCategory(currentCategoryId);
+  const categoryProducts = getProductsByCategory(currentCategoryId);
+
+  // Initialize filtered products on category change
+  useEffect(() => {
+    setFilteredProducts(categoryProducts);
+  }, [currentCategoryId, categoryProducts]);
 
   const handleCategoryChange = (category: Category) => {
     // This is handled by the navigate in CategoryGrid, just here for extensibility
@@ -44,16 +52,37 @@ const ProductsPage: React.FC = () => {
         {/* Categories Grid */}
         <CategoryGrid onCategoryChange={handleCategoryChange} />
 
-        {/* Products Section */}
-        <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
-            {currentCategoryId === 'all' ? 'All Products' : 
-             currentCategoryId === 'roller' ? 'Roller Blinds' :
-             currentCategoryId === 'zebra' ? 'Zebra Blinds' :
-             currentCategoryId === 'curtain' ? 'Curtain Blinds' :
-             'Accessories'}
-          </h2>
-          <ProductGrid products={products} />
+        {/* Content Grid with Sidebar */}
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar with Filters */}
+          <div className="lg:col-span-1">
+            <ProductFilterSidebar
+              categoryId={currentCategoryId}
+              products={categoryProducts}
+              onFilteredProductsChange={setFilteredProducts}
+            />
+          </div>
+
+          {/* Products Section */}
+          <div className="lg:col-span-3">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              {currentCategoryId === 'all' ? 'All Products' : 
+              currentCategoryId === 'roller' ? 'Roller Blinds' :
+              currentCategoryId === 'zebra' ? 'Zebra Blinds' :
+              currentCategoryId === 'curtain' ? 'Curtain Blinds' :
+              'Accessories'}
+            </h2>
+            
+            {filteredProducts.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-500 dark:text-gray-400">
+                  No products match your selected filters. Please try different filter options.
+                </p>
+              </div>
+            ) : (
+              <ProductGrid products={filteredProducts} />
+            )}
+          </div>
         </div>
       </div>
     </div>

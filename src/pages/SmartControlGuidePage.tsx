@@ -67,7 +67,7 @@ const SmartControlGuidePage = () => {
           <h2 className="text-3xl font-bold text-white mb-4">Ready to get started?</h2>
           <p className="text-xl text-blue-100 mb-8">Explore our product range and transform your home today</p>
           <Link
-            to="/products"
+            to="/products/roller-blinds"
             className="inline-flex items-center px-8 py-3 bg-white text-blue-600 rounded-full hover:bg-blue-50 transition"
           >
             View Products

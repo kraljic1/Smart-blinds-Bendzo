@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { ProductFilterSidebar } from '../components/Filters';
-import { rollerBlinds } from '../data/productData';
+import { zebraBlinds } from '../data/productData';
 import { Product } from '../types/product';
 
-const RollerBlindsPage = () => {
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(rollerBlinds);
+const ZebraBlindsPage = () => {
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(zebraBlinds);
   
   // Reset filters when component mounts
   useEffect(() => {
-    setFilteredProducts(rollerBlinds);
+    setFilteredProducts(zebraBlinds);
   }, []);
   
   const breadcrumbItems = [
     { label: 'Home', path: '/' },
     { label: 'Products', path: '/products' },
-    { label: 'Roller Blinds', path: '/products/roller-blinds' },
+    { label: 'Zebra Blinds', path: '/products/zebra-blinds' }
   ];
 
   return (
@@ -26,14 +26,14 @@ const RollerBlindsPage = () => {
           <Breadcrumb items={breadcrumbItems} />
         </div>
         
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Smart Roller Blinds</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Smart Zebra Blinds</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar with Filters */}
           <div className="lg:col-span-1">
             <ProductFilterSidebar
-              categoryId="roller"
-              products={rollerBlinds}
+              categoryId="zebra"
+              products={zebraBlinds}
               onFilteredProductsChange={setFilteredProducts}
             />
           </div>
@@ -43,7 +43,7 @@ const RollerBlindsPage = () => {
             {filteredProducts.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-gray-500 dark:text-gray-400">
-                  No roller blinds match your selected filters. Please try different filter options.
+                  No zebra blinds match your selected filters. Please try different filter options.
                 </p>
               </div>
             ) : (
@@ -64,4 +64,4 @@ const RollerBlindsPage = () => {
   );
 };
 
-export default RollerBlindsPage;
+export default ZebraBlindsPage;

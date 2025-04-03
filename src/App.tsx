@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import RollerBlindsPage from './pages/RollerBlindsPage';
-import DayNightBlindsPage from './pages/DayNightBlindsPage';
+import ZebraBlindsPage from './pages/ZebraBlindsPage';
 import CurtainTracksPage from './pages/CurtainTracksPage';
 import AccessoriesPage from './pages/AccessoriesPage';
 import HowItWorksPage from './pages/HowItWorksPage';
@@ -34,7 +34,7 @@ function App() {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/products" element={<ProductsPage />} />
                   <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
-                  <Route path="/products/zebra-blinds" element={<DayNightBlindsPage />} />
+                  <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
                   <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
                   <Route path="/products/accessories" element={<AccessoriesPage />} />
                   <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
