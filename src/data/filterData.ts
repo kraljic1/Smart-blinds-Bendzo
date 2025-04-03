@@ -1,6 +1,7 @@
 import { FilterGroup } from '../types/filter';
 
-export const filterGroups: FilterGroup[] = [
+// Common filter groups
+const commonFilterGroups: FilterGroup[] = [
   {
     id: 'colors',
     title: 'COLOR GROUP',
@@ -14,6 +15,27 @@ export const filterGroups: FilterGroup[] = [
       { id: 'black', label: 'Black', value: 'Black' }
     ]
   },
+  {
+    id: 'operations',
+    title: 'OPERATION',
+    options: [
+      { id: 'motor', label: 'Motor', value: 'Motor' },
+      { id: 'chain', label: 'Chain', value: 'Chain' }
+    ]
+  },
+  {
+    id: 'backingColors',
+    title: 'BACKING COLOR',
+    options: [
+      { id: 'white-backing', label: 'White backing', value: 'White backing' },
+      { id: 'colored-backing', label: 'Colored backing', value: 'Colored backing' },
+      { id: 'thermal-backing', label: 'Thermal backing', value: 'Thermal backing' }
+    ]
+  }
+];
+
+// Roller blinds specific filter groups
+const rollerBlindFilterGroups: FilterGroup[] = [
   {
     id: 'fabricTypes',
     title: 'TYPE OF FABRIC',
@@ -33,27 +55,27 @@ export const filterGroups: FilterGroup[] = [
       { id: 'classic', label: 'Classic', value: 'Classic' },
       { id: 'solar', label: 'Solar', value: 'Solar' },
       { id: 'screen', label: 'Screen', value: 'Screen' },
-      { id: 'texture', label: 'Texture', value: 'Texture' },
+      { id: 'texture', label: 'Texture', value: 'Texture' }
+    ]
+  }
+];
+
+// Zebra blinds specific filter groups
+const zebraBlindFilterGroups: FilterGroup[] = [
+  {
+    id: 'collections',
+    title: 'COLLECTION',
+    options: [
       { id: 'balance', label: 'Balance', value: 'Balance' },
       { id: 'pure', label: 'Pure', value: 'Pure' },
       { id: 'accent', label: 'Accent', value: 'Accent' }
     ]
-  },
-  {
-    id: 'backingColors',
-    title: 'BACKING COLOR',
-    options: [
-      { id: 'white-backing', label: 'White backing', value: 'White backing' },
-      { id: 'colored-backing', label: 'Colored backing', value: 'Colored backing' },
-      { id: 'thermal-backing', label: 'Thermal backing', value: 'Thermal backing' }
-    ]
-  },
-  {
-    id: 'operations',
-    title: 'OPERATION',
-    options: [
-      { id: 'motor', label: 'Motor', value: 'Motor' },
-      { id: 'chain', label: 'Chain', value: 'Chain' }
-    ]
   }
+];
+
+// Main export - combine all filter groups
+export const filterGroups: FilterGroup[] = [
+  ...commonFilterGroups,
+  ...rollerBlindFilterGroups,
+  ...zebraBlindFilterGroups
 ]; 

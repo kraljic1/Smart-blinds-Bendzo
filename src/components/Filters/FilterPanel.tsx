@@ -28,23 +28,44 @@ const FilterPanel: FC<FilterPanelProps> = ({
     
     switch(categoryId) {
       case 'roller':
-        return filterGroups.filter(group => 
-          commonFilters.includes(group.id) || 
-          ['fabricTypes', 'collections'].includes(group.id)
-        );
+        return filterGroups.filter(group => {
+          // Include common filters and fabric types
+          if (commonFilters.includes(group.id) || group.id === 'fabricTypes') {
+            return true;
+          }
+          
+          // For collections, only include roller collections
+          if (group.id === 'collections') {
+            return group.options.some(option => 
+              ['Essential', 'Comfort', 'Classic', 'Solar', 'Screen', 'Texture'].includes(option.value)
+            );
+          }
+          
+          return false;
+        });
       case 'zebra':
-        return filterGroups.filter(group => 
-          commonFilters.includes(group.id) || 
-          ['collections'].includes(group.id)
-        );
+        return filterGroups.filter(group => {
+          // Include common filters
+          if (commonFilters.includes(group.id)) {
+            return true;
+          }
+          
+          // For collections, only include zebra collections
+          if (group.id === 'collections') {
+            return group.options.some(option => 
+              ['Balance', 'Pure', 'Accent'].includes(option.value)
+            );
+          }
+          
+          return false;
+        });
       case 'curtain':
         return filterGroups.filter(group => 
-          commonFilters.includes(group.id) || 
-          ['collections'].includes(group.id)
+          commonFilters.includes(group.id)
         );
       case 'accessories':
         return filterGroups.filter(group => 
-          ['collections'].includes(group.id)
+          ['operations'].includes(group.id)
         );
       case 'all':
       default:
