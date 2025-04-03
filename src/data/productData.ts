@@ -130,30 +130,6 @@ export const rollerBlinds: Product[] = [
   },
   // Comfort Collection
   {
-    id: "comfort-beige",
-    name: "Essential - sand",
-    price: 259.99,
-    originalPrice: 289.99,
-    image: essentialSandMain, // Reusing image for demo
-    images: [essentialSandMain, essentialSand1],
-    features: ["Blackout"],
-    colors: 3,
-    fabricColor: "#E8E4C9",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-grey",
-    name: "Essential - light grey",
-    price: 259.99,
-    originalPrice: 289.99,
-    image: essentialLightGreyMain, // Reusing image for demo
-    images: [essentialLightGreyMain, essentialLightGrey1],
-    features: ["Blackout"],
-    colors: 3,
-    fabricColor: "#808080",
-    collection: "Comfort"
-  },
-  {
     id: "comfort-sand-brown",
     name: "Comfort - sand brown",
     price: 259.99,
@@ -170,44 +146,7 @@ export const rollerBlinds: Product[] = [
     fabricColor: "#8B6942",
     collection: "Comfort"
   },
-  // Classic Collection
-  {
-    id: "classic-white",
-    name: "Essential - white",
-    price: 279.99,
-    originalPrice: 309.99,
-    image: essentialWhiteMain, // Reusing image for demo
-    images: [essentialWhiteMain, essentialWhite1],
-    features: ["Light filtering"],
-    colors: 4,
-    fabricColor: "#FFFFFF",
-    collection: "Classic"
-  },
-  {
-    id: "classic-black",
-    name: "Essential antracit",
-    price: 279.99,
-    originalPrice: 309.99,
-    image: essentialAntracitMain, // Reusing image for demo
-    images: [essentialAntracitMain, essentialAntracit1],
-    features: ["Light filtering"],
-    colors: 4,
-    fabricColor: "#000000",
-    collection: "Classic"
-  },
   // Solar Collection
-  {
-    id: "solar-protection-white",
-    name: "Essential - white",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: essentialWhiteMain, // Reusing image for demo
-    images: [essentialWhiteMain, essentialWhite1],
-    features: ["Screen"],
-    colors: 2,
-    fabricColor: "#FFFFFF",
-    collection: "Solar"
-  },
   {
     id: "solar-black",
     name: "Solar - black",
@@ -224,32 +163,6 @@ export const rollerBlinds: Product[] = [
     colors: 2,
     fabricColor: "#000000",
     collection: "Solar"
-  },
-  // Screen Collection
-  {
-    id: "screen-grey",
-    name: "Essential - light grey",
-    price: 289.99,
-    originalPrice: 319.99,
-    image: essentialLightGreyMain, // Reusing image for demo
-    images: [essentialLightGreyMain, essentialLightGrey1],
-    features: ["Screen"],
-    colors: 3,
-    fabricColor: "#A9A9A9",
-    collection: "Screen"
-  },
-  // Texture Collection
-  {
-    id: "texture-linen",
-    name: "Essential - sand",
-    price: 309.99,
-    originalPrice: 339.99,
-    image: essentialSandMain, // Reusing image for demo
-    images: [essentialSandMain, essentialSand1],
-    features: ["Transparent"],
-    colors: 2,
-    fabricColor: "#F5F5DC",
-    collection: "Texture"
   }
 ];
 
@@ -374,29 +287,19 @@ export const accessories: Product[] = [
     fabricColor: "#000000"
   },
   {
-    id: "smart-hub",
-    name: "Smart Hub Controller",
-    price: 129.99,
-    originalPrice: 149.99,
-    image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Smart"],
-    colors: 1,
-    fabricColor: "#000000"
-  },
-  {
-    id: "usb-c-cable",
-    name: "USB-C Charging Cable",
-    price: 14.99,
-    originalPrice: 19.99,
-    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-    features: ["Charging"],
+    id: "wall-mount-remote",
+    name: "Wall Mount Remote",
+    price: 44.95,
+    originalPrice: 49.95,
+    image: "https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    features: ["Remote"],
     colors: 1,
     fabricColor: "#FFFFFF"
   }
 ];
 
-// Combine all products for when we need the full list
-export const allProducts: Product[] = [
+// All Products (for search functionality)
+export const allProducts = [
   ...rollerBlinds,
   ...zebraBlinds,
   ...curtainBlinds,
