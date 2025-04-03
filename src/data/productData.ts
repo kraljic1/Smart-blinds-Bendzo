@@ -40,7 +40,8 @@ export const rollerBlinds: Product[] = [
     ],
     features: ["Light filtering"],
     colors: 5,
-    fabricColor: "#2C3539"
+    fabricColor: "#2C3539",
+    collection: "Essential"
   },
   {
     id: "essential-sand",
@@ -56,7 +57,8 @@ export const rollerBlinds: Product[] = [
     ],
     features: ["Light filtering"],
     colors: 5,
-    fabricColor: "#C2B280"
+    fabricColor: "#C2B280",
+    collection: "Essential"
   },
   {
     id: "essential-ocean",
@@ -72,7 +74,8 @@ export const rollerBlinds: Product[] = [
     ],
     features: ["Light filtering"],
     colors: 5,
-    fabricColor: "#1CA3EC"
+    fabricColor: "#1CA3EC",
+    collection: "Essential"
   },
   {
     id: "essential-light-grey",
@@ -88,7 +91,8 @@ export const rollerBlinds: Product[] = [
     ],
     features: ["Light filtering"],
     colors: 5,
-    fabricColor: "#D3D3D3"
+    fabricColor: "#D3D3D3",
+    collection: "Essential"
   },
   {
     id: "essential-off-white",
@@ -104,7 +108,8 @@ export const rollerBlinds: Product[] = [
     ],
     features: ["Light filtering"],
     colors: 5,
-    fabricColor: "#FAF9F6"
+    fabricColor: "#FAF9F6",
+    collection: "Essential"
   },
   {
     id: "essential-white",
@@ -120,7 +125,97 @@ export const rollerBlinds: Product[] = [
     ],
     features: ["Light filtering"],
     colors: 5,
-    fabricColor: "#FFFFFF"
+    fabricColor: "#FFFFFF",
+    collection: "Essential"
+  },
+  // Comfort Collection
+  {
+    id: "comfort-beige",
+    name: "Comfort Beige",
+    price: 259.99,
+    originalPrice: 289.99,
+    image: essentialSandMain, // Reusing image for demo
+    images: [essentialSandMain, essentialSand1],
+    features: ["Blackout"],
+    colors: 3,
+    fabricColor: "#E8E4C9",
+    collection: "Comfort"
+  },
+  {
+    id: "comfort-grey",
+    name: "Comfort Grey",
+    price: 259.99,
+    originalPrice: 289.99,
+    image: essentialLightGreyMain, // Reusing image for demo
+    images: [essentialLightGreyMain, essentialLightGrey1],
+    features: ["Blackout"],
+    colors: 3,
+    fabricColor: "#808080",
+    collection: "Comfort"
+  },
+  // Classic Collection
+  {
+    id: "classic-white",
+    name: "Classic White",
+    price: 279.99,
+    originalPrice: 309.99,
+    image: essentialWhiteMain, // Reusing image for demo
+    images: [essentialWhiteMain, essentialWhite1],
+    features: ["Light filtering"],
+    colors: 4,
+    fabricColor: "#FFFFFF",
+    collection: "Classic"
+  },
+  {
+    id: "classic-black",
+    name: "Classic Black",
+    price: 279.99,
+    originalPrice: 309.99,
+    image: essentialAntracitMain, // Reusing image for demo
+    images: [essentialAntracitMain, essentialAntracit1],
+    features: ["Light filtering"],
+    colors: 4,
+    fabricColor: "#000000",
+    collection: "Classic"
+  },
+  // Solar Collection
+  {
+    id: "solar-protection-white",
+    name: "Solar Protection White",
+    price: 299.99,
+    originalPrice: 329.99,
+    image: essentialWhiteMain, // Reusing image for demo
+    images: [essentialWhiteMain, essentialWhite1],
+    features: ["Screen"],
+    colors: 2,
+    fabricColor: "#FFFFFF",
+    collection: "Solar"
+  },
+  // Screen Collection
+  {
+    id: "screen-grey",
+    name: "Screen Grey",
+    price: 289.99,
+    originalPrice: 319.99,
+    image: essentialLightGreyMain, // Reusing image for demo
+    images: [essentialLightGreyMain, essentialLightGrey1],
+    features: ["Screen"],
+    colors: 3,
+    fabricColor: "#A9A9A9",
+    collection: "Screen"
+  },
+  // Texture Collection
+  {
+    id: "texture-linen",
+    name: "Texture Linen",
+    price: 309.99,
+    originalPrice: 339.99,
+    image: essentialSandMain, // Reusing image for demo
+    images: [essentialSandMain, essentialSand1],
+    features: ["Transparent"],
+    colors: 2,
+    fabricColor: "#F5F5DC",
+    collection: "Texture"
   }
 ];
 

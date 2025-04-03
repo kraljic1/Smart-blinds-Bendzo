@@ -30,7 +30,7 @@ const FilterPanel: FC<FilterPanelProps> = ({
       case 'roller':
         return filterGroups.filter(group => 
           commonFilters.includes(group.id) || 
-          ['fabricTypes'].includes(group.id)
+          ['fabricTypes', 'collections'].includes(group.id)
         );
       case 'zebra':
         return filterGroups.filter(group => 
