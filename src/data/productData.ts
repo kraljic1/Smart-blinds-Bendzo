@@ -19,6 +19,10 @@ import essentialOceanMain from '../img/rollerblinds/ESSENTIAL - Ocean/Essential 
 import essentialOcean1 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean1.webp';
 import essentialOcean2 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean2.webp';
 import essentialOcean3 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean3.webp';
+import essentialWhiteMain from '../img/rollerblinds/ESSENTIAL - WHITE/Essential - white.webp';
+import essentialWhite1 from '../img/rollerblinds/ESSENTIAL - WHITE/Essential - white1.webp';
+import essentialWhite2 from '../img/rollerblinds/ESSENTIAL - WHITE/Essential - white2.webp';
+import essentialWhite3 from '../img/rollerblinds/ESSENTIAL - WHITE/Essential - white3.webp';
 
 // Roller Blinds
 export const rollerBlinds: Product[] = [
@@ -137,12 +141,12 @@ export const rollerBlinds: Product[] = [
     name: "Essential White",
     price: 239.57,
     originalPrice: 266.18,
-    image: essentialOffWhiteMain,
+    image: essentialWhiteMain,
     images: [
-      essentialOffWhiteMain,
-      essentialOffWhite1,
-      essentialOffWhite2,
-      essentialOffWhite3
+      essentialWhiteMain,
+      essentialWhite1,
+      essentialWhite2,
+      essentialWhite3
     ],
     features: ["Light filtering"],
     colors: 5,
