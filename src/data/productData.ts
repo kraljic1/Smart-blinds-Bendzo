@@ -3,6 +3,10 @@ import essentialAntracitMain from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Esse
 import essentialAntracit1 from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit1.webp';
 import essentialAntracit2 from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit2.webp';
 import essentialAntracit3 from '../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit3.webp';
+import essentialOffWhiteMain from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white.webp';
+import essentialOffWhite1 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white1.webp';
+import essentialOffWhite2 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white2.webp';
+import essentialOffWhite3 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white3.webp';
 
 // Roller Blinds
 export const rollerBlinds: Product[] = [
@@ -56,11 +60,11 @@ export const rollerBlinds: Product[] = [
     name: "Essential Off-White",
     price: 239.57,
     originalPrice: 266.18,
-    image: "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+    image: essentialOffWhiteMain,
     images: [
-      "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
+      essentialOffWhite1,
+      essentialOffWhite2,
+      essentialOffWhite3
     ],
     features: ["Light filtering"],
     colors: 5,
