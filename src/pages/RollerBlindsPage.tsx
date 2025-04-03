@@ -10,6 +10,14 @@ import essentialLightGreyMain from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/E
 import essentialLightGrey1 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey1.webp';
 import essentialLightGrey2 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey2.webp';
 import essentialLightGrey3 from '../img/rollerblinds/ESSENTIAL - LIGHT GREY/Essential - light grey3.webp';
+import essentialSandMain from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand.webp';
+import essentialSand1 from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand1.webp';
+import essentialSand2 from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand2.webp';
+import essentialSand3 from '../img/rollerblinds/ESSENTIAL - sand/Essential - sand3.webp';
+import essentialOceanMain from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean.webp';
+import essentialOcean1 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean1.webp';
+import essentialOcean2 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean2.webp';
+import essentialOcean3 from '../img/rollerblinds/ESSENTIAL - Ocean/Essential ocean3.webp';
 
 const RollerBlindsPage = () => {
   const breadcrumbItems = [
@@ -88,6 +96,38 @@ const RollerBlindsPage = () => {
       features: ["Light filtering"],
       colors: 1,
       fabricColor: "#2C3539"
+    },
+    {
+      id: "essential-sand",
+      name: "Essential Sand",
+      price: 239.57,
+      originalPrice: 266.18,
+      image: essentialSandMain,
+      images: [
+        essentialSandMain,
+        essentialSand1,
+        essentialSand2,
+        essentialSand3
+      ],
+      features: ["Light filtering"],
+      colors: 5,
+      fabricColor: "#C2B280"
+    },
+    {
+      id: "essential-ocean",
+      name: "Essential Ocean",
+      price: 239.57,
+      originalPrice: 266.18,
+      image: essentialOceanMain,
+      images: [
+        essentialOceanMain,
+        essentialOcean1,
+        essentialOcean2,
+        essentialOcean3
+      ],
+      features: ["Light filtering"],
+      colors: 5,
+      fabricColor: "#1CA3EC"
     },
     {
       id: "essential-light-grey",
