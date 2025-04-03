@@ -3,6 +3,9 @@ import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
 import essentialOffWhiteMain from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white.webp';
+import essentialOffWhite1 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white1.webp';
+import essentialOffWhite2 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white2.webp';
+import essentialOffWhite3 from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white3.webp';
 
 const RollerBlindsPage = () => {
   const breadcrumbItems = [
@@ -87,7 +90,13 @@ const RollerBlindsPage = () => {
       name: "Essential Off-White",
       price: 239.57,
       originalPrice: 266.18,
-      image: "https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      image: essentialOffWhiteMain,
+      images: [
+        essentialOffWhiteMain,
+        essentialOffWhite1,
+        essentialOffWhite2,
+        essentialOffWhite3
+      ],
       features: ["Light filtering"],
       colors: 5,
       fabricColor: "#FAF9F6"
