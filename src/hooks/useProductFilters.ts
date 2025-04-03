@@ -87,12 +87,12 @@ export const useProductFilters = (): FilterState => {
       // Match by collection (using product.collection or product name as a fallback)
       const collectionMatch = filters.collections.length === 0 ||
         filters.collections.some(collection => {
-          // First check if the product has a collection property
+          // Check if the product has a collection property
           if (product.collection) {
-            return product.collection.toLowerCase() === collection.toLowerCase();
+            // Exact match on collection name
+            return product.collection === collection;
           }
-          // Fallback to checking if collection name is in the product name
-          return product.name.toLowerCase().includes(collection.toLowerCase());
+          return false;
         });
       
       // For backing color and operation, we don't have this data in the product model yet
