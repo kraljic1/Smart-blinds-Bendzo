@@ -17,6 +17,7 @@ export const rollerBlinds: Product[] = [
     originalPrice: 266.19,
     image: essentialAntracitMain,
     images: [
+      essentialAntracitMain,
       essentialAntracit1,
       essentialAntracit2,
       essentialAntracit3
@@ -62,6 +63,7 @@ export const rollerBlinds: Product[] = [
     originalPrice: 266.18,
     image: essentialOffWhiteMain,
     images: [
+      essentialOffWhiteMain,
       essentialOffWhite1,
       essentialOffWhite2,
       essentialOffWhite3
