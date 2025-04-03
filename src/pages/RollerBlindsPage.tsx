@@ -1,11 +1,14 @@
+import React from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
+import essentialOffWhiteMain from '../img/rollerblinds/ESSENTIAL - OFF-WHITE/Essential - off white.webp';
 
 const RollerBlindsPage = () => {
   const breadcrumbItems = [
-    { label: 'Our Products', path: '/products' },
-    { label: 'Roller Blinds', path: '/products/roller-blinds' }
+    { label: 'Home', path: '/' },
+    { label: 'Products', path: '/products' },
+    { label: 'Roller Blinds', path: '/products/roller-blinds' },
   ];
 
   const products: Product[] = [
@@ -94,7 +97,7 @@ const RollerBlindsPage = () => {
       name: "Essential White",
       price: 239.57,
       originalPrice: 266.18,
-      image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      image: essentialOffWhiteMain,
       features: ["Light filtering"],
       colors: 5,
       fabricColor: "#FFFFFF"
