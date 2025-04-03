@@ -1,8 +1,8 @@
 import { Product } from '../../types/product';
-import essentialAntracitMain from '../../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit.webp';
-import essentialAntracit1 from '../../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit1.webp';
-import essentialAntracit2 from '../../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit2.webp';
-import essentialAntracit3 from '../../img/rollerblinds/ESSENTIAL - ANTRACIT/Essential antracit3.webp';
+import solarBlackMain from '../../img/rollerblinds/SOLAR/SOLAR - BLACK/Solar black.webp';
+import solarBlack1 from '../../img/rollerblinds/SOLAR/SOLAR - BLACK/Solar black1.webp';
+import solarBlack2 from '../../img/rollerblinds/SOLAR/SOLAR - BLACK/Solar black2.webp';
+import solarBlack3 from '../../img/rollerblinds/SOLAR/SOLAR - BLACK/Solar black3.webp';
 
 // Solar Collection
 export const solarCollection: Product[] = [
@@ -11,12 +11,12 @@ export const solarCollection: Product[] = [
     name: "Solar - black",
     price: 299.99,
     originalPrice: 329.99,
-    image: essentialAntracitMain,
+    image: solarBlackMain,
     images: [
-      essentialAntracitMain,
-      essentialAntracit1,
-      essentialAntracit2,
-      essentialAntracit3
+      solarBlackMain,
+      solarBlack1,
+      solarBlack2,
+      solarBlack3
     ],
     features: ["Screen"],
     colors: 2,
