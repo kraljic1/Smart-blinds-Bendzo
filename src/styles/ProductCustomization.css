@@ -227,6 +227,50 @@
   color: #9ca3af;
 }
 
+.color-option .option-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-top: 4px;
+}
+
+.dark .color-option .option-name {
+  color: #e5e7eb;
+}
+
+.color-option .option-price {
+  color: #4b5563;
+}
+
+.dark .color-option .option-price {
+  color: #9ca3af;
+}
+
+/* Specific styling for transparency options to improve contrast */
+.option-selections [id^="transparency"] .option-item {
+  background-color: #f9fafb;
+}
+
+.dark .option-selections [id^="transparency"] .option-item {
+  background-color: #1f2937;
+}
+
+.option-selections [id^="transparency"] .option-name {
+  color: #1f2937;
+}
+
+.dark .option-selections [id^="transparency"] .option-name {
+  color: #f9fafb;
+}
+
+.option-selections [id^="transparency"] .option-price {
+  color: #4b5563;
+}
+
+.dark .option-selections [id^="transparency"] .option-price {
+  color: #9ca3af;
+}
+
 .option-item.selected .option-checkmark {
   position: absolute;
   top: 8px;
@@ -311,4 +355,41 @@
 
 .dark .customization-warning {
   color: #fb7185;
+}
+
+/* Specific styling for transparency option buttons */
+.option-group:has([class*="transparency"]) .option-item {
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+}
+
+.option-group:has([class*="transparency"]) .option-item.selected {
+  background-color: rgba(37, 99, 235, 0.05);
+  border-color: #2563eb;
+}
+
+.option-group:has([class*="transparency"]) .option-name {
+  color: #1f2937;
+}
+
+.option-group:has([class*="transparency"]) .option-price {
+  color: #4b5563;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-item {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-item.selected {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-name {
+  color: #f9fafb;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-price {
+  color: #9ca3af;
 } 
