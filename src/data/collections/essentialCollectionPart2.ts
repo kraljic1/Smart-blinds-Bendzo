@@ -3,6 +3,11 @@ import essentialOffWhiteMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - 
 import essentialOffWhite1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITE/Essential - off white1.webp';
 import essentialOffWhite2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITE/Essential - off white2.webp';
 import essentialOffWhite3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITE/Essential - off white3.webp';
+import essentialOffWhiteBLMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITEBL/Essential off-whiteBl.webp';
+import essentialOffWhiteBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITEBL/Essential off-whiteBl1.webp';
+import essentialOffWhiteBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITEBL/Essential off-whiteBl2.webp';
+import essentialOffWhiteBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITEBL/Essential off-whiteBl3.webp';
+import essentialOffWhiteBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITEBL/Essential off-whiteBl4.webp';
 import essentialLightGreyMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - LIGHT GREY/Essential - light grey.webp';
 import essentialLightGrey1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - LIGHT GREY/Essential - light grey1.webp';
 import essentialLightGrey2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - LIGHT GREY/Essential - light grey2.webp';
@@ -113,6 +118,24 @@ export const essentialCollectionPart2: Product[] = [
     features: ["Light filtering"],
     colors: 5,
     fabricColor: "#FAF9F6",
+    collection: "Essential"
+  },
+  {
+    id: "essential-off-white-blackout",
+    name: "Essential off-white",
+    price: 249.99,
+    originalPrice: 279.99,
+    image: essentialOffWhiteBLMain,
+    images: [
+      essentialOffWhiteBLMain,
+      essentialOffWhiteBL1,
+      essentialOffWhiteBL2,
+      essentialOffWhiteBL3,
+      essentialOffWhiteBL4
+    ],
+    features: ["Blackout"],
+    colors: 5,
+    fabricColor: "#F5F5F5",
     collection: "Essential"
   }
 ]; 
