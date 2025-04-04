@@ -24,6 +24,11 @@ import essentialSandBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandB
 import essentialSandBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL2.webp';
 import essentialSandBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL3.webp';
 import essentialSandBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - sandBL/Essential sandBL4.webp';
+import essentialWhiteBLMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITEBL/Essential - whiteBl.webp';
+import essentialWhiteBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITEBL/Essential - whiteBl1.webp';
+import essentialWhiteBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITEBL/Essential - whiteBl2.webp';
+import essentialWhiteBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITEBL/Essential - whiteBl3.webp';
+import essentialWhiteBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHITEBL/Essential - whiteBl4.webp';
 
 // Essential Collection Part 1
 export const essentialCollectionPart1: Product[] = [
@@ -131,6 +136,24 @@ export const essentialCollectionPart1: Product[] = [
       essentialWhite4
     ],
     features: ["Light filtering"],
+    colors: 5,
+    fabricColor: "#FFFFFF",
+    collection: "Essential"
+  },
+  {
+    id: "essential-white-blackout",
+    name: "Essential - White",
+    price: 249.99,
+    originalPrice: 279.99,
+    image: essentialWhiteBLMain,
+    images: [
+      essentialWhiteBLMain,
+      essentialWhiteBL1,
+      essentialWhiteBL2,
+      essentialWhiteBL3,
+      essentialWhiteBL4
+    ],
+    features: ["Blackout"],
     colors: 5,
     fabricColor: "#FFFFFF",
     collection: "Essential"
