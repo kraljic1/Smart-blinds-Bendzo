@@ -1,10 +1,17 @@
 import { CustomizationOption } from '../components/ProductCustomization';
 
-// Using placeholder images from public sources
-const installationInsideImg = 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=300&h=200&q=80&fit=crop&auto=format';
-const installationOutsideImg = 'https://images.unsplash.com/photo-1630119852161-1b46ac627e8d?w=300&h=200&q=80&fit=crop&auto=format';
-const bracketImg = 'https://images.unsplash.com/photo-1603803721487-57b3f92ee656?w=300&h=200&q=80&fit=crop&auto=format';
-const cassetteImg = 'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=300&h=200&q=80&fit=crop&auto=format';
+// Import images directly with require to handle spaces in filenames
+const installationInsideImg = new URL('../img/Customization-types/inside the recess.webp', import.meta.url).href;
+const installationOutsideImg = new URL('../img/Customization-types/outside the recess.webp', import.meta.url).href;
+const bracketImg = new URL('../img/Customization-types/brackets, system type.webp', import.meta.url).href;
+const cassetteImg = new URL('../img/Customization-types/cassette, system type.webp', import.meta.url).href;
+const smallSizeImg = new URL('../img/Customization-types/small, system size.webp', import.meta.url).href;
+const largeSizeImg = new URL('../img/Customization-types/large, system size.webp', import.meta.url).href;
+const bluetoothMotorImg = new URL('../img/Customization-types/motionblinds bluetooth motor, motor type.webp', import.meta.url).href;
+const matterMotorImg = new URL('../img/Customization-types/eva motionblinds matter motor, motor type.webp', import.meta.url).href;
+const metalBottomBarImg = new URL('../img/Customization-types/metal, bottom bar.webp', import.meta.url).href;
+const straightCoveredBottomBarImg = new URL('../img/Customization-types/straight covered, bottom bar.webp', import.meta.url).href;
+const straightSewnBottomBarImg = new URL('../img/Customization-types/straight sewn, bottom bar.webp', import.meta.url).href;
 
 export const defaultCustomizationOptions: CustomizationOption[] = [
   {
@@ -127,13 +134,13 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
       {
         id: 'small',
         name: 'Small',
-        image: 'https://images.unsplash.com/photo-1588854337116-d1e008a28b7c?w=300&h=200&q=80&fit=crop&auto=format',
+        image: smallSizeImg,
         price: 0,
       },
       {
         id: 'large',
         name: 'Large',
-        image: 'https://images.unsplash.com/photo-1588854337221-4cf9fa2314f4?w=300&h=200&q=80&fit=crop&auto=format',
+        image: largeSizeImg,
         price: 35.00,
       },
     ],
@@ -145,13 +152,13 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
       {
         id: 'bluetooth',
         name: 'Motionblinds Bluetooth motor',
-        image: 'https://images.unsplash.com/photo-1620288627223-53302f4e8c74?w=300&h=200&q=80&fit=crop&auto=format',
+        image: bluetoothMotorImg,
         price: 0,
       },
       {
         id: 'matter',
         name: 'Eve Motionblinds Matter motor',
-        image: 'https://images.unsplash.com/photo-1633409361618-c73427e4e206?w=300&h=200&q=80&fit=crop&auto=format',
+        image: matterMotorImg,
         price: 50.00,
       },
     ],
@@ -180,19 +187,19 @@ export const defaultCustomizationOptions: CustomizationOption[] = [
       {
         id: 'metal',
         name: 'Metal',
-        image: 'https://images.unsplash.com/photo-1535161666835-5b3000fa5e56?w=300&h=200&q=80&fit=crop&auto=format',
+        image: metalBottomBarImg,
         price: 0,
       },
       {
         id: 'straight_covered',
         name: 'Straight Covered',
-        image: 'https://images.unsplash.com/photo-1580894894513-533b8d993488?w=300&h=200&q=80&fit=crop&auto=format',
+        image: straightCoveredBottomBarImg,
         price: 10.00,
       },
       {
         id: 'straight_sewn',
         name: 'Straight Sewn',
-        image: 'https://images.unsplash.com/photo-1615529151169-7b1ff50dc7f2?w=300&h=200&q=80&fit=crop&auto=format',
+        image: straightSewnBottomBarImg,
         price: 15.00,
       },
     ],
