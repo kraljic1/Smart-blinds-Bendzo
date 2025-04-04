@@ -59,7 +59,11 @@ export const useProductFilters = (): FilterState => {
     return products.filter(product => {
       // Match by feature (fabric type)
       const fabricTypeMatch = filters.fabricTypes.length === 0 || 
-        product.features.some(feature => filters.fabricTypes.includes(feature));
+        product.features.some(feature => 
+          filters.fabricTypes.some(fabricType => 
+            fabricType.toLowerCase() === feature.toLowerCase()
+          )
+        );
       
       // Match by color - new logic that checks if color name appears in product name or description
       const colorMatch = filters.colors.length === 0 ||
