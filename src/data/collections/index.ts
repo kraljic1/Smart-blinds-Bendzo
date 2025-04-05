@@ -1,5 +1,6 @@
 import { essentialCollection } from './essentialCollection';
 import { comfortCollection } from './comfortCollection';
+import { comfortCollectionPart2 } from './comfortCollectionPart2';
 import { classicCollection } from './classicCollection';
 import { solarCollection } from './solarCollection';
 import { screenCollection } from './screenCollection';
@@ -13,6 +14,7 @@ import { Product } from '../../types/product';
 export {
   essentialCollection,
   comfortCollection,
+  comfortCollectionPart2,
   classicCollection,
   solarCollection,
   screenCollection,
@@ -26,6 +28,7 @@ export {
 export const rollerBlinds: Product[] = [
   ...essentialCollection,
   ...comfortCollection,
+  ...comfortCollectionPart2,
   ...classicCollection,
   ...solarCollection,
   ...screenCollection,

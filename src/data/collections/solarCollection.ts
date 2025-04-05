@@ -18,7 +18,7 @@ export const solarCollection: Product[] = [
       solarBlack2,
       solarBlack3
     ],
-    features: ["Screen"],
+    features: ["Blackout"],
     colors: 2,
     fabricColor: "#000000",
     collection: "Solar"

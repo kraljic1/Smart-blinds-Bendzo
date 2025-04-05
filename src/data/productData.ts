@@ -2,6 +2,7 @@
 import { 
   essentialCollection,
   comfortCollection,
+  comfortCollectionPart2,
   classicCollection,
   solarCollection,
   screenCollection,
@@ -20,6 +21,7 @@ import {
 export {
   essentialCollection,
   comfortCollection,
+  comfortCollectionPart2,
   classicCollection,
   solarCollection,
   screenCollection,

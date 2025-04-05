@@ -1,14 +1,14 @@
 import { Product } from '../../types/product';
-import comfortSandBrownMain from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/0.jpg';
-import comfortSandBrown1 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/1.jpg';
-import comfortSandBrown2 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/2.jpg';
-import comfortSandBrown3 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/3.jpg';
-import comfortSandBrown4 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/4.jpg';
 import comfortSandBrownLF0 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/0.jpg';
 import comfortSandBrownLF1 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/1.jpg';
 import comfortSandBrownLF2 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/2.jpg';
 import comfortSandBrownLF3 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/3.jpg';
 import comfortSandBrownLF4 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWN/4.jpg';
+import comfortSandBrownBL0 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWNbl/0.webp';
+import comfortSandBrownBL1 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWNbl/1.webp';
+import comfortSandBrownBL2 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWNbl/2.webp';
+import comfortSandBrownBL3 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWNbl/3.webp';
+import comfortSandBrownBL4 from '../../img/rollerblinds/COMFORT/COMFORT - SAND BROWNbl/4.webp';
 import comfortAnthraciteMain from '../../img/rollerblinds/COMFORT/COMFORT - ANTHRACITE/0.jpg';
 import comfortAnthracite1 from '../../img/rollerblinds/COMFORT/COMFORT - ANTHRACITE/1.jpg';
 import comfortAnthracite2 from '../../img/rollerblinds/COMFORT/COMFORT - ANTHRACITE/2.jpg';
@@ -34,6 +34,11 @@ import comfortWhite1 from '../../img/rollerblinds/COMFORT/COMFORT - WHITE/1.jpg'
 import comfortWhite2 from '../../img/rollerblinds/COMFORT/COMFORT - WHITE/2.jpg';
 import comfortWhite3 from '../../img/rollerblinds/COMFORT/COMFORT - WHITE/3.jpg';
 import comfortWhite4 from '../../img/rollerblinds/COMFORT/COMFORT - WHITE/4.jpg';
+import comfortWhiteBL0 from '../../img/rollerblinds/COMFORT/COMFORT - WHITEbl/0.webp';
+import comfortWhiteBL1 from '../../img/rollerblinds/COMFORT/COMFORT - WHITEbl/1.webp';
+import comfortWhiteBL2 from '../../img/rollerblinds/COMFORT/COMFORT - WHITEbl/2.webp';
+import comfortWhiteBL3 from '../../img/rollerblinds/COMFORT/COMFORT - WHITEbl/3.webp';
+import comfortWhiteBL4 from '../../img/rollerblinds/COMFORT/COMFORT - WHITEbl/4.webp';
 
 // Comfort Collection
 export const comfortCollection: Product[] = [
@@ -42,13 +47,13 @@ export const comfortCollection: Product[] = [
     name: "Comfort - sand brown",
     price: 259.99,
     originalPrice: 289.99,
-    image: comfortSandBrownMain,
+    image: comfortSandBrownBL0,
     images: [
-      comfortSandBrownMain,
-      comfortSandBrown1,
-      comfortSandBrown2,
-      comfortSandBrown3,
-      comfortSandBrown4
+      comfortSandBrownBL0,
+      comfortSandBrownBL1,
+      comfortSandBrownBL2,
+      comfortSandBrownBL3,
+      comfortSandBrownBL4
     ],
     features: ["Blackout"],
     colors: 3,
@@ -107,6 +112,24 @@ export const comfortCollection: Product[] = [
     features: ["Light filtering"],
     colors: 3,
     fabricColor: "#F9F9F9",
+    collection: "Comfort"
+  },
+  {
+    id: "comfort-white-blackout",
+    name: "Comfort - White",
+    price: 259.99,
+    originalPrice: 289.99,
+    image: comfortWhiteBL0,
+    images: [
+      comfortWhiteBL0,
+      comfortWhiteBL1,
+      comfortWhiteBL2,
+      comfortWhiteBL3,
+      comfortWhiteBL4
+    ],
+    features: ["Blackout"],
+    colors: 3,
+    fabricColor: "#FFFFFF",
     collection: "Comfort"
   },
   {
