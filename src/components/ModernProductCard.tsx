@@ -22,13 +22,11 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   product, 
   onConfigure, 
   onRequestSample,
-  configureButtonText = "Configure & Buy",
-  delay = 0
+  configureButtonText = "Configure & Buy"
 }) => {
   const navigate = useNavigate();
   const colorSwatchRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   
   const handleConfigure = () => {
@@ -52,19 +50,43 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
       img.includes("4.webp") || 
       img.endsWith("/4.webp") || 
       img.includes("4.jpg") || 
-      img.endsWith("/4.jpg")
+      img.endsWith("/4.jpg") ||
+      img.endsWith("/4") ||
+      img.includes("fabric") ||
+      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
     );
   };
 
   // Get the fabric image (with "4.webp" or "4.jpg")
   const getFabricImage = (): string | null => {
     if (!product.images) return null;
-    const fabricImage = product.images.find(img => 
+    
+    // First, look for exact matches for fabric samples
+    let fabricImage = product.images.find(img => 
       img.includes("4.webp") || 
       img.endsWith("/4.webp") || 
       img.includes("4.jpg") || 
       img.endsWith("/4.jpg")
     );
+    
+    // If not found, try to find images with "4" at the end of path segments
+    if (!fabricImage) {
+      fabricImage = product.images.find(img => 
+        img.endsWith("/4") || 
+        (img.includes("/") && img.split("/").pop()?.startsWith("4"))
+      );
+    }
+    
+    // If still not found, fallback to any image with "fabric" in the name
+    if (!fabricImage) {
+      fabricImage = product.images.find(img => img.includes("fabric"));
+    }
+    
+    // Finally, if we still don't have a match, use the last image which is often the fabric sample
+    if (!fabricImage && product.images.length > 3) {
+      fabricImage = product.images[product.images.length - 1];
+    }
+    
     return fabricImage || null;
   };
 
@@ -75,15 +97,17 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     }
   }, [product]);
 
-  // Trigger reveal animation after component mounts
+  // Simple preload of images in background without tracking loaded count
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [delay]);
-
+    if (product.images && product.images.length > 0) {
+      // Just preload the images in background without tracking state
+      product.images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    }
+  }, [product.images]);
+  
   // Handle 3D tilt effect with improved smoothness
   useEffect(() => {
     const card = cardRef.current;
@@ -155,8 +179,11 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   return (
     <div 
       ref={cardRef}
-      className={`depth-effect reveal-staggered ${isVisible ? 'visible' : ''}`}
-      style={{ animationDelay: `${delay}ms` }}
+      className="depth-effect reveal-staggered visible"
+      style={{ 
+        transition: 'opacity 100ms ease-out',
+        opacity: 1
+      }}
     >
       <CardRoot className="h-full flex flex-col modern-card depth-effect-inner">
         <div className="relative overflow-hidden">
@@ -196,7 +223,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           )}
         </div>
 
-        <CardContent className="flex-grow flex flex-col min-h-[240px] p-5">
+        <CardContent className="flex-grow flex flex-col min-h-[240px] sm:min-h-[260px] p-4 sm:p-5">
           <div className="h-14 mb-2">
             <CardTitle className="line-clamp-2 h-full flex items-center text-xl">
               {product.name.toUpperCase()}
@@ -231,10 +258,10 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             className="mb-4"
           />
 
-          <CardActions className="mt-auto">
+          <CardActions className="mt-auto pt-2 sm:pt-0">
             <button
               onClick={handleConfigure}
-              className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600 shimmer-button"
+              className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600 shimmer-button min-h-[40px]"
             >
               {configureButtonText}
             </button>
@@ -242,7 +269,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             {onRequestSample && (
               <button
                 onClick={handleRequestSample}
-                className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 min-h-[40px]"
               >
                 Request Sample
               </button>
