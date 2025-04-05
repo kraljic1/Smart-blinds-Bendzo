@@ -18,26 +18,11 @@ import essentialLightGreyBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - 
 import essentialLightGreyBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - LIGHT GREYBL/2.webp';
 import essentialLightGreyBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - LIGHT GREYBL/3.webp';
 import essentialLightGreyBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - LIGHT GREYBL/4.webp';
-import essentialBeigeMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige.webp';
-import essentialBeige1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige1.webp';
-import essentialBeige2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige2.webp';
-import essentialBeige3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige3.webp';
-import essentialBeige4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGE/Essential beige4.webp';
-import essentialDarkGreyMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey.webp';
-import essentialDarkGrey1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey1.webp';
-import essentialDarkGrey2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey2.webp';
-import essentialDarkGrey3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey3.webp';
-import essentialDarkGrey4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREY/Essential dark grey4.webp';
 import essentialDarkGreyBL0 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREYBL/0.webp';
 import essentialDarkGreyBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREYBL/1.webp';
 import essentialDarkGreyBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREYBL/2.webp';
 import essentialDarkGreyBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREYBL/3.webp';
 import essentialDarkGreyBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DARK GREYBL/4.webp';
-import essentialBlueGreyMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREY/Essential - grey blue.webp';
-import essentialBlueGrey1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREY/Essential - grey blue1.webp';
-import essentialBlueGrey2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREY/Essential - grey blue2.webp';
-import essentialBlueGrey3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREY/Essential - grey blue3.webp';
-import essentialBlueGrey4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREY/Essential - grey blue4.webp';
 import essentialOceanBLMain from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/0.webp';
 import essentialOceanBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/1.webp';
 import essentialOceanBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/2.webp';
@@ -53,63 +38,14 @@ import essentialAnthraciteBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL -
 import essentialAnthraciteBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - ANTHRACITEBL/2.webp';
 import essentialAnthraciteBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - ANTHRACITEBL/3.webp';
 import essentialAnthraciteBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - ANTHRACITEBL/4.webp';
+import essentialBlueGreyBL0 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREYBL/0.webp';
+import essentialBlueGreyBL1 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREYBL/1.webp';
+import essentialBlueGreyBL2 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREYBL/2.webp';
+import essentialBlueGreyBL3 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREYBL/3.webp';
+import essentialBlueGreyBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREYBL/4.webp';
 
 // Essential Collection Part 2
 export const essentialCollectionPart2: Product[] = [
-  {
-    id: "essential-beige",
-    name: "Essential - Beige",
-    price: 239.57,
-    originalPrice: 266.19,
-    image: essentialBeigeMain,
-    images: [
-      essentialBeigeMain,
-      essentialBeige1,
-      essentialBeige2,
-      essentialBeige3,
-      essentialBeige4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#E8D6B3",
-    collection: "Essential"
-  },
-  {
-    id: "essential-blue-grey",
-    name: "Essential - blue grey",
-    price: 239.57,
-    originalPrice: 266.19,
-    image: essentialBlueGreyMain,
-    images: [
-      essentialBlueGreyMain,
-      essentialBlueGrey1,
-      essentialBlueGrey2,
-      essentialBlueGrey3,
-      essentialBlueGrey4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#6699CC",
-    collection: "Essential"
-  },
-  {
-    id: "essential-dark-grey",
-    name: "Essential - Dark Grey",
-    price: 239.57,
-    originalPrice: 266.19,
-    image: essentialDarkGreyMain,
-    images: [
-      essentialDarkGreyMain,
-      essentialDarkGrey1,
-      essentialDarkGrey2,
-      essentialDarkGrey3,
-      essentialDarkGrey4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#4A4A4A",
-    collection: "Essential"
-  },
   {
     id: "essential-dark-grey-blackout",
     name: "Essential - Dark Grey",
@@ -251,6 +187,24 @@ export const essentialCollectionPart2: Product[] = [
     features: ["Blackout"],
     colors: 5,
     fabricColor: "#2A2A2A",
+    collection: "Essential"
+  },
+  {
+    id: "essential-blue-grey-blackout",
+    name: "Essential - Blue grey",
+    price: 249.99,
+    originalPrice: 279.99,
+    image: essentialBlueGreyBL0,
+    images: [
+      essentialBlueGreyBL0,
+      essentialBlueGreyBL1,
+      essentialBlueGreyBL2,
+      essentialBlueGreyBL3,
+      essentialBlueGreyBL4
+    ],
+    features: ["Blackout"],
+    colors: 5,
+    fabricColor: "#5D8AA8",
     collection: "Essential"
   }
 ]; 
