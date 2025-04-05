@@ -113,6 +113,10 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     const card = cardRef.current;
     if (!card) return;
 
+    // Disable 3D effects on mobile for better performance
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
     let rafId: number | null = null;
     let lastX = 0;
     let lastY = 0;
@@ -176,23 +180,27 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     };
   }, [isHovering]);
 
+  // Optimize image loading by using smaller images on mobile
+  const isMobile = useRef(window.innerWidth < 768).current;
+
   return (
     <div 
       ref={cardRef}
-      className="depth-effect reveal-staggered visible"
+      className={`reveal-staggered visible ${isMobile ? "" : "depth-effect"}`}
       style={{ 
         transition: 'opacity 100ms ease-out',
         opacity: 1
       }}
     >
-      <CardRoot className="h-full flex flex-col modern-card depth-effect-inner">
+      <CardRoot className={`h-full flex flex-col modern-card ${isMobile ? "" : "depth-effect-inner"}`}>
         <div className="relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-10 opacity-60"></div>
           
           <img 
             src={product.image} 
             alt={product.name} 
-            className="w-full h-56 object-cover transition-transform duration-700 hover:scale-105"
+            loading="lazy"
+            className={`w-full h-56 object-cover ${isMobile ? "" : "transition-transform duration-700 hover:scale-105"}`}
           />
           
           <div className="absolute bottom-4 right-4 z-20">

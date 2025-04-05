@@ -41,8 +41,20 @@ const RollerBlindsPage = () => {
     return Object.values(groupedMap).flat();
   }, [filteredProducts]);
   
-  // Add intersection observer for scroll animations
+  // Add intersection observer for scroll animations - optimized for mobile
   useEffect(() => {
+    // Skip animations on mobile for better performance
+    const isMobile = window.innerWidth < 768;
+    
+    if (isMobile) {
+      // On mobile, just mark everything as visible immediately without animations
+      document.querySelectorAll('.reveal-staggered').forEach(el => {
+        el.classList.add('visible');
+      });
+      return;
+    }
+    
+    // Only use IntersectionObserver on desktop
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -51,7 +63,11 @@ const RollerBlindsPage = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        // Use rootMargin to start loading earlier
+        rootMargin: '100px 0px' 
+      }
     );
     
     // Observe all elements with reveal-staggered class
