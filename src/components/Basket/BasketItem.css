@@ -48,7 +48,6 @@
 }
 
 .basket-item:hover {
-  transform: translateY(-2px);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
 }
 
@@ -114,7 +113,6 @@
 }
 
 .basket-item-option:hover {
-  transform: translateY(-1px);
 }
 
 .basket-item-option strong {
@@ -155,7 +153,6 @@
 
 .quantity-btn:hover {
   background-color: var(--btn-hover-bg-color);
-  transform: translateY(-1px);
 }
 
 .quantity-input {
@@ -201,7 +198,6 @@
 .basket-item-remove:hover {
   color: var(--remove-btn-hover-color);
   background-color: rgba(239, 68, 68, 0.08);
-  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
