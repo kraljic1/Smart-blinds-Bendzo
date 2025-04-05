@@ -74,7 +74,7 @@ const RollerBlindsPage = () => {
 
   return (
     <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <Breadcrumb items={breadcrumbItems} />
         </div>
@@ -96,7 +96,7 @@ const RollerBlindsPage = () => {
           Control your blinds with voice, app, or the smart hub.
         </p>
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Sidebar with Filters */}
           <div className={`lg:col-span-1 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '100ms' }}>
             <CollapsibleFilterSidebar
@@ -108,7 +108,7 @@ const RollerBlindsPage = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
             {filteredProducts.length === 0 ? (
               <div className="text-center py-12 border-glow p-8 rounded-lg">
                 <p className="text-gray-500 dark:text-gray-400">
