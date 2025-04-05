@@ -1,0 +1,145 @@
+/* Modern Animation Effects - 2025 Style */
+
+/* Fade in with subtle scale */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide in from bottom with slight bounce */
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Staggered reveal animation */
+@keyframes revealStaggered {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle pulse hover effect - modified to be more subtle */
+@keyframes subtlePulse {
+  0% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Shimmer effect for buttons and highlights */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* Gradient border animation */
+@keyframes borderGlow {
+  0% {
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 0px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    border-color: rgba(99, 102, 241, 0.8);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+  }
+  100% {
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 0px rgba(59, 130, 246, 0.5);
+  }
+}
+
+/* Modern 2025 UI Classes */
+.fade-in-scale {
+  animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.reveal-staggered {
+  opacity: 0;
+}
+
+.reveal-staggered.visible {
+  animation: revealStaggered 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.modern-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .modern-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(51, 65, 85, 0.4);
+}
+
+/* Modified to use box-shadow animation without transform to avoid conflicts */
+.modern-card:hover {
+  animation: subtlePulse 2s ease infinite;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.shimmer-button {
+  background: linear-gradient(
+    to right,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(59, 130, 246, 0.2) 20%,
+    rgba(59, 130, 246, 0.1) 40%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+  overflow: hidden;
+}
+
+.border-glow {
+  border: 2px solid rgba(59, 130, 246, 0.5);
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+/* 3D Depth Effect - modified to be more stable */
+.depth-effect {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.depth-effect-inner {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Removed additional transform on hover that was conflicting with JS tilt */
+.depth-effect:hover .depth-effect-inner {
+  /* transform property now handled entirely by JS for smoother interaction */
+} 
