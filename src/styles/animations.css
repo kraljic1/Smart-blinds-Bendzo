@@ -42,10 +42,23 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   50% {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
   }
   100% {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Dark mode specific pulse effect with stronger contrast */
+@keyframes subtlePulseDark {
+  0% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 10px 15px rgba(59, 130, 246, 0.3);
+  }
+  100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -75,13 +88,31 @@
   }
 }
 
+/* Dark mode border glow with higher contrast */
+@keyframes borderGlowDark {
+  0% {
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 0px rgba(59, 130, 246, 0.6);
+  }
+  50% {
+    border-color: rgba(99, 102, 241, 0.9);
+    box-shadow: 0 0 8px rgba(99, 102, 241, 0.7);
+  }
+  100% {
+    border-color: rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 0px rgba(59, 130, 246, 0.6);
+  }
+}
+
 /* Modern 2025 UI Classes */
 .fade-in-scale {
   animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
 }
 
 .slide-in-up {
   animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
 }
 
 .reveal-staggered {
@@ -90,33 +121,37 @@
 
 .reveal-staggered.visible {
   animation: revealStaggered 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: opacity, transform;
 }
 
 .modern-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 16px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .dark .modern-card {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(51, 65, 85, 0.4);
+  background: rgba(30, 41, 59, 0.98);
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
-/* Modified to use box-shadow animation without transform to avoid conflicts */
+/* Fixed hover effect to avoid blurriness */
 .modern-card:hover {
-  animation: subtlePulse 2s ease infinite;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.dark .modern-card:hover {
+  animation: subtlePulseDark 2s ease infinite;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
 .shimmer-button {
   background: linear-gradient(
     to right,
     rgba(59, 130, 246, 0.1) 0%,
-    rgba(59, 130, 246, 0.2) 20%,
+    rgba(59, 130, 246, 0.3) 20%,
     rgba(59, 130, 246, 0.1) 40%
   );
   background-size: 200% 100%;
@@ -124,9 +159,25 @@
   overflow: hidden;
 }
 
+.dark .shimmer-button {
+  background: linear-gradient(
+    to right,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(99, 102, 241, 0.4) 20%,
+    rgba(59, 130, 246, 0.2) 40%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
 .border-glow {
   border: 2px solid rgba(59, 130, 246, 0.5);
   animation: borderGlow 2s ease-in-out infinite;
+}
+
+.dark .border-glow {
+  border: 2px solid rgba(59, 130, 246, 0.6);
+  animation: borderGlowDark 2s ease-in-out infinite;
 }
 
 /* 3D Depth Effect - modified to be more stable */
@@ -137,6 +188,7 @@
 
 .depth-effect-inner {
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
 }
 
 /* Removed additional transform on hover that was conflicting with JS tilt */

@@ -33,8 +33,8 @@ import essentialWhiteBL4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - WHIT
 // Essential Collection Part 1
 export const essentialCollectionPart1: Product[] = [
   {
-    id: "essential-antracit",
-    name: "Essential antracit",
+    id: "essential-anthracite",
+    name: "Essential - anthracite",
     price: 239.57,
     originalPrice: 266.19,
     image: essentialAntracitMain,
@@ -70,7 +70,7 @@ export const essentialCollectionPart1: Product[] = [
   },
   {
     id: "essential-sand-blackout",
-    name: "Essential Sand",
+    name: "Essential - Sand",
     price: 249.99,
     originalPrice: 279.99,
     image: essentialSandBLMain,
@@ -88,7 +88,7 @@ export const essentialCollectionPart1: Product[] = [
   },
   {
     id: "essential-ocean",
-    name: "Essential ocean",
+    name: "Essential - ocean",
     price: 239.57,
     originalPrice: 266.18,
     image: essentialOceanMain,

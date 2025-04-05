@@ -42,20 +42,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
-  // Check if product has an image with "4" before .webp
+  // Check if product has an image with "4.webp" (fabric detail image)
   const hasFabricImage = (): boolean => {
     if (!product.images) return false;
     
-    // Look for an image with "4" before .webp in the filename
-    return product.images.some(img => img.includes("4.webp"));
+    // Look for an image with "4.webp" in the filename
+    return product.images.some(img => img.includes("4.webp") || img.endsWith("/4.webp"));
   };
 
-  // Get the fabric image (with number "4" before .webp)
+  // Get the fabric image (with "4.webp")
   const getFabricImage = (): string | null => {
     if (!product.images) return null;
     
-    // Find the image with "4" before .webp
-    const fabricImage = product.images.find(img => img.includes("4.webp"));
+    // Find the image with "4.webp" in the filename
+    const fabricImage = product.images.find(img => img.includes("4.webp") || img.endsWith("/4.webp"));
     return fabricImage || null;
   };
 

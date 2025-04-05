@@ -10,6 +10,7 @@ export interface Product {
   fabricColor: string;
   description?: string;
   collection?: string;
+  discount?: number;
 }
 
 export interface BaseCardProps {
