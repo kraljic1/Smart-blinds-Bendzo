@@ -24,7 +24,7 @@ const FilterPanel: FC<FilterPanelProps> = ({
   const hasActiveFilters = Object.values(filters).some(group => group.length > 0);
 
   const getVisibleFilterGroups = () => {
-    const commonFilters = ['colors', 'backingColors'];
+    const commonFilters = ['colors'];
     
     switch(categoryId) {
       case 'roller':

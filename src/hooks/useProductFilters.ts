@@ -6,7 +6,6 @@ const initialFilters: ProductFilters = {
   colors: [],
   fabricTypes: [],
   collections: [],
-  backingColors: [],
   operations: []
 };
 
@@ -50,7 +49,6 @@ export const useProductFilters = (): FilterState => {
       filters.colors.length === 0 &&
       filters.fabricTypes.length === 0 &&
       filters.collections.length === 0 &&
-      filters.backingColors.length === 0 &&
       filters.operations.length === 0
     ) {
       return products;
@@ -99,13 +97,11 @@ export const useProductFilters = (): FilterState => {
           return false;
         });
       
-      // For backing color and operation, we don't have this data in the product model yet
-      // Just return true for these filters for now
-      const backingColorMatch = filters.backingColors.length === 0;
+      // For operation, we don't have this data in the product model yet
+      // Just return true for this filter for now
       const operationMatch = filters.operations.length === 0;
       
-      return fabricTypeMatch && colorMatch && collectionMatch && 
-             backingColorMatch && operationMatch;
+      return fabricTypeMatch && colorMatch && collectionMatch && operationMatch;
     });
   }, [filters]);
 

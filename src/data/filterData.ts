@@ -22,15 +22,6 @@ const commonFilterGroups: FilterGroup[] = [
       { id: 'motor', label: 'Motor', value: 'Motor' },
       { id: 'chain', label: 'Chain', value: 'Chain' }
     ]
-  },
-  {
-    id: 'backingColors',
-    title: 'BACKING COLOR',
-    options: [
-      { id: 'white-backing', label: 'White backing', value: 'White backing' },
-      { id: 'colored-backing', label: 'Colored backing', value: 'Colored backing' },
-      { id: 'thermal-backing', label: 'Thermal backing', value: 'Thermal backing' }
-    ]
   }
 ];
 

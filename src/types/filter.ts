@@ -14,7 +14,6 @@ export interface ProductFilters {
   colors: string[];
   fabricTypes: string[];
   collections: string[];
-  backingColors: string[];
   operations: string[];
 }
 
