@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Info, ArrowLeft, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { Product } from '../types/product';
 import SEO from '../components/SEO';
 import InfoPanel from '../components/InfoPanel';
+import ImageZoomModal from '../components/ImageZoomModal';
 import { getProductsByCategory } from '../hooks/useProductFilter';
 import ProductCustomization, { CustomizationOption } from '../components/ProductCustomization';
 import PriceCalculator from '../components/PriceCalculator';
@@ -20,6 +21,11 @@ const ProductConfigurationPage = () => {
   const [isInfoPanelOpen, setIsInfoPanelOpen] = useState(false);
   const [allImages, setAllImages] = useState<string[]>([]);
   
+  // Animation states
+  const [isVisible, setIsVisible] = useState(false);
+  const [animationFinished, setAnimationFinished] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   // New state variables for product customization
   const [width, setWidth] = useState<number | ''>('');
   const [height, setHeight] = useState<number | ''>('');
@@ -27,11 +33,32 @@ const ProductConfigurationPage = () => {
   const [customizationOptions, setCustomizationOptions] = useState<CustomizationOption[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [additionalCosts, setAdditionalCosts] = useState<{ name: string; price: number }[]>([]);
+  
+  // Add state for image zoom modal
+  const [isZoomModalOpen, setIsZoomModalOpen] = useState(false);
 
   // Scroll to top when page loads
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [productId]);
+  
+  // Trigger animations after component mounts
+  useEffect(() => {
+    // Short delay before starting animations
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    
+    // Set animation as finished after all staggered elements should be done
+    const animTimer = setTimeout(() => {
+      setAnimationFinished(true);
+    }, 1800);
+    
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(animTimer);
+    };
+  }, []);
 
   // Fetch product data based on productId
   useEffect(() => {
@@ -51,12 +78,59 @@ const ProductConfigurationPage = () => {
     
     if (foundProduct) {
       setProduct(foundProduct);
-      // Create array with main image first, followed by additional images
-      const images = [foundProduct.image];
+      
+      // For products with the new numbered image system (0.webp, 1.webp, etc.)
+      // Create a properly ordered array of images
       if (foundProduct.images && foundProduct.images.length > 0) {
-        images.push(...foundProduct.images);
+        // Check if we're using the numbered image system (if any image has a number pattern)
+        const hasNumberedImages = foundProduct.images.some(img => 
+          img.includes("/0.webp") || img.includes("/1.webp") || img.includes("/2.webp") || 
+          img.includes("/3.webp") || img.includes("/4.webp")
+        );
+        
+        if (hasNumberedImages) {
+          // Create ordered array of numbered images
+          const orderedImages: string[] = [];
+          
+          // Find the cover image (0.webp)
+          const coverImage = foundProduct.images.find(img => img.includes("/0.webp"));
+          if (coverImage) {
+            orderedImages.push(coverImage);
+          } else {
+            // Fallback to main image if 0.webp not found
+            orderedImages.push(foundProduct.image);
+          }
+          
+          // Add remaining images in numerical order
+          for (let i = 1; i <= 4; i++) {
+            const img = foundProduct.images.find(img => img.includes(`/${i}.webp`));
+            if (img) {
+              orderedImages.push(img);
+            }
+          }
+          
+          setAllImages(orderedImages);
+        } else {
+          // For legacy image naming conventions
+          const images: string[] = [];
+          
+          // Add main image
+          images.push(foundProduct.image);
+          
+          // Add additional images, skipping any that match the main image
+          foundProduct.images.forEach(img => {
+            if (img !== foundProduct.image) {
+              images.push(img);
+            }
+          });
+          
+          setAllImages(images);
+        }
+      } else {
+        // Just use the main image if no additional images
+        setAllImages([foundProduct.image]);
       }
-      setAllImages(images);
+      
       setSelectedImageIndex(0);
     }
     
@@ -98,6 +172,11 @@ const ProductConfigurationPage = () => {
       setAdditionalCosts(costs);
     }
   }, [selectedOptions, isCalculated, customizationOptions]);
+
+  // Add handler for zoom button click
+  const handleZoomButtonClick = () => {
+    setIsZoomModalOpen(true);
+  };
 
   const handleGoBack = () => {
     navigate(-1);
@@ -194,7 +273,7 @@ const ProductConfigurationPage = () => {
   }
 
   return (
-    <div className="pt-20 pb-24 sm:pt-24 sm:pb-32">
+    <div className="pt-20 pb-24 sm:pt-24 sm:pb-32" ref={containerRef}>
       {product && (
         <SEO
           title={`${product.name} - Configure Your Smart Blind | Smartblinds`}
@@ -208,29 +287,31 @@ const ProductConfigurationPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <button 
           onClick={handleGoBack}
-          className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 mb-6 sm:mb-8"
+          className={`flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 mb-6 sm:mb-8 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
         >
           <ArrowLeft className="mr-2" size={16} />
           Back to Products
         </button>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
+        <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden modern-card ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}>
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 p-4 sm:p-6">
-            <div className="space-y-4">
+            <div className={`space-y-4 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`} style={{ animationDelay: '75ms' }}>
               {/* Main product image with navigation arrows */}
-              <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600 mx-auto">
+              <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600 mx-auto depth-effect">
                 {allImages.length > 1 && (
                   <>
                     <button 
                       onClick={handlePrevImage}
-                      className="absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-r-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                      className={`absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-r-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+                      style={{ animationDelay: '150ms' }}
                       aria-label="Previous image"
                     >
                       <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-300" />
                     </button>
                     <button 
                       onClick={handleNextImage}
-                      className="absolute right-0 sm:right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-l-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                      className={`absolute right-0 sm:right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-l-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+                      style={{ animationDelay: '175ms' }}
                       aria-label="Next image"
                     >
                       <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-300" />
@@ -246,7 +327,8 @@ const ProductConfigurationPage = () => {
                             selectedImageIndex === index 
                               ? 'bg-blue-600 dark:bg-blue-400' 
                               : 'bg-gray-300 dark:bg-gray-600'
-                          }`}
+                          } ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+                          style={{ animationDelay: `${200 + index * 25}ms` }}
                           aria-label={`Go to image ${index + 1}`}
                         />
                       ))}
@@ -256,7 +338,9 @@ const ProductConfigurationPage = () => {
                 
                 {/* Zoom button */}
                 <button 
-                  className="absolute right-2 bottom-2 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition hidden sm:block"
+                  onClick={handleZoomButtonClick}
+                  className={`absolute right-2 bottom-2 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition hidden sm:block ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+                  style={{ animationDelay: '200ms' }}
                   aria-label="Zoom image"
                 >
                   <ZoomIn className="w-5 h-5 text-gray-700 dark:text-gray-300" />
@@ -265,7 +349,8 @@ const ProductConfigurationPage = () => {
                 <img 
                   src={allImages[selectedImageIndex]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover depth-effect-inner ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+                  style={{ animationDelay: '100ms' }}
                 />
               </div>
               
@@ -280,7 +365,8 @@ const ProductConfigurationPage = () => {
                         selectedImageIndex === index 
                           ? 'border-blue-600 dark:border-blue-400' 
                           : 'border-gray-200 dark:border-gray-700'
-                      }`}
+                      } ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`}
+                      style={{ animationDelay: `${225 + index * 50}ms` }}
                       aria-label={`View image ${index + 1}`}
                     >
                       <img 
@@ -294,7 +380,7 @@ const ProductConfigurationPage = () => {
               )}
             </div>
 
-            <div className="space-y-4 sm:space-y-6">
+            <div className={`space-y-4 sm:space-y-6 ${isVisible ? 'slide-in-up' : 'opacity-0'}`} style={{ animationDelay: '125ms' }}>
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{product.name}</h1>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
@@ -310,7 +396,7 @@ const ProductConfigurationPage = () => {
                 </div>
               </div>
 
-              <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+              <p className={`text-gray-600 dark:text-gray-300 text-sm sm:text-base ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '250ms' }}>
                 {product.description || 
                   `Create a pleasant atmosphere in your home with our electric Essential roller blinds! Both the
                   light filtering and blackout Essential collection consist of sturdy roller blind fabrics with a
@@ -318,7 +404,7 @@ const ProductConfigurationPage = () => {
                   suitable for any interior.`}
               </p>
 
-              <div className="bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 rounded-lg">
+              <div className={`bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 rounded-lg modern-card ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '300ms' }}>
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">CUSTOMIZE AND ORDER</h3>
                   <div className="text-right">
@@ -329,7 +415,7 @@ const ProductConfigurationPage = () => {
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-4 mb-4">
-                  <div>
+                  <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '350ms' }}>
                     <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                       Width (in cm)
                       <Info size={16} className="ml-1 text-gray-400 dark:text-gray-500" />
@@ -342,7 +428,7 @@ const ProductConfigurationPage = () => {
                       onChange={handleWidthChange}
                     />
                   </div>
-                  <div>
+                  <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '400ms' }}>
                     <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                       Height (in cm)
                       <Info size={16} className="ml-1 text-gray-400 dark:text-gray-500" />
@@ -359,7 +445,8 @@ const ProductConfigurationPage = () => {
 
                 {!isCalculated ? (
                   <button 
-                    className="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition"
+                    className={`w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition shimmer-button ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`}
+                    style={{ animationDelay: '450ms' }}
                     onClick={handleCalculatePrice}
                   >
                     CALCULATE PRICE
@@ -386,16 +473,16 @@ const ProductConfigurationPage = () => {
               </div>
               
               {/* Additional product information */}
-              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div className={`bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden modern-card ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '500ms' }}>
                 <div className="divide-y divide-gray-200 dark:divide-gray-700">
                   <div className="p-4">
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Product Features</h3>
                     <ul className="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                      <li>Smart home integration</li>
-                      <li>Remote control operation</li>
-                      <li>Silent motor technology</li>
-                      <li>Energy efficient design</li>
-                      <li>UV protection fabric</li>
+                      <li className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '550ms' }}>Smart home integration</li>
+                      <li className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '575ms' }}>Remote control operation</li>
+                      <li className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '600ms' }}>Silent motor technology</li>
+                      <li className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '625ms' }}>Energy efficient design</li>
+                      <li className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '650ms' }}>UV protection fabric</li>
                     </ul>
                   </div>
                   
@@ -403,16 +490,16 @@ const ProductConfigurationPage = () => {
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Specifications</h3>
                     <div className="grid grid-cols-2 gap-2 text-sm">
                       <div className="text-gray-500 dark:text-gray-400">Material</div>
-                      <div className="text-gray-900 dark:text-white">Premium Polyester</div>
+                      <div className={`text-gray-900 dark:text-white ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '675ms' }}>Premium Polyester</div>
                       
                       <div className="text-gray-500 dark:text-gray-400">Control</div>
-                      <div className="text-gray-900 dark:text-white">App / Remote / Voice</div>
+                      <div className={`text-gray-900 dark:text-white ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '700ms' }}>App / Remote / Voice</div>
                       
                       <div className="text-gray-500 dark:text-gray-400">Power Source</div>
-                      <div className="text-gray-900 dark:text-white">Electric (AC)</div>
+                      <div className={`text-gray-900 dark:text-white ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '725ms' }}>Electric (AC)</div>
                       
                       <div className="text-gray-500 dark:text-gray-400">Warranty</div>
-                      <div className="text-gray-900 dark:text-white">5 Years</div>
+                      <div className={`text-gray-900 dark:text-white ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '750ms' }}>5 Years</div>
                     </div>
                   </div>
                 </div>
@@ -426,8 +513,21 @@ const ProductConfigurationPage = () => {
         isOpen={isInfoPanelOpen} 
         onClose={() => setIsInfoPanelOpen(false)} 
       />
+
+      {/* Image Zoom Modal */}
+      {isZoomModalOpen && product && (
+        <ImageZoomModal
+          imageUrl={allImages[selectedImageIndex]}
+          altText={product.name}
+          onClose={() => setIsZoomModalOpen(false)}
+          allImages={allImages}
+          currentIndex={selectedImageIndex}
+          onPrevImage={handlePrevImage}
+          onNextImage={handleNextImage}
+        />
+      )}
     </div>
   );
 };
 
-export default ProductConfigurationPage; 
+export default ProductConfigurationPage;
