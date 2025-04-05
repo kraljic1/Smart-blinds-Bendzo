@@ -28,7 +28,7 @@ const RollerBlindsPage = () => {
   const groupedProducts = useMemo(() => {
     // Create a map of products grouped by name
     const groupedMap = filteredProducts.reduce((groups, product) => {
-      const name = product.name;
+      const name = product.name.toLowerCase(); // Convert to lowercase for case-insensitive grouping
       if (!groups[name]) {
         groups[name] = [];
       }
