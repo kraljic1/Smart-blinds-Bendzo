@@ -5,6 +5,7 @@ import { CollapsibleFilterSidebar } from '../components/Filters';
 // Import roller blinds data directly
 import { rollerBlinds } from '../data/rollerblinds';
 import { Product } from '../types/product';
+import React from 'react';
 
 const RollerBlindsPage = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(rollerBlinds);
@@ -115,15 +116,17 @@ const RollerBlindsPage = () => {
                 </p>
               </div>
             ) : (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {groupedProducts.map((product, index) => (
-                  <ModernProductCard
-                    key={product.id}
-                    product={product}
-                    onConfigure={() => window.location.href = `/products/configure/${product.id}`}
-                    delay={index * 100}
-                  />
-                ))}
+              <div className="flex flex-col gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {groupedProducts.map((product, index) => (
+                    <ModernProductCard
+                      key={product.id}
+                      product={product}
+                      onConfigure={() => window.location.href = `/products/configure/${product.id}`}
+                      delay={index * 100}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </div>
