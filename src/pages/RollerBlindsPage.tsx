@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import ModernProductCard from '../components/ModernProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { CollapsibleFilterSidebar } from '../components/Filters';
@@ -22,6 +22,23 @@ const RollerBlindsPage = () => {
     
     return () => clearTimeout(timer);
   }, []);
+  
+  // Group products by name (to keep different variants of the same product together)
+  const groupedProducts = useMemo(() => {
+    // Create a map of products grouped by name
+    const groupedMap = filteredProducts.reduce((groups, product) => {
+      const name = product.name;
+      if (!groups[name]) {
+        groups[name] = [];
+      }
+      groups[name].push(product);
+      return groups;
+    }, {} as Record<string, Product[]>);
+
+    // Flatten the grouped products back into an array
+    // This ensures products with the same name appear next to each other
+    return Object.values(groupedMap).flat();
+  }, [filteredProducts]);
   
   // Add intersection observer for scroll animations
   useEffect(() => {
@@ -99,7 +116,7 @@ const RollerBlindsPage = () => {
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredProducts.map((product, index) => (
+                {groupedProducts.map((product, index) => (
                   <ModernProductCard
                     key={product.id}
                     product={product}
