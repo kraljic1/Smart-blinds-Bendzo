@@ -1,0 +1,96 @@
+.collapsible-filter-sidebar {
+  width: 100%;
+  background-color: white;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.dark .collapsible-filter-sidebar {
+  background-color: #1f2937;
+}
+
+.filter-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+  z-index: 20;
+}
+
+.filter-toggle-button:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .filter-toggle-button {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+.dark .filter-toggle-button:hover {
+  background-color: #4b5563;
+}
+
+.filter-icon {
+  margin-right: 0.5rem;
+}
+
+.filter-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+
+.filter-content.open {
+  max-height: 2000px; /* Large enough to contain all content */
+  transition: max-height 0.5s ease-in;
+}
+
+.filter-content.closed {
+  max-height: 0;
+}
+
+/* Desktop styling */
+@media (min-width: 1024px) {
+  .filter-toggle-button {
+    display: none;
+  }
+  
+  .filter-content {
+    max-height: none;
+    overflow: visible;
+    position: static;
+  }
+  
+  .collapsible-filter-sidebar {
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+  }
+}
+
+/* Mobile specific styles */
+@media (max-width: 1023.98px) {
+  .filter-content.open {
+    position: relative;
+    z-index: 30;
+    background-color: white;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .dark .filter-content.open {
+    background-color: #1f2937;
+  }
+} 

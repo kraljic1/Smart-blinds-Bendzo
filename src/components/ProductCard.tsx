@@ -26,6 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const colorSwatchRef = useRef<HTMLDivElement>(null);
+  const hasLoggedRef = useRef<boolean>(false);
 
   const handleConfigure = () => {
     if (onConfigure) {
@@ -41,23 +42,57 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
-  // Set background color via JavaScript
+  // Check if product has an image with "4" before .webp
+  const hasFabricImage = (): boolean => {
+    if (!product.images) return false;
+    
+    // Look for an image with "4" before .webp in the filename
+    return product.images.some(img => img.includes("4.webp"));
+  };
+
+  // Get the fabric image (with number "4" before .webp)
+  const getFabricImage = (): string | null => {
+    if (!product.images) return null;
+    
+    // Find the image with "4" before .webp
+    const fabricImage = product.images.find(img => img.includes("4.webp"));
+    return fabricImage || null;
+  };
+
+  // Set background color for products without fabric image
   useEffect(() => {
-    if (colorSwatchRef.current && product.fabricColor) {
-      colorSwatchRef.current.style.backgroundColor = product.fabricColor;
+    if (!hasFabricImage()) {
+      // Log products without fabric image to console, but only once
+      if (!hasLoggedRef.current) {
+        console.log(`Product without fabric image: ${product.id} (${product.name})`);
+        hasLoggedRef.current = true;
+      }
+      
+      // Set color for the swatch
+      if (colorSwatchRef.current && product.fabricColor) {
+        colorSwatchRef.current.style.backgroundColor = product.fabricColor;
+      }
     }
-  }, [product.fabricColor]);
+  }, [product]);
 
   return (
     <CardRoot className="h-full flex flex-col">
       <div className="relative">
         <CardImage src={product.image} alt={product.name} />
         <div className="absolute bottom-4 right-4">
-          <div
-            ref={colorSwatchRef}
-            className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch"
-            data-color={product.fabricColor}
-          />
+          {hasFabricImage() ? (
+            <img
+              src={getFabricImage()!}
+              alt={`${product.name} fabric`}
+              className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch object-cover"
+            />
+          ) : (
+            <div
+              ref={colorSwatchRef}
+              className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch"
+              data-color={product.fabricColor}
+            />
+          )}
         </div>
       </div>
 

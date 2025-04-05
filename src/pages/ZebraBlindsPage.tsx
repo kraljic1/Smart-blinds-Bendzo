@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import Breadcrumb from '../components/Breadcrumb';
-import { ProductFilterSidebar } from '../components/Filters';
+import { CollapsibleFilterSidebar } from '../components/Filters';
 import { zebraBlinds } from '../data/zebrablinds';
 import { Product } from '../types/product';
 
@@ -29,17 +29,15 @@ const ZebraBlindsPage = () => {
         
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Smart Zebra Blinds</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar with Filters */}
-          <div className="lg:col-span-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Filters</h2>
-            <div className="filter-container" style={{ minHeight: '400px' }}>
-              <ProductFilterSidebar
-                categoryId="zebra"
-                products={zebraBlinds}
-                onFilteredProductsChange={setFilteredProducts}
-              />
-            </div>
+          <div className="lg:col-span-1">
+            <CollapsibleFilterSidebar
+              categoryId="zebra"
+              products={zebraBlinds}
+              onFilteredProductsChange={setFilteredProducts}
+              className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700"
+            />
           </div>
 
           {/* Products Grid */}

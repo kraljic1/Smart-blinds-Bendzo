@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ProductHero from '../components/Products/ProductHero';
 import CategoryGrid from '../components/Products/CategoryGrid';
 import ProductGrid from '../components/Products/ProductGrid';
-import { ProductFilterSidebar } from '../components/Filters';
+import { CollapsibleFilterSidebar } from '../components/Filters';
 import { getProductsByCategory } from '../hooks/useProductFilter';
 import { Category } from '../data/categoryData';
 import { Product } from '../types/product';
@@ -53,13 +53,14 @@ const ProductsPage: React.FC = () => {
         <CategoryGrid onCategoryChange={handleCategoryChange} />
 
         {/* Content Grid with Sidebar */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="mt-8 relative grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar with Filters */}
           <div className="lg:col-span-1">
-            <ProductFilterSidebar
+            <CollapsibleFilterSidebar
               categoryId={currentCategoryId}
               products={categoryProducts}
               onFilteredProductsChange={setFilteredProducts}
+              className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700"
             />
           </div>
 

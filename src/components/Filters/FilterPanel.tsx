@@ -24,7 +24,7 @@ const FilterPanel: FC<FilterPanelProps> = ({
   const hasActiveFilters = Object.values(filters).some(group => group.length > 0);
 
   const getVisibleFilterGroups = () => {
-    const commonFilters = ['colors', 'operations', 'backingColors'];
+    const commonFilters = ['colors', 'backingColors'];
     
     switch(categoryId) {
       case 'roller':
@@ -64,9 +64,8 @@ const FilterPanel: FC<FilterPanelProps> = ({
           commonFilters.includes(group.id)
         );
       case 'accessories':
-        return filterGroups.filter(group => 
-          ['operations'].includes(group.id)
-        );
+        // Return empty array for accessories - no filters shown
+        return [];
       case 'all':
       default:
         return filterGroups;

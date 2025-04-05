@@ -1,6 +1,8 @@
 /* Styles for color swatches using data-color attribute */
 .product-color-swatch {
   background-color: var(--swatch-color);
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .product-color-swatch[data-color] {

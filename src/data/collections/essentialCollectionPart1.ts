@@ -87,24 +87,6 @@ export const essentialCollectionPart1: Product[] = [
     collection: "Essential"
   },
   {
-    id: "essential-sand-bl-test",
-    name: "Essential Sand BL Test",
-    price: 249.99,
-    originalPrice: 279.99,
-    image: essentialSandBLMain,
-    images: [
-      essentialSandBLMain,
-      essentialSandBL1,
-      essentialSandBL2,
-      essentialSandBL3,
-      essentialSandBL4
-    ],
-    features: ["blackout"],
-    colors: 5,
-    fabricColor: "#D2B48C",
-    collection: "Essential"
-  },
-  {
     id: "essential-ocean",
     name: "Essential ocean",
     price: 239.57,
