@@ -384,7 +384,7 @@ const ProductConfigurationPage = () => {
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{product.name}</h1>
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
-                  <span className="text-gray-600 dark:text-gray-300">Light filtering</span>
+                  <span className="text-gray-600 dark:text-gray-300">{product.features && product.features.length > 0 ? product.features[0] : ''}</span>
                   <span className="text-gray-600 dark:text-gray-300 hidden sm:inline">-</span>
                   <span className="text-gray-600 dark:text-gray-300">With smart engine</span>
                   <button 

@@ -58,9 +58,13 @@ export const useProductFilters = (): FilterState => {
       // Match by feature (fabric type)
       const fabricTypeMatch = filters.fabricTypes.length === 0 || 
         product.features.some(feature => 
-          filters.fabricTypes.some(fabricType => 
-            fabricType.toLowerCase() === feature.toLowerCase()
-          )
+          filters.fabricTypes.some(fabricType => {
+            // Special case: When "Transparent" is selected, match products with "Sheer" feature
+            if (fabricType.toLowerCase() === 'transparent' && feature.toLowerCase() === 'sheer') {
+              return true;
+            }
+            return fabricType.toLowerCase() === feature.toLowerCase();
+          })
         );
       
       // Match by color - new logic that checks if color name appears in product name or description
