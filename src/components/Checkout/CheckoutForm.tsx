@@ -64,11 +64,10 @@ export function CheckoutForm() {
       ).join('&');
       
       // Submit form to Netlify
-      const response = await fetch('/?no-cache=1', {
+      const response = await fetch('/', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Cache-Control': 'no-cache'
         },
         body: encodedData
       });
@@ -130,7 +129,9 @@ export function CheckoutForm() {
       <form
         name="checkout"
         method="POST"
+        action="/thank-you"
         data-netlify="true"
+        netlify-honeypot="bot-field"
         onSubmit={handleSubmit}
         className="checkout-form"
         aria-label="Checkout form"
@@ -139,6 +140,11 @@ export function CheckoutForm() {
         <input type="hidden" name="form-name" value="checkout" />
         <input type="hidden" name="basketItems" value={JSON.stringify(items)} />
         <input type="hidden" name="totalPrice" value={getTotalPrice().toFixed(2)} />
+        <p hidden>
+          <label>
+            Don't fill this out if you're human: <input name="bot-field" />
+          </label>
+        </p>
         
         <div className="form-group">
           <label htmlFor="fullName">Full Name</label>
