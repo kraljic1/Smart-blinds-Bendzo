@@ -52,8 +52,8 @@
 }
 
 .filter-content.open {
-  max-height: 2000px; /* Large enough to contain all content */
-  transition: max-height 0.5s ease-in;
+  max-height: 5000px; /* Increased to show more content */
+  transition: max-height 0.6s ease-in;
 }
 
 .filter-content.closed {
@@ -88,6 +88,8 @@
     background-color: white;
     border-radius: 0 0 0.5rem 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow-y: auto; /* Allow scrolling within the filter panel */
+    max-height: 70vh; /* Use viewport height for better mobile experience */
   }
   
   .dark .filter-content.open {
