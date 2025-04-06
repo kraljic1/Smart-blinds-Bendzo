@@ -194,13 +194,6 @@ const AccessoriesPage: React.FC = () => {
                     className="w-full h-64 object-cover"
                   />
                 </div>
-                <div className="absolute bottom-4 right-4">
-                  <div 
-                    className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch" 
-                    data-color={product.colorHex} 
-                    style={{ backgroundColor: product.colorHex }}
-                  ></div>
-                </div>
               </div>
               <div className="p-6 flex-grow flex flex-col min-h-[240px]">
                 <div className="h-14 mb-2">
@@ -221,11 +214,6 @@ const AccessoriesPage: React.FC = () => {
                     ) : (
                       <><Sun className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
                     )}
-                  </span>
-                </div>
-                <div className="flex items-center space-x-2 mb-4">
-                  <span className="text-sm text-gray-600 dark:text-gray-400 uppercase">
-                    +{product.colors} COLORS
                   </span>
                 </div>
                 <div className="flex items-baseline mb-4">
