@@ -57,15 +57,30 @@ export const useProductFilters = (): FilterState => {
     return products.filter(product => {
       // Match by feature (fabric type)
       const fabricTypeMatch = filters.fabricTypes.length === 0 || 
-        product.features.some(feature => 
-          filters.fabricTypes.some(fabricType => {
-            // Special case: When "Transparent" is selected, match products with "Sheer" feature
-            if (fabricType.toLowerCase() === 'transparent' && feature.toLowerCase() === 'sheer') {
-              return true;
-            }
-            return fabricType.toLowerCase() === feature.toLowerCase();
-          })
-        );
+        filters.fabricTypes.some(fabricType => {
+          const fabricTypeLower = fabricType.toLowerCase();
+          
+          // Special case for "Screen" - match any product with "Screen" in name, features, or collection
+          if (fabricTypeLower === 'screen') {
+            // Check if product name contains "screen"
+            if (product.name.toLowerCase().includes('screen')) return true;
+            
+            // Check if product collection is "Screen"
+            if (product.collection?.toLowerCase() === 'screen') return true;
+            
+            // Check if product has "Screen" in features
+            if (product.features.some(feature => feature.toLowerCase() === 'screen')) return true;
+          }
+          
+          // Special case: When "Transparent" is selected, match products with "Sheer" feature
+          if (fabricTypeLower === 'transparent' && 
+              product.features.some(feature => feature.toLowerCase() === 'sheer')) {
+            return true;
+          }
+          
+          // Standard feature matching
+          return product.features.some(feature => feature.toLowerCase() === fabricTypeLower);
+        });
       
       // Match by color - simplified to primarily use product name
       const colorMatch = filters.colors.length === 0 ||

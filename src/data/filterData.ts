@@ -9,9 +9,7 @@ const commonFilterGroups: FilterGroup[] = [
       { id: 'white', label: 'White', value: 'White' },
       { id: 'grey', label: 'Grey', value: 'Grey' },
       { id: 'sand', label: 'Sand', value: 'Sand' },
-      { id: 'beige', label: 'Beige', value: 'Beige' },
       { id: 'brown', label: 'Brown', value: 'Brown' },
-      { id: 'blue', label: 'Blue', value: 'Blue' },
       { id: 'black', label: 'Black', value: 'Black' }
     ]
   },
