@@ -7,6 +7,9 @@ import { rollerBlinds } from '../data/rollerblinds';
 import { Product } from '../types/product';
 import React from 'react';
 
+// Import roller blinds image for hero section
+import rollerBlindsHero from '../img/rollerblinds/CLASSIC/CLASSIC - BLACK/0.webp';
+
 const RollerBlindsPage = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(rollerBlinds);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -88,8 +91,48 @@ const RollerBlindsPage = () => {
     { label: 'Roller Blinds', path: '/products/roller-blinds' },
   ];
 
+  const scrollToProducts = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const productsElement = document.getElementById('products');
+    if (productsElement) {
+      productsElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      {/* Static Hero section */}
+      <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
+        <div className="absolute inset-0">
+          <img 
+            src={rollerBlindsHero} 
+            alt="Smart roller blinds showcase"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              Smart Roller Blinds
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-200 mb-8">
+              Enhance your windows with our premium smart roller blinds collection. Elegant, functional, and designed to fit seamlessly into your home.
+            </p>
+            <a 
+              href="#products" 
+              onClick={scrollToProducts}
+              className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition inline-block"
+            >
+              Explore Collection
+            </a>
+          </div>
+        </div>
+      </div>
+      
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <Breadcrumb items={breadcrumbItems} />
@@ -124,7 +167,7 @@ const RollerBlindsPage = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="lg:col-span-4">
+          <div id="products" className="lg:col-span-4">
             {filteredProducts.length === 0 ? (
               <div className="text-center py-12 border-glow p-8 rounded-lg">
                 <p className="text-gray-500 dark:text-gray-400">

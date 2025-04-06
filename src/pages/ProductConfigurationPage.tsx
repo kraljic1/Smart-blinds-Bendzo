@@ -244,19 +244,26 @@ const ProductConfigurationPage = () => {
   };
 
   const handleCheckout = () => {
-    if (product && typeof width === 'number' && typeof height === 'number') {
+    if (product) {
       // Prepare options to save with the product
       const options: Record<string, string | number | boolean> = {
-        width,
-        height,
         ...selectedOptions
       };
       
+      // Add width and height for non-accessory products
+      if (!isAccessoryProduct) {
+        if (typeof width === 'number' && typeof height === 'number') {
+          options.width = width;
+          options.height = height;
+        } else {
+          // For non-accessory products, width and height are required
+          alert('Please ensure width and height are valid before adding to basket');
+          return;
+        }
+      }
+      
       // Add item to the basket
       addItem(product, 1, options);
-      
-      // Show success message or navigate to basket
-      // Optional: navigate('/basket');
       
       // Show a confirmation toast
       alert(`${product.name} has been added to your basket!`);

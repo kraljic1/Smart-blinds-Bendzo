@@ -6,6 +6,9 @@ import { zebraBlinds } from '../data/zebrablinds';
 import { Product } from '../types/product';
 import React from 'react';
 
+// Import zebra blinds image for hero section
+import zebraBlindHero from '../img/zebra/PURE/PURE - WHITE/0.webp';
+
 const ZebraBlindsPage = () => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(zebraBlinds);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -71,8 +74,48 @@ const ZebraBlindsPage = () => {
     { label: 'Zebra Blinds', path: '/products/zebra-blinds' }
   ];
 
+  const scrollToProducts = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const productsElement = document.getElementById('products');
+    if (productsElement) {
+      productsElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      {/* Static Hero section */}
+      <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
+        <div className="absolute inset-0">
+          <img 
+            src={zebraBlindHero} 
+            alt="Smart zebra blinds showcase"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              Smart Zebra Blinds
+            </h1>
+            <p className="text-lg sm:text-xl text-gray-200 mb-8">
+              Elegant dual-layer fabric blinds with alternating sheer and solid patterns for precise light control and privacy.
+            </p>
+            <a 
+              href="#products" 
+              onClick={scrollToProducts}
+              className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition inline-block"
+            >
+              Explore Collection
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`mb-8 slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <Breadcrumb items={breadcrumbItems} />
@@ -107,7 +150,7 @@ const ZebraBlindsPage = () => {
           </div>
 
           {/* Products Grid */}
-          <div className="lg:col-span-4">
+          <div id="products" className="lg:col-span-4">
             {filteredProducts.length === 0 ? (
               <div className="text-center py-12 border-glow p-8 rounded-lg">
                 <p className="text-gray-500 dark:text-gray-400">

@@ -4,11 +4,19 @@ import { Link } from 'react-router-dom';
 interface HeroProps {
   images: string[];
   autoChangeInterval?: number; // in milliseconds
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({ 
   images,
-  autoChangeInterval = 5000 
+  autoChangeInterval = 5000,
+  title = "Transform Your Windows Into Smart Windows",
+  description = "Automate your home with smart blinds that adjust to your schedule, save energy, and create the perfect ambiance throughout the day.",
+  buttonText = "Learn More",
+  buttonLink = "/how-it-works"
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const imageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
@@ -35,6 +43,22 @@ const Hero: React.FC<HeroProps> = ({
     });
   }, [images]);
 
+  // Handle smooth scrolling when buttonLink is an anchor
+  const handleButtonClick = (e: React.MouseEvent) => {
+    if (buttonLink && buttonLink.startsWith('#')) {
+      e.preventDefault();
+      const targetId = buttonLink.substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+  };
+
   return (
     <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden">
       {/* Carousel images */}
@@ -58,19 +82,28 @@ const Hero: React.FC<HeroProps> = ({
           <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
             <div className="text-white">
               <h1 className="text-5xl font-bold leading-tight mb-6">
-                Transform Your Windows Into Smart Windows
+                {title}
               </h1>
               <p className="mt-4 text-lg text-gray-200 mb-8">
-                Automate your home with smart blinds that adjust to your schedule, 
-                save energy, and create the perfect ambiance throughout the day.
+                {description}
               </p>
               <div className="flex justify-center">
-                <Link
-                  to="/how-it-works"
-                  className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition"
-                >
-                  Learn More
-                </Link>
+                {buttonLink.startsWith('#') ? (
+                  <a
+                    href={buttonLink}
+                    onClick={handleButtonClick}
+                    className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition"
+                  >
+                    {buttonText}
+                  </a>
+                ) : (
+                  <Link
+                    to={buttonLink}
+                    className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition"
+                  >
+                    {buttonText}
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -43,11 +43,11 @@
 }
 
 .basket-icon.light-mode {
-  color: #1f2937;
+  color: #000000;
 }
 
 .basket-icon.dark-mode {
-  color: #f9fafb;
+  color: #ffffff;
 }
 
 .basket-icon-link:hover .basket-icon {

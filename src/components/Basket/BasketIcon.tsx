@@ -9,6 +9,9 @@ export function BasketIcon() {
   const { isDark } = useTheme();
   const itemCount = getItemCount();
 
+  // Define the stroke color based on the theme
+  const strokeColor = isDark ? '#ffffff' : '#000000';
+
   return (
     <div className="basket-icon-container">
       <Link to="/basket" className="basket-icon-link">
@@ -19,7 +22,7 @@ export function BasketIcon() {
             height="24" 
             viewBox="0 0 24 24" 
             fill="none" 
-            stroke="currentColor" 
+            stroke={strokeColor} 
             strokeWidth="2" 
             strokeLinecap="round" 
             strokeLinejoin="round"
