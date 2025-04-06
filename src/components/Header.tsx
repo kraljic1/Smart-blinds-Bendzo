@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import { BasketIcon } from './Basket/BasketIcon';
-import { X } from 'lucide-react';
+import { X, Menu } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { isDark, toggle } = useTheme();
@@ -90,43 +90,15 @@ const Header: React.FC = () => {
               )}
             </button>
             
-            <div className="ml-3 sm:hidden">
+            <div className="ml-3 sm:hidden relative z-50">
               <button
                 onClick={toggleMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white z-50"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
                 aria-expanded={isMenuOpen}
               >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-                <svg
-                  className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open main menu'}</span>
+                <Menu className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`} />
+                <X className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`} />
               </button>
             </div>
           </div>
@@ -138,7 +110,7 @@ const Header: React.FC = () => {
         <>
           {/* Completely opaque background overlay */}
           <div 
-            className="fixed inset-0 bg-gray-900 dark:bg-gray-900 z-40" 
+            className="fixed inset-0 bg-gray-900 bg-opacity-90 dark:bg-gray-900 z-40" 
             onClick={handleCloseMenu}
           />
           
