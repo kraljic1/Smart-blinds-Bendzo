@@ -21,6 +21,7 @@ import SmartControlGuidePage from './pages/SmartControlGuidePage';
 import ProductConfigurationPage from './pages/ProductConfigurationPage';
 import PricingDemoPage from './pages/PricingDemoPage';
 import BasketPage from './pages/BasketPage';
+import CheckoutPage from './pages/CheckoutPage';
 import ProductOptionDemoPage from './pages/ProductOptionDemoPage';
 import { preventOverscroll } from './utils/preventOverscroll';
 
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
                     <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
                     <Route path="/basket" element={<BasketPage />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
                   </Routes>
                 </main>
                 <Footer />

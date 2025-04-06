@@ -50,12 +50,12 @@ export function Basket() {
       <div className="basket-summary">
         <div className="basket-total">
           <span>Total:</span>
-          <span className="basket-total-price">${totalPrice.toFixed(2)}</span>
+          <span className="basket-total-price">€{totalPrice.toFixed(2)}</span>
         </div>
         
         <div className="basket-actions">
           <button onClick={handleContinueShopping} className="basket-continue-btn">Continue Shopping</button>
-          <button className="basket-checkout-btn">Proceed to Checkout</button>
+          <Link to="/checkout" className="basket-checkout-btn">Proceed to Checkout</Link>
         </div>
       </div>
     </div>
