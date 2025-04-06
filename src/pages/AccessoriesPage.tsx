@@ -21,7 +21,7 @@ const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS MATTER BRIDGE CM-55",
     price: 159.99,
     originalPrice: 189.99,
-    image: "/src/img/motori/wifi-bridge.webp",
+    image: "/src/img/accessories/motion bridge cm-55/0.webp",
     features: ["Matter"],
     colors: 1,
     colorHex: "#333333"
@@ -31,7 +31,7 @@ const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS 5-CHANNEL REMOTE CONTROL",
     price: 59.99,
     originalPrice: 79.99,
-    image: "/src/img/motori/remote.webp",
+    image: "/src/img/accessories/remote 5-channel/0.webp",
     features: ["5 Channels"],
     colors: 2,
     colorHex: "#FFFFFF"
@@ -41,7 +41,7 @@ const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS 15-CHANNEL REMOTE",
     price: 79.99,
     originalPrice: 99.99,
-    image: "/src/img/motori/remote.webp",
+    image: "/src/img/accessories/remote 15-channel/0.webp",
     features: ["15 Channels"],
     colors: 2,
     colorHex: "#000000"
@@ -51,7 +51,7 @@ const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS WI-FI BRIDGE CM-20",
     price: 129.99,
     originalPrice: 149.99,
-    image: "/src/img/motori/wifi-bridge.webp",
+    image: "/src/img/accessories/wifi bridge cm-20/0.webp",
     features: ["Wi-Fi"],
     colors: 1,
     colorHex: "#222222"
@@ -61,7 +61,7 @@ const accessories: AccessoryProduct[] = [
     name: "EVE ENERGY – SMART PLUG & RANGE EXTENDER",
     price: 49.99,
     originalPrice: 59.99,
-    image: "/src/img/motori/smart-plug.webp",
+    image: "/src/img/accessories/smart plug/0.webp",
     features: ["Matter"],
     colors: 1,
     colorHex: "#FFFFFF"
@@ -71,7 +71,7 @@ const accessories: AccessoryProduct[] = [
     name: "SMARTBLINDS USB-C CHARGING CABLE",
     price: 14.99,
     originalPrice: 19.99,
-    image: "/src/img/motori/usb-cable.webp",
+    image: "/src/img/accessories/usb-c cable/0.webp",
     features: ["Charging"],
     colors: 1,
     colorHex: "#000000"
@@ -102,7 +102,7 @@ const AccessoriesPage: React.FC = () => {
       <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
         <div className="absolute inset-0">
           <img 
-            src="/src/img/motori/hero.webp" 
+            src="/src/img/accessories/motion bridge cm-55/1.webp" 
             alt="Smart accessories showcase"
             className="w-full h-full object-cover"
           />
