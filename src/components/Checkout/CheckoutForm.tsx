@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useBasketContext } from '../../hooks/useBasketContext';
-import { countryPhoneCodes, CountryCode } from '../../../src/data/phoneCodes';
+import { countryPhoneCodes, CountryCode } from '../../data/phoneCodes';
 import './CheckoutForm.css';
 
 export function CheckoutForm() {
@@ -69,7 +69,7 @@ export function CheckoutForm() {
       });
       
       if (!response.ok) {
-        throw new Error('Form submission failed');
+        throw new Error(`Form submission failed: ${response.status} ${response.statusText}`);
       }
       
       // Form submitted successfully
@@ -93,17 +93,17 @@ export function CheckoutForm() {
       setFormStatus({
         submitting: false,
         success: false,
-        error: 'There was a problem submitting your order. Please try again.'
+        error: 'There was a problem submitting your order. Please try again or contact support.'
       });
     }
   };
   
   if (formStatus.success) {
     return (
-      <div className="checkout-success">
+      <div className="checkout-success" role="alert" aria-live="polite">
         <h2>Thank You for Your Order!</h2>
         <p>We have received your inquiry and will get back to you shortly.</p>
-        <p>A confirmation email has been sent to <strong>{formData.email}</strong>.</p>
+        <p>You should receive a confirmation on <strong>{formData.email}</strong> soon.</p>
       </div>
     );
   }
@@ -118,6 +118,7 @@ export function CheckoutForm() {
         data-netlify="true"
         onSubmit={handleSubmit}
         className="checkout-form"
+        aria-label="Checkout form"
       >
         {/* Netlify Forms hidden field */}
         <input type="hidden" name="form-name" value="checkout" />
@@ -134,6 +135,7 @@ export function CheckoutForm() {
             onChange={handleChange}
             required
             placeholder="Enter your full name"
+            aria-required="true"
           />
         </div>
         
@@ -147,18 +149,21 @@ export function CheckoutForm() {
             onChange={handleChange}
             required
             placeholder="Enter your email address"
+            aria-required="true"
           />
         </div>
         
         <div className="form-group phone-group">
           <label htmlFor="phoneNumber">Phone Number</label>
-          <div className="phone-input-container">
+          <div className="phone-input-container" role="group" aria-labelledby="phone-label">
+            <span id="phone-label" className="sr-only">Phone Number with country code</span>
             <select
               id="phoneCode"
               name="phoneCode"
               value={formData.phoneCode}
               onChange={handleChange}
               className="phone-code-select"
+              aria-label="Country code"
             >
               {countryPhoneCodes.map((country: CountryCode) => (
                 <option key={country.code} value={country.dial_code}>
@@ -175,6 +180,9 @@ export function CheckoutForm() {
               required
               placeholder="Enter your phone number"
               className="phone-number-input"
+              aria-required="true"
+              pattern="[0-9]+"
+              title="Please enter only numbers"
             />
           </div>
         </div>
@@ -189,6 +197,7 @@ export function CheckoutForm() {
             onChange={handleChange}
             required
             placeholder="Enter your full address"
+            aria-required="true"
           />
         </div>
         
@@ -201,10 +210,11 @@ export function CheckoutForm() {
             onChange={handleChange}
             rows={4}
             placeholder="Any special requests or additional information"
+            aria-label="Additional notes or requests"
           />
         </div>
         
-        <div className="checkout-summary">
+        <div className="checkout-summary" aria-label="Order summary">
           <h3>Order Summary</h3>
           <div className="checkout-items">
             {items.map((item, index) => (
@@ -225,15 +235,23 @@ export function CheckoutForm() {
         </div>
         
         {formStatus.error && (
-          <div className="checkout-error">{formStatus.error}</div>
+          <div className="checkout-error" role="alert">
+            {formStatus.error}
+          </div>
         )}
         
         <button 
           type="submit" 
           className="checkout-submit-btn"
           disabled={formStatus.submitting}
+          aria-busy={formStatus.submitting ? "true" : "false"}
         >
-          {formStatus.submitting ? 'Processing...' : 'Submit Order'}
+          {formStatus.submitting ? (
+            <>
+              <span className="loading-spinner"></span>
+              <span>Processing...</span>
+            </>
+          ) : 'Submit Order'}
         </button>
       </form>
     </div>
