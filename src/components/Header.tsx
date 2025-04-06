@@ -117,7 +117,6 @@ const Header: React.FC = () => {
               >
                 <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open main menu'}</span>
                 <Menu className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`} />
-                <X className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`} />
               </button>
             </div>
             
