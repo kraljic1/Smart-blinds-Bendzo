@@ -1,0 +1,73 @@
+/* Animations */
+.fade-in-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.fade-in-scale.opacity-100 {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slide-in-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.slide-in-up.opacity-100 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accessory Card Styles */
+.accessory-card {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accessory-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.product-image-container {
+  overflow: hidden;
+  background-color: rgba(245, 245, 245, 0.5);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.price-display {
+  position: relative;
+}
+
+.price-display::before {
+  content: '€';
+  margin-right: 3px;
+}
+
+.add-to-cart-btn {
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .product-image-container {
+    background-color: rgba(55, 65, 81, 0.5);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .accessory-card {
+    padding: 1rem;
+  }
+  
+  .product-image-container {
+    height: 10rem;
+  }
+} 
