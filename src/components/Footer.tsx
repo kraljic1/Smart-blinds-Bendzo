@@ -33,6 +33,11 @@ const Footer: React.FC = () => {
                   Curtain Blinds
                 </Link>
               </li>
+              <li>
+                <Link to="/products/accessories" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
+                  Accessories
+                </Link>
+              </li>
             </ul>
           </div>
           

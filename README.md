@@ -105,6 +105,7 @@ smartblinds/
 - Roller Blinds
 - Zebra Blinds
 - Curtain Tracks
+- Accessories
 
 ### Smart Features
 - Light Sensing

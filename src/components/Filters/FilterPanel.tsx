@@ -63,6 +63,9 @@ const FilterPanel: FC<FilterPanelProps> = ({
         return filterGroups.filter(group => 
           commonFilters.includes(group.id)
         );
+      case 'accessories':
+        // Return empty array for accessories - no filters shown
+        return [];
       case 'all':
       default:
         return filterGroups;

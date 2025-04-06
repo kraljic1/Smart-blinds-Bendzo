@@ -58,6 +58,7 @@ const ProductsPage: React.FC = () => {
     if (path.includes('roller-blinds')) return 'roller';
     if (path.includes('zebra-blinds')) return 'zebra';
     if (path.includes('curtain-blinds')) return 'curtain';
+    if (path.includes('accessories')) return 'accessories';
     return 'all';
   };
 
@@ -116,7 +117,8 @@ const ProductsPage: React.FC = () => {
               {currentCategoryId === 'all' ? 'All Products' : 
               currentCategoryId === 'roller' ? 'Roller Blinds' :
               currentCategoryId === 'zebra' ? 'Zebra Blinds' :
-              currentCategoryId === 'curtain' ? 'Curtain Blinds' : ''}
+              currentCategoryId === 'curtain' ? 'Curtain Blinds' : 
+              currentCategoryId === 'accessories' ? 'Accessories' : ''}
             </h2>
             
             {filteredProducts.length === 0 ? (

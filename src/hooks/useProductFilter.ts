@@ -33,6 +33,9 @@ export const getProductsByCategory = (categoryId: string): Product[] => {
       return zebraBlinds;
     case 'curtain':
       return curtainBlinds;
+    case 'accessories':
+      // For now, return an empty array as we're handling accessories separately
+      return [];
     default:
       return [];
   }
@@ -55,6 +58,11 @@ export const createCategoryFilter = (categoryId: string): FilterFunction | undef
       return (product) => product.id.includes('curtain') || 
                           product.id.includes('elegant') || 
                           product.id.includes('premium-curtain');
+    case 'accessories':
+      return (product) => product.id.includes('remote') || 
+                          product.id.includes('bridge') || 
+                          product.id.includes('hub') || 
+                          product.id.includes('wifi');
     default:
       return undefined;
   }
