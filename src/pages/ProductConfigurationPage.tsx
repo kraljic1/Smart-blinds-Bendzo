@@ -70,8 +70,7 @@ const ProductConfigurationPage = () => {
     const allProducts = [
       ...getProductsByCategory('roller'),
       ...getProductsByCategory('zebra'),
-      ...getProductsByCategory('curtain'),
-      ...getProductsByCategory('accessories')
+      ...getProductsByCategory('curtain')
     ];
     
     const foundProduct = allProducts.find(p => p.id === productId);

@@ -12,7 +12,6 @@ import ProductsPage from './pages/ProductsPage';
 import RollerBlindsPage from './pages/RollerBlindsPage';
 import ZebraBlindsPage from './pages/ZebraBlindsPage';
 import CurtainTracksPage from './pages/CurtainTracksPage';
-import AccessoriesPage from './pages/AccessoriesPage';
 import HowItWorksPage from './pages/HowItWorksPage';
 import SupportPage from './pages/SupportPage';
 import InstallationGuidePage from './pages/InstallationGuidePage';
@@ -45,7 +44,6 @@ function App() {
                     <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
                     <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
                     <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
-                    <Route path="/products/accessories" element={<AccessoriesPage />} />
                     <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
                     <Route path="/pricing-demo" element={<PricingDemoPage />} />
                     <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />

@@ -3,8 +3,7 @@ import { Product } from '../types/product';
 import { 
   rollerBlinds, 
   zebraBlinds, 
-  curtainBlinds, 
-  accessories 
+  curtainBlinds
 } from '../data/productData';
 
 type FilterFunction = (product: Product) => boolean;
@@ -27,15 +26,13 @@ export const useProductFilter = (
 export const getProductsByCategory = (categoryId: string): Product[] => {
   switch (categoryId) {
     case 'all':
-      return [...rollerBlinds, ...zebraBlinds, ...curtainBlinds, ...accessories];
+      return [...rollerBlinds, ...zebraBlinds, ...curtainBlinds];
     case 'roller':
       return rollerBlinds;
     case 'zebra':
       return zebraBlinds;
     case 'curtain':
       return curtainBlinds;
-    case 'accessories':
-      return accessories;
     default:
       return [];
   }
@@ -58,11 +55,6 @@ export const createCategoryFilter = (categoryId: string): FilterFunction | undef
       return (product) => product.id.includes('curtain') || 
                           product.id.includes('elegant') || 
                           product.id.includes('premium-curtain');
-    case 'accessories':
-      return (product) => product.id.includes('remote') || 
-                          product.id.includes('bridge') || 
-                          product.id.includes('hub') || 
-                          product.id.includes('cable');
     default:
       return undefined;
   }

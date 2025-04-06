@@ -9,11 +9,9 @@ import {
   textureCollection,
   zebraCollection,
   curtainCollection,
-  accessoriesCollection,
   rollerBlinds,
   zebraBlinds,
   curtainBlinds,
-  accessories,
   allProducts
 } from './collections';
 
@@ -28,10 +26,8 @@ export {
   textureCollection,
   zebraCollection,
   curtainCollection,
-  accessoriesCollection,
   rollerBlinds,
   zebraBlinds,
   curtainBlinds,
-  accessories,
   allProducts
 }; 

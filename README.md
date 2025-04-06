@@ -1,6 +1,6 @@
 # SmartBlinds - Smart Window Solutions
 
-A modern e-commerce platform for smart window coverings powered by Eve MotionBlinds motors. This project showcases a complete solution for browsing, configuring, and purchasing smart blinds and related accessories.
+A modern e-commerce platform for smart window coverings powered by Eve MotionBlinds motors. This project showcases a complete solution for browsing, configuring, and purchasing smart blinds.
 
 ![SmartBlinds Preview](https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80)
 
@@ -104,9 +104,7 @@ smartblinds/
 ### Product Categories
 - Roller Blinds
 - Zebra Blinds
-- Honeycomb Blinds
 - Curtain Tracks
-- Accessories
 
 ### Smart Features
 - Light Sensing

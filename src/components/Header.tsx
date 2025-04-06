@@ -51,10 +51,6 @@ const Header: React.FC = () => {
                 Curtain Blinds
                 <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
-              <Link to="/products/accessories" className={navLinkStyle}>
-                Accessories
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
-              </Link>
               <Link to="/how-it-works" className={navLinkStyle}>
                 How It Works
                 <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
@@ -148,13 +144,6 @@ const Header: React.FC = () => {
                 onClick={handleCloseMenu}
               >
                 Curtain Blinds
-              </Link>
-              <Link 
-                to="/products/accessories"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                Accessories
               </Link>
               <Link 
                 to="/how-it-works"

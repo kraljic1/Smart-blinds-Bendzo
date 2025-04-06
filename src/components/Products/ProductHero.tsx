@@ -18,7 +18,7 @@ const ProductHero: React.FC = () => {
             Smart Solutions for Modern Living
           </h1>
           <p className="text-xl text-gray-200 mb-8">
-            Discover our range of innovative smart blinds and accessories designed to transform your home
+            Discover our range of innovative smart blinds designed to transform your home
           </p>
           <Link
             to="/how-it-works"

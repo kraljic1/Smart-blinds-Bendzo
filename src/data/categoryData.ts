@@ -29,11 +29,5 @@ export const categories: Category[] = [
     name: 'Curtain Blinds',
     path: '/products/curtain-blinds',
     description: 'Elegant curtain solutions for your windows'
-  },
-  { 
-    id: 'accessories', 
-    name: 'Accessories',
-    path: '/products/accessories',
-    description: 'Remote controls, hubs, and more'
   }
 ]; 
