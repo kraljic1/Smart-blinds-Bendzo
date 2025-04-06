@@ -56,15 +56,20 @@ export function CheckoutForm() {
         totalPrice: getTotalPrice().toFixed(2)
       };
       
+      console.log('Submitting form data:', formSubmission);
+      
       // Encode data for submission
       const encodedData = Object.keys(formSubmission).map(key => 
         encodeURIComponent(key) + '=' + encodeURIComponent(formSubmission[key as keyof typeof formSubmission])
       ).join('&');
       
       // Submit form to Netlify
-      const response = await fetch('/', {
+      const response = await fetch('/?no-cache=1', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: { 
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cache-Control': 'no-cache'
+        },
         body: encodedData
       });
       
@@ -90,10 +95,20 @@ export function CheckoutForm() {
       
     } catch (error) {
       console.error('Checkout form submission error:', error);
+      let errorMessage = 'There was a problem submitting your order. Please try again or contact support.';
+      
+      if (error instanceof Error) {
+        console.error('Error details:', error.message);
+        // Add more specific error messages if needed
+        if (error.message.includes('404')) {
+          errorMessage = 'The order submission service is currently unavailable. Please try again later or contact support.';
+        }
+      }
+      
       setFormStatus({
         submitting: false,
         success: false,
-        error: 'There was a problem submitting your order. Please try again or contact support.'
+        error: errorMessage
       });
     }
   };
