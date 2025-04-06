@@ -2,8 +2,10 @@ import React from 'react';
 import { Product } from '../types/product';
 import {
   CardRoot,
+  CardImage,
   CardContent,
   CardTitle,
+  CardPrice,
   CardActions,
 } from './Card';
 
@@ -34,36 +36,38 @@ const AccessoryProductCard: React.FC<AccessoryProductCardProps> = ({
       }}
     >
       <CardRoot className="h-full flex flex-col">
-        <div className="bg-gray-200 dark:bg-gray-700 p-6 rounded-t-lg flex items-center justify-center">
-          <div className="w-full aspect-square flex items-center justify-center">
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              className="max-h-full max-w-full object-contain"
-            />
-          </div>
+        <div className="relative">
+          <CardImage src={product.image} alt={product.name} />
         </div>
 
-        <CardContent className="flex-grow flex flex-col p-6">
-          <div className="mb-4">
-            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
-              {product.name}
+        <CardContent className="flex-grow flex flex-col min-h-[240px]">
+          <div className="h-14 mb-2">
+            <CardTitle className="line-clamp-2 h-full flex items-center">
+              {product.name.toUpperCase()}
             </CardTitle>
           </div>
 
-          <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-6">
-            ${product.price.toFixed(2)}
-            {product.originalPrice !== product.price && (
-              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">
-                ${product.originalPrice.toFixed(2)}
+          <div className="flex flex-wrap gap-2 mb-4">
+            {product.features && product.features.map((feature, i) => (
+              <span
+                key={i}
+                className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm uppercase"
+              >
+                {feature}
               </span>
-            )}
+            ))}
           </div>
+
+          <CardPrice
+            price={product.price}
+            originalPrice={product.originalPrice}
+            className="mb-4"
+          />
 
           <CardActions className="mt-auto">
             <button
               onClick={handleAddToCart}
-              className="w-full bg-green-500 hover:bg-green-600 text-white text-center py-4 rounded transition-colors duration-200 uppercase font-medium tracking-wide"
+              className="w-full bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600 transition uppercase dark:bg-green-500 dark:hover:bg-green-600"
             >
               ADD TO CART
             </button>
