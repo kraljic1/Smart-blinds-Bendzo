@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Wifi, Smartphone } from 'lucide-react';
+import { Sun, Wifi, Smartphone, Cable, Radio } from 'lucide-react';
 import SEO from '../components/SEO';
 import '../styles/AccessoriesPage.css';
 
@@ -17,34 +17,64 @@ interface AccessoryProduct {
 
 const accessories: AccessoryProduct[] = [
   {
-    id: "wifi-bridge",
-    name: "WIFI BRIDGE",
+    id: "matter-bridge-cm55",
+    name: "MOTIONBLINDS MATTER BRIDGE CM-55",
     price: 159.99,
     originalPrice: 189.99,
     image: "/src/img/motori/wifi-bridge.webp",
-    features: ["Smart Control"],
-    colors: 2,
-    colorHex: "#000000"
+    features: ["Matter"],
+    colors: 1,
+    colorHex: "#333333"
   },
   {
-    id: "remote-control",
-    name: "REMOTE CONTROL",
+    id: "remote-5-channel",
+    name: "MOTIONBLINDS 5-CHANNEL REMOTE CONTROL",
     price: 59.99,
     originalPrice: 79.99,
     image: "/src/img/motori/remote.webp",
-    features: ["15 Channels"],
+    features: ["5 Channels"],
     colors: 2,
     colorHex: "#FFFFFF"
   },
   {
-    id: "smart-hub",
-    name: "SMART HUB",
+    id: "remote-15-channel",
+    name: "MOTIONBLINDS 15-CHANNEL REMOTE",
+    price: 79.99,
+    originalPrice: 99.99,
+    image: "/src/img/motori/remote.webp",
+    features: ["15 Channels"],
+    colors: 2,
+    colorHex: "#000000"
+  },
+  {
+    id: "wifi-bridge-cm20",
+    name: "MOTIONBLINDS WI-FI BRIDGE CM-20",
     price: 129.99,
     originalPrice: 149.99,
     image: "/src/img/motori/wifi-bridge.webp",
-    features: ["Voice Control"],
+    features: ["Wi-Fi"],
     colors: 1,
-    colorHex: "#333333"
+    colorHex: "#222222"
+  },
+  {
+    id: "eve-smart-plug",
+    name: "EVE ENERGY – SMART PLUG & RANGE EXTENDER",
+    price: 49.99,
+    originalPrice: 59.99,
+    image: "/src/img/motori/smart-plug.webp",
+    features: ["Matter"],
+    colors: 1,
+    colorHex: "#FFFFFF"
+  },
+  {
+    id: "usb-c-cable",
+    name: "SMARTBLINDS USB-C CHARGING CABLE",
+    price: 14.99,
+    originalPrice: 19.99,
+    image: "/src/img/motori/usb-cable.webp",
+    features: ["Charging"],
+    colors: 1,
+    colorHex: "#000000"
   }
 ];
 
@@ -128,10 +158,14 @@ const AccessoriesPage: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-2 mb-4">
                   <span className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm uppercase">
-                    {product.features[0] === "Smart Control" ? (
+                    {product.features[0] === "Smart Control" || product.features[0] === "Wi-Fi" ? (
                       <><Wifi className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
-                    ) : product.features[0] === "Voice Control" ? (
+                    ) : product.features[0] === "Voice Control" || product.features[0] === "Matter" ? (
                       <><Smartphone className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
+                    ) : product.features[0] === "5 Channels" || product.features[0] === "15 Channels" ? (
+                      <><Radio className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
+                    ) : product.features[0] === "Charging" ? (
+                      <><Cable className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
                     ) : (
                       <><Sun className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
                     )}
