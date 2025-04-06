@@ -1,5 +1,13 @@
 import { Product } from '../../types/product';
 
+// Import images using URL constructor for proper path resolution
+const curtainTrackImg = new URL('../../img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/curtain_track.webp', import.meta.url).href;
+const detailshotImg = new URL('../../img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/medium_web-sb_gordijnrails_detailshot.webp', import.meta.url).href;
+const kleurenImg = new URL('../../img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_kleuren.webp', import.meta.url).href;
+const renderImg = new URL('../../img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_render.webp', import.meta.url).href;
+const afmetingenImg = new URL('../../img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen.webp', import.meta.url).href;
+const afmetingen2Img = new URL('../../img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen_2.webp', import.meta.url).href;
+
 // Curtain blinds
 export const curtainCollection: Product[] = [
   {
@@ -27,14 +35,14 @@ export const curtainCollection: Product[] = [
     name: "Electric curtain tracks",
     price: 349.99,
     originalPrice: 389.99,
-    image: "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/curtain_track.webp",
+    image: curtainTrackImg,
     images: [
-      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/curtain_track.webp",
-      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/medium_web-sb_gordijnrails_detailshot.webp",
-      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_kleuren.webp",
-      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_render.webp",
-      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen.webp",
-      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen_2.webp"
+      curtainTrackImg,
+      detailshotImg,
+      kleurenImg,
+      renderImg,
+      afmetingenImg,
+      afmetingen2Img
     ],
     features: ["Light filtering"],
     colors: 2,
