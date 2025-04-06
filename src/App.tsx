@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import Layout from './components/Layout';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import TouchFriendly from './components/TouchFriendly';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import RollerBlindsPage from './pages/RollerBlindsPage';
@@ -30,37 +31,39 @@ function App() {
   }, []);
 
   return (
-    <HelmetProvider>
-      <ThemeProvider>
-        <BasketProvider>
-          <Router>
-            <Layout>
-              <Header />
-              <main className="flex-grow overflow-x-hidden">
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/products" element={<ProductsPage />} />
-                  <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
-                  <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
-                  <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
-                  <Route path="/products/accessories" element={<AccessoriesPage />} />
-                  <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
-                  <Route path="/pricing-demo" element={<PricingDemoPage />} />
-                  <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
-                  <Route path="/how-it-works" element={<HowItWorksPage />} />
-                  <Route path="/support" element={<SupportPage />} />
-                  <Route path="/installation-guide" element={<InstallationGuidePage />} />
-                  <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
-                  <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
-                  <Route path="/basket" element={<BasketPage />} />
-                </Routes>
-              </main>
-              <Footer />
-            </Layout>
-          </Router>
-        </BasketProvider>
-      </ThemeProvider>
-    </HelmetProvider>
+    <TouchFriendly>
+      <HelmetProvider>
+        <ThemeProvider>
+          <BasketProvider>
+            <Router>
+              <Layout>
+                <Header />
+                <main className="flex-grow overflow-x-hidden">
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/products" element={<ProductsPage />} />
+                    <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
+                    <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
+                    <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
+                    <Route path="/products/accessories" element={<AccessoriesPage />} />
+                    <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
+                    <Route path="/pricing-demo" element={<PricingDemoPage />} />
+                    <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
+                    <Route path="/how-it-works" element={<HowItWorksPage />} />
+                    <Route path="/support" element={<SupportPage />} />
+                    <Route path="/installation-guide" element={<InstallationGuidePage />} />
+                    <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
+                    <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
+                    <Route path="/basket" element={<BasketPage />} />
+                  </Routes>
+                </main>
+                <Footer />
+              </Layout>
+            </Router>
+          </BasketProvider>
+        </ThemeProvider>
+      </HelmetProvider>
+    </TouchFriendly>
   );
 }
 

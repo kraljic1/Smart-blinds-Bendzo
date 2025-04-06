@@ -1,0 +1,14 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base shape with iOS rounded corners -->
+  <rect width="180" height="180" rx="45" fill="#3B82F6" />
+  
+  <!-- Window blinds representation (scaled and centered) -->
+  <rect x="40" y="50" width="100" height="10" rx="5" fill="white" />
+  <rect x="40" y="75" width="100" height="10" rx="5" fill="white" />
+  <rect x="40" y="100" width="100" height="10" rx="5" fill="white" />
+  <rect x="40" y="125" width="100" height="10" rx="5" fill="white" />
+  
+  <!-- Pull cord -->
+  <line x1="115" y1="50" x2="115" y2="145" stroke="white" stroke-width="6" />
+  <circle cx="115" cy="155" r="8" fill="white" />
+</svg> 

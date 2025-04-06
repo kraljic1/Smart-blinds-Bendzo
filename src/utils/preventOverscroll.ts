@@ -1,42 +1,47 @@
 /**
  * Utility to prevent overscroll/bouncing effect on mobile devices
+ * while preserving normal touch interactions
  */
 
 export const preventOverscroll = () => {
-  // Prevent overscroll on document
+  // Function to determine if an element is scrollable
+  const isScrollable = (element: Element): boolean => {
+    if (!(element instanceof HTMLElement)) return false;
+    
+    const style = window.getComputedStyle(element);
+    const overflowY = style.getPropertyValue('overflow-y');
+    const overflowX = style.getPropertyValue('overflow-x');
+    
+    return (
+      element.scrollHeight > element.clientHeight && 
+      (overflowY === 'auto' || overflowY === 'scroll')
+    ) || (
+      element.scrollWidth > element.clientWidth && 
+      (overflowX === 'auto' || overflowX === 'scroll')
+    );
+  };
+
+  // Find scrollable parent
+  const getScrollableParent = (element: Element | null): Element | null => {
+    if (!element) return document.scrollingElement || document.documentElement;
+    
+    if (isScrollable(element)) return element;
+    
+    return getScrollableParent(element.parentElement);
+  };
+
+  // Only prevent default when at boundaries of scrollable element
   document.addEventListener('touchmove', (e) => {
-    // Allow scrolling inside scrollable elements
-    if (
-      e.target instanceof Element && 
-      (e.target.closest('.scrollable') || 
-       e.target.classList.contains('scrollable'))
-    ) {
-      return;
-    }
+    // Always allow two or more finger gestures (pinch zoom, etc)
+    if (e.touches.length > 1) return;
     
-    // Prevent overscroll bounce
-    const isVerticalScroll = window.innerHeight < document.body.scrollHeight;
-    const isHorizontalScroll = window.innerWidth < document.body.scrollWidth;
-
-    if (!isVerticalScroll && !isHorizontalScroll) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  // Prevent touchstart bounce on iOS Safari
-  document.addEventListener('touchstart', (e) => {
-    // Get current scroll position
-    const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
-    const scrollLeft = window.scrollX || window.pageXOffset || document.documentElement.scrollLeft;
+    const scrollingElement = getScrollableParent(e.target as Element);
     
-    // Prevent bounce when at the edge of scroll container
-    if (
-      (scrollTop <= 0 && e.touches[0].screenY > 100) || // At top and swiping down
-      (scrollLeft <= 0 && e.touches[0].screenX > 100) || // At left and swiping right
-      (scrollTop >= document.documentElement.scrollHeight - window.innerHeight && e.touches[0].screenY < window.innerHeight - 100) || // At bottom and swiping up
-      (scrollLeft >= document.documentElement.scrollWidth - window.innerWidth && e.touches[0].screenX < window.innerWidth - 100) // At right and swiping left
-    ) {
-      e.preventDefault();
-    }
+    // Let default scroll behavior happen on scrollable elements
+    if (scrollingElement) return;
+    
+    // Only prevent in cases where it would cause bounce effects
+    // but not interfere with normal touch interactions
+    e.preventDefault();
   }, { passive: false });
 }; 
