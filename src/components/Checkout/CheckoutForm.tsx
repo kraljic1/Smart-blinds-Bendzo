@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { countryPhoneCodes, CountryCode } from '../../data/phoneCodes';
 import './CheckoutForm.css';
 
 export function CheckoutForm() {
   const { items, getTotalPrice, clearBasket } = useBasketContext();
+  const formRef = useRef<HTMLFormElement>(null);
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -98,6 +99,19 @@ export function CheckoutForm() {
       
       if (error instanceof Error) {
         console.error('Error details:', error.message);
+        
+        // Try direct form submission as a fallback
+        if (formRef.current) {
+          console.log('Attempting direct form submission as fallback...');
+          try {
+            // Use the native form submission as a fallback
+            formRef.current.submit();
+            return; // Don't show error if we're trying the fallback
+          } catch (fallbackError) {
+            console.error('Fallback submission failed:', fallbackError);
+          }
+        }
+        
         // Add more specific error messages if needed
         if (error.message.includes('404')) {
           errorMessage = 'The order submission service is currently unavailable. Please try again later or contact support.';
@@ -127,6 +141,7 @@ export function CheckoutForm() {
       <h2>Checkout</h2>
       
       <form
+        ref={formRef}
         name="checkout"
         method="POST"
         action="/thank-you"

@@ -7,3 +7,12 @@
   from = "/*"
   to = "/index.html"
   status = 200 
+
+# Additional settings for form handling
+[build.processing.html]
+  pretty_urls = true
+
+# Form notifications
+[forms]
+  [forms.checkout]
+    name = "Order Submission Form" 
