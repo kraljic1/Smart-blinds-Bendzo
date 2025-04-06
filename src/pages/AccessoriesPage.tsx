@@ -5,6 +5,30 @@ import SEO from '../components/SEO';
 import '../styles/AccessoriesPage.css';
 import { Product } from '../types/product';
 
+// Import images for Matter Bridge
+import matterBridge0 from '../img/accessories/motion bridge cm-55/0.webp';
+import matterBridge1 from '../img/accessories/motion bridge cm-55/1.webp';
+import matterBridge2 from '../img/accessories/motion bridge cm-55/2.webp';
+import matterBridge3 from '../img/accessories/motion bridge cm-55/3.webp';
+
+// Import images for Remote 5 Channel
+import remote5channel0 from '../img/accessories/remote 5-channel/0.webp';
+
+// Import images for Remote 15 Channel
+import remote15channel0 from '../img/accessories/remote 15-channel/0.webp';
+
+// Import images for WiFi Bridge
+import wifiBridge0 from '../img/accessories/wifi bridge cm-20/0.webp';
+
+// Import images for Smart Plug
+import smartPlug0 from '../img/accessories/smart plug /0.webp';
+import smartPlug1 from '../img/accessories/smart plug /1.webp';
+import smartPlug2 from '../img/accessories/smart plug /2.webp';
+
+// Import images for USB Cable
+import usbCable0 from '../img/accessories/usb-c cable/0.webp';
+import usbCable1 from '../img/accessories/usb-c cable/1.webp';
+
 interface AccessoryProduct extends Product {
   features: string[];
   colors: number;
@@ -19,16 +43,16 @@ export const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS MATTER BRIDGE CM-55",
     price: 159.99,
     originalPrice: 189.99,
-    image: "src/img/accessories/motion bridge cm-55/0.webp",
+    image: matterBridge0,
     features: ["Matter"],
     colors: 1,
     colorHex: "#333333",
     fabricColor: "#333333",
     images: [
-      "src/img/accessories/motion bridge cm-55/0.webp",
-      "src/img/accessories/motion bridge cm-55/1.webp",
-      "src/img/accessories/motion bridge cm-55/2.webp",
-      "src/img/accessories/motion bridge cm-55/3.webp"
+      matterBridge0,
+      matterBridge1,
+      matterBridge2,
+      matterBridge3
     ]
   },
   {
@@ -36,13 +60,13 @@ export const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS 5-CHANNEL REMOTE CONTROL",
     price: 59.99,
     originalPrice: 79.99,
-    image: "src/img/accessories/remote 5-channel/0.webp",
+    image: remote5channel0,
     features: ["5 Channels"],
     colors: 2,
     colorHex: "#FFFFFF",
     fabricColor: "#FFFFFF",
     images: [
-      "src/img/accessories/remote 5-channel/0.webp"
+      remote5channel0
     ]
   },
   {
@@ -50,13 +74,13 @@ export const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS 15-CHANNEL REMOTE",
     price: 79.99,
     originalPrice: 99.99,
-    image: "src/img/accessories/remote 15-channel/0.webp",
+    image: remote15channel0,
     features: ["15 Channels"],
     colors: 2,
     colorHex: "#000000",
     fabricColor: "#000000",
     images: [
-      "src/img/accessories/remote 15-channel/0.webp"
+      remote15channel0
     ]
   },
   {
@@ -64,13 +88,13 @@ export const accessories: AccessoryProduct[] = [
     name: "MOTIONBLINDS WI-FI BRIDGE CM-20",
     price: 129.99,
     originalPrice: 149.99,
-    image: "src/img/accessories/wifi bridge cm-20/0.webp",
+    image: wifiBridge0,
     features: ["Wi-Fi"],
     colors: 1,
     colorHex: "#222222",
     fabricColor: "#222222",
     images: [
-      "src/img/accessories/wifi bridge cm-20/0.webp"
+      wifiBridge0
     ]
   },
   {
@@ -78,15 +102,15 @@ export const accessories: AccessoryProduct[] = [
     name: "EVE ENERGY – SMART PLUG & RANGE EXTENDER",
     price: 49.99,
     originalPrice: 59.99,
-    image: "src/img/accessories/smart plug /0.webp",
+    image: smartPlug0,
     features: ["Matter"],
     colors: 1,
     colorHex: "#FFFFFF",
     fabricColor: "#FFFFFF",
     images: [
-      "src/img/accessories/smart plug /0.webp",
-      "src/img/accessories/smart plug /1.webp",
-      "src/img/accessories/smart plug /2.webp"
+      smartPlug0,
+      smartPlug1,
+      smartPlug2
     ]
   },
   {
@@ -94,14 +118,14 @@ export const accessories: AccessoryProduct[] = [
     name: "SMARTBLINDS USB-C CHARGING CABLE",
     price: 14.99,
     originalPrice: 19.99,
-    image: "src/img/accessories/usb-c cable/0.webp",
+    image: usbCable0,
     features: ["Charging"],
     colors: 1,
     colorHex: "#000000",
     fabricColor: "#000000",
     images: [
-      "src/img/accessories/usb-c cable/0.webp",
-      "src/img/accessories/usb-c cable/1.webp"
+      usbCable0,
+      usbCable1
     ]
   }
 ];
@@ -130,7 +154,7 @@ const AccessoriesPage: React.FC = () => {
       <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
         <div className="absolute inset-0">
           <img 
-            src="src/img/accessories/motion bridge cm-55/2.webp" 
+            src={matterBridge2} 
             alt="Smart accessories showcase"
             className="w-full h-full object-cover"
           />
