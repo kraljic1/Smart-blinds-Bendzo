@@ -15,4 +15,8 @@
 # Form notifications
 [forms]
   [forms.checkout]
-    name = "Order Submission Form" 
+    name = "Order Submission Form"
+    [forms.checkout.notifications]
+      [forms.checkout.notifications.email]
+        to = "vidk@codeandsail.com"
+        subject = "New order submission from Smartblinds" 
