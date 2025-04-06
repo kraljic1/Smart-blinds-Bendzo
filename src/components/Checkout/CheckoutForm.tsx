@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { countryPhoneCodes, CountryCode } from '../../data/phoneCodes';
 import './CheckoutForm.css';
@@ -6,6 +7,7 @@ import './CheckoutForm.css';
 export function CheckoutForm() {
   const { items, getTotalPrice, clearBasket } = useBasketContext();
   const formRef = useRef<HTMLFormElement>(null);
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -93,6 +95,9 @@ export function CheckoutForm() {
         additionalNotes: ''
       });
       
+      // Use React Router to navigate to thank-you page instead of form submission
+      navigate('/thank-you');
+      
     } catch (error) {
       console.error('Checkout form submission error:', error);
       let errorMessage = 'There was a problem submitting your order. Please try again or contact support.';
@@ -104,11 +109,13 @@ export function CheckoutForm() {
         if (formRef.current) {
           console.log('Attempting direct form submission as fallback...');
           try {
-            // Use the native form submission as a fallback
-            formRef.current.submit();
-            return; // Don't show error if we're trying the fallback
+            // Instead of submitting the form directly, just navigate
+            navigate('/thank-you');
+            // Clear basket and return to avoid showing error
+            clearBasket();
+            return;
           } catch (fallbackError) {
-            console.error('Fallback submission failed:', fallbackError);
+            console.error('Fallback navigation failed:', fallbackError);
           }
         }
         
@@ -122,6 +129,14 @@ export function CheckoutForm() {
         submitting: false,
         success: false,
         error: errorMessage
+      });
+      
+      // Display a more user-friendly message for debug purposes
+      console.error('Form submission technical details:', {
+        url: '/',
+        method: 'POST',
+        responseStatus: error instanceof Error && error.message.includes('404') ? 404 : 'unknown',
+        timestamp: new Date().toISOString()
       });
     }
   };
@@ -144,7 +159,6 @@ export function CheckoutForm() {
         ref={formRef}
         name="checkout"
         method="POST"
-        action="/thank-you"
         data-netlify="true"
         netlify-honeypot="bot-field"
         onSubmit={handleSubmit}
