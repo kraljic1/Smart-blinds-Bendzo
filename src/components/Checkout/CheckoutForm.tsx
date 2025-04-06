@@ -33,7 +33,8 @@ export function CheckoutForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    // Don't prevent default - let the form submit naturally
+    // e.preventDefault();
     
     setFormStatus({ submitting: true, success: false, error: null });
     
@@ -61,46 +62,15 @@ export function CheckoutForm() {
       
       console.log('Submitting form data:', formSubmission);
       
-      // Encode data for submission
-      const encodedData = Object.keys(formSubmission).map(key => 
-        encodeURIComponent(key) + '=' + encodeURIComponent(formSubmission[key as keyof typeof formSubmission])
-      ).join('&');
-      
-      // Submit form to Netlify
-      const response = await fetch('https://bendzo-smart-blinds.netlify.app/', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: encodedData
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Form submission failed: ${response.status} ${response.statusText}`);
-      }
-      
-      // Form submitted successfully
-      setFormStatus({ submitting: false, success: true, error: null });
-      
-      // Clear the basket after successful submission
+      // Let the form submit naturally - don't use fetch
+      // Clear the basket after submission will happen when user returns
       clearBasket();
-      
-      // Reset form
-      setFormData({
-        fullName: '',
-        email: '',
-        phoneCode: '+1',
-        phoneNumber: '',
-        address: '',
-        additionalNotes: ''
-      });
-      
-      // Use React Router to navigate to thank-you page instead of form submission
-      navigate('/thank-you');
       
     } catch (error) {
       console.error('Checkout form submission error:', error);
-      let errorMessage = 'There was a problem submitting your order. Please try again or contact support.';
+      e.preventDefault(); // Prevent form submission only if there's an error
+      
+      const errorMessage = 'There was a problem submitting your order. Please try again or contact support.';
       
       if (error instanceof Error) {
         console.error('Error details:', error.message);
@@ -109,19 +79,12 @@ export function CheckoutForm() {
         if (formRef.current) {
           console.log('Attempting direct form submission as fallback...');
           try {
-            // Instead of submitting the form directly, just navigate
             navigate('/thank-you');
-            // Clear basket and return to avoid showing error
             clearBasket();
             return;
           } catch (fallbackError) {
             console.error('Fallback navigation failed:', fallbackError);
           }
-        }
-        
-        // Add more specific error messages if needed
-        if (error.message.includes('404')) {
-          errorMessage = 'The order submission service is currently unavailable. Please try again later or contact support.';
         }
       }
       
@@ -129,14 +92,6 @@ export function CheckoutForm() {
         submitting: false,
         success: false,
         error: errorMessage
-      });
-      
-      // Display a more user-friendly message for debug purposes
-      console.error('Form submission technical details:', {
-        url: '/',
-        method: 'POST',
-        responseStatus: error instanceof Error && error.message.includes('404') ? 404 : 'unknown',
-        timestamp: new Date().toISOString()
       });
     }
   };
@@ -159,9 +114,10 @@ export function CheckoutForm() {
         ref={formRef}
         name="checkout"
         method="POST"
-        action="https://bendzo-smart-blinds.netlify.app/"
+        action="https://bendzosmartblinds.netlify.app/"
         data-netlify="true"
         netlify-honeypot="bot-field"
+        data-netlify-success="/thank-you"
         onSubmit={handleSubmit}
         className="checkout-form"
         aria-label="Checkout form"
