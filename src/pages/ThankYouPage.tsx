@@ -18,7 +18,7 @@ const ThankYouPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
       <SEO 
-        title="Thank You for Your Order | BENDZO"
+        title="Thank You for Your Order | Smartblinds Croatia"
         description="Your order has been successfully submitted."
       />
       

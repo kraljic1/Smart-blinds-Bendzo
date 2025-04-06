@@ -36,7 +36,7 @@ const Header: React.FC = () => {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">
-                Smartblinds
+                Smartblinds Croatia
               </Link>
             </div>
             

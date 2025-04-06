@@ -16,7 +16,7 @@ export default function CheckoutPage() {
   return (
     <>
       <SEO 
-        title="Checkout | BENDZO" 
+        title="Checkout | Smartblinds Croatia"
         description="Complete your order by providing shipping and contact information."
       />
       <div className="container mx-auto px-4 py-8">

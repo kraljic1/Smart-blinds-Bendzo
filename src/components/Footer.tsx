@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Mail } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -9,7 +10,7 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Smartblinds</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Smartblinds Croatia</h3>
             <p className="text-gray-600 dark:text-gray-300 text-sm">
               Premium smart window coverings for the modern home. Control your blinds with your voice, smartphone, or remote.
             </p>
@@ -69,11 +70,12 @@ const Footer: React.FC = () => {
           
           <div>
             <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Contact</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-              <a href="mailto:info@smartblinds.com" className="hover:text-gray-900 dark:hover:text-white">
-                info@smartblinds.com
+            <div className="flex items-center mt-2">
+              <Mail className="h-5 w-5 mr-2 text-gray-400" />
+              <a href="mailto:info@smartblinds-croatia.com" className="hover:text-gray-900 dark:hover:text-white">
+                info@smartblinds-croatia.com
               </a>
-            </p>
+            </div>
             <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
               <a href="tel:+1234567890" className="hover:text-gray-900 dark:hover:text-white">
                 +1 (234) 567-890
@@ -96,10 +98,8 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <p className="text-gray-500 dark:text-gray-400 text-sm text-center">
-            &copy; {currentYear} Smartblinds. All rights reserved.
-          </p>
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
+          &copy; {currentYear} Smartblinds Croatia. All rights reserved.
         </div>
       </div>
     </footer>

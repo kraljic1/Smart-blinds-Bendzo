@@ -306,7 +306,7 @@ const ProductConfigurationPage = () => {
     <div className="pt-20 pb-24 sm:pt-24 sm:pb-32" ref={containerRef}>
       {product && (
         <SEO
-          title={`${product.name} - Configure Your Smart Blind | Smartblinds`}
+          title={`${product.name} - Configure Your Smart Blind | Smartblinds Croatia`}
           description={`Customize your ${product.name} with our easy-to-use configurator. Choose dimensions, colors, and features to create the perfect smart blind for your home.`}
           keywords={`smart blinds, ${product.name.toLowerCase()}, window automation, smart home, blinds configurator`}
           ogType="product"

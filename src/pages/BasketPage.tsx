@@ -5,9 +5,9 @@ import Breadcrumb from '../components/Breadcrumb';
 export default function BasketPage() {
   return (
     <>
-      <SEO 
-        title="Shopping Basket | BENDZO" 
-        description="View and manage your shopping basket."
+      <SEO
+        title="Shopping Basket | Smartblinds Croatia"
+        description="Review your selections and proceed to checkout."
       />
       <div className="container mx-auto px-4 py-8">
         <Breadcrumb

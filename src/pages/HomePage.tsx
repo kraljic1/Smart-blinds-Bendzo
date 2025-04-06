@@ -21,8 +21,8 @@ const HomePage: React.FC = () => {
   return (
     <>
       <SEO 
-        title="BENDZO Smart Blinds | Intelligent Window Solutions"
-        description="Automate your home with BENDZO Smart Blinds. Control light and privacy with voice commands, apps, or smart home systems."
+        title="Smartblinds Croatia - Intelligent window solution"
+        description="Automate your home with Smartblinds Croatia. Control light and privacy with voice commands, apps, or smart home systems."
       />
       <Hero images={heroImages} autoChangeInterval={4500} />
       <Features />
