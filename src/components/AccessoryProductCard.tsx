@@ -4,7 +4,6 @@ import {
   CardRoot,
   CardContent,
   CardTitle,
-  CardPrice,
   CardActions,
 } from './Card';
 
@@ -35,8 +34,8 @@ const AccessoryProductCard: React.FC<AccessoryProductCardProps> = ({
       }}
     >
       <CardRoot className="h-full flex flex-col">
-        <div className="relative bg-gray-200 dark:bg-gray-700 rounded-t-lg overflow-hidden">
-          <div className="flex items-center justify-center h-56 p-6">
+        <div className="bg-gray-200 dark:bg-gray-700 p-6 rounded-t-lg flex items-center justify-center">
+          <div className="w-full aspect-square flex items-center justify-center">
             <img 
               src={product.image} 
               alt={product.name} 
@@ -45,25 +44,28 @@ const AccessoryProductCard: React.FC<AccessoryProductCardProps> = ({
           </div>
         </div>
 
-        <CardContent className="flex-grow flex flex-col min-h-[180px] p-5">
-          <div className="mb-3">
-            <CardTitle className="line-clamp-2 text-xl font-bold">
+        <CardContent className="flex-grow flex flex-col p-6">
+          <div className="mb-4">
+            <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
               {product.name}
             </CardTitle>
           </div>
 
-          <CardPrice
-            price={product.price}
-            originalPrice={product.originalPrice}
-            className="mb-4"
-          />
+          <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-6">
+            ${product.price.toFixed(2)}
+            {product.originalPrice !== product.price && (
+              <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">
+                ${product.originalPrice.toFixed(2)}
+              </span>
+            )}
+          </div>
 
           <CardActions className="mt-auto">
             <button
               onClick={handleAddToCart}
-              className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition uppercase font-medium"
+              className="w-full bg-green-500 hover:bg-green-600 text-white text-center py-4 rounded transition-colors duration-200 uppercase font-medium tracking-wide"
             >
-              Add to Cart
+              ADD TO CART
             </button>
           </CardActions>
         </CardContent>
