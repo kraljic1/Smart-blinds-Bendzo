@@ -6,6 +6,9 @@ import {
   curtainBlinds
 } from '../data/productData';
 
+// Import accessories from AccessoriesPage
+import { accessories } from '../pages/AccessoriesPage';
+
 type FilterFunction = (product: Product) => boolean;
 
 export const useProductFilter = (
@@ -26,7 +29,7 @@ export const useProductFilter = (
 export const getProductsByCategory = (categoryId: string): Product[] => {
   switch (categoryId) {
     case 'all':
-      return [...rollerBlinds, ...zebraBlinds, ...curtainBlinds];
+      return [...rollerBlinds, ...zebraBlinds, ...curtainBlinds, ...accessories];
     case 'roller':
       return rollerBlinds;
     case 'zebra':
@@ -34,8 +37,7 @@ export const getProductsByCategory = (categoryId: string): Product[] => {
     case 'curtain':
       return curtainBlinds;
     case 'accessories':
-      // For now, return an empty array as we're handling accessories separately
-      return [];
+      return accessories;
     default:
       return [];
   }

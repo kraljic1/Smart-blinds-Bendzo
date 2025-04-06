@@ -70,13 +70,26 @@ const ProductConfigurationPage = () => {
     const allProducts = [
       ...getProductsByCategory('roller'),
       ...getProductsByCategory('zebra'),
-      ...getProductsByCategory('curtain')
+      ...getProductsByCategory('curtain'),
+      ...getProductsByCategory('accessories')
     ];
     
     const foundProduct = allProducts.find(p => p.id === productId);
     
     if (foundProduct) {
       setProduct(foundProduct);
+      
+      // Auto-calculate for accessories - they don't need dimensions
+      if (
+        productId === 'matter-bridge-cm55' ||
+        productId === 'remote-5-channel' ||
+        productId === 'remote-15-channel' ||
+        productId === 'wifi-bridge-cm20' ||
+        productId === 'eve-smart-plug' ||
+        productId === 'usb-c-cable'
+      ) {
+        setIsCalculated(true);
+      }
       
       // For products with the new numbered image system (0.webp, 1.webp, etc.)
       // Create a properly ordered array of images
@@ -250,6 +263,14 @@ const ProductConfigurationPage = () => {
     }
   };
 
+  const isAccessoryProduct = 
+    productId === 'matter-bridge-cm55' ||
+    productId === 'remote-5-channel' ||
+    productId === 'remote-15-channel' ||
+    productId === 'wifi-bridge-cm20' ||
+    productId === 'eve-smart-plug' ||
+    productId === 'usb-c-cable';
+
   if (isLoading) {
     return (
       <div className="pt-20 pb-24 sm:pt-24 sm:pb-32 flex justify-center items-center min-h-screen">
@@ -416,36 +437,39 @@ const ProductConfigurationPage = () => {
                   </div>
                 </div>
 
+                {/* Dimensions Inputs (hide for accessories) */}
                 <div className="grid sm:grid-cols-2 gap-4 mb-4">
-                  <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '350ms' }}>
-                    <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                      Width (in cm)
-                      <Info size={16} className="ml-1 text-gray-400 dark:text-gray-500" />
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="66 - 250 cm"
-                      className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                      value={width}
-                      onChange={handleWidthChange}
-                    />
-                  </div>
-                  <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '400ms' }}>
-                    <label className="flex items-center text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-                      Height (in cm)
-                      <Info size={16} className="ml-1 text-gray-400 dark:text-gray-500" />
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="30 - 350 cm"
-                      className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-                      value={height}
-                      onChange={handleHeightChange}
-                    />
-                  </div>
+                  {!isAccessoryProduct && !isCalculated && (
+                    <>
+                      <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '350ms' }}>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          Width
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="30 - 350 cm"
+                          className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          value={width}
+                          onChange={handleWidthChange}
+                        />
+                      </div>
+                      <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '400ms' }}>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          Height
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="30 - 350 cm"
+                          className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          value={height}
+                          onChange={handleHeightChange}
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
 
-                {!isCalculated ? (
+                {!isCalculated && !isAccessoryProduct ? (
                   <button 
                     className={`w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition shimmer-button ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`}
                     style={{ animationDelay: '450ms' }}
@@ -465,10 +489,11 @@ const ProductConfigurationPage = () => {
                     />
                     <PriceCalculator 
                       basePrice={product.price}
-                      width={typeof width === 'number' ? width : 0}
-                      height={typeof height === 'number' ? height : 0}
+                      width={isAccessoryProduct ? 0 : (typeof width === 'number' ? width : 0)}
+                      height={isAccessoryProduct ? 0 : (typeof height === 'number' ? height : 0)}
                       additionalCosts={additionalCosts}
                       onCheckout={handleCheckout}
+                      isAccessory={isAccessoryProduct}
                     />
                   </>
                 )}

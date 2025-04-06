@@ -3,19 +3,17 @@ import { Link } from 'react-router-dom';
 import { Sun, Wifi, Smartphone, Cable, Radio } from 'lucide-react';
 import SEO from '../components/SEO';
 import '../styles/AccessoriesPage.css';
+import { Product } from '../types/product';
 
-interface AccessoryProduct {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice: number;
-  image: string;
+interface AccessoryProduct extends Product {
   features: string[];
   colors: number;
   colorHex: string;
+  fabricColor: string;
+  images: string[];
 }
 
-const accessories: AccessoryProduct[] = [
+export const accessories: AccessoryProduct[] = [
   {
     id: "matter-bridge-cm55",
     name: "MOTIONBLINDS MATTER BRIDGE CM-55",
@@ -24,7 +22,12 @@ const accessories: AccessoryProduct[] = [
     image: "/src/img/accessories/motion bridge cm-55/0.webp",
     features: ["Matter"],
     colors: 1,
-    colorHex: "#333333"
+    colorHex: "#333333",
+    fabricColor: "#333333",
+    images: [
+      "/src/img/accessories/motion bridge cm-55/0.webp",
+      "/src/img/accessories/motion bridge cm-55/1.webp"
+    ]
   },
   {
     id: "remote-5-channel",
@@ -34,7 +37,11 @@ const accessories: AccessoryProduct[] = [
     image: "/src/img/accessories/remote 5-channel/0.webp",
     features: ["5 Channels"],
     colors: 2,
-    colorHex: "#FFFFFF"
+    colorHex: "#FFFFFF",
+    fabricColor: "#FFFFFF",
+    images: [
+      "/src/img/accessories/remote 5-channel/0.webp"
+    ]
   },
   {
     id: "remote-15-channel",
@@ -44,7 +51,11 @@ const accessories: AccessoryProduct[] = [
     image: "/src/img/accessories/remote 15-channel/0.webp",
     features: ["15 Channels"],
     colors: 2,
-    colorHex: "#000000"
+    colorHex: "#000000",
+    fabricColor: "#000000",
+    images: [
+      "/src/img/accessories/remote 15-channel/0.webp"
+    ]
   },
   {
     id: "wifi-bridge-cm20",
@@ -54,7 +65,11 @@ const accessories: AccessoryProduct[] = [
     image: "/src/img/accessories/wifi bridge cm-20/0.webp",
     features: ["Wi-Fi"],
     colors: 1,
-    colorHex: "#222222"
+    colorHex: "#222222",
+    fabricColor: "#222222",
+    images: [
+      "/src/img/accessories/wifi bridge cm-20/0.webp"
+    ]
   },
   {
     id: "eve-smart-plug",
@@ -64,7 +79,12 @@ const accessories: AccessoryProduct[] = [
     image: "/src/img/accessories/smart plug/0.webp",
     features: ["Matter"],
     colors: 1,
-    colorHex: "#FFFFFF"
+    colorHex: "#FFFFFF",
+    fabricColor: "#FFFFFF",
+    images: [
+      "/src/img/accessories/smart plug/0.webp",
+      "/src/img/accessories/smart plug/1.webp"
+    ]
   },
   {
     id: "usb-c-cable",
@@ -74,7 +94,12 @@ const accessories: AccessoryProduct[] = [
     image: "/src/img/accessories/usb-c cable/0.webp",
     features: ["Charging"],
     colors: 1,
-    colorHex: "#000000"
+    colorHex: "#000000",
+    fabricColor: "#000000",
+    images: [
+      "/src/img/accessories/usb-c cable/0.webp",
+      "/src/img/accessories/usb-c cable/1.webp"
+    ]
   }
 ];
 

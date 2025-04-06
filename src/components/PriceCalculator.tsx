@@ -8,6 +8,7 @@ interface PriceCalculatorProps {
   height: number;
   additionalCosts: { name: string; price: number }[];
   onCheckout: () => void;
+  isAccessory?: boolean;
 }
 
 const PriceCalculator = ({
@@ -16,11 +17,12 @@ const PriceCalculator = ({
   height,
   additionalCosts,
   onCheckout,
+  isAccessory = false
 }: PriceCalculatorProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const areaDimension = width && height ? (width * height) / 10000 : 0; // Convert to square meters
-  const areaCost = basePrice * areaDimension;
+  const areaCost = isAccessory ? basePrice : basePrice * areaDimension;
   
   const additionalCostsTotal = additionalCosts.reduce((sum, item) => sum + item.price, 0);
   const totalPrice = areaCost + additionalCostsTotal;
@@ -45,7 +47,9 @@ const PriceCalculator = ({
         <div className="price-calculator-details">
           <div className="price-calculator-item">
             <span className="price-calculator-item-name">
-              Base price ({width} x {height} cm)
+              {isAccessory 
+                ? "Base price" 
+                : `Base price (${width} x ${height} cm)`}
             </span>
             <span className="price-calculator-item-price">€{areaCost.toFixed(2)}</span>
           </div>
