@@ -101,7 +101,7 @@ const AccessoriesPage: React.FC = () => {
                   </div>
                   
                   <Link 
-                    to={`/accessories/${product.id}`}
+                    to={`/products/configure/${product.id}`}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full flex justify-center items-center transition duration-300 uppercase font-medium text-sm sm:text-base"
                   >
                     Configure & Buy
