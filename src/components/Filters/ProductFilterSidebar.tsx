@@ -27,7 +27,7 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
   useEffect(() => {
     const filteredProducts = productFilters.applyFilters(products);
     onFilteredProductsChange(filteredProducts);
-  }, [products, productFilters.filters, onFilteredProductsChange]);
+  }, [products, productFilters.filters, onFilteredProductsChange, productFilters]);
   
   return (
     <div className={className}>

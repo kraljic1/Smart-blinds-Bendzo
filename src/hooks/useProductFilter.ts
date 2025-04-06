@@ -6,8 +6,8 @@ import {
   curtainBlinds
 } from '../data/productData';
 
-// Import accessories from AccessoriesPage
-import { accessories } from '../pages/AccessoriesPage';
+// Import accessories from the data file
+import { accessories } from '../data/accessories';
 
 type FilterFunction = (product: Product) => boolean;
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
@@ -26,7 +26,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const navigate = useNavigate();
   const colorSwatchRef = useRef<HTMLDivElement>(null);
-  const hasLoggedRef = useRef<boolean>(false);
 
   const handleConfigure = () => {
     if (onConfigure) {
@@ -42,45 +41,51 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
-  // Check if product has an image with "4.webp" (fabric detail image)
-  const hasFabricImage = (): boolean => {
+  // Check if product has an image with "4.webp" or "4.jpg" (fabric detail image)
+  const hasFabricImage = useMemo((): boolean => {
     if (!product.images) return false;
-    
-    // Look for an image with "4.webp" in the filename
-    return product.images.some(img => img.includes("4.webp") || img.endsWith("/4.webp"));
-  };
+    return product.images.some(img => 
+      img.includes("4.webp") || 
+      img.endsWith("/4.webp") || 
+      img.includes("4.jpg") || 
+      img.endsWith("/4.jpg") ||
+      img.endsWith("/4") ||
+      img.includes("fabric") ||
+      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
+    );
+  }, [product.images]);
 
-  // Get the fabric image (with "4.webp")
+  // Get the fabric image (with "4.webp" or "4.jpg")
   const getFabricImage = (): string | null => {
     if (!product.images) return null;
     
-    // Find the image with "4.webp" in the filename
-    const fabricImage = product.images.find(img => img.includes("4.webp") || img.endsWith("/4.webp"));
+    // First, look for exact matches for fabric samples
+    const fabricImage = product.images.find(img => 
+      img.includes("4.webp") || 
+      img.endsWith("/4.webp") || 
+      img.includes("4.jpg") || 
+      img.endsWith("/4.jpg") ||
+      img.endsWith("/4") ||
+      img.includes("fabric") ||
+      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
+    );
+    
     return fabricImage || null;
   };
 
   // Set background color for products without fabric image
   useEffect(() => {
-    if (!hasFabricImage()) {
-      // Log products without fabric image to console, but only once
-      if (!hasLoggedRef.current) {
-        console.log(`Product without fabric image: ${product.id} (${product.name})`);
-        hasLoggedRef.current = true;
-      }
-      
-      // Set color for the swatch
-      if (colorSwatchRef.current && product.fabricColor) {
-        colorSwatchRef.current.style.backgroundColor = product.fabricColor;
-      }
+    if (!hasFabricImage && colorSwatchRef.current && product.fabricColor) {
+      colorSwatchRef.current.style.backgroundColor = product.fabricColor;
     }
-  }, [product]);
+  }, [product.fabricColor, hasFabricImage]);
 
   return (
     <CardRoot className="h-full flex flex-col">
       <div className="relative">
         <CardImage src={product.image} alt={product.name} />
         <div className="absolute bottom-4 right-4">
-          {hasFabricImage() ? (
+          {hasFabricImage ? (
             <img
               src={getFabricImage()!}
               alt={`${product.name} fabric`}

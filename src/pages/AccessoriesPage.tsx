@@ -1,134 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Wifi, Smartphone, Cable, Radio } from 'lucide-react';
+import { Wifi, Smartphone, Cable, Radio } from 'lucide-react';
 import SEO from '../components/SEO';
 import '../styles/AccessoriesPage.css';
-import { Product } from '../types/product';
-
-// Import images for Matter Bridge
-import matterBridge0 from '../img/accessories/motion bridge cm-55/0.webp';
-import matterBridge1 from '../img/accessories/motion bridge cm-55/1.webp';
-import matterBridge2 from '../img/accessories/motion bridge cm-55/2.webp';
-import matterBridge3 from '../img/accessories/motion bridge cm-55/3.webp';
-
-// Import images for Remote 5 Channel
-import remote5channel0 from '../img/accessories/remote 5-channel/0.webp';
-
-// Import images for Remote 15 Channel
-import remote15channel0 from '../img/accessories/remote 15-channel/0.webp';
-
-// Import images for WiFi Bridge
-import wifiBridge0 from '../img/accessories/wifi bridge cm-20/0.webp';
-
-// Import images for Smart Plug
-import smartPlug0 from '../img/accessories/smart plug /0.webp';
-import smartPlug1 from '../img/accessories/smart plug /1.webp';
-import smartPlug2 from '../img/accessories/smart plug /2.webp';
-
-// Import images for USB Cable
-import usbCable0 from '../img/accessories/usb-c cable/0.webp';
-import usbCable1 from '../img/accessories/usb-c cable/1.webp';
-
-interface AccessoryProduct extends Product {
-  features: string[];
-  colors: number;
-  colorHex: string;
-  fabricColor: string;
-  images: string[];
-}
-
-export const accessories: AccessoryProduct[] = [
-  {
-    id: "matter-bridge-cm55",
-    name: "MOTIONBLINDS MATTER BRIDGE CM-55",
-    price: 159.99,
-    originalPrice: 189.99,
-    image: matterBridge0,
-    features: ["Matter"],
-    colors: 1,
-    colorHex: "#333333",
-    fabricColor: "#333333",
-    images: [
-      matterBridge0,
-      matterBridge1,
-      matterBridge2,
-      matterBridge3
-    ]
-  },
-  {
-    id: "remote-5-channel",
-    name: "MOTIONBLINDS 5-CHANNEL REMOTE CONTROL",
-    price: 59.99,
-    originalPrice: 79.99,
-    image: remote5channel0,
-    features: ["5 Channels"],
-    colors: 2,
-    colorHex: "#FFFFFF",
-    fabricColor: "#FFFFFF",
-    images: [
-      remote5channel0
-    ]
-  },
-  {
-    id: "remote-15-channel",
-    name: "MOTIONBLINDS 15-CHANNEL REMOTE",
-    price: 79.99,
-    originalPrice: 99.99,
-    image: remote15channel0,
-    features: ["15 Channels"],
-    colors: 2,
-    colorHex: "#000000",
-    fabricColor: "#000000",
-    images: [
-      remote15channel0
-    ]
-  },
-  {
-    id: "wifi-bridge-cm20",
-    name: "MOTIONBLINDS WI-FI BRIDGE CM-20",
-    price: 129.99,
-    originalPrice: 149.99,
-    image: wifiBridge0,
-    features: ["Wi-Fi"],
-    colors: 1,
-    colorHex: "#222222",
-    fabricColor: "#222222",
-    images: [
-      wifiBridge0
-    ]
-  },
-  {
-    id: "eve-smart-plug",
-    name: "EVE ENERGY – SMART PLUG & RANGE EXTENDER",
-    price: 49.99,
-    originalPrice: 59.99,
-    image: smartPlug0,
-    features: ["Matter"],
-    colors: 1,
-    colorHex: "#FFFFFF",
-    fabricColor: "#FFFFFF",
-    images: [
-      smartPlug0,
-      smartPlug1,
-      smartPlug2
-    ]
-  },
-  {
-    id: "usb-c-cable",
-    name: "SMARTBLINDS USB-C CHARGING CABLE",
-    price: 14.99,
-    originalPrice: 19.99,
-    image: usbCable0,
-    features: ["Charging"],
-    colors: 1,
-    colorHex: "#000000",
-    fabricColor: "#000000",
-    images: [
-      usbCable0,
-      usbCable1
-    ]
-  }
-];
+import { accessories, AccessoryProduct } from '../data/accessories';
 
 const AccessoriesPage: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -154,7 +29,7 @@ const AccessoriesPage: React.FC = () => {
       <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
         <div className="absolute inset-0">
           <img 
-            src={matterBridge2} 
+            src={accessories[0].images[2]} 
             alt="Smart accessories showcase"
             className="w-full h-full object-cover"
           />
@@ -184,7 +59,7 @@ const AccessoriesPage: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {accessories.map((product) => (
+          {accessories.map((product: AccessoryProduct) => (
             <div key={product.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
               <div className="relative">
                 <div className="relative">
@@ -201,34 +76,35 @@ const AccessoriesPage: React.FC = () => {
                     {product.name}
                   </h3>
                 </div>
-                <div className="flex items-center space-x-2 mb-4">
-                  <span className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm uppercase">
-                    {product.features[0] === "Smart Control" || product.features[0] === "Wi-Fi" ? (
-                      <><Wifi className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
-                    ) : product.features[0] === "Voice Control" || product.features[0] === "Matter" ? (
-                      <><Smartphone className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
-                    ) : product.features[0] === "5 Channels" || product.features[0] === "15 Channels" ? (
-                      <><Radio className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
-                    ) : product.features[0] === "Charging" ? (
-                      <><Cable className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
-                    ) : (
-                      <><Sun className="w-4 h-4 mr-1 inline" />{product.features[0]}</>
+              
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {product.features.map((feature: string, i: number) => (
+                    <span
+                      key={i}
+                      className="bg-blue-500/10 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-sm uppercase flex items-center"
+                    >
+                      {feature === 'Wi-Fi' && <Wifi className="w-4 h-4 mr-1" />}
+                      {feature === 'Matter' && <Smartphone className="w-4 h-4 mr-1" />}
+                      {feature === 'Charging' && <Cable className="w-4 h-4 mr-1" />}
+                      {(feature === '5 Channels' || feature === '15 Channels') && <Radio className="w-4 h-4 mr-1" />}
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+                
+                <div className="mt-auto">
+                  <div className="flex items-baseline mb-4">
+                    {product.originalPrice && (
+                      <span className="text-gray-500 dark:text-gray-400 line-through mr-2">${product.originalPrice}</span>
                     )}
-                  </span>
-                </div>
-                <div className="flex items-baseline mb-4">
-                  <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    ${product.price}
-                  </span>
-                  <span className="ml-2 text-sm text-gray-500 dark:text-gray-400 line-through">
-                    ${product.originalPrice}
-                  </span>
-                </div>
-                <div className="space-y-2 mt-auto">
-                  <Link to={`/products/configure/${product.id}`} className="block">
-                    <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600">
-                      Configure &amp; Buy
-                    </button>
+                    <span className="text-2xl font-bold text-gray-900 dark:text-white">${product.price}</span>
+                  </div>
+                  
+                  <Link 
+                    to={`/accessories/${product.id}`}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full flex justify-center items-center transition duration-300 uppercase font-medium"
+                  >
+                    Configure & Buy
                   </Link>
                 </div>
               </div>

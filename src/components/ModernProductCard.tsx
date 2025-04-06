@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { Sun, Moon, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
@@ -44,7 +44,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   };
 
   // Check if product has an image with "4.webp" or "4.jpg" (fabric detail image)
-  const hasFabricImage = (): boolean => {
+  const hasFabricImage = useMemo((): boolean => {
     if (!product.images) return false;
     return product.images.some(img => 
       img.includes("4.webp") || 
@@ -55,7 +55,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
       img.includes("fabric") ||
       (img.includes("/") && img.split("/").pop()?.startsWith("4"))
     );
-  };
+  }, [product.images]);
 
   // Get the fabric image (with "4.webp" or "4.jpg")
   const getFabricImage = (): string | null => {
@@ -92,10 +92,10 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
 
   // Set background color for products without fabric image
   useEffect(() => {
-    if (!hasFabricImage() && colorSwatchRef.current && product.fabricColor) {
+    if (!hasFabricImage && colorSwatchRef.current && product.fabricColor) {
       colorSwatchRef.current.style.backgroundColor = product.fabricColor;
     }
-  }, [product]);
+  }, [product, hasFabricImage]);
 
   // Simple preload of images in background without tracking loaded count
   useEffect(() => {
@@ -204,23 +204,19 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           />
           
           <div className="absolute bottom-4 right-4 z-20">
-            {hasFabricImage() ? (
-              <div className="border-glow rounded-full">
-                <img
-                  src={getFabricImage()!}
-                  alt={`${product.name} fabric`}
-                  className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch object-cover"
-                />
-              </div>
-            ) : (
-              <div className="border-glow rounded-full">
-                <div
-                  ref={colorSwatchRef}
-                  className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch"
-                  data-color={product.fabricColor}
-                />
-              </div>
-            )}
+            {/* Show fabric swatch */}
+            <div className="fabric-detail">
+              {hasFabricImage ? (
+                <div className="fabric-image">
+                  <img 
+                    src={getFabricImage() ?? ''} 
+                    alt={`${product.name} fabric detail`} 
+                  />
+                </div>
+              ) : (
+                <div className="color-swatch" ref={colorSwatchRef}></div>
+              )}
+            </div>
           </div>
           
           {product.discount && (
