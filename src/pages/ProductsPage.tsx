@@ -95,43 +95,45 @@ const ProductsPage: React.FC = () => {
           <CategoryGrid onCategoryChange={handleCategoryChange} />
         </div>
 
-        {/* Content Grid with Sidebar */}
-        <div className="mt-8 relative grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar with Filters */}
-          <div className={`lg:col-span-1 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '100ms' }}>
-            <CollapsibleFilterSidebar
-              categoryId={currentCategoryId}
-              products={categoryProducts}
-              onFilteredProductsChange={setFilteredProducts}
-              className="modern-card bg-white/80 dark:bg-gray-800/80 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700 backdrop-blur-lg"
-            />
-          </div>
+        {/* Content Grid with Sidebar - Updated for tablet */}
+        <div className="mt-8 relative">
+          <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 md:gap-8">
+            {/* Sidebar with Filters - Hidden on mobile, toggleable on tablet, shown on desktop */}
+            <div className={`lg:col-span-1 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '100ms' }}>
+              <CollapsibleFilterSidebar
+                categoryId={currentCategoryId}
+                products={categoryProducts}
+                onFilteredProductsChange={setFilteredProducts}
+                className="modern-card bg-white/80 dark:bg-gray-800/80 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700 backdrop-blur-lg filter-sidebar"
+              />
+            </div>
 
-          {/* Products Section */}
-          <div className="lg:col-span-3">
-            <h2 
-              ref={headingRef}
-              className={`text-4xl font-bold text-gray-900 dark:text-white mb-6 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-              style={{ animationDelay: '150ms' }}
-            >
-              {currentCategoryId === 'all' ? 'All Products' : 
-              currentCategoryId === 'roller' ? 'Roller Blinds' :
-              currentCategoryId === 'zebra' ? 'Zebra Blinds' :
-              currentCategoryId === 'curtain' ? 'Curtain Blinds' : 
-              currentCategoryId === 'accessories' ? 'Accessories' : ''}
-            </h2>
-            
-            {filteredProducts.length === 0 ? (
-              <div className="text-center py-12 border-glow p-8 rounded-lg">
-                <p className="text-gray-500 dark:text-gray-400">
-                  No products match your selected filters. Please try different filter options.
-                </p>
-              </div>
-            ) : (
-              <div className={`slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '200ms' }}>
-                <ProductGrid products={filteredProducts} />
-              </div>
-            )}
+            {/* Products Section - Full width on mobile, 2/3 on tablet and desktop */}
+            <div className="lg:col-span-3">
+              <h2 
+                ref={headingRef}
+                className={`text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                style={{ animationDelay: '150ms' }}
+              >
+                {currentCategoryId === 'all' ? 'All Products' : 
+                currentCategoryId === 'roller' ? 'Roller Blinds' :
+                currentCategoryId === 'zebra' ? 'Zebra Blinds' :
+                currentCategoryId === 'curtain' ? 'Curtain Blinds' : 
+                currentCategoryId === 'accessories' ? 'Accessories' : ''}
+              </h2>
+              
+              {filteredProducts.length === 0 ? (
+                <div className="text-center py-8 md:py-12 border-glow p-6 md:p-8 rounded-lg">
+                  <p className="text-gray-500 dark:text-gray-400">
+                    No products match your selected filters. Please try different filter options.
+                  </p>
+                </div>
+              ) : (
+                <div className={`slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '200ms' }}>
+                  <ProductGrid products={filteredProducts} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

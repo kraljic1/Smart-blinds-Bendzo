@@ -21,6 +21,7 @@ const Header: React.FC = () => {
   // Navigation link style with enhanced hover effects
   const navLinkStyle = "px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 relative group nav-font";
   const mobileNavLinkStyle = "block w-full px-3 py-4 text-xl font-medium text-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 nav-font";
+  const tabletNavLinkStyle = "block px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 nav-font";
 
   // Handle closing the menu
   const handleCloseMenu = () => {
@@ -38,7 +39,9 @@ const Header: React.FC = () => {
                 Smartblinds
               </Link>
             </div>
-            <nav className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-4">
+            
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
               <Link to="/products/roller-blinds" className={navLinkStyle}>
                 Roller Blinds
                 <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
@@ -64,6 +67,22 @@ const Header: React.FC = () => {
                 <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
               </Link>
             </nav>
+            
+            {/* Tablet Navigation */}
+            <nav className="hidden md:ml-4 md:flex lg:hidden tablet-nav items-center">
+              <Link to="/products/roller-blinds" className={tabletNavLinkStyle}>
+                Roller
+              </Link>
+              <Link to="/products/zebra-blinds" className={tabletNavLinkStyle}>
+                Zebra
+              </Link>
+              <Link to="/products/curtain-blinds" className={tabletNavLinkStyle}>
+                Curtain
+              </Link>
+              <Link to="/products/accessories" className={tabletNavLinkStyle}>
+                Accessories
+              </Link>
+            </nav>
           </div>
           
           <div className="flex items-center">
@@ -78,8 +97,7 @@ const Header: React.FC = () => {
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                   <path
                     fillRule="evenodd"
-                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1
-0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
                     clipRule="evenodd"
                   />
                 </svg>
@@ -90,7 +108,8 @@ const Header: React.FC = () => {
               )}
             </button>
             
-            <div className="ml-3 sm:hidden relative z-50">
+            {/* Mobile Menu Button - Now only shown on mobile, not tablet */}
+            <div className="ml-3 md:hidden relative z-50">
               <button
                 onClick={toggleMenu}
                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
@@ -100,6 +119,21 @@ const Header: React.FC = () => {
                 <Menu className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`} />
                 <X className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`} />
               </button>
+            </div>
+            
+            {/* More menu for tablet - shows additional links */}
+            <div className="hidden md:block lg:hidden ml-2">
+              <div className="relative">
+                <button
+                  onClick={toggleMenu}
+                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+                  aria-expanded={isMenuOpen}
+                >
+                  <span className="sr-only">{isMenuOpen ? 'Close menu' : 'More'}</span>
+                  <Menu className={`${isMenuOpen ? 'hidden' : 'block'} h-5 w-5`} />
+                  <X className={`${isMenuOpen ? 'block' : 'hidden'} h-5 w-5`} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -114,7 +148,7 @@ const Header: React.FC = () => {
             onClick={handleCloseMenu}
           />
           
-          {/* Menu content */}
+          {/* Menu content - adjusted for both mobile and tablet */}
           <div 
             className="fixed inset-0 pt-16 z-40 sm:hidden flex flex-col items-center justify-center text-center"
           >
@@ -179,6 +213,33 @@ const Header: React.FC = () => {
               </Link>
             </div>
           </div>
+          
+          {/* Tablet dropdown menu */}
+          {isMenuOpen && (
+            <div className="hidden md:block lg:hidden absolute right-0 top-16 mt-1 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
+              <Link 
+                to="/how-it-works"
+                className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                onClick={handleCloseMenu}
+              >
+                How It Works
+              </Link>
+              <Link 
+                to="/support"
+                className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                onClick={handleCloseMenu}
+              >
+                Support
+              </Link>
+              <Link 
+                to="/basket"
+                className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                onClick={handleCloseMenu}
+              >
+                Basket
+              </Link>
+            </div>
+          )}
         </>
       )}
     </header>

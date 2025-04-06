@@ -1,0 +1,118 @@
+/* Tablet-specific styles */
+
+/* General tablet media query */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Improved layout spacing for tablets */
+  .container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  
+  /* Better spacing for tablet content */
+  .section-container {
+    margin-bottom: 3rem;
+  }
+  
+  /* Product grid - 2 columns for tablets */
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  /* Product cards adjustments */
+  .product-card {
+    height: 100%;
+  }
+  
+  /* Hero section adjustments */
+  .hero-content {
+    max-width: 70%;
+  }
+  
+  /* Filter sidebar positioning */
+  .filter-sidebar {
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+  
+  /* Header navigation improvements */
+  .tablet-nav {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  /* Form elements and buttons */
+  input, select, textarea, button {
+    font-size: 0.95rem;
+    padding: 0.65rem 1rem;
+  }
+  
+  /* Product configuration page */
+  .configuration-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  
+  .configuration-sidebar {
+    position: sticky;
+    top: 80px;
+    align-self: start;
+  }
+  
+  /* Accessories page */
+  .accessories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Text adjustments for better tablet readability */
+  h1 {
+    font-size: 2.25rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.35rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+/* iPad specific adjustments */
+@media (min-width: 768px) and (max-width: 820px) {
+  .product-card {
+    min-height: 420px;
+  }
+}
+
+/* iPad Pro adjustments */
+@media (min-width: 1024px) and (max-width: 1112px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Orientation-specific adjustments */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: landscape) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .accessories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+} 
