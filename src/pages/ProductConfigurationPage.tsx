@@ -8,7 +8,7 @@ import ImageZoomModal from '../components/ImageZoomModal';
 import { getProductsByCategory } from '../hooks/useProductFilter';
 import ProductCustomization, { CustomizationOption } from '../components/ProductCustomization';
 import PriceCalculator from '../components/PriceCalculator';
-import { defaultCustomizationOptions } from '../data/customizationOptions';
+import { getCustomizationOptions } from '../data/customizationOptionsByProduct';
 import { useBasketContext } from '../hooks/useBasketContext';
 
 const ProductConfigurationPage = () => {
@@ -139,17 +139,20 @@ const ProductConfigurationPage = () => {
 
   // Set default selected options
   useEffect(() => {
-    if (defaultCustomizationOptions.length > 0) {
-      const defaultSelections: Record<string, string> = {};
-      defaultCustomizationOptions.forEach(option => {
-        if (option.options.length > 0) {
-          defaultSelections[option.id] = option.options[0].id;
-        }
-      });
-      setSelectedOptions(defaultSelections);
-      setCustomizationOptions(defaultCustomizationOptions);
+    if (product) {
+      const productOptions = getCustomizationOptions(product.id);
+      if (productOptions.length > 0) {
+        const defaultSelections: Record<string, string> = {};
+        productOptions.forEach(option => {
+          if (option.options.length > 0) {
+            defaultSelections[option.id] = option.options[0].id;
+          }
+        });
+        setSelectedOptions(defaultSelections);
+        setCustomizationOptions(productOptions);
+      }
     }
-  }, []);
+  }, [product]);
 
   // Update additional costs when selected options change
   useEffect(() => {

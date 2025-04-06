@@ -1,5 +1,5 @@
 import { Info, Check } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Product } from '../types/product';
 import '../styles/ProductCustomization.css';
 
@@ -7,6 +7,7 @@ export interface CustomizationOption {
   id: string;
   name: string;
   textOnly?: boolean;
+  info?: string;
   options: {
     id: string;
     name: string;
@@ -31,6 +32,7 @@ const ProductCustomization = ({
   onOptionChange,
 }: ProductCustomizationProps) => {
   const colorSwatchRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [activeInfoId, setActiveInfoId] = useState<string | null>(null);
   
   // Set background colors via JavaScript
   useEffect(() => {
@@ -46,6 +48,10 @@ const ProductCustomization = ({
     });
   }, [options]);
 
+  const toggleInfo = (optionId: string) => {
+    setActiveInfoId(activeInfoId === optionId ? null : optionId);
+  };
+
   return (
     <div className="product-customization">
       <h2 className="customization-title">Advanced Customization</h2>
@@ -57,10 +63,18 @@ const ProductCustomization = ({
         <div key={option.id} className="option-group">
           <div className="option-header">
             <h3 className="option-title">{option.name}</h3>
-            <button className="info-button">
-              <Info size={16} />
-            </button>
+            {option.info && (
+              <button className="info-button" onClick={() => toggleInfo(option.id)}>
+                <Info size={16} />
+              </button>
+            )}
           </div>
+          
+          {activeInfoId === option.id && option.info && (
+            <div className="info-message">
+              {option.info}
+            </div>
+          )}
           
           <div className={`option-selections ${option.id === 'color' ? 'color-grid' : ''} ${option.textOnly ? 'text-only-grid' : ''}`}>
             {option.options.map((value) => (

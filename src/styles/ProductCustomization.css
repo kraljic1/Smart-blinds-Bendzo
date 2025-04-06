@@ -410,4 +410,20 @@
 
 .dark .option-price {
   color: #9ca3af;
+}
+
+.info-message {
+  background-color: #f3f4f6;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+  color: #4b5563;
+  border-left: 4px solid #3b82f6;
+}
+
+.dark .info-message {
+  background-color: #374151;
+  color: #d1d5db;
+  border-left-color: #60a5fa;
 } 

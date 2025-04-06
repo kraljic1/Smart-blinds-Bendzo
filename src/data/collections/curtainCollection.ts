@@ -21,5 +21,23 @@ export const curtainCollection: Product[] = [
     features: ["Blackout"],
     colors: 2,
     fabricColor: "#C0C0C0"
+  },
+  {
+    id: "glider-track",
+    name: "Electric curtain tracks",
+    price: 349.99,
+    originalPrice: 389.99,
+    image: "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/curtain_track.webp",
+    images: [
+      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/curtain_track.webp",
+      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/medium_web-sb_gordijnrails_detailshot.webp",
+      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_kleuren.webp",
+      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_render.webp",
+      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen.webp",
+      "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen_2.webp"
+    ],
+    features: ["Light filtering"],
+    colors: 2,
+    fabricColor: "#888888"
   }
 ]; 

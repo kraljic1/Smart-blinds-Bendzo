@@ -67,25 +67,21 @@ export const useProductFilters = (): FilterState => {
           })
         );
       
-      // Match by color - new logic that checks if color name appears in product name or description
+      // Match by color - simplified to primarily use product name
       const colorMatch = filters.colors.length === 0 ||
         filters.colors.some(color => {
           const colorLower = color.toLowerCase();
+          const productNameLower = product.name.toLowerCase();
           
-          // Check product name
-          if (product.name.toLowerCase().includes(colorLower)) return true;
+          // Check if color name appears in product name
+          if (productNameLower.includes(colorLower)) return true;
+          
+          // Special case for Sand/Beige which might be used interchangeably
+          if (colorLower === 'beige' && productNameLower.includes('sand')) return true;
+          if (colorLower === 'sand' && productNameLower.includes('beige')) return true;
           
           // Check in description (if it exists)
           if (product.description && product.description.toLowerCase().includes(colorLower)) return true;
-          
-          // Check traditional color matching for compatibility
-          if (colorLower === 'white' && product.fabricColor === '#FFFFFF') return true;
-          if (colorLower === 'grey' && product.fabricColor === '#D3D3D3') return true;
-          if (colorLower === 'sand' && product.fabricColor === '#C2B280') return true;
-          if (colorLower === 'beige' && product.fabricColor.toLowerCase().includes('beige')) return true;
-          if (colorLower === 'brown' && product.fabricColor.toLowerCase().includes('brown')) return true;
-          if (colorLower === 'blue' && product.fabricColor === '#1CA3EC') return true;
-          if (colorLower === 'black' && product.fabricColor === '#000000') return true;
           
           return false;
         });

@@ -10,21 +10,19 @@ const CurtainTracksPage = () => {
 
   const products: Product[] = [
     {
-      id: "ripplefold-track",
-      name: "Ripplefold Track",
-      price: 399.99,
-      originalPrice: 439.99,
-      image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
-      features: ["Light filtering"],
-      colors: 2,
-      fabricColor: "#AAAAAA"
-    },
-    {
       id: "glider-track",
-      name: "Glider Track",
+      name: "Electric curtain tracks",
       price: 349.99,
       originalPrice: 389.99,
-      image: "https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80",
+      image: "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/curtain_track.webp",
+      images: [
+        "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/curtain_track.webp",
+        "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/medium_web-sb_gordijnrails_detailshot.webp",
+        "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_kleuren.webp",
+        "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/gordijnrail_render.webp",
+        "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen.webp",
+        "/src/img/CURTAIN TRACKS/ELECTRIC CURTAIN TRACKS/smartblinds_elektrische_gordijnrail_afmetingen_2.webp"
+      ],
       features: ["Light filtering"],
       colors: 2,
       fabricColor: "#888888"
