@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import { accessories } from '../data/accessories';
+import AccessoryProductCard from '../components/AccessoryProductCard';
 import '../styles/AccessoriesPage.css';
 
 const AccessoriesPage = () => {
@@ -52,33 +53,14 @@ const AccessoriesPage = () => {
           {accessories.map((product, index) => (
             <div 
               key={product.id}
-              className={`accessory-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
+              className={`fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} 
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div className="product-image-container h-48 flex items-center justify-center mb-6">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                {product.name}
-              </h3>
-              
-              <div className="flex items-center justify-between mt-4">
-                <div className="price-display text-xl font-bold">
-                  {product.price.toFixed(2)}
-                </div>
-                
-                <button 
-                  className="add-to-cart-btn bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition duration-300"
-                  onClick={() => handleAddToCart(product.id)}
-                >
-                  ADD TO CART
-                </button>
-              </div>
+              <AccessoryProductCard
+                product={product}
+                onAddToCart={handleAddToCart}
+                delay={index * 50}
+              />
             </div>
           ))}
         </div>
