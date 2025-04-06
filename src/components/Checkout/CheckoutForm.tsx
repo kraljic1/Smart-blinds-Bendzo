@@ -67,7 +67,7 @@ export function CheckoutForm() {
       ).join('&');
       
       // Submit form to Netlify
-      const response = await fetch('/', {
+      const response = await fetch('https://bendzo-smart-blinds.netlify.app/', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -159,6 +159,7 @@ export function CheckoutForm() {
         ref={formRef}
         name="checkout"
         method="POST"
+        action="https://bendzo-smart-blinds.netlify.app/"
         data-netlify="true"
         netlify-honeypot="bot-field"
         onSubmit={handleSubmit}
