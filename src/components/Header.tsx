@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import { BasketIcon } from './Basket/BasketIcon';
+import { X } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { isDark, toggle } = useTheme();
@@ -145,6 +146,15 @@ const Header: React.FC = () => {
           <div 
             className="fixed inset-0 pt-16 z-40 sm:hidden flex flex-col items-center justify-center text-center"
           >
+            {/* Dedicated close button for mobile */}
+            <button
+              onClick={handleCloseMenu}
+              className="absolute top-4 right-4 p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700"
+              aria-label="Close menu"
+            >
+              <X size={24} />
+            </button>
+          
             <div className="flex flex-col items-center w-full space-y-2">
               <Link 
                 to="/products/roller-blinds"

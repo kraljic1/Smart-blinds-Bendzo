@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './components/ThemeProvider';
 import { BasketProvider } from './context/BasketContext';
+import { useEffect } from 'react';
 import Layout from './components/Layout';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -20,8 +21,14 @@ import ProductConfigurationPage from './pages/ProductConfigurationPage';
 import PricingDemoPage from './pages/PricingDemoPage';
 import BasketPage from './pages/BasketPage';
 import ProductOptionDemoPage from './pages/ProductOptionDemoPage';
+import { preventOverscroll } from './utils/preventOverscroll';
 
 function App() {
+  // Initialize overscroll prevention
+  useEffect(() => {
+    preventOverscroll();
+  }, []);
+
   return (
     <HelmetProvider>
       <ThemeProvider>
@@ -29,7 +36,7 @@ function App() {
           <Router>
             <Layout>
               <Header />
-              <main className="flex-grow">
+              <main className="flex-grow overflow-x-hidden">
                 <Routes>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/products" element={<ProductsPage />} />
