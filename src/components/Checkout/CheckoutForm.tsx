@@ -33,8 +33,17 @@ export function CheckoutForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // Don't prevent default - let the form submit naturally
-    // e.preventDefault();
+    e.preventDefault(); // Prevent default form submission to handle validation first
+    
+    // Check if basket is empty
+    if (items.length === 0) {
+      setFormStatus({
+        submitting: false,
+        success: false,
+        error: "Please add some products to your basket before checking out."
+      });
+      return;
+    }
     
     setFormStatus({ submitting: true, success: false, error: null });
     
@@ -62,30 +71,24 @@ export function CheckoutForm() {
       
       console.log('Submitting form data:', formSubmission);
       
-      // Let the form submit naturally - don't use fetch
-      // Clear the basket after submission will happen when user returns
-      clearBasket();
-      
+      // Submit the form manually
+      if (formRef.current) {
+        formRef.current.submit();
+        
+        // Only clear the basket after form is submitted
+        // This happens asynchronously after form submission
+        setTimeout(() => {
+          clearBasket();
+          navigate('/thank-you');
+        }, 500);
+      }
     } catch (error) {
       console.error('Checkout form submission error:', error);
-      e.preventDefault(); // Prevent form submission only if there's an error
       
       const errorMessage = 'There was a problem submitting your order. Please try again or contact support.';
       
       if (error instanceof Error) {
         console.error('Error details:', error.message);
-        
-        // Try direct form submission as a fallback
-        if (formRef.current) {
-          console.log('Attempting direct form submission as fallback...');
-          try {
-            navigate('/thank-you');
-            clearBasket();
-            return;
-          } catch (fallbackError) {
-            console.error('Fallback navigation failed:', fallbackError);
-          }
-        }
       }
       
       setFormStatus({
@@ -124,7 +127,14 @@ export function CheckoutForm() {
       >
         {/* Netlify Forms hidden field */}
         <input type="hidden" name="form-name" value="checkout" />
-        <input type="hidden" name="basketItems" value={JSON.stringify(items)} />
+        <input type="hidden" name="basketItems" value={JSON.stringify(
+          items.map(item => ({
+            productId: item.product.id,
+            productName: item.product.name,
+            quantity: item.quantity,
+            options: item.options
+          }))
+        )} />
         <input type="hidden" name="totalPrice" value={getTotalPrice().toFixed(2)} />
         <p hidden>
           <label>
