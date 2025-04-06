@@ -243,7 +243,7 @@ const ProductConfigurationPage = () => {
     }));
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = (quantity: number = 1) => {
     if (product) {
       // Prepare options to save with the product
       const options: Record<string, string | number | boolean> = {
@@ -263,10 +263,10 @@ const ProductConfigurationPage = () => {
       }
       
       // Add item to the basket
-      addItem(product, 1, options);
+      addItem(product, quantity, options);
       
       // Show a confirmation toast
-      alert(`${product.name} has been added to your basket!`);
+      alert(`${quantity} ${product.name}${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'have' : 'has'} been added to your basket!`);
     }
   };
 

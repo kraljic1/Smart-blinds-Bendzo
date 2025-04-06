@@ -7,7 +7,7 @@ interface PriceCalculatorProps {
   width: number;
   height: number;
   additionalCosts: { name: string; price: number }[];
-  onCheckout: () => void;
+  onCheckout: (quantity: number) => void;
   isAccessory?: boolean;
 }
 
@@ -20,15 +20,30 @@ const PriceCalculator = ({
   isAccessory = false
 }: PriceCalculatorProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   
   const areaDimension = width && height ? (width * height) / 10000 : 0; // Convert to square meters
   const areaCost = isAccessory ? basePrice : basePrice * areaDimension;
   
   const additionalCostsTotal = additionalCosts.reduce((sum, item) => sum + item.price, 0);
-  const totalPrice = areaCost + additionalCostsTotal;
+  const totalPrice = (areaCost + additionalCostsTotal) * quantity;
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
+  };
+  
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
+  
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+  
+  const handleCheckout = () => {
+    onCheckout(quantity);
   };
 
   return (
@@ -63,23 +78,23 @@ const PriceCalculator = ({
           
           <div className="price-calculator-subtotal">
             <span>Subtotal</span>
-            <span>€{totalPrice.toFixed(2)}</span>
+            <span>€{(areaCost + additionalCostsTotal).toFixed(2)}</span>
           </div>
           
           <div className="price-calculator-tax">
             <span>Including VAT</span>
-            <span>€{(totalPrice * 0.21).toFixed(2)}</span>
+            <span>€{((areaCost + additionalCostsTotal) * 0.21).toFixed(2)}</span>
           </div>
         </div>
       )}
       
       <div className="price-calculator-actions">
         <div className="price-calculator-quantity">
-          <button className="quantity-button">-</button>
-          <input type="text" className="quantity-input" value="1" readOnly />
-          <button className="quantity-button">+</button>
+          <button className="quantity-button" onClick={decreaseQuantity} aria-label="Decrease quantity">-</button>
+          <input type="text" className="quantity-input" value={quantity} readOnly aria-label="Product quantity" />
+          <button className="quantity-button" onClick={increaseQuantity} aria-label="Increase quantity">+</button>
         </div>
-        <button className="checkout-button" onClick={onCheckout}>
+        <button className="checkout-button" onClick={handleCheckout}>
           ADD TO MY CART
         </button>
       </div>
