@@ -214,4 +214,141 @@
 /* Removed additional transform on hover that was conflicting with JS tilt */
 .depth-effect:hover .depth-effect-inner {
   /* transform property now handled entirely by JS for smoother interaction */
+}
+
+/* Text reveal animation for hero headings */
+@keyframes textReveal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    transform: translateX(-10px);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateX(0);
+  }
+}
+
+/* Floating animation for particles with different speeds */
+@keyframes float-1 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(10px, -15px) rotate(5deg);
+  }
+  50% {
+    transform: translate(15px, 10px) rotate(10deg);
+  }
+  75% {
+    transform: translate(-10px, 15px) rotate(5deg);
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(-15px, 10px) rotate(-5deg);
+  }
+  50% {
+    transform: translate(-5px, -15px) rotate(-10deg);
+  }
+  75% {
+    transform: translate(15px, 5px) rotate(-5deg);
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(15px, 15px) rotate(10deg);
+  }
+  50% {
+    transform: translate(-15px, 10px) rotate(5deg);
+  }
+  75% {
+    transform: translate(-5px, -15px) rotate(15deg);
+  }
+}
+
+/* Scroll down indicator animation */
+@keyframes scrollDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
+/* Apply text reveal animation */
+.animate-text-reveal {
+  animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, clip-path;
+}
+
+/* Scroll down animation */
+.animate-scroll-down {
+  animation: scrollDown 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Particle styling and animations */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.particle-1 {
+  width: 100px;
+  height: 100px;
+  top: 20%;
+  left: 10%;
+  animation: float-1 15s ease-in-out infinite;
+}
+
+.particle-2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  left: 75%;
+  animation: float-2 20s ease-in-out infinite;
+}
+
+.particle-3 {
+  width: 60px;
+  height: 60px;
+  top: 30%;
+  left: 65%;
+  animation: float-3 12s ease-in-out infinite;
+}
+
+.particle-4 {
+  width: 80px;
+  height: 80px;
+  top: 70%;
+  left: 20%;
+  animation: float-2 18s ease-in-out infinite;
+}
+
+.particle-5 {
+  width: 120px;
+  height: 120px;
+  top: 15%;
+  left: 85%;
+  animation: float-1 25s ease-in-out infinite;
 } 

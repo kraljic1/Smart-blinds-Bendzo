@@ -1,105 +1,148 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Smartblinds Croatia</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
-              Premium smart window coverings for the modern home. Control your blinds with your voice, smartphone, or remote.
-            </p>
-          </div>
-          
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Products</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/products/roller-blinds" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  Roller Blinds
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/zebra-blinds" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  Zebra Blinds
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/curtain-blinds" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  Curtain Blinds
-                </Link>
-              </li>
-              <li>
-                <Link to="/products/accessories" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  Accessories
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Support</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/installation-guide" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  Installation Guide
-                </Link>
-              </li>
-              <li>
-                <Link to="/connectivity-guide" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  Connectivity Guide
-                </Link>
-              </li>
-              <li>
-                <Link to="/smart-control-guide" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  Smart Control Guide
-                </Link>
-              </li>
-              <li>
-                <Link to="/support" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm">
-                  FAQs
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">Contact</h3>
-            <div className="flex items-center mt-2">
-              <Mail className="h-5 w-5 mr-2 text-gray-400" />
-              <a href="mailto:info@smartblinds-croatia.com" className="hover:text-gray-900 dark:hover:text-white">
-                info@smartblinds-croatia.com
-              </a>
+    <footer id="footer-animate" className="relative z-10 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -left-32 -bottom-32 w-96 h-96 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl"></div>
+        <div className="absolute right-0 top-0 w-96 h-96 rounded-full bg-purple-500/5 dark:bg-purple-500/10 blur-3xl"></div>
+      </div>
+      
+      {/* Main footer content */}
+      <div className="relative z-10 max-w-7xl mx-auto pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        {/* Footer links and info */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {/* Logo and description */}
+          <div className="md:col-span-4">
+            <div className="flex flex-col space-y-4">
+              <Link to="/" className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                Smartblinds
+              </Link>
+              <p className="text-gray-600 dark:text-gray-300 md:pr-10">
+                Premium smart window coverings powered by AI. Control your home environment with unparalleled precision and style.
+              </p>
+              <div className="flex space-x-4 mt-4">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-500 transition-all duration-300">
+                  <Facebook className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 transition-all duration-300">
+                  <Instagram className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 transition-all duration-300">
+                  <Twitter className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-500 transition-all duration-300">
+                  <Linkedin className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                </a>
+              </div>
             </div>
-            <p className="text-gray-600 dark:text-gray-300 text-sm mb-3">
-              <a href="tel:+1234567890" className="hover:text-gray-900 dark:hover:text-white">
-                +1 (234) 567-890
-              </a>
-            </p>
-            <div className="flex space-x-4 mt-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-                <span className="sr-only">Facebook</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                </svg>
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
-                <span className="sr-only">Instagram</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
-                </svg>
-              </a>
+          </div>
+
+          {/* Products links */}
+          <div className="md:col-span-2">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4 pb-1 border-b border-gray-200 dark:border-gray-700">
+              Products
+            </h3>
+            <ul className="space-y-3">
+              {['Roller Blinds', 'Zebra Blinds', 'Curtain Blinds', 'Accessories'].map((item, index) => (
+                <li key={index}>
+                  <Link 
+                    to={`/products/${item.toLowerCase().replace(' ', '-')}`} 
+                    className="group flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+                  >
+                    <ArrowRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          {/* Support links */}
+          <div className="md:col-span-2">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4 pb-1 border-b border-gray-200 dark:border-gray-700">
+              Support
+            </h3>
+            <ul className="space-y-3">
+              {[
+                {name: 'Installation Guide', path: '/installation-guide'},
+                {name: 'Connectivity Guide', path: '/connectivity-guide'},
+                {name: 'Smart Control Guide', path: '/smart-control-guide'},
+                {name: 'FAQs', path: '/support'}
+              ].map((item, index) => (
+                <li key={index}>
+                  <Link 
+                    to={item.path} 
+                    className="group flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+                  >
+                    <ArrowRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          {/* Contact information */}
+          <div className="md:col-span-4">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4 pb-1 border-b border-gray-200 dark:border-gray-700">
+              Contact Us
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <Mail className="h-5 w-5 mr-3 text-blue-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Email Us</p>
+                  <a href="mailto:info@smartblinds-croatia.com" className="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                    info@smartblinds-croatia.com
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <Phone className="h-5 w-5 mr-3 text-blue-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Call Us</p>
+                  <a href="tel:+1234567890" className="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                    +1 (234) 567-890
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start">
+                <MapPin className="h-5 w-5 mr-3 text-blue-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">Visit Us</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    Split, Croatia
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
-          &copy; {currentYear} Smartblinds Croatia. All rights reserved.
+        {/* Copyright section */}
+        <div className="relative mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-500 dark:text-gray-400">
+            <p>&copy; {currentYear} Smartblinds Croatia. All rights reserved.</p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <Link to="/privacy-policy" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="/terms-of-service" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Terms of Service
+              </Link>
+              <Link to="/accessibility" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                Accessibility
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
