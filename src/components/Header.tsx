@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import { BasketIcon } from './Basket/BasketIcon';
-import { X, Menu } from 'lucide-react';
+import { X, Menu, ChevronRight, Sun, Moon, Home, ShoppingBag, HelpCircle, Settings } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { isDark, toggle } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const location = useLocation();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      setScrolled(isScrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,229 +32,215 @@ const Header: React.FC = () => {
     }
   };
 
-  // Navigation link style with enhanced hover effects
-  const navLinkStyle = "px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 relative group nav-font";
-  const mobileNavLinkStyle = "block w-full px-3 py-4 text-xl font-medium text-center text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 nav-font";
-  const tabletNavLinkStyle = "block px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 nav-font";
-
   // Handle closing the menu
   const handleCloseMenu = () => {
     setIsMenuOpen(false);
     document.body.style.overflow = '';
   };
 
+  // Check if a route is active
+  const isActiveRoute = (path: string) => {
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+  };
+
+  // Navigation items
+  const navItems = [
+    { label: 'Roller Blinds', path: '/products/roller-blinds', icon: <Home size={16} /> },
+    { label: 'Zebra Blinds', path: '/products/zebra-blinds', icon: <Home size={16} /> },
+    { label: 'Curtain Blinds', path: '/products/curtain-blinds', icon: <Home size={16} /> },
+    { label: 'Accessories', path: '/products/accessories', icon: <ShoppingBag size={16} /> },
+    { label: 'How It Works', path: '/how-it-works', icon: <HelpCircle size={16} /> },
+    { label: 'Support', path: '/support', icon: <Settings size={16} /> },
+  ];
+
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-sm fixed w-full z-50">
+    <header className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg' 
+        : 'bg-white/80 dark:bg-transparent backdrop-blur-md border-b border-gray-100'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="text-xl font-bold text-gray-900 dark:text-white">
-                Smartblinds Croatia
-              </Link>
-            </div>
-            
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
-              <Link to="/products/roller-blinds" className={navLinkStyle}>
-                Roller Blinds
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
-              </Link>
-              <Link to="/products/zebra-blinds" className={navLinkStyle}>
-                Zebra Blinds
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
-              </Link>
-              <Link to="/products/curtain-blinds" className={navLinkStyle}>
-                Curtain Blinds
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
-              </Link>
-              <Link to="/products/accessories" className={navLinkStyle}>
-                Accessories
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
-              </Link>
-              <Link to="/how-it-works" className={navLinkStyle}>
-                How It Works
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
-              </Link>
-              <Link to="/support" className={navLinkStyle}>
-                Support
-                <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-1/4 transition-all duration-200"></span>
-              </Link>
-            </nav>
-            
-            {/* Tablet Navigation */}
-            <nav className="hidden md:ml-4 md:flex lg:hidden tablet-nav items-center">
-              <Link to="/products/roller-blinds" className={tabletNavLinkStyle}>
-                Roller
-              </Link>
-              <Link to="/products/zebra-blinds" className={tabletNavLinkStyle}>
-                Zebra
-              </Link>
-              <Link to="/products/curtain-blinds" className={tabletNavLinkStyle}>
-                Curtain
-              </Link>
-              <Link to="/products/accessories" className={tabletNavLinkStyle}>
-                Accessories
-              </Link>
-            </nav>
+        <div className="flex justify-between h-16 items-center">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link 
+              to="/" 
+              className={`flex items-center transition-all duration-300 ${
+                scrolled 
+                  ? 'text-gray-900 dark:text-white'
+                  : 'text-gray-900 dark:text-white'
+              }`}
+            >
+              <div className="relative px-3 py-1">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl blur-sm"></div>
+                <span className="relative text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
+                  Smartblinds
+                </span>
+              </div>
+            </Link>
           </div>
           
-          <div className="flex items-center">
-            <BasketIcon />
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center">
+            <div className="relative px-2 py-1 rounded-full backdrop-blur-sm bg-white/10 dark:bg-gray-800/20 border border-white/20 dark:border-gray-700/30 flex items-center space-x-1">
+              {navItems.map((item, index) => {
+                const isActive = isActiveRoute(item.path);
+                
+                return (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className={`relative px-4 py-2 rounded-full text-sm font-medium nav-font transition-all duration-300 flex items-center group ${
+                      isActive
+                        ? 'text-blue-600 dark:text-blue-400'
+                        : scrolled
+                          ? 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
+                          : 'text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-white'
+                    }`}
+                    onMouseEnter={() => setHoverIndex(index)}
+                    onMouseLeave={() => setHoverIndex(null)}
+                  >
+                    <span className="relative z-10">{item.label}</span>
+                    
+                    {/* Active/hover background */}
+                    {(isActive || hoverIndex === index) && (
+                      <span 
+                        className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                          isActive
+                            ? 'bg-white/90 dark:bg-gray-800/90 shadow-md'
+                            : 'bg-white/20 dark:bg-gray-700/20'
+                        }`}
+                      ></span>
+                    )}
+                    
+                    {/* Bottom indicator line for active state */}
+                    {isActive && (
+                      <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 hidden group-hover:block">
+                        <div className="w-1 h-1 rounded-full bg-blue-600"></div>
+                      </div>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          </nav>
+          
+          {/* Action Buttons */}
+          <div className="flex items-center space-x-2">
+            {/* Basket Icon */}
+            <div className={`relative transition-all duration-300 ${
+              scrolled 
+                ? 'text-gray-900 dark:text-white' 
+                : 'text-gray-900 dark:text-white'
+            }`}>
+              <BasketIcon />
+            </div>
             
+            {/* Theme Toggle */}
             <button 
               onClick={toggle}
-              className="ml-3 p-2 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+              className={`group p-2 rounded-full transition-colors duration-300 relative ${
+                scrolled
+                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200'
+              }`}
               aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
             >
+              <div className="absolute inset-0 rounded-full bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               {isDark ? (
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    fillRule="evenodd"
-                    d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                    clipRule="evenodd"
-                  />
-                </svg>
+                <Sun className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
               ) : (
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
+                <Moon className="h-5 w-5 transition-transform duration-300 group-hover:-rotate-12" />
               )}
             </button>
             
-            {/* Mobile Menu Button - Now only shown on mobile, not tablet */}
-            <div className="ml-3 md:hidden relative z-50">
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden">
               <button
                 onClick={toggleMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+                className={`group p-2 rounded-full relative ${
+                  scrolled
+                    ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'
+                    : 'bg-gray-100 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200'
+                }`}
                 aria-expanded={isMenuOpen}
               >
+                <div className="absolute inset-0 rounded-full bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open main menu'}</span>
-                <Menu className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`} />
+                {isMenuOpen ? (
+                  <X className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
+                ) : (
+                  <Menu className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+                )}
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Mobile Navigation Menu */}
+      <div 
+        className={`fixed inset-0 bg-gray-900/90 dark:bg-gray-950/95 backdrop-blur-md z-40 transition-all duration-500 lg:hidden ${
+          isMenuOpen 
+            ? 'opacity-100 pointer-events-auto' 
+            : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={handleCloseMenu}
+      >
+        <div 
+          className={`absolute inset-y-0 right-0 max-w-sm w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-2xl transform transition-transform duration-500 ease-in-out ${
+            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex flex-col h-full pt-20 pb-6 px-6">
+            <button
+              onClick={handleCloseMenu}
+              className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+              aria-label="Close menu"
+            >
+              <X size={20} />
+            </button>
             
-            {/* More menu for tablet - shows additional links */}
-            <div className="hidden md:block lg:hidden ml-2">
-              <div className="relative">
-                <button
-                  onClick={toggleMenu}
-                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
-                  aria-expanded={isMenuOpen}
+            <div className="flex flex-col space-y-1 flex-1">
+              {navItems.map((item, index) => {
+                const isActive = isActiveRoute(item.path);
+                
+                return (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className={`group px-4 py-3 rounded-xl flex items-center transition-all duration-300 ${
+                      isActive
+                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                        : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 text-gray-800 dark:text-gray-200'
+                    }`}
+                    onClick={handleCloseMenu}
+                  >
+                    <div className={`mr-3 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                      {item.icon}
+                    </div>
+                    <span className="font-medium text-base nav-font">{item.label}</span>
+                    <ChevronRight size={16} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Link>
+                );
+              })}
+            </div>
+            
+            <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700/30">
+              <div className="text-sm text-gray-500 dark:text-gray-400 flex justify-between items-center">
+                <span>© {new Date().getFullYear()} Smartblinds</span>
+                <button 
+                  onClick={toggle} 
+                  className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                 >
-                  <span className="sr-only">{isMenuOpen ? 'Close menu' : 'More'}</span>
-                  <Menu className={`${isMenuOpen ? 'hidden' : 'block'} h-5 w-5`} />
-                  <X className={`${isMenuOpen ? 'block' : 'hidden'} h-5 w-5`} />
+                  {isDark ? <Sun size={16} /> : <Moon size={16} />}
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      {/* Full overlay menu system */}
-      {isMenuOpen && (
-        <>
-          {/* Completely opaque background overlay */}
-          <div 
-            className="fixed inset-0 bg-gray-900 bg-opacity-90 dark:bg-gray-900 z-40" 
-            onClick={handleCloseMenu}
-          />
-          
-          {/* Menu content - adjusted for both mobile and tablet */}
-          <div 
-            className="fixed inset-0 pt-16 z-40 sm:hidden flex flex-col items-center justify-center text-center"
-          >
-            {/* Dedicated close button for mobile */}
-            <button
-              onClick={handleCloseMenu}
-              className="absolute top-4 right-4 p-2 rounded-full bg-gray-800 text-white hover:bg-gray-700"
-              aria-label="Close menu"
-            >
-              <X size={24} />
-            </button>
-          
-            <div className="flex flex-col items-center w-full space-y-2">
-              <Link 
-                to="/products/roller-blinds"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                Roller Blinds
-              </Link>
-              <Link 
-                to="/products/zebra-blinds"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                Zebra Blinds
-              </Link>
-              <Link 
-                to="/products/curtain-blinds"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                Curtain Blinds
-              </Link>
-              <Link 
-                to="/products/accessories"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                Accessories
-              </Link>
-              <Link 
-                to="/how-it-works"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                How It Works
-              </Link>
-              <Link 
-                to="/support"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                Support
-              </Link>
-              <Link 
-                to="/basket"
-                className={mobileNavLinkStyle}
-                onClick={handleCloseMenu}
-              >
-                Basket
-              </Link>
-            </div>
-          </div>
-          
-          {/* Tablet dropdown menu */}
-          {isMenuOpen && (
-            <div className="hidden md:block lg:hidden absolute right-0 top-16 mt-1 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
-              <Link 
-                to="/how-it-works"
-                className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={handleCloseMenu}
-              >
-                How It Works
-              </Link>
-              <Link 
-                to="/support"
-                className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={handleCloseMenu}
-              >
-                Support
-              </Link>
-              <Link 
-                to="/basket"
-                className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                onClick={handleCloseMenu}
-              >
-                Basket
-              </Link>
-            </div>
-          )}
-        </>
-      )}
     </header>
   );
 };
