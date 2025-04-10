@@ -188,18 +188,12 @@ const Header: React.FC = () => {
         onClick={handleCloseMenu}
       >
         <div 
-          className={`absolute inset-y-0 right-0 max-w-sm w-full shadow-2xl transform transition-transform duration-500 ease-in-out ${
+          className={`absolute inset-y-0 right-0 max-w-sm w-full bg-white dark:bg-gray-900 shadow-2xl transform transition-transform duration-500 ease-in-out ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Solid background */}
-          <div className="absolute inset-0 bg-white dark:bg-gray-900">
-            {/* Subtle gradient pattern */}
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-blue-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 opacity-80"></div>
-          </div>
-          
-          <div className="flex flex-col h-full pt-20 pb-6 px-6 relative">
+          <div className="flex flex-col h-full pt-20 pb-6 px-6">
             <button
               onClick={handleCloseMenu}
               className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
