@@ -180,7 +180,7 @@ const Header: React.FC = () => {
       
       {/* Mobile Navigation Menu */}
       <div 
-        className={`fixed inset-0 bg-gray-900/80 backdrop-blur-md z-40 transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 bg-black z-40 transition-all duration-500 lg:hidden ${
           isMenuOpen 
             ? 'opacity-100 pointer-events-auto' 
             : 'opacity-0 pointer-events-none'
