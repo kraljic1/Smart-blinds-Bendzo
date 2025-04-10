@@ -1,4 +1,4 @@
-import ProductCard from '../components/ProductCard';
+import ModernProductCard from '../components/ModernProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { Product } from '../types/product';
 import { useState, useEffect } from 'react';
@@ -62,29 +62,29 @@ const CurtainTracksPage = () => {
   };
 
   return (
-    <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="modern-page-container">
       {/* Static Hero section */}
-      <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
-        <div className="absolute inset-0">
+      <div className={`relative h-[50vh] mb-16 ${isLoaded ? 'fade-in-scale' : 'opacity-0'}`}>
+        <div className="absolute inset-0 rounded-3xl overflow-hidden">
           <img 
             src={curtainTrackImg} 
             alt="Smart curtain tracks showcase"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 backdrop-blur-sm" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h1 className="text-5xl font-bold text-white mb-6 animate-text-reveal">
               Smart Curtain Tracks
             </h1>
-            <p className="text-lg sm:text-xl text-gray-200 mb-8">
+            <p className="text-xl text-gray-200 mb-8">
               Transform your curtains with our premium electric curtain track system. Elegant, quiet, and seamlessly integrated with your smart home.
             </p>
             <a 
               href="#products" 
               onClick={scrollToProducts}
-              className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition inline-block"
+              className="light-button px-8 py-3 rounded-full font-medium text-center inline-block w-auto"
             >
               Explore Collection
             </a>
@@ -97,11 +97,12 @@ const CurtainTracksPage = () => {
           <Breadcrumb items={breadcrumbItems} />
         </div>
         
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-16">Smart Curtain Tracks</h1>
+        <h1 className="modern-page-title">Smart Curtain Tracks</h1>
+        <p className="modern-page-subtitle">Premium electric curtain tracks with modern design and smart home integration</p>
 
-        <div id="products" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="products" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {products.map((product) => (
-            <ProductCard
+            <ModernProductCard
               key={product.id}
               product={product}
             />

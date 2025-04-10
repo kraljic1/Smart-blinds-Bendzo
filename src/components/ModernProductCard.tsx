@@ -1,34 +1,24 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { Sun, Moon, Zap } from 'lucide-react';
+import React, { useEffect, useRef, useMemo } from 'react';
+import { Sun, Moon, Check, Package, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
-import {
-  CardRoot,
-  CardContent,
-  CardTitle,
-  CardPrice,
-  CardActions,
-} from './Card';
 
 interface ModernProductCardProps {
   product: Product;
   onConfigure?: (product: Product) => void;
   onRequestSample?: (product: Product) => void;
   configureButtonText?: string;
-  delay?: number;
 }
 
 const ModernProductCard: React.FC<ModernProductCardProps> = ({ 
   product, 
   onConfigure, 
   onRequestSample,
-  configureButtonText = "Configure & Buy"
+  configureButtonText = "Configure & Buy" 
 }) => {
   const navigate = useNavigate();
   const colorSwatchRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
-  
+
   const handleConfigure = () => {
     if (onConfigure) {
       onConfigure(product);
@@ -43,7 +33,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     }
   };
 
-  // Check if product has an image with "4.webp" or "4.jpg" (fabric detail image)
+  // Check if product has a fabric detail image
   const hasFabricImage = useMemo((): boolean => {
     if (!product.images) return false;
     return product.images.some(img => 
@@ -57,35 +47,19 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     );
   }, [product.images]);
 
-  // Get the fabric image (with "4.webp" or "4.jpg")
+  // Get the fabric image 
   const getFabricImage = (): string | null => {
     if (!product.images) return null;
     
-    // First, look for exact matches for fabric samples
-    let fabricImage = product.images.find(img => 
+    const fabricImage = product.images.find(img => 
       img.includes("4.webp") || 
       img.endsWith("/4.webp") || 
       img.includes("4.jpg") || 
-      img.endsWith("/4.jpg")
+      img.endsWith("/4.jpg") ||
+      img.endsWith("/4") ||
+      img.includes("fabric") ||
+      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
     );
-    
-    // If not found, try to find images with "4" at the end of path segments
-    if (!fabricImage) {
-      fabricImage = product.images.find(img => 
-        img.endsWith("/4") || 
-        (img.includes("/") && img.split("/").pop()?.startsWith("4"))
-      );
-    }
-    
-    // If still not found, fallback to any image with "fabric" in the name
-    if (!fabricImage) {
-      fabricImage = product.images.find(img => img.includes("fabric"));
-    }
-    
-    // Finally, if we still don't have a match, use the last image which is often the fabric sample
-    if (!fabricImage && product.images.length > 3) {
-      fabricImage = product.images[product.images.length - 1];
-    }
     
     return fabricImage || null;
   };
@@ -95,192 +69,132 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     if (!hasFabricImage && colorSwatchRef.current && product.fabricColor) {
       colorSwatchRef.current.style.backgroundColor = product.fabricColor;
     }
-  }, [product, hasFabricImage]);
-
-  // Simple preload of images in background without tracking loaded count
-  useEffect(() => {
-    if (product.images && product.images.length > 0) {
-      // Just preload the images in background without tracking state
-      product.images.forEach(src => {
-        const img = new Image();
-        img.src = src;
-      });
-    }
-  }, [product.images]);
-  
-  // Handle 3D tilt effect with improved smoothness
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    // Disable 3D effects on mobile for better performance
-    const isMobile = window.innerWidth < 768;
-    if (isMobile) return;
-
-    let rafId: number | null = null;
-    let lastX = 0;
-    let lastY = 0;
-    const dampingFactor = 0.1; // Make movement more smooth with damping
-
-    const updateTransform = () => {
-      const inner = card.querySelector('.depth-effect-inner') as HTMLElement;
-      if (inner && isHovering) {
-        rafId = requestAnimationFrame(updateTransform);
-      } else if (inner) {
-        inner.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
-      }
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      // Apply damping for smoother transitions
-      lastX = lastX + (((centerX - x) / 30) - lastX) * dampingFactor;
-      lastY = lastY + (((y - centerY) / 30) - lastY) * dampingFactor;
-      
-      const inner = card.querySelector('.depth-effect-inner') as HTMLElement;
-      if (inner) {
-        inner.style.transform = `rotateY(${lastX}deg) rotateX(${lastY}deg) translateZ(5px)`;
-      }
-    };
-
-    const handleMouseEnter = () => {
-      setIsHovering(true);
-      rafId = requestAnimationFrame(updateTransform);
-    };
-
-    const handleMouseLeave = () => {
-      setIsHovering(false);
-      const inner = card.querySelector('.depth-effect-inner') as HTMLElement;
-      if (inner) {
-        inner.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
-      }
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-    };
-
-    card.addEventListener('mouseenter', handleMouseEnter);
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mouseenter', handleMouseEnter);
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-    };
-  }, [isHovering]);
-
-  // Optimize image loading by using smaller images on mobile
-  const isMobile = useRef(window.innerWidth < 768).current;
+  }, [product.fabricColor, hasFabricImage]);
 
   return (
-    <div 
-      ref={cardRef}
-      className={`reveal-staggered visible ${isMobile ? "" : "depth-effect"}`}
-      style={{ 
-        transition: 'opacity 100ms ease-out',
-        opacity: 1
-      }}
-    >
-      <CardRoot className={`h-full flex flex-col modern-card ${isMobile ? "" : "depth-effect-inner"}`}>
+    <div className="group h-full overflow-hidden">
+      {/* Card with modern effects */}
+      <div className="relative h-full flex flex-col light-card dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700/30 transition-all duration-300 group-hover:shadow-xl">
+        {/* Subtle card background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 dark:from-blue-900/5 dark:to-purple-900/10 -z-10"></div>
+        
+        {/* Special highlight effect top-right corner */}
+        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-bl-[100px] -translate-y-12 translate-x-12 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500"></div>
+        
+        {/* Image container with overlay effect */}
         <div className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-10 opacity-60"></div>
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <img 
+              src={product.image} 
+              alt={product.name}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            
+            {/* Image overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
           
-          <img 
-            src={product.image} 
-            alt={product.name} 
-            loading="lazy"
-            className={`w-full h-56 object-cover ${isMobile ? "" : "transition-transform duration-700 hover:scale-105"}`}
-          />
-          
-          <div className="absolute bottom-4 right-4 z-20">
-            {/* Show fabric swatch */}
-            <div className="fabric-detail">
+          {/* Color swatch */}
+          <div className="absolute -bottom-6 right-6 transition-transform duration-300 group-hover:transform group-hover:translate-y-0 z-20">
+            <div className="relative">
               {hasFabricImage ? (
-                <div className="fabric-image">
-                  <img 
-                    src={getFabricImage() ?? ''} 
-                    alt={`${product.name} fabric detail`} 
+                <div className="p-1 rounded-full bg-white/60 backdrop-blur-sm border border-white/40 shadow-lg">
+                  <img
+                    src={getFabricImage()!}
+                    alt={`${product.name} fabric`}
+                    className="w-14 h-14 rounded-full product-color-swatch object-cover"
                   />
                 </div>
               ) : (
-                <div className="color-swatch" ref={colorSwatchRef}></div>
+                <div className="p-1 rounded-full bg-white/60 backdrop-blur-sm border border-white/40 shadow-lg">
+                  <div
+                    ref={colorSwatchRef}
+                    className="w-14 h-14 rounded-full product-color-swatch"
+                    data-color={product.fabricColor}
+                  />
+                </div>
               )}
+              
+              {/* Mini floating badge */}
+              <div className="absolute -bottom-1 -right-1 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-full w-6 h-6 flex items-center justify-center shadow-md border border-gray-100 dark:border-gray-700">
+                <Check size={12} strokeWidth={3} />
+              </div>
             </div>
           </div>
-          
-          {product.discount && (
-            <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center z-20">
-              <Zap className="w-4 h-4 mr-1" />
-              {product.discount}% OFF
-            </div>
-          )}
         </div>
-
-        <CardContent className="flex-grow flex flex-col min-h-[240px] sm:min-h-[260px] p-4 sm:p-5">
-          <div className="h-14 mb-2">
-            <CardTitle className="line-clamp-2 h-full flex items-center text-xl">
-              {product.name.toUpperCase()}
-            </CardTitle>
-          </div>
-
+        
+        {/* Card content */}
+        <div className="flex-grow flex flex-col p-6 pt-8">
+          {/* Product title */}
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600">
+            {product.name.toUpperCase()}
+          </h3>
+          
+          {/* Feature badges */}
           <div className="flex flex-wrap gap-2 mb-4">
             {product.features.map((feature, i) => (
               <span
                 key={i}
-                className="bg-gradient-to-r from-blue-500/20 to-blue-600/20 dark:from-blue-500/30 dark:to-blue-600/30 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm uppercase flex items-center"
+                className="modern-badge flex items-center"
               >
                 {feature === 'Light filtering' ? (
-                  <Sun className="w-4 h-4 mr-1" />
+                  <Sun className="w-3 h-3 mr-1 inline" />
                 ) : (
-                  <Moon className="w-4 h-4 mr-1" />
+                  <Moon className="w-3 h-3 mr-1 inline" />
                 )}
                 {feature}
               </span>
             ))}
           </div>
-
-          <div className="flex items-center space-x-2 mb-4">
-            <span className="text-sm text-gray-600 dark:text-gray-400 uppercase">
-              +{product.colors} {product.colors === 1 ? 'COLOR' : 'COLORS'}
+          
+          {/* Colors count */}
+          <div className="mb-4">
+            <span className="text-sm text-gray-600 dark:text-gray-400 flex items-center">
+              <span className="flex items-center justify-center w-5 h-5 mr-1.5 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40">
+                <span className="text-xs font-medium text-blue-700 dark:text-blue-300">+{product.colors}</span>
+              </span>
+              {product.colors === 1 ? 'COLOR' : 'COLORS'} AVAILABLE
             </span>
           </div>
-
-          <CardPrice
-            price={product.price}
-            originalPrice={product.originalPrice}
-            className="mb-4"
-          />
-
-          <CardActions className="mt-auto pt-2 sm:pt-0">
+          
+          {/* Price */}
+          <div className="mb-5 flex items-end">
+            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400 mr-2">
+              ${product.price.toLocaleString()}
+            </span>
+            {product.originalPrice && (
+              <span className="line-through text-gray-500 dark:text-gray-400 mb-1">
+                ${product.originalPrice.toLocaleString()}
+              </span>
+            )}
+          </div>
+          
+          {/* Action buttons */}
+          <div className="mt-auto pt-4 space-y-3">
             <button
               onClick={handleConfigure}
-              className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600 shimmer-button min-h-[40px]"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
             >
-              {configureButtonText}
+              <span>{configureButtonText}</span>
             </button>
             
             {onRequestSample && (
               <button
                 onClick={handleRequestSample}
-                className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 min-h-[40px]"
+                className="w-full border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm text-gray-800 dark:text-gray-200 px-6 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 font-medium flex items-center justify-center"
               >
-                Request Sample
+                <Package size={16} className="mr-2" />
+                <span>Request Sample</span>
               </button>
             )}
-          </CardActions>
-        </CardContent>
-      </CardRoot>
+          </div>
+          
+          {/* Like button */}
+          <button className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm shadow-md border border-white/40 dark:border-gray-700/40 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100">
+            <Heart size={14} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
