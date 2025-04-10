@@ -179,68 +179,65 @@ const Header: React.FC = () => {
       </div>
       
       {/* Mobile Navigation Menu */}
-      <div 
-        className={`fixed inset-0 bg-black z-40 transition-all duration-500 lg:hidden ${
-          isMenuOpen 
-            ? 'opacity-100 pointer-events-auto' 
-            : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={handleCloseMenu}
-      >
+      {isMenuOpen && (
         <div 
-          className={`absolute inset-y-0 right-0 max-w-sm w-full bg-white dark:bg-gray-900 shadow-2xl transform transition-transform duration-500 ease-in-out ${
-            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-          onClick={(e) => e.stopPropagation()}
+          className="fixed inset-0 bg-black lg:hidden z-40"
+          onClick={handleCloseMenu}
         >
-          <div className="flex flex-col h-full pt-20 pb-6 px-6">
-            <button
-              onClick={handleCloseMenu}
-              className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-              aria-label="Close menu"
-            >
-              <X size={20} />
-            </button>
-            
-            <div className="flex flex-col space-y-1 flex-1">
-              {navItems.map((item, index) => {
-                const isActive = isActiveRoute(item.path);
-                
-                return (
-                  <Link
-                    key={index}
-                    to={item.path}
-                    className={`group px-4 py-3 rounded-xl flex items-center transition-all duration-300 ${
-                      isActive
-                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                        : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 text-gray-800 dark:text-gray-200'
-                    }`}
-                    onClick={handleCloseMenu}
+          <div 
+            className="absolute inset-y-0 right-0 max-w-sm w-full bg-white dark:bg-gray-900 shadow-2xl"
+            style={{ opacity: 1 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex flex-col h-full pt-20 pb-6 px-6">
+              <button
+                onClick={handleCloseMenu}
+                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+                aria-label="Close menu"
+              >
+                <X size={20} />
+              </button>
+              
+              <div className="flex flex-col space-y-1 flex-1">
+                {navItems.map((item, index) => {
+                  const isActive = isActiveRoute(item.path);
+                  
+                  return (
+                    <Link
+                      key={index}
+                      to={item.path}
+                      className={`group px-4 py-3 rounded-xl flex items-center transition-all duration-300 ${
+                        isActive
+                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                          : 'hover:bg-gray-50 dark:hover:bg-gray-800/50 text-gray-800 dark:text-gray-200'
+                      }`}
+                      onClick={handleCloseMenu}
+                    >
+                      <div className={`mr-3 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}>
+                        {item.icon}
+                      </div>
+                      <span className="font-medium text-base nav-font">{item.label}</span>
+                      <ChevronRight size={16} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </Link>
+                  );
+                })}
+              </div>
+              
+              <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700/30">
+                <div className="text-sm text-gray-500 dark:text-gray-400 flex justify-between items-center">
+                  <span>© {new Date().getFullYear()} Smartblinds</span>
+                  <button 
+                    onClick={toggle} 
+                    className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                   >
-                    <div className={`mr-3 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-500 dark:text-gray-400'}`}>
-                      {item.icon}
-                    </div>
-                    <span className="font-medium text-base nav-font">{item.label}</span>
-                    <ChevronRight size={16} className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Link>
-                );
-              })}
-            </div>
-            
-            <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700/30">
-              <div className="text-sm text-gray-500 dark:text-gray-400 flex justify-between items-center">
-                <span>© {new Date().getFullYear()} Smartblinds</span>
-                <button 
-                  onClick={toggle} 
-                  className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
-                >
-                  {isDark ? <Sun size={16} /> : <Moon size={16} />}
-                </button>
+                    {isDark ? <Sun size={16} /> : <Moon size={16} />}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </header>
   );
 };
