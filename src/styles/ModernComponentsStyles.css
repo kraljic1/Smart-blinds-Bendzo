@@ -47,7 +47,7 @@
 
 /* Modern item card */
 .modern-item-card {
-  @apply light-glass p-4 rounded-xl border light-border dark:bg-gray-800/50 dark:border-gray-700/30 transition-all duration-300 hover:light-shadow-md dark:hover:bg-gray-800/70;
+  @apply light-glass p-4 rounded-xl border light-border dark:bg-gray-800/50 dark:border-gray-700/30 transition-all duration-300 hover:shadow-md dark:hover:bg-gray-800/70;
 }
 
 /* Modern grid layout */
