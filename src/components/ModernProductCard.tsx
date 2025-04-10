@@ -149,7 +149,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           
           {/* Colors count */}
           <div className="mb-4">
-            <span className="text-sm text-gray-600 dark:text-gray-200 flex items-center">
+            <span className="text-sm text-black dark:text-black flex items-center">
               <span className="flex items-center justify-center w-5 h-5 mr-1.5 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-700 dark:to-purple-700">
                 <span className="text-xs font-medium text-blue-700 dark:text-white">+{product.colors}</span>
               </span>
