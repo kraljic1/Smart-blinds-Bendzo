@@ -135,7 +135,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             {product.features.map((feature, i) => (
               <span
                 key={i}
-                className="modern-badge flex items-center dark:bg-blue-700/40 dark:text-blue-100"
+                className="modern-badge flex items-center text-blue-700 dark:bg-blue-700/40 dark:text-blue-100"
               >
                 {feature === 'Light filtering' ? (
                   <Sun className="w-3 h-3 mr-1 inline" />
