@@ -2,6 +2,7 @@
 @import './styles/PriceCalculator.css';
 @import './styles/FilterPanel.css';
 @import './styles/animations.css';
+@import './styles/lightModeEffects.css';
 @import './styles/OverscrollFix.css';
 @import './styles/TabletResponsive.css';
 
