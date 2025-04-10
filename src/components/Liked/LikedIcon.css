@@ -1,0 +1,132 @@
+.liked-icon-container {
+  position: relative;
+}
+
+.liked-icon-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.liked-icon-link:after {
+  content: 'View Favorites';
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.liked-icon-link:hover:after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.liked-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.liked-icon.light-mode {
+  color: #000000;
+}
+
+.liked-icon.dark-mode {
+  color: #ffffff;
+}
+
+.liked-icon-link:hover .liked-icon {
+  transform: scale(1.1);
+  color: var(--icon-hover-color, #ef4444);
+}
+
+.liked-icon-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  background-color: var(--count-bg-color, #ef4444);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(25%, -25%);
+  transition: transform 0.2s;
+}
+
+.liked-preview {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 250px;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+  overflow: hidden;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.dark .liked-preview {
+  background-color: #1f2937;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.liked-preview-header {
+  padding: 1rem;
+  background-color: var(--preview-header-bg, #f9fafb);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.dark .liked-preview-header {
+  background-color: #374151;
+  border-color: #4b5563;
+  color: #e5e7eb;
+}
+
+.liked-preview-view-btn {
+  display: block;
+  padding: 0.75rem 1rem;
+  background-color: var(--view-btn-bg, #ef4444);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: background-color 0.2s;
+}
+
+.liked-preview-view-btn:hover {
+  background-color: var(--view-btn-hover-bg, #dc2626);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

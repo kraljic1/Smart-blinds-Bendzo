@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, ChevronRight, Sun, Moon, Home, ShoppingBag, HelpCircle, Settings } from 'lucide-react';
+import { X, ChevronRight, Sun, Moon, Home, ShoppingBag, HelpCircle, Settings, Heart } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import ModalBackground from './ModalBackground';
 
@@ -28,6 +28,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     { label: 'Accessories', path: '/products/accessories', icon: <ShoppingBag size={16} /> },
     { label: 'How It Works', path: '/how-it-works', icon: <HelpCircle size={16} /> },
     { label: 'Support', path: '/support', icon: <Settings size={16} /> },
+    { label: 'My Favorites', path: '/liked', icon: <Heart size={16} /> },
   ];
 
   return (

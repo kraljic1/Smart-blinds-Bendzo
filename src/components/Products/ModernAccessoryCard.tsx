@@ -1,26 +1,19 @@
-import React, { useEffect, useRef, useMemo } from 'react';
-import { Sun, Moon, Check, Package, Heart } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { Wifi, Smartphone, Cable, Radio, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Product } from '../types/product';
-import { useLikedContext } from '../hooks/useLikedContext';
+import { AccessoryProduct } from '../../data/accessories';
+import { useLikedContext } from '../../hooks/useLikedContext';
 
-interface ModernProductCardProps {
-  product: Product;
-  onConfigure?: (product: Product) => void;
-  onRequestSample?: (product: Product) => void;
-  configureButtonText?: string;
+interface ModernAccessoryCardProps {
+  product: AccessoryProduct;
   delay?: number;
 }
 
-const ModernProductCard: React.FC<ModernProductCardProps> = ({ 
-  product, 
-  onConfigure, 
-  onRequestSample,
-  configureButtonText = "Configure & Buy",
+const ModernAccessoryCard: React.FC<ModernAccessoryCardProps> = ({ 
+  product,
   delay = 0
 }) => {
   const navigate = useNavigate();
-  const colorSwatchRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const { isLiked, addLikedItem, removeLikedItem } = useLikedContext();
   const productIsLiked = isLiked(product.id);
@@ -43,17 +36,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   }, [delay]);
 
   const handleConfigure = () => {
-    if (onConfigure) {
-      onConfigure(product);
-    } else {
-      navigate(`/products/configure/${product.id}`);
-    }
-  };
-
-  const handleRequestSample = () => {
-    if (onRequestSample) {
-      onRequestSample(product);
-    }
+    navigate(`/products/configure/${product.id}`);
   };
 
   const handleToggleLike = (e: React.MouseEvent) => {
@@ -65,43 +48,14 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     }
   };
 
-  // Check if product has a fabric detail image
-  const hasFabricImage = useMemo((): boolean => {
-    if (!product.images) return false;
-    return product.images.some(img => 
-      img.includes("4.webp") || 
-      img.endsWith("/4.webp") || 
-      img.includes("4.jpg") || 
-      img.endsWith("/4.jpg") ||
-      img.endsWith("/4") ||
-      img.includes("fabric") ||
-      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
-    );
-  }, [product.images]);
-
-  // Get the fabric image 
-  const getFabricImage = (): string | null => {
-    if (!product.images) return null;
-    
-    const fabricImage = product.images.find(img => 
-      img.includes("4.webp") || 
-      img.endsWith("/4.webp") || 
-      img.includes("4.jpg") || 
-      img.endsWith("/4.jpg") ||
-      img.endsWith("/4") ||
-      img.includes("fabric") ||
-      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
-    );
-    
-    return fabricImage || null;
+  // Helper function to render appropriate icon for feature
+  const renderFeatureIcon = (feature: string) => {
+    if (feature === 'Wi-Fi') return <Wifi className="w-3 h-3 mr-1" />;
+    if (feature === 'Matter') return <Smartphone className="w-3 h-3 mr-1" />;
+    if (feature === 'Charging') return <Cable className="w-3 h-3 mr-1" />;
+    if (feature === '5 Channels' || feature === '15 Channels') return <Radio className="w-3 h-3 mr-1" />;
+    return null;
   };
-
-  // Set background color for products without fabric image
-  useEffect(() => {
-    if (!hasFabricImage && colorSwatchRef.current && product.fabricColor) {
-      colorSwatchRef.current.style.backgroundColor = product.fabricColor;
-    }
-  }, [product.fabricColor, hasFabricImage]);
 
   return (
     <div className="group h-full overflow-hidden">
@@ -129,34 +83,6 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             {/* Image overlay gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent dark:from-gray-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
-          
-          {/* Color swatch */}
-          <div className="absolute -bottom-6 right-6 transition-transform duration-300 group-hover:transform group-hover:translate-y-0 z-20">
-            <div className="relative">
-              {hasFabricImage ? (
-                <div className="p-1 rounded-full bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm border border-white/40 dark:border-gray-500 shadow-lg">
-                  <img
-                    src={getFabricImage()!}
-                    alt={`${product.name} fabric`}
-                    className="w-14 h-14 rounded-full product-color-swatch object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="p-1 rounded-full bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm border border-white/40 dark:border-gray-500 shadow-lg">
-                  <div
-                    ref={colorSwatchRef}
-                    className="w-14 h-14 rounded-full product-color-swatch"
-                    data-color={product.fabricColor}
-                  />
-                </div>
-              )}
-              
-              {/* Mini floating badge */}
-              <div className="absolute -bottom-1 -right-1 bg-white dark:bg-blue-600 text-blue-600 dark:text-white rounded-full w-6 h-6 flex items-center justify-center shadow-md border border-gray-100 dark:border-blue-500">
-                <Check size={12} strokeWidth={3} />
-              </div>
-            </div>
-          </div>
         </div>
         
         {/* Card content */}
@@ -173,24 +99,10 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
                 key={i}
                 className="modern-badge flex items-center text-black dark:bg-blue-700/40 dark:text-black"
               >
-                {feature === 'Light filtering' ? (
-                  <Sun className="w-3 h-3 mr-1 inline" />
-                ) : (
-                  <Moon className="w-3 h-3 mr-1 inline" />
-                )}
+                {renderFeatureIcon(feature)}
                 {feature}
               </span>
             ))}
-          </div>
-          
-          {/* Colors count */}
-          <div className="mb-4">
-            <span className="text-sm text-black dark:text-black flex items-center">
-              <span className="flex items-center justify-center w-5 h-5 mr-1.5 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-700 dark:to-purple-700">
-                <span className="text-xs font-medium text-blue-700 dark:text-white">+{product.colors}</span>
-              </span>
-              {product.colors === 1 ? 'COLOR' : 'COLORS'} AVAILABLE
-            </span>
           </div>
           
           {/* Price */}
@@ -206,23 +118,13 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           </div>
           
           {/* Action buttons */}
-          <div className="mt-auto pt-4 space-y-3">
+          <div className="mt-auto pt-4">
             <button
               onClick={handleConfigure}
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-400 dark:hover:to-indigo-500 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
             >
-              <span>{configureButtonText}</span>
+              <span>Configure & Buy</span>
             </button>
-            
-            {onRequestSample && (
-              <button
-                onClick={handleRequestSample}
-                className="w-full border border-gray-200 dark:border-gray-600 bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm text-gray-800 dark:text-gray-100 px-6 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 font-medium flex items-center justify-center"
-              >
-                <Package size={16} className="mr-2" />
-                <span>Request Sample</span>
-              </button>
-            )}
           </div>
           
           {/* Like button */}
@@ -244,4 +146,4 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   );
 };
 
-export default ModernProductCard; 
+export default ModernAccessoryCard; 

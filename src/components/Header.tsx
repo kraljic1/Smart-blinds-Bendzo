@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import { BasketIcon } from './Basket/BasketIcon';
+import { LikedIcon } from './Liked/LikedIcon';
 import { Menu, Sun, Moon, Home, ShoppingBag, HelpCircle, Settings, X } from 'lucide-react';
 import MobileMenuWrapper from './MobileMenuWrapper';
 import BlackOverlay from './BlackOverlay';
@@ -129,6 +130,15 @@ const Header: React.FC = () => {
           
           {/* Action Buttons */}
           <div className="flex items-center space-x-2">
+            {/* Liked Icon */}
+            <div className={`relative transition-all duration-300 ${
+              scrolled 
+                ? 'text-gray-900 dark:text-white' 
+                : 'text-gray-900 dark:text-white'
+            }`}>
+              <LikedIcon />
+            </div>
+            
             {/* Basket Icon */}
             <div className={`relative transition-all duration-300 ${
               scrolled 

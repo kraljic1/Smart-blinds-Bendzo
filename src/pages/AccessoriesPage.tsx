@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Wifi, Smartphone, Cable, Radio } from 'lucide-react';
 import SEO from '../components/SEO';
 import '../styles/AccessoriesPage.css';
-import { accessories, AccessoryProduct } from '../data/accessories';
+import { accessories } from '../data/accessories';
+import ModernAccessoryCard from '../components/Products/ModernAccessoryCard';
 
 const AccessoriesPage: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -59,56 +58,12 @@ const AccessoriesPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 accessories-grid">
-          {accessories.map((product: AccessoryProduct) => (
-            <div key={product.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col">
-              <div className="relative">
-                <div className="relative">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-48 sm:h-56 md:h-64 object-cover"
-                  />
-                </div>
-              </div>
-              <div className="p-4 sm:p-5 md:p-6 flex-grow flex flex-col min-h-[200px] sm:min-h-[220px] md:min-h-[240px]">
-                <div className="h-12 sm:h-14 mb-2">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 uppercase overflow-hidden line-clamp-2 h-full flex items-center">
-                    {product.name}
-                  </h3>
-                </div>
-              
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {product.features.map((feature: string, i: number) => (
-                    <span
-                      key={i}
-                      className="bg-blue-500/10 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs sm:text-sm uppercase flex items-center"
-                    >
-                      {feature === 'Wi-Fi' && <Wifi className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />}
-                      {feature === 'Matter' && <Smartphone className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />}
-                      {feature === 'Charging' && <Cable className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />}
-                      {(feature === '5 Channels' || feature === '15 Channels') && <Radio className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />}
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="mt-auto">
-                  <div className="flex items-baseline mb-4">
-                    {product.originalPrice && (
-                      <span className="text-gray-500 dark:text-gray-400 line-through mr-2">${product.originalPrice}</span>
-                    )}
-                    <span className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">${product.price}</span>
-                  </div>
-                  
-                  <Link 
-                    to={`/products/configure/${product.id}`}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full flex justify-center items-center transition duration-300 uppercase font-medium text-sm sm:text-base"
-                  >
-                    Configure & Buy
-                  </Link>
-                </div>
-              </div>
-            </div>
+          {accessories.map((product, index) => (
+            <ModernAccessoryCard 
+              key={product.id} 
+              product={product} 
+              delay={index * 100}
+            />
           ))}
         </div>
       </div>
