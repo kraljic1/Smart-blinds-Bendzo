@@ -8,16 +8,36 @@ interface ModernProductCardProps {
   onConfigure?: (product: Product) => void;
   onRequestSample?: (product: Product) => void;
   configureButtonText?: string;
+  delay?: number;
 }
 
 const ModernProductCard: React.FC<ModernProductCardProps> = ({ 
   product, 
   onConfigure, 
   onRequestSample,
-  configureButtonText = "Configure & Buy" 
+  configureButtonText = "Configure & Buy",
+  delay = 0
 }) => {
   const navigate = useNavigate();
   const colorSwatchRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Animation effect with delay
+  useEffect(() => {
+    if (cardRef.current) {
+      cardRef.current.style.opacity = '0';
+      cardRef.current.style.transform = 'translateY(20px)';
+      
+      const timer = setTimeout(() => {
+        if (cardRef.current) {
+          cardRef.current.style.opacity = '1';
+          cardRef.current.style.transform = 'translateY(0)';
+        }
+      }, delay);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [delay]);
 
   const handleConfigure = () => {
     if (onConfigure) {
@@ -74,7 +94,11 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   return (
     <div className="group h-full overflow-hidden">
       {/* Card with modern effects */}
-      <div className="relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-300 group-hover:shadow-xl">
+      <div 
+        ref={cardRef} 
+        className="relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-500 group-hover:shadow-xl"
+        style={{ opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.5s ease, transform 0.5s ease' }}
+      >
         {/* Subtle card background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 dark:from-blue-900/10 dark:to-purple-900/20 -z-10"></div>
         
