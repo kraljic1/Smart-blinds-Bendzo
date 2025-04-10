@@ -74,12 +74,12 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   return (
     <div className="group h-full overflow-hidden">
       {/* Card with modern effects */}
-      <div className="relative h-full flex flex-col light-card dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700/30 transition-all duration-300 group-hover:shadow-xl">
+      <div className="relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-300 group-hover:shadow-xl">
         {/* Subtle card background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 dark:from-blue-900/5 dark:to-purple-900/10 -z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 dark:from-blue-900/10 dark:to-purple-900/20 -z-10"></div>
         
         {/* Special highlight effect top-right corner */}
-        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-bl-[100px] -translate-y-12 translate-x-12 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500"></div>
+        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-bl-[100px] -translate-y-12 translate-x-12 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500"></div>
         
         {/* Image container with overlay effect */}
         <div className="relative overflow-hidden">
@@ -91,14 +91,14 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             />
             
             {/* Image overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent dark:from-gray-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           
           {/* Color swatch */}
           <div className="absolute -bottom-6 right-6 transition-transform duration-300 group-hover:transform group-hover:translate-y-0 z-20">
             <div className="relative">
               {hasFabricImage ? (
-                <div className="p-1 rounded-full bg-white/60 backdrop-blur-sm border border-white/40 shadow-lg">
+                <div className="p-1 rounded-full bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm border border-white/40 dark:border-gray-500 shadow-lg">
                   <img
                     src={getFabricImage()!}
                     alt={`${product.name} fabric`}
@@ -106,7 +106,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
                   />
                 </div>
               ) : (
-                <div className="p-1 rounded-full bg-white/60 backdrop-blur-sm border border-white/40 shadow-lg">
+                <div className="p-1 rounded-full bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm border border-white/40 dark:border-gray-500 shadow-lg">
                   <div
                     ref={colorSwatchRef}
                     className="w-14 h-14 rounded-full product-color-swatch"
@@ -116,7 +116,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
               )}
               
               {/* Mini floating badge */}
-              <div className="absolute -bottom-1 -right-1 bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 rounded-full w-6 h-6 flex items-center justify-center shadow-md border border-gray-100 dark:border-gray-700">
+              <div className="absolute -bottom-1 -right-1 bg-white dark:bg-blue-600 text-blue-600 dark:text-white rounded-full w-6 h-6 flex items-center justify-center shadow-md border border-gray-100 dark:border-blue-500">
                 <Check size={12} strokeWidth={3} />
               </div>
             </div>
@@ -126,7 +126,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
         {/* Card content */}
         <div className="flex-grow flex flex-col p-6 pt-8">
           {/* Product title */}
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 dark:group-hover:from-blue-300 dark:group-hover:to-purple-300">
             {product.name.toUpperCase()}
           </h3>
           
@@ -135,7 +135,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             {product.features.map((feature, i) => (
               <span
                 key={i}
-                className="modern-badge flex items-center"
+                className="modern-badge flex items-center dark:bg-blue-700/40 dark:text-blue-100"
               >
                 {feature === 'Light filtering' ? (
                   <Sun className="w-3 h-3 mr-1 inline" />
@@ -149,9 +149,9 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           
           {/* Colors count */}
           <div className="mb-4">
-            <span className="text-sm text-gray-600 dark:text-gray-400 flex items-center">
-              <span className="flex items-center justify-center w-5 h-5 mr-1.5 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40">
-                <span className="text-xs font-medium text-blue-700 dark:text-blue-300">+{product.colors}</span>
+            <span className="text-sm text-gray-600 dark:text-gray-200 flex items-center">
+              <span className="flex items-center justify-center w-5 h-5 mr-1.5 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-700 dark:to-purple-700">
+                <span className="text-xs font-medium text-blue-700 dark:text-white">+{product.colors}</span>
               </span>
               {product.colors === 1 ? 'COLOR' : 'COLORS'} AVAILABLE
             </span>
@@ -159,7 +159,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           
           {/* Price */}
           <div className="mb-5 flex items-end">
-            <span className="text-3xl font-bold text-blue-600 dark:text-blue-400 mr-2">
+            <span className="text-3xl font-bold text-blue-600 dark:text-blue-300 mr-2">
               ${product.price.toLocaleString()}
             </span>
             {product.originalPrice && (
@@ -173,7 +173,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           <div className="mt-auto pt-4 space-y-3">
             <button
               onClick={handleConfigure}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-400 dark:hover:to-indigo-500 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
             >
               <span>{configureButtonText}</span>
             </button>
@@ -181,7 +181,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             {onRequestSample && (
               <button
                 onClick={handleRequestSample}
-                className="w-full border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm text-gray-800 dark:text-gray-200 px-6 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 font-medium flex items-center justify-center"
+                className="w-full border border-gray-200 dark:border-gray-600 bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm text-gray-800 dark:text-gray-100 px-6 py-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-300 font-medium flex items-center justify-center"
               >
                 <Package size={16} className="mr-2" />
                 <span>Request Sample</span>
@@ -190,7 +190,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
           </div>
           
           {/* Like button */}
-          <button className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm shadow-md border border-white/40 dark:border-gray-700/40 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100">
+          <button className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm shadow-md border border-white/40 dark:border-gray-600/40 flex items-center justify-center text-gray-500 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100">
             <Heart size={14} />
           </button>
         </div>
