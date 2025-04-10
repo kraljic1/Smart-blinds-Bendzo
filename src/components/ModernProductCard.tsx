@@ -126,7 +126,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
         {/* Card content */}
         <div className="flex-grow flex flex-col p-6 pt-8">
           {/* Product title */}
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 dark:group-hover:from-blue-300 dark:group-hover:to-purple-300">
+          <h3 className="text-xl font-bold text-black dark:text-black mb-4 line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 dark:group-hover:from-blue-600 dark:group-hover:to-purple-600">
             {product.name.toUpperCase()}
           </h3>
           
