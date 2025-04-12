@@ -10,6 +10,7 @@ import ProductCustomization, { CustomizationOption } from '../components/Product
 import PriceCalculator from '../components/PriceCalculator';
 import { getCustomizationOptions } from '../data/customizationOptionsByProduct';
 import { useBasketContext } from '../hooks/useBasketContext';
+import '../styles/ProductConfiguration.css';
 
 const ProductConfigurationPage = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -303,7 +304,7 @@ const ProductConfigurationPage = () => {
   }
 
   return (
-    <div className="pt-20 pb-24 sm:pt-24 sm:pb-32" ref={containerRef}>
+    <div className="pt-20 pb-24 sm:pt-24 sm:pb-32 bg-white dark:bg-[#0c1222]" ref={containerRef}>
       {product && (
         <SEO
           title={`${product.name} - Configure Your Smart Blind | Smartblinds Croatia`}
@@ -323,7 +324,7 @@ const ProductConfigurationPage = () => {
           Back to Products
         </button>
 
-        <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden modern-card ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}>
+        <div className={`bg-white dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden modern-card ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}>
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 p-4 sm:p-6">
             <div className={`space-y-4 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`} style={{ animationDelay: '75ms' }}>
               {/* Main product image with navigation arrows */}
@@ -455,7 +456,7 @@ const ProductConfigurationPage = () => {
                         <input
                           type="text"
                           placeholder="30 - 350 cm"
-                          className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                           value={width}
                           onChange={handleWidthChange}
                         />
@@ -467,7 +468,7 @@ const ProductConfigurationPage = () => {
                         <input
                           type="text"
                           placeholder="30 - 350 cm"
-                          className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                          className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                           value={height}
                           onChange={handleHeightChange}
                         />
@@ -507,7 +508,7 @@ const ProductConfigurationPage = () => {
               </div>
               
               {/* Additional product information */}
-              <div className={`bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden modern-card ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '500ms' }}>
+              <div className={`bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden modern-card ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '500ms' }}>
                 <div className="divide-y divide-gray-200 dark:divide-gray-700">
                   <div className="p-4">
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Product Features</h3>

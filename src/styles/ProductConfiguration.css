@@ -1,0 +1,89 @@
+/* Product Configuration specific styles */
+
+/* Fix dark mode background on the entire page */
+:root.dark,
+html.dark, 
+html.dark body {
+  background-color: #0c1222 !important;
+}
+
+/* Fix dark mode on other specific elements */
+.dark #root {
+  background-color: #0c1222 !important;
+}
+
+/* Force background for all direct wrapper divs */
+.dark > div,
+.dark #root > div {
+  background-color: #0c1222 !important;
+}
+
+/* Add specific fix for the product configuration page */
+.dark .pt-20,
+.dark .pt-24 {
+  background-color: #0c1222 !important;
+}
+
+/* Fix for all parent containers */
+html.dark * {
+  background-color: inherit;
+}
+
+/* Reset for specific elements that need their own background */
+html.dark .bg-gray-700,
+html.dark .bg-gray-800,
+html.dark .bg-gray-900,
+html.dark .dark\:bg-gray-700,
+html.dark .dark\:bg-gray-800,
+html.dark .dark\:bg-gray-900,
+html.dark input,
+html.dark button,
+html.dark .modern-card {
+  background-color: initial;
+}
+
+/* Fix input background color in dark mode */
+.dark input[type="text"],
+.dark input[type="number"],
+.dark input[type="email"],
+.dark input[type="password"],
+.dark input[type="tel"],
+.dark input[type="url"],
+.dark input[type="search"],
+.dark input[type="date"],
+.dark textarea,
+.dark select {
+  background-color: #0c1222 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+/* Fix specific input fields in the product configuration page */
+.dark .product-configuration-input {
+  background-color: #0c1222 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+/* Make sure all buttons in dark mode have proper styling */
+.dark button {
+  color-scheme: dark;
+}
+
+/* Fix any background issues with other elements on the page */
+.dark .bg-white {
+  background-color: #0c1222 !important;
+}
+
+/* Fix for specific elements that might cause the white background */
+body.dark::before,
+html.dark::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0c1222;
+  z-index: -1;
+} 

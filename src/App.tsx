@@ -43,7 +43,7 @@ function App() {
               <Router>
                 <Layout>
                   <Header />
-                  <main className="flex-grow overflow-x-hidden">
+                  <main className="flex-grow overflow-x-hidden bg-white dark:bg-[#0c1222]">
                     <Routes>
                       <Route path="/" element={<HomePage />} />
                       <Route path="/products" element={<ProductsPage />} />
