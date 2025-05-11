@@ -25,12 +25,12 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) =
         </div>
         
         {/* Title with gradient on hover */}
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3 relative z-10 group-hover:light-text-shimmer transition-all duration-300">
+        <h3 className="text-xl font-semibold text-black dark:text-black mb-3 relative z-10 group-hover:light-text-shimmer transition-all duration-300">
           {title}
         </h3>
         
         {/* Description */}
-        <p className="text-gray-600 dark:text-gray-300 relative z-10 flex-grow">
+        <p className="text-black dark:text-black relative z-10 flex-grow">
           {description}
         </p>
       </div>
