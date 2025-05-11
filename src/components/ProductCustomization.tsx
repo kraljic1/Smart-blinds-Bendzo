@@ -80,7 +80,7 @@ const ProductCustomization = ({
             {option.options.map((value) => (
               <div
                 key={value.id}
-                className={`option-item ${selectedOptions[option.id] === value.id ? 'selected' : ''} ${value.color ? 'color-option' : ''} ${option.textOnly ? 'text-only-option' : ''}`}
+                className={`option-item ${selectedOptions[option.id] === value.id ? 'selected' : ''} ${value.color ? 'color-option' : ''} ${option.textOnly ? 'text-only-option' : ''} ${(option.id === 'color' && value.image) ? 'fabric-option' : ''}`}
                 onClick={() => onOptionChange(option.id, value.id)}
               >
                 {value.image && !value.color && !option.textOnly && (
@@ -88,7 +88,12 @@ const ProductCustomization = ({
                     <img src={value.image} alt={value.name} className="option-image" />
                   </div>
                 )}
-                {value.color && (
+                {option.id === 'color' && value.image && (
+                  <div className="fabric-swatch-container">
+                    <img src={value.image} alt={value.name} className="fabric-swatch" />
+                  </div>
+                )}
+                {value.color && !value.image && (
                   <div 
                     ref={(el) => {
                       if (el) colorSwatchRefs.current.set(`${option.id}-${value.id}`, el);

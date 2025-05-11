@@ -69,7 +69,8 @@
 }
 
 .color-grid {
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-gap: 16px;
 }
 
 .text-only-grid {
@@ -426,4 +427,78 @@
   background-color: #374151;
   color: #d1d5db;
   border-left-color: #60a5fa;
+}
+
+/* New styles for fabric swatches */
+.fabric-option {
+  padding: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.dark .fabric-option {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+.fabric-swatch-container {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.dark .fabric-swatch-container {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.fabric-swatch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.fabric-option .option-content {
+  background-color: transparent;
+}
+
+.fabric-option .option-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-top: 4px;
+}
+
+.dark .fabric-option .option-name {
+  color: #e5e7eb;
+}
+
+.fabric-option .option-price {
+  color: #4b5563;
+}
+
+.dark .fabric-option .option-price {
+  color: #9ca3af;
+}
+
+/* Update color grid layout for more consistent display */
+.color-grid {
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .color-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 8px;
+  }
 } 
