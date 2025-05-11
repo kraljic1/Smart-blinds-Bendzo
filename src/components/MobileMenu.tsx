@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, ChevronRight, Sun, Moon, Home, ShoppingBag, HelpCircle, Settings, Heart } from 'lucide-react';
+import { X, ChevronRight, Home, ShoppingBag, HelpCircle, Settings, Heart } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import ModalBackground from './ModalBackground';
 
@@ -10,7 +10,7 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
-  const { isDark, toggle } = useTheme();
+  const { isDark } = useTheme();
   const location = useLocation();
 
   if (!isOpen) return null;
@@ -127,6 +127,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               alignItems: 'center'
             }}>
               <span>© {new Date().getFullYear()} Smartblinds</span>
+              {/* Theme toggle button - hidden
               <button 
                 onClick={toggle} 
                 style={{
@@ -138,6 +139,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               >
                 {isDark ? <Sun size={16} /> : <Moon size={16} />}
               </button>
+              */}
             </div>
           </div>
         </div>

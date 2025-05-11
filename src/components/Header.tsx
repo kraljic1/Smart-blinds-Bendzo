@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTheme } from '../hooks/useTheme';
 import { BasketIcon } from './Basket/BasketIcon';
 import { LikedIcon } from './Liked/LikedIcon';
-import { Menu, Sun, Moon, Home, ShoppingBag, HelpCircle, Settings, X } from 'lucide-react';
+import { Menu, X, Home, ShoppingBag, HelpCircle, Settings } from 'lucide-react';
 import MobileMenuWrapper from './MobileMenuWrapper';
 import BlackOverlay from './BlackOverlay';
 
 const Header: React.FC = () => {
-  const { isDark, toggle } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -147,24 +145,6 @@ const Header: React.FC = () => {
             }`}>
               <BasketIcon />
             </div>
-            
-            {/* Theme Toggle */}
-            <button 
-              onClick={toggle}
-              className={`group p-2 rounded-full transition-colors duration-300 relative ${
-                scrolled
-                  ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'
-                  : 'bg-gray-100 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200'
-              }`}
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              <div className="absolute inset-0 rounded-full bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              {isDark ? (
-                <Sun className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
-              ) : (
-                <Moon className="h-5 w-5 transition-transform duration-300 group-hover:-rotate-12" />
-              )}
-            </button>
             
             {/* Mobile Menu Button */}
             <div className="lg:hidden">

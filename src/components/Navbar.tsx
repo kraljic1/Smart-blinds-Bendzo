@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,13 +55,9 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
-            <div className="ml-2">
-              <ThemeToggle />
-            </div>
           </div>
 
           <div className="md:hidden flex items-center gap-4">
-            <ThemeToggle />
             <button 
               onClick={() => setIsOpen(!isOpen)} 
               className="p-2 text-gray-800 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
