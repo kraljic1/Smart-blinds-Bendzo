@@ -53,12 +53,25 @@ const ProductConfigurationWrapper = ({
       const defaultSelections: Record<string, string> = {};
       customizationOptions.forEach(option => {
         if (option.options.length > 0) {
-          defaultSelections[option.id] = option.options[0].id;
+          // If this is the color option, select the current product's ID
+          if (option.id === 'color') {
+            // Find the color option that matches the current product
+            const colorOption = option.options.find(o => o.id === currentProduct.id);
+            if (colorOption) {
+              defaultSelections[option.id] = colorOption.id;
+            } else {
+              // Fallback to first option if no match found
+              defaultSelections[option.id] = option.options[0].id;
+            }
+          } else {
+            // For other options, select the first option
+            defaultSelections[option.id] = option.options[0].id;
+          }
         }
       });
       setSelectedOptions(defaultSelections);
     }
-  }, [customizationOptions]);
+  }, [customizationOptions, currentProduct.id]);
 
   // Update product when changed from parent
   useEffect(() => {
@@ -86,11 +99,6 @@ const ProductConfigurationWrapper = ({
 
   // Handle option change
   const handleOptionChange = (optionId: string, valueId: string) => {
-    setSelectedOptions(prev => ({
-      ...prev,
-      [optionId]: valueId
-    }));
-
     // If the color option was changed, update the product
     if (optionId === 'color') {
       // Find the product by ID (which is the same as the color option valueId)
@@ -149,11 +157,23 @@ const ProductConfigurationWrapper = ({
           setCurrentImages([newProduct.image]);
         }
         
+        // Update the selected options
+        setSelectedOptions(prev => ({
+          ...prev,
+          [optionId]: valueId
+        }));
+        
         // Notify parent component about product change
         if (onProductChange) {
           onProductChange(newProduct);
         }
       }
+    } else {
+      // For non-color options, just update the selection
+      setSelectedOptions(prev => ({
+        ...prev,
+        [optionId]: valueId
+      }));
     }
   };
 
