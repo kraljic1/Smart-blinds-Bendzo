@@ -83,16 +83,21 @@ const ProductCustomization = ({
                 className={`option-item ${selectedOptions[option.id] === value.id ? 'selected' : ''} ${value.color ? 'color-option' : ''} ${option.textOnly ? 'text-only-option' : ''} ${(option.id === 'color' && value.image) ? 'fabric-option' : ''}`}
                 onClick={() => onOptionChange(option.id, value.id)}
               >
-                {value.image && !value.color && !option.textOnly && (
+                {/* Only show this for non-color options with images */}
+                {value.image && !value.color && !option.textOnly && option.id !== 'color' && (
                   <div className="option-image-container">
                     <img src={value.image} alt={value.name} className="option-image" />
                   </div>
                 )}
+                
+                {/* For color options with images (fabric swatches) */}
                 {option.id === 'color' && value.image && (
                   <div className="fabric-swatch-container">
                     <img src={value.image} alt={value.name} className="fabric-swatch" />
                   </div>
                 )}
+
+                {/* For color swatches */}
                 {value.color && !value.image && (
                   <div 
                     ref={(el) => {
