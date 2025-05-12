@@ -1,0 +1,41 @@
+/* Scroll Indicator Styles */
+
+.scroll-indicator-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100vh;
+  z-index: 999;
+  pointer-events: none; /* Makes it non-interactive */
+}
+
+.scroll-indicator-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to bottom, #3b82f6, #6366f1);
+  border-radius: 0 0 3px 3px;
+  transition: height 0.1s ease; /* Smooth transition */
+  box-shadow: 0 0 6px rgba(99, 102, 241, 0.5);
+}
+
+/* Reduced opacity in light mode for subtlety */
+.scroll-indicator-bar {
+  opacity: 0.7;
+}
+
+/* Higher contrast in dark mode */
+.dark .scroll-indicator-bar {
+  opacity: 0.85;
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.6);
+}
+
+/* Hide on small screens (optional) */
+@media (max-width: 640px) {
+  .scroll-indicator-container {
+    width: 4px; /* Slightly thinner on mobile */
+  }
+} 

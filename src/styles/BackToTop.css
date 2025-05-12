@@ -1,0 +1,85 @@
+/* Back to Top Button Styles */
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #fff;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInButton 0.3s ease forwards;
+  transition: all 0.2s ease;
+}
+
+.back-to-top-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+/* Button hover effects */
+.back-to-top-button:hover {
+  background: #f9fafb;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+.back-to-top-button:hover .back-to-top-icon {
+  transform: translateY(-2px);
+}
+
+/* Active state */
+.back-to-top-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode */
+.dark .back-to-top-button {
+  background: #1e293b;
+  color: #60a5fa;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.dark .back-to-top-button:hover {
+  background: #0f172a;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Animation for button appearance */
+@keyframes fadeInButton {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .back-to-top-button {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .back-to-top-icon {
+    width: 18px;
+    height: 18px;
+  }
+} 
