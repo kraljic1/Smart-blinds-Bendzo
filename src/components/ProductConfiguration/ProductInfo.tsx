@@ -17,7 +17,7 @@ const ProductInfo = ({
   return (
     <div className={`space-y-4 sm:space-y-6 ${isVisible ? 'slide-in-up' : 'opacity-0'}`} style={{ animationDelay: '125ms' }}>
       <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{product.name}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white uppercase">{product.name}</h1>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
           <span className="text-gray-600 dark:text-gray-300">{product.features && product.features.length > 0 ? product.features[0] : ''}</span>
           <span className="text-gray-600 dark:text-gray-300 hidden sm:inline">-</span>

@@ -24,20 +24,29 @@ const ProductConfigurationPage = () => {
   useEffect(() => {
     // Make the checkMissingProductImages function available in the console
     if (typeof window !== 'undefined') {
-      // Safe type assertion for window object
-      (window as Record<string, any>).checkMissingProductImages = checkMissingProductImages;
-      (window as Record<string, any>).generateMissingImagesTemplate = generateMissingImagesTemplate;
+      // Use more specific type for window augmentation
+      const win = window as unknown as {
+        checkMissingProductImages?: typeof checkMissingProductImages;
+        generateMissingImagesTemplate?: typeof generateMissingImagesTemplate;
+      };
+      
+      win.checkMissingProductImages = checkMissingProductImages;
+      win.generateMissingImagesTemplate = generateMissingImagesTemplate;
     }
     
     return () => {
       // Clean up by removing the functions from window
       if (typeof window !== 'undefined') {
-        // Safe type assertion for window object
-        if ((window as Record<string, any>).checkMissingProductImages) {
-          delete (window as Record<string, any>).checkMissingProductImages;
+        const win = window as unknown as {
+          checkMissingProductImages?: typeof checkMissingProductImages;
+          generateMissingImagesTemplate?: typeof generateMissingImagesTemplate;
+        };
+        
+        if (win.checkMissingProductImages) {
+          win.checkMissingProductImages = undefined;
         }
-        if ((window as Record<string, any>).generateMissingImagesTemplate) {
-          delete (window as Record<string, any>).generateMissingImagesTemplate;
+        if (win.generateMissingImagesTemplate) {
+          win.generateMissingImagesTemplate = undefined;
         }
       }
     };
@@ -196,68 +205,72 @@ const ProductConfigurationPage = () => {
     
     if (foundProduct) {
       setProduct(foundProduct);
-      
-      // For products with the new numbered image system (0.webp, 1.webp, etc.)
-      // Create a properly ordered array of images
-      if (foundProduct.images && foundProduct.images.length > 0) {
-        // Check if we're using the numbered image system (if any image has a number pattern)
-        const hasNumberedImages = foundProduct.images.some(img => 
-          img.includes("/0.webp") || img.includes("/1.webp") || img.includes("/2.webp") || 
-          img.includes("/3.webp") || img.includes("/4.webp")
-        );
-        
-        if (hasNumberedImages) {
-          // Create ordered array of numbered images
-          const orderedImages: string[] = [];
-          
-          // Find the cover image (0.webp)
-          const coverImage = foundProduct.images.find(img => img.includes("/0.webp"));
-          if (coverImage) {
-            orderedImages.push(coverImage);
-          } else {
-            // Fallback to main image if 0.webp not found
-            orderedImages.push(foundProduct.image);
-          }
-          
-          // Add remaining images in numerical order
-          for (let i = 1; i <= 4; i++) {
-            const img = foundProduct.images.find(img => img.includes(`/${i}.webp`));
-            if (img) {
-              orderedImages.push(img);
-            }
-          }
-          
-          setAllImages(orderedImages);
-        } else {
-          // For legacy image naming conventions
-          const images: string[] = [];
-          
-          // Add main image
-          images.push(foundProduct.image);
-          
-          // Add additional images, skipping any that match the main image
-          foundProduct.images.forEach(img => {
-            if (img !== foundProduct.image) {
-              images.push(img);
-            }
-          });
-          
-          setAllImages(images);
-        }
-      } else {
-        // Just use the main image if no additional images
-        setAllImages([foundProduct.image]);
-      }
+      updateProductImages(foundProduct);
     }
     
     setIsLoading(false);
   }, [productId]);
 
+  // Function to update product images
+  const updateProductImages = (foundProduct: Product) => {
+    // For products with the new numbered image system (0.webp, 1.webp, etc.)
+    // Create a properly ordered array of images
+    if (foundProduct.images && foundProduct.images.length > 0) {
+      // Check if we're using the numbered image system (if any image has a number pattern)
+      const hasNumberedImages = foundProduct.images.some(img => 
+        img.includes("/0.webp") || img.includes("/1.webp") || img.includes("/2.webp") || 
+        img.includes("/3.webp") || img.includes("/4.webp")
+      );
+      
+      if (hasNumberedImages) {
+        // Create ordered array of numbered images
+        const orderedImages: string[] = [];
+        
+        // Find the cover image (0.webp)
+        const coverImage = foundProduct.images.find(img => img.includes("/0.webp"));
+        if (coverImage) {
+          orderedImages.push(coverImage);
+        } else {
+          // Fallback to main image if 0.webp not found
+          orderedImages.push(foundProduct.image);
+        }
+        
+        // Add remaining images in numerical order
+        for (let i = 1; i <= 4; i++) {
+          const img = foundProduct.images.find(img => img.includes(`/${i}.webp`));
+          if (img) {
+            orderedImages.push(img);
+          }
+        }
+        
+        setAllImages(orderedImages);
+      } else {
+        // For legacy image naming conventions
+        const images: string[] = [];
+        
+        // Add main image
+        images.push(foundProduct.image);
+        
+        // Add additional images, skipping any that match the main image
+        foundProduct.images.forEach(img => {
+          if (img !== foundProduct.image) {
+            images.push(img);
+          }
+        });
+        
+        setAllImages(images);
+      }
+    } else {
+      // Just use the main image if no additional images
+      setAllImages([foundProduct.image]);
+    }
+  };
+
   // Set default customization options
   useEffect(() => {
     if (product) {
       const productOptions = getCustomizationOptions(product.id);
-        setCustomizationOptions(productOptions);
+      setCustomizationOptions(productOptions);
     }
   }, [product]);
 
@@ -273,6 +286,12 @@ const ProductConfigurationPage = () => {
       // Show a confirmation toast
       alert(`${quantity} ${product.name}${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'have' : 'has'} been added to your basket!`);
     }
+  };
+
+  // Handle product change from color selection
+  const handleProductChange = (newProduct: Product) => {
+    setProduct(newProduct);
+    updateProductImages(newProduct);
   };
 
   const isAccessoryProduct = 
@@ -322,12 +341,13 @@ const ProductConfigurationPage = () => {
       )}
       
       <ProductConfigurationWrapper
-                      product={product}
+        product={product}
         isAccessoryProduct={isAccessoryProduct}
         customizationOptions={customizationOptions}
         allImages={allImages}
         onGoBack={handleGoBack}
-                      onCheckout={handleCheckout}
+        onCheckout={handleCheckout}
+        onProductChange={handleProductChange}
       />
     </div>
   );

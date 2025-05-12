@@ -9,6 +9,7 @@ import ProductFeatures from './ProductFeatures';
 import ImageZoomModal from '../ImageZoomModal';
 import InfoPanel from '../InfoPanel';
 import '../../styles/ProductConfiguration.css';
+import { allProducts } from '../../data/collections';
 
 interface ProductConfigurationWrapperProps {
   product: Product;
@@ -17,6 +18,7 @@ interface ProductConfigurationWrapperProps {
   allImages: string[];
   onGoBack: () => void;
   onCheckout: (quantity: number, options: Record<string, string | number | boolean>) => void;
+  onProductChange?: (product: Product) => void;
 }
 
 const ProductConfigurationWrapper = ({
@@ -25,8 +27,13 @@ const ProductConfigurationWrapper = ({
   customizationOptions,
   allImages,
   onGoBack,
-  onCheckout
+  onCheckout,
+  onProductChange
 }: ProductConfigurationWrapperProps) => {
+  // Current product state
+  const [currentProduct, setCurrentProduct] = useState<Product>(product);
+  const [currentImages, setCurrentImages] = useState<string[]>(allImages);
+  
   // Animation states
   const [isVisible, setIsVisible] = useState(false);
   const [animationFinished, setAnimationFinished] = useState(false);
@@ -53,6 +60,12 @@ const ProductConfigurationWrapper = ({
     }
   }, [customizationOptions]);
 
+  // Update product when changed from parent
+  useEffect(() => {
+    setCurrentProduct(product);
+    setCurrentImages(allImages);
+  }, [product, allImages]);
+
   // Trigger animations after component mounts
   useEffect(() => {
     // Short delay before starting animations
@@ -77,6 +90,71 @@ const ProductConfigurationWrapper = ({
       ...prev,
       [optionId]: valueId
     }));
+
+    // If the color option was changed, update the product
+    if (optionId === 'color') {
+      // Find the product by ID (which is the same as the color option valueId)
+      const newProduct = allProducts.find(p => p.id === valueId);
+      
+      if (newProduct) {
+        // Update the current product
+        setCurrentProduct(newProduct);
+        
+        // Generate ordered images for the new product
+        if (newProduct.images && newProduct.images.length > 0) {
+          const hasNumberedImages = newProduct.images.some(img => 
+            img.includes("/0.webp") || img.includes("/1.webp") || img.includes("/2.webp") || 
+            img.includes("/3.webp") || img.includes("/4.webp")
+          );
+          
+          if (hasNumberedImages) {
+            // Create ordered array of numbered images
+            const orderedImages: string[] = [];
+            
+            // Find the cover image (0.webp)
+            const coverImage = newProduct.images.find(img => img.includes("/0.webp"));
+            if (coverImage) {
+              orderedImages.push(coverImage);
+            } else {
+              // Fallback to main image if 0.webp not found
+              orderedImages.push(newProduct.image);
+            }
+            
+            // Add remaining images in numerical order
+            for (let i = 1; i <= 4; i++) {
+              const img = newProduct.images.find(img => img.includes(`/${i}.webp`));
+              if (img) {
+                orderedImages.push(img);
+              }
+            }
+            
+            setCurrentImages(orderedImages);
+          } else {
+            // For legacy image naming conventions
+            const images: string[] = [];
+            
+            // Add main image
+            images.push(newProduct.image);
+            
+            // Add additional images, skipping any that match the main image
+            newProduct.images.forEach(img => {
+              if (img !== newProduct.image) {
+                images.push(img);
+              }
+            });
+            
+            setCurrentImages(images);
+          }
+        } else {
+          setCurrentImages([newProduct.image]);
+        }
+        
+        // Notify parent component about product change
+        if (onProductChange) {
+          onProductChange(newProduct);
+        }
+      }
+    }
   };
 
   // Handle checkout with dimensions and costs from form
@@ -134,8 +212,8 @@ const ProductConfigurationWrapper = ({
         <div className={`bg-white dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden modern-card ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}>
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8 p-4 sm:p-6">
             <ProductImageGallery 
-              images={allImages}
-              productName={product.name}
+              images={currentImages}
+              productName={currentProduct.name}
               onZoom={handleZoomImage}
               isVisible={isVisible}
               animationFinished={animationFinished}
@@ -143,14 +221,14 @@ const ProductConfigurationWrapper = ({
 
             <div className="space-y-6">
               <ProductInfo 
-                product={product}
+                product={currentProduct}
                 onInfoClick={handleInfoButtonClick}
                 isVisible={isVisible}
                 animationFinished={animationFinished}
               />
 
               <ProductCustomizationForm 
-                product={product}
+                product={currentProduct}
                 isAccessoryProduct={isAccessoryProduct}
                 customizationOptions={customizationOptions}
                 selectedOptions={selectedOptions}
@@ -161,6 +239,7 @@ const ProductConfigurationWrapper = ({
               />
               
               <ProductFeatures 
+                product={currentProduct}
                 isVisible={isVisible}
                 animationFinished={animationFinished}
               />
@@ -177,13 +256,13 @@ const ProductConfigurationWrapper = ({
       {/* Image Zoom Modal */}
       {isZoomModalOpen && (
         <ImageZoomModal
-          imageUrl={allImages[zoomImageIndex]}
-          altText={product.name}
+          imageUrl={currentImages[zoomImageIndex]}
+          altText={currentProduct.name}
           onClose={() => setIsZoomModalOpen(false)}
-          allImages={allImages}
+          allImages={currentImages}
           currentIndex={zoomImageIndex}
-          onPrevImage={() => setZoomImageIndex(prev => prev === 0 ? allImages.length - 1 : prev - 1)}
-          onNextImage={() => setZoomImageIndex(prev => (prev + 1) % allImages.length)}
+          onPrevImage={() => setZoomImageIndex(prev => prev === 0 ? currentImages.length - 1 : prev - 1)}
+          onNextImage={() => setZoomImageIndex(prev => (prev + 1) % currentImages.length)}
         />
       )}
     </div>
