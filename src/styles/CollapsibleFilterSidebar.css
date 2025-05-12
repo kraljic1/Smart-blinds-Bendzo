@@ -52,7 +52,8 @@
 }
 
 .filter-content.open {
-  max-height: 5000px; /* Increased to show more content */
+  max-height: none; /* Allow unlimited height for content */
+  height: auto;
   transition: max-height 0.6s ease-in;
 }
 
@@ -70,13 +71,14 @@
     max-height: none;
     overflow: visible;
     position: static;
+    height: auto;
   }
   
   .collapsible-filter-sidebar {
     position: sticky;
     top: 6rem;
-    max-height: calc(100vh - 12rem);
-    overflow-y: auto;
+    max-height: none; /* Remove max-height constraint */
+    overflow-y: visible; /* Show all content */
   }
 }
 
@@ -89,7 +91,7 @@
     border-radius: 0 0 0.5rem 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     overflow-y: auto; /* Allow scrolling within the filter panel */
-    max-height: 70vh; /* Use viewport height for better mobile experience */
+    max-height: 80vh; /* Use larger viewport height for mobile */
   }
   
   .dark .filter-content.open {

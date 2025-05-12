@@ -24,21 +24,25 @@ const FilterPanel: FC<FilterPanelProps> = ({
   const hasActiveFilters = Object.values(filters).some(group => group.length > 0);
 
   const getVisibleFilterGroups = () => {
+    // Common filters to show for all categories
     const commonFilters = ['colors'];
     
     switch(categoryId) {
       case 'roller':
         return filterGroups.filter(group => {
           // Include common filters and fabric types
-          if (commonFilters.includes(group.id) || group.id === 'fabricTypes') {
+          if (commonFilters.includes(group.id)) {
+            return true;
+          }
+
+          // Include type of fabric for roller blinds
+          if (group.id === 'fabricTypes') {
             return true;
           }
           
-          // For collections, only include roller collections
+          // Include collections specific to roller or with no specific category
           if (group.id === 'collections') {
-            return group.options.some(option => 
-              ['Essential', 'Comfort', 'Classic', 'Solar', 'Screen', 'Texture'].includes(option.value)
-            );
+            return !group.filterCategory || group.filterCategory === 'roller';
           }
           
           return false;
@@ -50,11 +54,9 @@ const FilterPanel: FC<FilterPanelProps> = ({
             return true;
           }
           
-          // For collections, only include zebra collections
+          // Include collections specific to zebra or with no specific category
           if (group.id === 'collections') {
-            return group.options.some(option => 
-              ['Balance', 'Pure', 'Accent'].includes(option.value)
-            );
+            return !group.filterCategory || group.filterCategory === 'zebra';
           }
           
           return false;

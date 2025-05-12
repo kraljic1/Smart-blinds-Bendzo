@@ -4,6 +4,7 @@
   display: block;
   position: relative;
   z-index: 10;
+  height: auto;
 }
 
 .filter-group {
@@ -28,6 +29,7 @@
   gap: 1rem;
   max-height: none;
   overflow: visible;
+  height: auto;
 }
 
 .filter-option {

@@ -8,6 +8,7 @@ export interface FilterGroup {
   id: string;
   title: string;
   options: FilterOption[];
+  filterCategory?: string; // Optional property to specify which category this filter belongs to
 }
 
 export interface ProductFilters {

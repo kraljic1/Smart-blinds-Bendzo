@@ -38,6 +38,7 @@ const rollerBlindFilterGroups: FilterGroup[] = [
   {
     id: 'collections',
     title: 'COLLECTION',
+    filterCategory: 'roller',
     options: [
       { id: 'essential', label: 'Essential', value: 'Essential' },
       { id: 'comfort', label: 'Comfort', value: 'Comfort' },
@@ -54,6 +55,7 @@ const zebraBlindFilterGroups: FilterGroup[] = [
   {
     id: 'collections',
     title: 'COLLECTION',
+    filterCategory: 'zebra',
     options: [
       { id: 'balance', label: 'Balance', value: 'Balance' },
       { id: 'pure', label: 'Pure', value: 'Pure' },
