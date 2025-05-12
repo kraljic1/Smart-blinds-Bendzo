@@ -109,12 +109,19 @@ const ProductCustomization = ({
                   ></div>
                 )}
                 <div className={`option-content ${option.textOnly ? 'text-only-content' : ''}`}>
-                  <span className="option-name">{value.name}</span>
-                  {value.price !== undefined && value.price > 0 && (
-                    <span className="option-price">+€{value.price.toFixed(2)}</span>
-                  )}
-                  {value.price !== undefined && value.price === 0 && (
-                    <span className="option-price">€{value.price.toFixed(2)}</span>
+                  {/* For color options, don't show any text content */}
+                  {option.id === 'color' ? (
+                    <></>
+                  ) : (
+                    <>
+                      <span className="option-name">{value.name}</span>
+                      {value.price !== undefined && value.price > 0 && (
+                        <span className="option-price">+€{value.price.toFixed(2)}</span>
+                      )}
+                      {value.price !== undefined && value.price === 0 && (
+                        <span className="option-price">€{value.price.toFixed(2)}</span>
+                      )}
+                    </>
                   )}
                 </div>
                 {selectedOptions[option.id] === value.id && (
