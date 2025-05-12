@@ -16,6 +16,14 @@ export const identifyProductDetails = (productId: string): {
     return { collection: null, transparencyType: null };
   }
   
+  // For Zebra blinds - they have empty features arrays but should all be treated as Light filtering
+  if (product.collection && ['Pure', 'Balance', 'Accent'].includes(product.collection)) {
+    return {
+      collection: product.collection,
+      transparencyType: 'Light filtering'
+    };
+  }
+  
   // Get transparency type from features (usually "Light filtering" or "Blackout")
   const transparencyType = product.features.find(f => 
     f.toLowerCase().includes('light filtering') || 
@@ -41,6 +49,11 @@ export const getRelatedProducts = (
 ): Product[] => {
   if (!collection || !transparencyType) {
     return [];
+  }
+  
+  // Special case for Zebra blind collections (Pure, Balance, Accent)
+  if (['Pure', 'Balance', 'Accent'].includes(collection)) {
+    return allProducts.filter(p => p.collection === collection);
   }
   
   return allProducts.filter(p => 
