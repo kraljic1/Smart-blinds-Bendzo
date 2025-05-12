@@ -70,7 +70,7 @@
 
 .color-grid {
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  grid-gap: 12px;
+  grid-gap: 4px;
 }
 
 .text-only-grid {
@@ -431,9 +431,11 @@
 
 /* New styles for fabric swatches */
 .fabric-option {
-  padding: 6px;
+  padding: 1px;
   background-color: #ffffff;
   border: 1px solid #e5e7eb;
+  margin: 1px;
+  border-radius: 4px;
 }
 
 .dark .fabric-option {
@@ -442,11 +444,11 @@
 }
 
 .fabric-swatch-container {
-  width: 80%;
+  width: 90%;
   height: 0;
-  padding-bottom: 80%;
+  padding-bottom: 90%;
   border-radius: 4px;
-  margin-bottom: 6px;
+  margin-bottom: 0;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -507,15 +509,15 @@
   z-index: 5;
 }
 
-/* Update color grid layout for more consistent display */
-.color-grid {
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  grid-gap: 12px;
+.fabric-option.selected {
+  border-color: #2563eb;
+  border-width: 2px;
+  padding: 0px;
 }
 
 @media (max-width: 640px) {
   .color-grid {
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    grid-gap: 6px;
+    grid-gap: 3px;
   }
 } 
