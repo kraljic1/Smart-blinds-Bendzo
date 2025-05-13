@@ -41,6 +41,13 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMenuOpen]);
 
+  // Handle location changes - close menu when navigating
+  useEffect(() => {
+    if (isMenuOpen) {
+      handleCloseMenu();
+    }
+  }, [location.pathname]);
+
   const toggleMenu = () => {
     console.log('Menu toggle clicked, current state:', isMenuOpen);
     setIsMenuOpen(prevState => {
@@ -49,9 +56,26 @@ const Header: React.FC = () => {
       // When menu is open, prevent scrolling on the body
       if (newState) {
         document.body.style.overflow = 'hidden';
+        
+        // Ensure no orphaned elements exist
+        const existingPanel = document.getElementById('mobile-menu-panel');
+        const existingOverlay = document.getElementById('pure-black-overlay');
+        
+        if (existingPanel && existingPanel.parentNode) {
+          existingPanel.parentNode.removeChild(existingPanel);
+        }
+        
+        if (existingOverlay && existingOverlay.parentNode) {
+          existingOverlay.parentNode.removeChild(existingOverlay);
+        }
       } else {
         document.body.style.overflow = '';
       }
+      
+      // Log after update for debugging
+      setTimeout(() => {
+        console.log('Menu toggle complete, new state:', newState);
+      }, 0);
       
       return newState;
     });
@@ -59,6 +83,7 @@ const Header: React.FC = () => {
 
   // Handle closing the menu
   const handleCloseMenu = () => {
+    console.log('Closing menu');
     setIsMenuOpen(false);
     document.body.style.overflow = '';
   };
@@ -182,6 +207,7 @@ const Header: React.FC = () => {
                 }`}
                 aria-expanded={isMenuOpen}
                 aria-label={isMenuOpen ? 'Close menu' : 'Open main menu'}
+                data-testid="mobile-menu-button"
               >
                 <div className="absolute inset-0 rounded-full bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open main menu'}</span>
@@ -197,8 +223,12 @@ const Header: React.FC = () => {
       </div>
       
       {/* Mobile Navigation Menu */}
-      <BlackOverlay isOpen={isMenuOpen} onClose={handleCloseMenu} />
-      <MobileMenuWrapper isOpen={isMenuOpen} onClose={handleCloseMenu} />
+      {isMenuOpen && (
+        <>
+          <BlackOverlay isOpen={isMenuOpen} onClose={handleCloseMenu} />
+          <MobileMenuWrapper isOpen={isMenuOpen} onClose={handleCloseMenu} />
+        </>
+      )}
     </header>
   );
 };

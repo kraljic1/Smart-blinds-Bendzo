@@ -44,10 +44,9 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
       panel.style.padding = '80px 32px 32px 32px';
       panel.style.overflowY = 'auto';
       panel.style.borderRadius = '24px 0 0 24px';
-      panel.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-      panel.style.transform = 'translateX(100%)';
+      panel.style.transform = 'translateX(100%)'; // Start offscreen
       panel.style.opacity = '0';
-      panel.style.willChange = 'transform, opacity';
+      panel.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
       
       // Add close button with modern style
       const closeButton = document.createElement('button');
@@ -256,17 +255,21 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
       `;
       
       panel.appendChild(footer);
+      
+      // Append to body before animations
       document.body.appendChild(panel);
       
       // Force a reflow for smoother animation
       void panel.offsetWidth;
       
       // Apply animations with smooth transitions
-      requestAnimationFrame(() => {
+      window.setTimeout(() => {
+        // Show the panel first
         panel.style.transform = 'translateX(0)';
         panel.style.opacity = '1';
         
-        setTimeout(() => {
+        // Then animate the inner elements
+        window.setTimeout(() => {
           closeButton.style.opacity = '1';
           closeButton.style.transform = 'scale(1)';
           
@@ -285,7 +288,7 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
           footer.style.opacity = '1';
           footer.style.transform = 'translateY(0)';
         }, 100);
-      });
+      }, 50);
     } else {
       // Animation for panel exit and removal
       const existingPanel = document.getElementById('mobile-menu-panel');
@@ -324,16 +327,18 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
         }
         
         // Animate panel exit
-        setTimeout(() => {
-          existingPanel.style.transform = 'translateX(100%)';
-          existingPanel.style.opacity = '0';
-          
-          // Remove panel after animation completes
-          setTimeout(() => {
-            if (existingPanel.parentNode) {
-              existingPanel.parentNode.removeChild(existingPanel);
-            }
-          }, 400);
+        window.setTimeout(() => {
+          if (existingPanel) {
+            existingPanel.style.transform = 'translateX(100%)';
+            existingPanel.style.opacity = '0';
+            
+            // Remove panel after animation completes
+            window.setTimeout(() => {
+              if (existingPanel && existingPanel.parentNode) {
+                existingPanel.parentNode.removeChild(existingPanel);
+              }
+            }, 400);
+          }
         }, 200);
       }
     }
