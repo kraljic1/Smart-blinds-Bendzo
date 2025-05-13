@@ -42,13 +42,19 @@ const Header: React.FC = () => {
   }, [isMenuOpen]);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-    // When menu is open, prevent scrolling on the body
-    if (!isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    console.log('Menu toggle clicked, current state:', isMenuOpen);
+    setIsMenuOpen(prevState => {
+      const newState = !prevState;
+      
+      // When menu is open, prevent scrolling on the body
+      if (newState) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+      
+      return newState;
+    });
   };
 
   // Handle closing the menu
@@ -167,6 +173,7 @@ const Header: React.FC = () => {
             {/* Mobile Menu Button */}
             <div className="lg:hidden">
               <button
+                type="button"
                 onClick={toggleMenu}
                 className={`group p-2 rounded-full relative ${
                   scrolled
@@ -174,6 +181,7 @@ const Header: React.FC = () => {
                     : 'bg-gray-100 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200'
                 }`}
                 aria-expanded={isMenuOpen}
+                aria-label={isMenuOpen ? 'Close menu' : 'Open main menu'}
               >
                 <div className="absolute inset-0 rounded-full bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open main menu'}</span>

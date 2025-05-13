@@ -6,11 +6,18 @@ interface MobileMenuWrapperProps {
   onClose: () => void;
 }
 
+// Define a type that includes non-standard CSS properties
+interface ExtendedCSSStyleDeclaration extends CSSStyleDeclaration {
+  '-webkit-backdrop-filter': string;
+}
+
 const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }) => {
   const { isDark } = useTheme();
   
   // Create the menu panel as a direct DOM manipulation
   useEffect(() => {
+    console.log("MobileMenuWrapper: isOpen state changed to", isOpen);
+    
     const cleanupPanel = () => {
       const existingPanel = document.getElementById('mobile-menu-panel');
       if (existingPanel && existingPanel.parentNode) {
@@ -25,95 +32,96 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
       // Create panel with modern 2025 style
       const panel = document.createElement('div');
       panel.id = 'mobile-menu-panel';
-      panel.style.cssText = `
-        position: fixed !important;
-        top: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: 350px !important;
-        max-width: 90% !important;
-        background-color: ${isDark ? '#111827' : '#ffffff'} !important;
-        box-shadow: ${isDark ? '0 0 40px rgba(0,0,0,0.5)' : '0 0 40px rgba(0,0,0,0.2)'} !important;
-        z-index: 9999 !important;
-        padding: 80px 32px 32px 32px !important;
-        overflow-y: auto !important;
-        border-radius: 24px 0 0 24px !important;
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        transform: translateX(100%) !important;
-        opacity: 0 !important;
-        will-change: transform, opacity !important;
-      `;
+      panel.style.position = 'fixed';
+      panel.style.top = '0';
+      panel.style.right = '0';
+      panel.style.bottom = '0';
+      panel.style.width = '350px';
+      panel.style.maxWidth = '90%';
+      panel.style.backgroundColor = isDark ? '#111827' : '#ffffff';
+      panel.style.boxShadow = isDark ? '0 0 40px rgba(0,0,0,0.5)' : '0 0 40px rgba(0,0,0,0.2)';
+      panel.style.zIndex = '9999';
+      panel.style.padding = '80px 32px 32px 32px';
+      panel.style.overflowY = 'auto';
+      panel.style.borderRadius = '24px 0 0 24px';
+      panel.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      panel.style.transform = 'translateX(100%)';
+      panel.style.opacity = '0';
+      panel.style.willChange = 'transform, opacity';
       
       // Add close button with modern style
       const closeButton = document.createElement('button');
-      closeButton.style.cssText = `
-        position: absolute !important;
-        top: 24px !important;
-        right: 24px !important;
-        background: ${isDark ? 'rgba(31, 41, 55, 0.8)' : 'rgba(249, 250, 251, 0.8)'} !important;
-        border: none !important;
-        cursor: pointer !important;
-        color: ${isDark ? '#ffffff' : '#111827'} !important;
-        z-index: 10000 !important;
-        width: 40px !important;
-        height: 40px !important;
-        border-radius: 50% !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        box-shadow: 0 4px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'} !important;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        opacity: 0 !important;
-        transform: scale(0.9) !important;
-      `;
+      closeButton.style.position = 'absolute';
+      closeButton.style.top = '24px';
+      closeButton.style.right = '24px';
+      closeButton.style.background = isDark ? 'rgba(31, 41, 55, 0.8)' : 'rgba(249, 250, 251, 0.8)';
+      closeButton.style.border = 'none';
+      closeButton.style.cursor = 'pointer';
+      closeButton.style.color = isDark ? '#ffffff' : '#111827';
+      closeButton.style.zIndex = '10000';
+      closeButton.style.width = '40px';
+      closeButton.style.height = '40px';
+      closeButton.style.borderRadius = '50%';
+      closeButton.style.display = 'flex';
+      closeButton.style.alignItems = 'center';
+      closeButton.style.justifyContent = 'center';
+      closeButton.style.backdropFilter = 'blur(8px)';
+      (closeButton.style as unknown as ExtendedCSSStyleDeclaration)['-webkit-backdrop-filter'] = 'blur(8px)';
+      closeButton.style.boxShadow = `0 4px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`;
+      closeButton.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+      closeButton.style.opacity = '0';
+      closeButton.style.transform = 'scale(0.9)';
+      
       closeButton.onmouseover = () => {
         closeButton.style.transform = 'scale(1.1)';
-        closeButton.style.boxShadow = `0 6px 16px ${isDark ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.15)'} !important`;
+        closeButton.style.boxShadow = `0 6px 16px ${isDark ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.15)'}`;
       };
       closeButton.onmouseout = () => {
         closeButton.style.transform = 'scale(1)';
-        closeButton.style.boxShadow = `0 4px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'} !important`;
+        closeButton.style.boxShadow = `0 4px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'}`;
       };
-      closeButton.onclick = onClose;
+      
+      // Make sure the click event is properly attached
+      closeButton.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClose();
+      };
+      
       closeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
       
       panel.appendChild(closeButton);
       
       // Add logo/brand at the top
       const brandArea = document.createElement('div');
-      brandArea.style.cssText = `
-        margin-bottom: 40px !important;
-        display: flex !important;
-        align-items: center !important;
-        transform: translateY(20px) !important;
-        opacity: 0 !important;
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s !important;
-      `;
+      brandArea.style.marginBottom = '40px';
+      brandArea.style.display = 'flex';
+      brandArea.style.alignItems = 'center';
+      brandArea.style.transform = 'translateY(20px)';
+      brandArea.style.opacity = '0';
+      brandArea.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s';
+      
       brandArea.innerHTML = `
         <div style="
-          font-weight: 700 !important; 
-          font-size: 24px !important; 
-          background: linear-gradient(90deg, #3B82F6, #8B5CF6) !important;
-          -webkit-background-clip: text !important;
-          background-clip: text !important;
-          color: transparent !important;
-          display: inline-block !important;
+          font-weight: 700; 
+          font-size: 24px; 
+          background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          display: inline-block;
         ">Smartblinds</div>
       `;
       panel.appendChild(brandArea);
       
       // Add content with modern style
       const content = document.createElement('div');
-      content.style.cssText = `
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 8px !important;
-        opacity: 0 !important;
-        transform: translateY(30px) !important;
-        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s !important;
-      `;
+      content.style.display = 'flex';
+      content.style.flexDirection = 'column';
+      content.style.gap = '8px';
+      content.style.opacity = '0';
+      content.style.transform = 'translateY(30px)';
+      content.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s';
       
       // Menu items data with modern icons
       const menuItems = [
@@ -153,25 +161,23 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
       menuItems.forEach((item, index) => {
         const menuItem = document.createElement('a');
         menuItem.href = item.path;
-        menuItem.style.cssText = `
-          display: flex !important;
-          align-items: center !important;
-          gap: 16px !important;
-          padding: 16px !important;
-          color: ${isDark ? '#ffffff' : '#111827'} !important;
-          text-decoration: none !important;
-          font-weight: 500 !important;
-          font-size: 16px !important;
-          border-radius: 14px !important;
-          background: ${isDark ? 'rgba(31, 41, 55, 0.3)' : 'rgba(249, 250, 251, 0.7)'} !important;
-          backdrop-filter: blur(5px) !important;
-          -webkit-backdrop-filter: blur(5px) !important;
-          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-          border: 1px solid ${isDark ? 'rgba(55, 65, 81, 0.5)' : 'rgba(229, 231, 235, 0.8)'} !important;
-          opacity: 0 !important;
-          transform: translateX(20px) !important;
-          transition-delay: ${0.2 + (index * 0.05)}s !important;
-        `;
+        menuItem.style.display = 'flex';
+        menuItem.style.alignItems = 'center';
+        menuItem.style.gap = '16px';
+        menuItem.style.padding = '16px';
+        menuItem.style.color = isDark ? '#ffffff' : '#111827';
+        menuItem.style.textDecoration = 'none';
+        menuItem.style.fontWeight = '500';
+        menuItem.style.fontSize = '16px';
+        menuItem.style.borderRadius = '14px';
+        menuItem.style.background = isDark ? 'rgba(31, 41, 55, 0.3)' : 'rgba(249, 250, 251, 0.7)';
+        menuItem.style.backdropFilter = 'blur(5px)';
+        (menuItem.style as unknown as ExtendedCSSStyleDeclaration)['-webkit-backdrop-filter'] = 'blur(5px)';
+        menuItem.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+        menuItem.style.border = `1px solid ${isDark ? 'rgba(55, 65, 81, 0.5)' : 'rgba(229, 231, 235, 0.8)'}`;
+        menuItem.style.opacity = '0';
+        menuItem.style.transform = 'translateX(20px)';
+        menuItem.style.transitionDelay = `${0.2 + (index * 0.05)}s`;
         
         menuItem.onmouseover = () => {
           menuItem.style.transform = 'translateX(5px)';
@@ -185,20 +191,22 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
           menuItem.style.boxShadow = 'none';
         };
         
-        menuItem.onclick = () => {
+        menuItem.onclick = (e) => {
+          e.preventDefault();
+          window.location.href = item.path;
           onClose();
         };
         
         menuItem.innerHTML = `
           <div style="
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            width: 40px !important;
-            height: 40px !important;
-            border-radius: 12px !important;
-            background: ${isDark ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)'} !important;
-            color: ${isDark ? '#60a5fa' : '#3b82f6'} !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: ${isDark ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)'};
+            color: ${isDark ? '#60a5fa' : '#3b82f6'};
           ">${item.icon}</div>
           <span>${item.label}</span>
           <svg style="margin-left: auto;" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,38 +221,36 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
       
       // Add footer with modern design
       const footer = document.createElement('div');
-      footer.style.cssText = `
-        margin-top: 40px !important;
-        padding-top: 24px !important;
-        border-top: 1px solid ${isDark ? 'rgba(75, 85, 99, 0.3)' : 'rgba(229, 231, 235, 0.8)'} !important;
-        display: flex !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        opacity: 0 !important;
-        transform: translateY(20px) !important;
-        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s !important;
-      `;
+      footer.style.marginTop = '40px';
+      footer.style.paddingTop = '24px';
+      footer.style.borderTop = `1px solid ${isDark ? 'rgba(75, 85, 99, 0.3)' : 'rgba(229, 231, 235, 0.8)'}`;
+      footer.style.display = 'flex';
+      footer.style.justifyContent = 'space-between';
+      footer.style.alignItems = 'center';
+      footer.style.opacity = '0';
+      footer.style.transform = 'translateY(20px)';
+      footer.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s';
       
       footer.innerHTML = `
         <span style="
-          font-size: 14px !important;
-          color: ${isDark ? 'rgba(156, 163, 175, 0.8)' : 'rgba(107, 114, 128, 0.8)'} !important;
-          font-weight: 500 !important;
+          font-size: 14px;
+          color: ${isDark ? 'rgba(156, 163, 175, 0.8)' : 'rgba(107, 114, 128, 0.8)'};
+          font-weight: 500;
         ">© ${new Date().getFullYear()} Smartblinds</span>
         
         <div style="
-          display: flex !important;
-          gap: 8px !important;
+          display: flex;
+          gap: 8px;
         ">
           <a href="#" style="
-            color: ${isDark ? '#9ca3af' : '#6b7280'} !important;
-            font-size: 14px !important;
-            text-decoration: none !important;
+            color: ${isDark ? '#9ca3af' : '#6b7280'};
+            font-size: 14px;
+            text-decoration: none;
           ">Privacy</a>
           <a href="#" style="
-            color: ${isDark ? '#9ca3af' : '#6b7280'} !important;
-            font-size: 14px !important;
-            text-decoration: none !important;
+            color: ${isDark ? '#9ca3af' : '#6b7280'};
+            font-size: 14px;
+            text-decoration: none;
           ">Terms</a>
         </div>
       `;
@@ -252,7 +258,7 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
       panel.appendChild(footer);
       document.body.appendChild(panel);
       
-      // Animation for panel entrance - trigger layout reflow
+      // Force a reflow for smoother animation
       void panel.offsetWidth;
       
       // Apply animations with smooth transitions
