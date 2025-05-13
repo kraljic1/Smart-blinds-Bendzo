@@ -221,10 +221,26 @@
   0% {
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
     transform: translateX(-10px);
+    opacity: 0;
   }
   100% {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Sequential reveal animation for paragraph that follows heading */
+@keyframes sequentialReveal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -296,6 +312,12 @@
 .animate-text-reveal {
   animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, clip-path;
+}
+
+/* Apply sequential reveal animation */
+.animate-sequential-reveal {
+  animation: sequentialReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, clip-path, opacity;
 }
 
 /* Scroll down animation */

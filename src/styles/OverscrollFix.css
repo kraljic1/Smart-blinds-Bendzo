@@ -32,4 +32,35 @@ body {
   position: relative;
   width: 100%;
   min-height: 100vh;
+}
+
+/* Fix for modal and overlay styling */
+#mobile-menu-panel, 
+#pure-black-overlay {
+  z-index: 9999 !important;
+  transform-style: flat !important;
+  backface-visibility: hidden !important;
+  perspective: 1000 !important;
+  will-change: transform, opacity !important;
+}
+
+/* Fix white flash issue on scroll */
+html.dark #mobile-menu-panel {
+  background-color: #111827 !important;
+}
+
+html.dark #pure-black-overlay {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Force hardware acceleration to prevent visual glitches */
+body::after {
+  content: '';
+  position: fixed;
+  width: 100%;
+  height: 0;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  will-change: transform;
 } 

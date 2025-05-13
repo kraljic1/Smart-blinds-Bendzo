@@ -17,11 +17,29 @@ const Header: React.FC = () => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 10;
       setScrolled(isScrolled);
+      
+      // Check for and clean up any leftover elements when scrolling
+      // This helps prevent the white square issue
+      if (!isMenuOpen) {
+        const existingPanel = document.getElementById('mobile-menu-panel');
+        const existingOverlay = document.getElementById('pure-black-overlay');
+        
+        if (existingPanel || existingOverlay) {
+          // If we find orphaned elements when menu is closed, clean them up
+          if (existingPanel && existingPanel.parentNode) {
+            existingPanel.parentNode.removeChild(existingPanel);
+          }
+          
+          if (existingOverlay && existingOverlay.parentNode) {
+            existingOverlay.parentNode.removeChild(existingOverlay);
+          }
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMenuOpen]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

@@ -11,12 +11,16 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
   
   // Create the menu panel as a direct DOM manipulation
   useEffect(() => {
+    const cleanupPanel = () => {
+      const existingPanel = document.getElementById('mobile-menu-panel');
+      if (existingPanel && existingPanel.parentNode) {
+        existingPanel.parentNode.removeChild(existingPanel);
+      }
+    };
+
     if (isOpen) {
       // Remove any existing menu panel
-      const existingPanel = document.getElementById('mobile-menu-panel');
-      if (existingPanel) {
-        existingPanel.parentNode?.removeChild(existingPanel);
-      }
+      cleanupPanel();
       
       // Create panel with modern 2025 style
       const panel = document.createElement('div');
@@ -34,6 +38,10 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
         padding: 80px 32px 32px 32px !important;
         overflow-y: auto !important;
         border-radius: 24px 0 0 24px !important;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transform: translateX(100%) !important;
+        opacity: 0 !important;
+        will-change: transform, opacity !important;
       `;
       
       // Add close button with modern style
@@ -56,13 +64,17 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
         backdrop-filter: blur(8px) !important;
         -webkit-backdrop-filter: blur(8px) !important;
         box-shadow: 0 4px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'} !important;
-        transition: all 0.2s ease !important;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        opacity: 0 !important;
+        transform: scale(0.9) !important;
       `;
       closeButton.onmouseover = () => {
         closeButton.style.transform = 'scale(1.1)';
+        closeButton.style.boxShadow = `0 6px 16px ${isDark ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.15)'} !important`;
       };
       closeButton.onmouseout = () => {
         closeButton.style.transform = 'scale(1)';
+        closeButton.style.boxShadow = `0 4px 12px ${isDark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)'} !important`;
       };
       closeButton.onclick = onClose;
       closeButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
@@ -75,6 +87,9 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
         margin-bottom: 40px !important;
         display: flex !important;
         align-items: center !important;
+        transform: translateY(20px) !important;
+        opacity: 0 !important;
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s !important;
       `;
       brandArea.innerHTML = `
         <div style="
@@ -95,6 +110,9 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
         display: flex !important;
         flex-direction: column !important;
         gap: 8px !important;
+        opacity: 0 !important;
+        transform: translateY(30px) !important;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s !important;
       `;
       
       // Menu items data with modern icons
@@ -131,8 +149,8 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
         }
       ];
       
-      // Generate HTML for menu items
-      menuItems.forEach(item => {
+      // Generate HTML for menu items with staggered animation
+      menuItems.forEach((item, index) => {
         const menuItem = document.createElement('a');
         menuItem.href = item.path;
         menuItem.style.cssText = `
@@ -148,8 +166,11 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
           background: ${isDark ? 'rgba(31, 41, 55, 0.3)' : 'rgba(249, 250, 251, 0.7)'} !important;
           backdrop-filter: blur(5px) !important;
           -webkit-backdrop-filter: blur(5px) !important;
-          transition: all 0.2s ease !important;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
           border: 1px solid ${isDark ? 'rgba(55, 65, 81, 0.5)' : 'rgba(229, 231, 235, 0.8)'} !important;
+          opacity: 0 !important;
+          transform: translateX(20px) !important;
+          transition-delay: ${0.2 + (index * 0.05)}s !important;
         `;
         
         menuItem.onmouseover = () => {
@@ -199,6 +220,9 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
         display: flex !important;
         justify-content: space-between !important;
         align-items: center !important;
+        opacity: 0 !important;
+        transform: translateY(20px) !important;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s, opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s !important;
       `;
       
       footer.innerHTML = `
@@ -228,41 +252,92 @@ const MobileMenuWrapper: React.FC<MobileMenuWrapperProps> = ({ isOpen, onClose }
       panel.appendChild(footer);
       document.body.appendChild(panel);
       
-      // Animation for panel entrance
-      setTimeout(() => {
+      // Animation for panel entrance - trigger layout reflow
+      void panel.offsetWidth;
+      
+      // Apply animations with smooth transitions
+      requestAnimationFrame(() => {
         panel.style.transform = 'translateX(0)';
         panel.style.opacity = '1';
-      }, 10);
-      
-      // Add some entrance animation
-      panel.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-      panel.style.transform = 'translateX(50px)';
-      panel.style.opacity = '0';
+        
+        setTimeout(() => {
+          closeButton.style.opacity = '1';
+          closeButton.style.transform = 'scale(1)';
+          
+          brandArea.style.opacity = '1';
+          brandArea.style.transform = 'translateY(0)';
+          
+          content.style.opacity = '1';
+          content.style.transform = 'translateY(0)';
+          
+          // Animate each menu item
+          Array.from(content.children).forEach((child: Element) => {
+            (child as HTMLElement).style.opacity = '1';
+            (child as HTMLElement).style.transform = 'translateX(0)';
+          });
+          
+          footer.style.opacity = '1';
+          footer.style.transform = 'translateY(0)';
+        }, 100);
+      });
     } else {
       // Animation for panel exit and removal
       const existingPanel = document.getElementById('mobile-menu-panel');
       if (existingPanel) {
-        existingPanel.style.transform = 'translateX(50px)';
-        existingPanel.style.opacity = '0';
+        // Get all animated children
+        const closeButton = existingPanel.querySelector('button');
+        const brandArea = existingPanel.querySelector('div');
+        const content = brandArea?.nextElementSibling as HTMLElement;
+        const footer = content?.nextElementSibling as HTMLElement;
         
+        if (closeButton) {
+          (closeButton as HTMLElement).style.opacity = '0';
+          (closeButton as HTMLElement).style.transform = 'scale(0.9)';
+        }
+        
+        if (brandArea) {
+          (brandArea as HTMLElement).style.opacity = '0';
+          (brandArea as HTMLElement).style.transform = 'translateY(20px)';
+        }
+        
+        if (content) {
+          content.style.opacity = '0';
+          content.style.transform = 'translateY(30px)';
+          
+          // Animate each menu item with staggered delay
+          Array.from(content.children).forEach((child: Element, index: number) => {
+            (child as HTMLElement).style.opacity = '0';
+            (child as HTMLElement).style.transform = 'translateX(20px)';
+            (child as HTMLElement).style.transitionDelay = `${0.05 * (content.children.length - index - 1)}s`;
+          });
+        }
+        
+        if (footer) {
+          footer.style.opacity = '0';
+          footer.style.transform = 'translateY(20px)';
+        }
+        
+        // Animate panel exit
         setTimeout(() => {
-          if (existingPanel.parentNode) {
-            existingPanel.parentNode.removeChild(existingPanel);
-          }
-        }, 300);
+          existingPanel.style.transform = 'translateX(100%)';
+          existingPanel.style.opacity = '0';
+          
+          // Remove panel after animation completes
+          setTimeout(() => {
+            if (existingPanel.parentNode) {
+              existingPanel.parentNode.removeChild(existingPanel);
+            }
+          }, 400);
+        }, 200);
       }
     }
-    
-    // Cleanup function
+
+    // Ensure cleanup on unmount
     return () => {
-      const existingPanel = document.getElementById('mobile-menu-panel');
-      if (existingPanel && existingPanel.parentNode) {
-        existingPanel.parentNode.removeChild(existingPanel);
-      }
+      cleanupPanel();
     };
-  }, [isOpen, isDark, onClose]);
-  
-  // We don't render anything in the component itself
+  }, [isOpen, onClose, isDark]);
+
   return null;
 };
 

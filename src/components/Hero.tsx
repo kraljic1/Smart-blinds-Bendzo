@@ -20,8 +20,11 @@ const Hero: React.FC<HeroProps> = ({
   buttonLink = "/how-it-works"
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [headingVisible, setHeadingVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const imageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
   const heroRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   
   const changeImage = useCallback(() => {
     setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
@@ -35,15 +38,96 @@ const Hero: React.FC<HeroProps> = ({
     return () => clearInterval(interval);
   }, [changeImage, autoChangeInterval, images.length]);
   
-  // Set background images via JavaScript
+  // Set background images via JavaScript and prevent white flash
   useEffect(() => {
-    images.forEach((img, index) => {
-      const imageDiv = imageRefs.current.get(index);
-      if (imageDiv) {
-        imageDiv.style.backgroundImage = `url(${img})`;
+    const loadImages = async () => {
+      try {
+        // Preload all images to prevent white flash
+        const imagePromises = images.map(src => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;
+            img.onerror = reject;
+          });
+        });
+        
+        // Wait for all images to load
+        await Promise.all(imagePromises);
+        
+        // Apply background images
+        images.forEach((img, index) => {
+          const imageDiv = imageRefs.current.get(index);
+          if (imageDiv) {
+            // Force immediate rendering using important flag
+            imageDiv.style.cssText = `
+              background-image: url(${img}) !important;
+              background-position: center !important;
+              background-size: cover !important;
+              position: absolute !important;
+              top: 0 !important;
+              width: 100% !important;
+              height: 100% !important;
+              transition: opacity 1000ms ease-in-out !important;
+              opacity: ${currentImageIndex === index ? '1' : '0'} !important;
+            `;
+          }
+        });
+        
+        // Apply background color to prevent white flash
+        if (heroRef.current) {
+          heroRef.current.style.backgroundColor = '#111827';
+        }
+        
+        setIsLoaded(true);
+      } catch (error) {
+        console.error('Error loading background images:', error);
+        // Fallback - apply backgrounds anyway
+        images.forEach((img, index) => {
+          const imageDiv = imageRefs.current.get(index);
+          if (imageDiv) {
+            imageDiv.style.backgroundImage = `url(${img})`;
+          }
+        });
+        setIsLoaded(true);
       }
-    });
-  }, [images]);
+    };
+    
+    loadImages();
+    
+    // Apply background to all carousel items immediately to prevent flashes
+    return () => {
+      // Clean up any background styles
+      if (heroRef.current) {
+        heroRef.current.style.backgroundColor = '';
+      }
+    };
+  }, [images, currentImageIndex]);
+
+  // Monitor heading visibility to trigger paragraph animation
+  useEffect(() => {
+    if (!headingRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          // Add a small delay to ensure animation has started
+          setTimeout(() => {
+            setHeadingVisible(true);
+          }, 400); // Half the duration of the heading animation
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    
+    observer.observe(headingRef.current);
+    
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   // Handle smooth scrolling when buttonLink is an anchor
   const handleButtonClick = (e: React.MouseEvent) => {
@@ -61,10 +145,35 @@ const Hero: React.FC<HeroProps> = ({
     }
   };
 
+  // Force a check for leftover elements every 100ms when the component is mounted
+  useEffect(() => {
+    // Check for and remove any white square elements
+    const checkForWhiteSquares = () => {
+      const elementsToCheck = [
+        document.getElementById('mobile-menu-panel'),
+        document.getElementById('pure-black-overlay')
+      ];
+      
+      elementsToCheck.forEach(element => {
+        if (element && element.parentNode) {
+          element.parentNode.removeChild(element);
+        }
+      });
+    };
+    
+    // Run check periodically
+    const interval = setInterval(checkForWhiteSquares, 100);
+    
+    // Run once on load
+    checkForWhiteSquares();
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div 
       ref={heroRef}
-      className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden"
+      className={`relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden bg-gray-900 dark:bg-gray-900`}
     >
       {/* Floating particles */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -82,7 +191,7 @@ const Hero: React.FC<HeroProps> = ({
           ref={(el) => {
             if (el) imageRefs.current.set(index, el);
           }}
-          className={`absolute top-0 w-full h-full bg-center bg-cover transition-opacity duration-1000 ease-in-out ${
+          className={`absolute top-0 w-full h-full bg-center bg-cover transition-opacity duration-1000 ease-in-out bg-gray-900 dark:bg-gray-900 ${
             currentImageIndex === index ? 'opacity-100' : 'opacity-0'
           }`}
           data-bg-image={img}
@@ -104,17 +213,25 @@ const Hero: React.FC<HeroProps> = ({
             <div className="text-white">
               <div className="relative mb-4 inline-block">
                 <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-600/30 to-blue-600/30 blur-xl"></span>
-                <h1 className="relative text-5xl md:text-6xl font-bold leading-tight mb-2 animate-text-reveal">
+                <h1 
+                  ref={headingRef}
+                  className="relative text-5xl md:text-6xl font-bold leading-tight mb-2 animate-text-reveal"
+                >
                   {title}
                 </h1>
               </div>
               <div className="relative inline-block">
                 <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-600/30 to-blue-600/30 blur-xl"></span>
-                <p className="relative mt-4 text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto leading-relaxed animate-text-reveal" style={{ animationDelay: '0.3s' }}>
+                <p 
+                  className={`relative mt-4 text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto leading-relaxed ${
+                    headingVisible ? 'animate-sequential-reveal' : 'opacity-0'
+                  }`} 
+                  style={{ animationDelay: '0.3s' }}
+                >
                   {description}
                 </p>
               </div>
-              <div className="flex justify-center">
+              <div className={`flex justify-center ${headingVisible ? 'animate-sequential-reveal' : 'opacity-0'}`} style={{ animationDelay: '0.5s' }}>
                 {buttonLink.startsWith('#') ? (
                   <a
                     href={buttonLink}
