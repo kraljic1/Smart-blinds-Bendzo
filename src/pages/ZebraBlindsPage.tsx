@@ -99,9 +99,9 @@ const ZebraBlindsPage = () => {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
               Smart Zebra Blinds
-            </h1>
+            </h2>
             <p className="text-lg sm:text-xl text-gray-200 mb-8">
               Elegant dual-layer fabric blinds with alternating sheer and solid patterns for precise light control and privacy.
             </p>

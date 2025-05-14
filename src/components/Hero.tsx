@@ -21,7 +21,6 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [headingVisible, setHeadingVisible] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const imageRefs = useRef<Map<number, HTMLDivElement>>(new Map());
   const heroRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -78,8 +77,6 @@ const Hero: React.FC<HeroProps> = ({
         if (heroRef.current) {
           heroRef.current.style.backgroundColor = '#111827';
         }
-        
-        setIsLoaded(true);
       } catch (error) {
         console.error('Error loading background images:', error);
         // Fallback - apply backgrounds anyway
@@ -89,17 +86,19 @@ const Hero: React.FC<HeroProps> = ({
             imageDiv.style.backgroundImage = `url(${img})`;
           }
         });
-        setIsLoaded(true);
       }
     };
     
     loadImages();
     
+    // Store current ref value to use in cleanup function
+    const heroRefCurrent = heroRef.current;
+    
     // Apply background to all carousel items immediately to prevent flashes
     return () => {
-      // Clean up any background styles
-      if (heroRef.current) {
-        heroRef.current.style.backgroundColor = '';
+      // Clean up any background styles using the stored ref value
+      if (heroRefCurrent) {
+        heroRefCurrent.style.backgroundColor = '';
       }
     };
   }, [images, currentImageIndex]);

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BasketIcon } from './Basket/BasketIcon';
 import { LikedIcon } from './Liked/LikedIcon';
 import { Menu, X, Home, ShoppingBag, HelpCircle, Settings } from 'lucide-react';
 import MobileMenuWrapper from './MobileMenuWrapper';
-import BlackOverlay from './BlackOverlay';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const location = useLocation();
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   // Handle scroll effect
   useEffect(() => {
@@ -23,33 +23,20 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle location changes - close menu when navigating
+  // Handle location changes
   useEffect(() => {
-    if (isMenuOpen) {
-      handleCloseMenu();
-    }
+    setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Control body scroll when menu is open
+  // Log menu state changes
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
+    console.log('Menu state updated:', isMenuOpen);
   }, [isMenuOpen]);
 
+  // Toggle menu with direct DOM manipulation as a fallback
   const toggleMenu = () => {
+    console.log('Toggle button clicked, current state:', isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Handle closing the menu
-  const handleCloseMenu = () => {
-    setIsMenuOpen(false);
   };
 
   // Check if a route is active
@@ -163,32 +150,17 @@ const Header: React.FC = () => {
               {/* Mobile Menu Button */}
               <div className="lg:hidden">
                 <button
+                  ref={menuBtnRef}
                   type="button"
                   onClick={toggleMenu}
-                  className={`group p-2 rounded-full relative overflow-hidden transition-all duration-200 ${
-                    scrolled
-                      ? 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200'
-                      : 'bg-gray-100 dark:bg-gray-800/30 text-gray-800 dark:text-gray-200'
-                  } ${
-                    isMenuOpen 
-                      ? 'shadow-md scale-105 ring-2 ring-blue-500/20' 
-                      : 'hover:shadow-sm hover:scale-105'
-                  }`}
+                  className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                   aria-expanded={isMenuOpen}
-                  aria-label={isMenuOpen ? 'Close menu' : 'Open main menu'}
-                  data-testid="mobile-menu-button"
                 >
-                  <div className={`absolute inset-0 bg-blue-500/10 opacity-0 transition-opacity duration-200 ${
-                    isMenuOpen ? 'opacity-100' : 'group-hover:opacity-70'
-                  }`}></div>
-                  <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open main menu'}</span>
-                  <div className="relative z-10">
-                    {isMenuOpen ? (
-                      <X className="h-5 w-5 transition-all duration-250 ease-out rotate-0 group-hover:rotate-90" />
-                    ) : (
-                      <Menu className="h-5 w-5 transition-all duration-200 ease-out scale-100 group-hover:scale-110" />
-                    )}
-                  </div>
+                  {isMenuOpen ? (
+                    <X className="h-5 w-5" />
+                  ) : (
+                    <Menu className="h-5 w-5" />
+                  )}
                 </button>
               </div>
             </div>
@@ -196,9 +168,8 @@ const Header: React.FC = () => {
         </div>
       </header>
       
-      {/* Mobile Navigation Menu - Separate from header to avoid z-index issues */}
-      <BlackOverlay isOpen={isMenuOpen} onClose={handleCloseMenu} />
-      <MobileMenuWrapper isOpen={isMenuOpen} onClose={handleCloseMenu} />
+      {/* Mobile Navigation Menu */}
+      <MobileMenuWrapper isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 };

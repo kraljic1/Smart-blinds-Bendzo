@@ -17,6 +17,8 @@ export default {
         'text-reveal': 'textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'sequential-reveal': 'sequentialReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'scroll-down': 'scrollDown 1.5s ease-in-out infinite',
+        'slide-in-right': 'slideInRight 0.3s ease-out forwards',
+        'fade-in': 'fadeIn 0.2s ease-out forwards',
       },
       keyframes: {
         textReveal: {
@@ -57,6 +59,22 @@ export default {
           '100%': {
             opacity: '0',
             transform: 'translateY(5px)',
+          },
+        },
+        slideInRight: {
+          '0%': {
+            transform: 'translateX(100%)',
+          },
+          '100%': {
+            transform: 'translateX(0)',
+          },
+        },
+        fadeIn: {
+          '0%': {
+            opacity: '0',
+          },
+          '100%': {
+            opacity: '0.6',
           },
         },
       },

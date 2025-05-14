@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import ModernProductCard from '../components/ModernProductCard';
 import Breadcrumb from '../components/Breadcrumb';
 import { CollapsibleFilterSidebar } from '../components/Filters';
+import StructuredData from '../components/StructuredData';
 // Import roller blinds data directly
 import { rollerBlinds } from '../data/rollerblinds';
 import { Product } from '../types/product';
@@ -116,9 +117,9 @@ const RollerBlindsPage = () => {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
               Smart Roller Blinds
-            </h1>
+            </h2>
             <p className="text-lg sm:text-xl text-gray-200 mb-8">
               Enhance your windows with our premium smart roller blinds collection. Elegant, functional, and designed to fit seamlessly into your home.
             </p>
@@ -154,6 +155,27 @@ const RollerBlindsPage = () => {
           Discover our collection of premium smart roller blinds designed for modern homes. 
           Control your blinds with voice, app, or the smart hub.
         </p>
+        
+        {/* Structured data for better product representation in search results */}
+        {isLoaded && (
+          <StructuredData
+            type="product"
+            data={{
+              name: "Smart Roller Blinds",
+              image: ["https://smartblinds-croatia.com/images/roller-blinds-main.jpg"],
+              description: "Premium smart roller blinds designed for modern homes. Control with voice, app, or smart hub.",
+              brand: {
+                name: "Smartblinds Croatia"
+              },
+              offers: {
+                price: 89.99,
+                priceCurrency: "EUR",
+                availability: "https://schema.org/InStock",
+                url: "https://smartblinds-croatia.com/products/roller-blinds"
+              }
+            }}
+          />
+        )}
 
         <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Sidebar with Filters */}

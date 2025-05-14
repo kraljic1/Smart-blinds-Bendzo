@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas if needed
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://smartblinds-croatia.com/sitemap.xml 

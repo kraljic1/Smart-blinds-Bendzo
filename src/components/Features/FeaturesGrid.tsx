@@ -9,22 +9,22 @@ interface FeaturesGridProps {
 const FeaturesGrid: React.FC<FeaturesGridProps> = ({ sectionRef }) => {
   const features = [
     {
-      icon: Sun,
+      icon: <Sun size={24} />,
       title: 'Light Sensing',
       description: 'Automatically adjusts based on natural light levels throughout the day'
     },
     {
-      icon: Smartphone,
+      icon: <Smartphone size={24} />,
       title: 'Smart Control',
       description: 'Control from anywhere using our intuitive smartphone app'
     },
     {
-      icon: Battery,
+      icon: <Battery size={24} />,
       title: 'Long Battery Life',
       description: 'Up to 12 months of operation on a single charge'
     },
     {
-      icon: Shield,
+      icon: <Shield size={24} />,
       title: '5-Year Warranty',
       description: 'Peace of mind with our comprehensive coverage'
     }

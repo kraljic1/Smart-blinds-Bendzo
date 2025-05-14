@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Product } from '../../types/product';
 import ProductCustomization, { CustomizationOption } from '../../components/ProductCustomization';
 import PriceCalculator from '../../components/PriceCalculator';
@@ -29,12 +29,8 @@ const ProductCustomizationForm = ({
   const [isCalculated, setIsCalculated] = useState(isAccessoryProduct); // Auto-calculate for accessories
   const [additionalCosts, setAdditionalCosts] = useState<{ name: string; price: number }[]>([]);
 
-  // Update additional costs when selected options change
-  useEffect(() => {
-    updateAdditionalCosts();
-  }, [selectedOptions, isCalculated, customizationOptions]);
-
-  const updateAdditionalCosts = () => {
+  // Define updateAdditionalCosts with useCallback to memoize the function
+  const updateAdditionalCosts = useCallback(() => {
     if (isCalculated && Object.keys(selectedOptions).length > 0) {
       const costs: { name: string; price: number }[] = [];
       
@@ -53,7 +49,12 @@ const ProductCustomizationForm = ({
       
       setAdditionalCosts(costs);
     }
-  };
+  }, [selectedOptions, isCalculated, customizationOptions]);
+
+  // Update additional costs when dependencies change
+  useEffect(() => {
+    updateAdditionalCosts();
+  }, [updateAdditionalCosts]);
 
   // Handle width input change
   const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
