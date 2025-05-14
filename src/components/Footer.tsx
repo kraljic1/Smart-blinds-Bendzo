@@ -27,17 +27,17 @@ const Footer: React.FC = () => {
                 Premium smart window coverings powered by AI. Control your home environment with unparalleled precision and style.
               </p>
               <div className="flex space-x-4 mt-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-500 transition-all duration-300">
-                  <Facebook className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-500 transition-all duration-300" aria-label="Facebook stranica">
+                  <Facebook className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" aria-hidden="true" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 transition-all duration-300">
-                  <Instagram className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 transition-all duration-300" aria-label="Instagram profil">
+                  <Instagram className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" aria-hidden="true" />
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 transition-all duration-300">
-                  <Twitter className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 transition-all duration-300" aria-label="Twitter profil">
+                  <Twitter className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" aria-hidden="true" />
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-500 transition-all duration-300">
-                  <Linkedin className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" />
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-500 transition-all duration-300" aria-label="LinkedIn stranica">
+                  <Linkedin className="h-5 w-5 text-gray-600 dark:text-gray-300 group-hover:text-white transition-colors" aria-hidden="true" />
                 </a>
               </div>
             </div>

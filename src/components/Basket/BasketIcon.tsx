@@ -31,7 +31,7 @@ export function BasketIcon() {
   
   return (
     <div className="basket-icon-container">
-      <Link to="/basket" className="basket-icon-link">
+      <Link to="/basket" className="basket-icon-link" aria-label={`Košarica - ${itemCount} artikala`}>
         <div className="basket-icon">
           {isDarkMode ? (
             // White basket icon for dark mode with !important
@@ -46,6 +46,7 @@ export function BasketIcon() {
               strokeLinecap="round" 
               strokeLinejoin="round"
               style={{ color: 'white !important' }}
+              aria-hidden="true"
             >
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
@@ -64,6 +65,7 @@ export function BasketIcon() {
               strokeLinecap="round" 
               strokeLinejoin="round"
               style={{ color: 'black !important' }}
+              aria-hidden="true"
             >
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
               <line x1="3" y1="6" x2="21" y2="6" />
