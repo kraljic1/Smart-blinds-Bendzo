@@ -24,22 +24,46 @@ export const createZebraProduct = (
   collection: string,
   colorName: string
 ): Product => {
-  // Create image paths
-  const mainImage = `/src/img/zebra/${collection.toUpperCase()}/${collection.toUpperCase()} - ${colorName}/0.webp`;
-  const images = Array.from({ length: 5 }, (_, i) => 
-    `/src/img/zebra/${collection.toUpperCase()}/${collection.toUpperCase()} - ${colorName}/${i}.webp`
-  );
+  // Create image paths using import.meta.url for proper Vite asset handling
+  const basePath = collection.toUpperCase();
+  const folderName = `${basePath} - ${colorName}`;
   
-  return {
-    id,
-    name,
-    price,
-    originalPrice,
-    image: mainImage,
-    images,
-    features: [],
-    colors: 1,
-    fabricColor,
-    collection
-  };
+  try {
+    // Import main image using dynamic import
+    const mainImage = new URL(`../img/zebra/${basePath}/${folderName}/0.webp`, import.meta.url).href;
+    
+    // Create array of image URLs
+    const images = Array.from({ length: 5 }, (_, i) => {
+      return new URL(`../img/zebra/${basePath}/${folderName}/${i}.webp`, import.meta.url).href;
+    });
+    
+    return {
+      id,
+      name,
+      price,
+      originalPrice,
+      image: mainImage,
+      images,
+      features: ["Light filtering", "Privacy"],
+      colors: 1,
+      fabricColor,
+      collection
+    };
+  } catch (error) {
+    console.error(`Error creating product ${name}:`, error);
+    
+    // Fallback with placeholders if image loading fails
+    return {
+      id,
+      name,
+      price,
+      originalPrice,
+      image: '',
+      images: [],
+      features: ["Light filtering", "Privacy"],
+      colors: 1,
+      fabricColor,
+      collection
+    };
+  }
 }; 
