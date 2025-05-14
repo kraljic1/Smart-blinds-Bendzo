@@ -44,13 +44,11 @@ const Header: React.FC = () => {
   }, [isMenuOpen]);
 
   const toggleMenu = () => {
-    console.log('Menu toggle clicked, current state:', isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
   };
 
   // Handle closing the menu
   const handleCloseMenu = () => {
-    console.log('Closing menu');
     setIsMenuOpen(false);
   };
 
