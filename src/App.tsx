@@ -3,6 +3,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from './components/ThemeProvider';
 import { BasketProvider } from './context/BasketContext';
 import { LikedProvider } from './context/LikedContext';
+import { OrderProvider } from './context/OrderContext';
 import { useEffect } from 'react';
 import Layout from './components/Layout';
 import Header from './components/Header';
@@ -26,6 +27,8 @@ import BasketPage from './pages/BasketPage';
 import LikedPage from './pages/LikedPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ThankYouPage from './pages/ThankYouPage';
+import AdminOrdersPage from './pages/AdminOrdersPage';
+import AdminOrderDetailPage from './pages/AdminOrderDetailPage';
 import ProductOptionDemoPage from './pages/ProductOptionDemoPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
@@ -45,8 +48,9 @@ function App() {
         <ThemeProvider>
           <BasketProvider>
             <LikedProvider>
-              <ScrollToTop />
-              <Layout>
+              <OrderProvider>
+                <ScrollToTop />
+                <Layout>
                 <Header />
                 <main className="flex-grow overflow-x-hidden bg-white dark:bg-[#0c1222]">
                   <Routes>
@@ -68,6 +72,8 @@ function App() {
                     <Route path="/liked" element={<LikedPage />} />
                     <Route path="/checkout" element={<CheckoutPage />} />
                     <Route path="/thank-you" element={<ThankYouPage />} />
+                    <Route path="/admin/orders" element={<AdminOrdersPage />} />
+                    <Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="/terms-of-service" element={<TermsOfServicePage />} />
                     <Route path="/accessibility" element={<AccessibilityPage />} />
@@ -77,6 +83,7 @@ function App() {
                 {/* SEO Analyzer will only show in development mode */}
                 <SEOAnalyzer />
               </Layout>
+              </OrderProvider>
             </LikedProvider>
           </BasketProvider>
         </ThemeProvider>

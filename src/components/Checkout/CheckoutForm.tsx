@@ -1,11 +1,14 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useBasketContext } from '../../hooks/useBasketContext';
+import { useOrderContext } from '../../context/useOrderContext';
 import { countryPhoneCodes, CountryCode } from '../../data/phoneCodes';
+import { submitOrder, basketItemsToOrderItems } from '../../utils/orderUtils';
 import './CheckoutForm.css';
 
 export function CheckoutForm() {
   const { items, getTotalPrice, clearBasket } = useBasketContext();
+  const { setLastOrder, loadOrderHistory } = useOrderContext();
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
   
@@ -33,7 +36,7 @@ export function CheckoutForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission to handle validation first
+    e.preventDefault(); // Prevent default form submission
     
     // Check if basket is empty
     if (items.length === 0) {
@@ -47,49 +50,43 @@ export function CheckoutForm() {
     
     setFormStatus({ submitting: true, success: false, error: null });
     
-    // Prepare basket items for form submission
-    const basketItems = items.map(item => ({
-      productId: item.product.id,
-      productName: item.product.name,
-      quantity: item.quantity,
-      price: item.product.price,
-      options: item.options
-    }));
-    
     try {
-      // Create the data to send to Netlify Forms
-      const formSubmission = {
-        'form-name': 'checkout',
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: `${formData.phoneCode}${formData.phoneNumber}`,
-        address: formData.address,
-        additionalNotes: formData.additionalNotes,
-        basketItems: JSON.stringify(basketItems),
-        totalPrice: getTotalPrice().toFixed(2)
+      // Prepare order data
+      const orderData = {
+        customer: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: `${formData.phoneCode}${formData.phoneNumber}`,
+          address: formData.address
+        },
+        items: basketItemsToOrderItems(items),
+        notes: formData.additionalNotes,
+        totalAmount: getTotalPrice()
       };
       
-      console.log('Submitting form data:', formSubmission);
+      // Save customer email for future order history lookups
+      localStorage.setItem('customerEmail', formData.email);
       
-      // Submit the form manually
-      if (formRef.current) {
-        formRef.current.submit();
+      // Submit order to our serverless function
+      const response = await submitOrder(orderData);
+      
+      if (response.success) {
+        // Store the order in context
+        setLastOrder(response);
         
-        // Only clear the basket after form is submitted
-        // This happens asynchronously after form submission
-        setTimeout(() => {
-          clearBasket();
-          navigate('/thank-you');
-        }, 500);
+        // Load order history for this customer
+        await loadOrderHistory(formData.email);
+        
+        // Clear basket and redirect to thank you page
+        clearBasket();
+        navigate('/thank-you');
+      } else {
+        throw new Error(response.message || 'Order submission failed');
       }
     } catch (error) {
       console.error('Checkout form submission error:', error);
       
       const errorMessage = 'There was a problem submitting your order. Please try again or contact support.';
-      
-      if (error instanceof Error) {
-        console.error('Error details:', error.message);
-      }
       
       setFormStatus({
         submitting: false,
@@ -115,33 +112,10 @@ export function CheckoutForm() {
       
       <form
         ref={formRef}
-        name="checkout"
-        method="POST"
-        action="https://bendzosmartblinds.netlify.app/"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        data-netlify-success="/thank-you"
         onSubmit={handleSubmit}
         className="checkout-form"
         aria-label="Checkout form"
       >
-        {/* Netlify Forms hidden field */}
-        <input type="hidden" name="form-name" value="checkout" />
-        <input type="hidden" name="basketItems" value={JSON.stringify(
-          items.map(item => ({
-            productId: item.product.id,
-            productName: item.product.name,
-            quantity: item.quantity,
-            options: item.options
-          }))
-        )} />
-        <input type="hidden" name="totalPrice" value={getTotalPrice().toFixed(2)} />
-        <p hidden>
-          <label>
-            Don't fill this out if you're human: <input name="bot-field" />
-          </label>
-        </p>
-        
         <div className="form-group">
           <label htmlFor="fullName">Full Name</label>
           <input
