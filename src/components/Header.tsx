@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BasketIcon } from './Basket/BasketIcon';
 import { LikedIcon } from './Liked/LikedIcon';
+import { AdminIcon } from './AdminRoute/AdminIcon';
 import { Menu, X, Home, ShoppingBag, HelpCircle, Settings } from 'lucide-react';
 import MobileMenuWrapper from './MobileMenuWrapper';
 
@@ -129,6 +130,15 @@ const Header: React.FC = () => {
             
             {/* Action Buttons */}
             <div className="flex items-center space-x-2">
+              {/* Admin Icon */}
+              <div className={`relative transition-all duration-300 ${
+                scrolled 
+                  ? 'text-gray-900 dark:text-white' 
+                  : 'text-gray-900 dark:text-white'
+              }`}>
+                <AdminIcon />
+              </div>
+
               {/* Liked Icon */}
               <div className={`relative transition-all duration-300 ${
                 scrolled 

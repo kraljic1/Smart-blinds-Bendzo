@@ -10,6 +10,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import TouchFriendly from './components/TouchFriendly';
 import SEOAnalyzer from './components/SEOAnalyzer';
+import AdminRoute from './components/AdminRoute/AdminRoute';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import RollerBlindsPage from './pages/RollerBlindsPage';
@@ -27,6 +28,7 @@ import BasketPage from './pages/BasketPage';
 import LikedPage from './pages/LikedPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ThankYouPage from './pages/ThankYouPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
 import AdminOrderDetailPage from './pages/AdminOrderDetailPage';
 import ProductOptionDemoPage from './pages/ProductOptionDemoPage';
@@ -72,8 +74,23 @@ function App() {
                     <Route path="/liked" element={<LikedPage />} />
                     <Route path="/checkout" element={<CheckoutPage />} />
                     <Route path="/thank-you" element={<ThankYouPage />} />
-                    <Route path="/admin/orders" element={<AdminOrdersPage />} />
-                    <Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />
+                    <Route path="/admin/login" element={<AdminLoginPage />} />
+                    <Route 
+                      path="/admin/orders" 
+                      element={
+                        <AdminRoute>
+                          <AdminOrdersPage />
+                        </AdminRoute>
+                      } 
+                    />
+                    <Route 
+                      path="/admin/orders/:orderId" 
+                      element={
+                        <AdminRoute>
+                          <AdminOrderDetailPage />
+                        </AdminRoute>
+                      } 
+                    />
                     <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                     <Route path="/terms-of-service" element={<TermsOfServicePage />} />
                     <Route path="/accessibility" element={<AccessibilityPage />} />
