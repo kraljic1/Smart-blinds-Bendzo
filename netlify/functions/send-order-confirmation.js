@@ -1,0 +1,150 @@
+/**
+ * Netlify function to send order confirmation emails
+ * This sends an email to customers after they place an order
+ */
+const nodemailer = require('nodemailer');
+
+// Configure email transporter
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMTP_SECURE === 'true',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+});
+
+// Generate email HTML content
+const generateEmailHTML = (order) => {
+  const { orderId, customer, items, totalAmount } = order;
+  
+  // Format items list
+  const itemsList = items.map(item => `
+    <tr>
+      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.productName}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.quantity}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">€${(item.price * item.quantity).toFixed(2)}</td>
+    </tr>
+  `).join('');
+  
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Order Confirmation</title>
+      <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; padding: 20px 0; }
+        .order-details { background-color: #f9f9f9; padding: 20px; border-radius: 5px; }
+        .order-table { width: 100%; border-collapse: collapse; }
+        .order-table th { text-align: left; padding: 10px; border-bottom: 2px solid #ddd; }
+        .order-total { font-weight: bold; text-align: right; padding: 10px; margin-top: 20px; }
+        .footer { text-align: center; margin-top: 30px; font-size: 12px; color: #777; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>Thank You for Your Order!</h1>
+          <p>We've received your order and are processing it now.</p>
+        </div>
+        
+        <div class="order-details">
+          <h2>Order Information</h2>
+          <p><strong>Order Reference:</strong> ${orderId}</p>
+          <p><strong>Order Date:</strong> ${new Date().toLocaleDateString()}</p>
+          
+          <h3>Customer Information</h3>
+          <p><strong>Name:</strong> ${customer.fullName}</p>
+          <p><strong>Email:</strong> ${customer.email}</p>
+          <p><strong>Phone:</strong> ${customer.phone}</p>
+          <p><strong>Address:</strong> ${customer.address}</p>
+          
+          <h3>Order Summary</h3>
+          <table class="order-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th style="text-align: right;">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${itemsList}
+            </tbody>
+          </table>
+          
+          <div class="order-total">
+            <p>Total: €${totalAmount.toFixed(2)}</p>
+          </div>
+        </div>
+        
+        <div class="footer">
+          <p>If you have any questions about your order, please contact us.</p>
+          <p>© ${new Date().getFullYear()} Smartblinds Croatia. All rights reserved.</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+};
+
+exports.handler = async function(event, context) {
+  // Only allow POST requests
+  if (event.httpMethod !== 'POST') {
+    return { 
+      statusCode: 405, 
+      body: JSON.stringify({ success: false, message: 'Method Not Allowed' })
+    };
+  }
+  
+  try {
+    // Parse the incoming request body
+    const orderData = JSON.parse(event.body);
+    const { orderId, customer, items, totalAmount } = orderData;
+    
+    // Validate required data
+    if (!orderId || !customer || !items || !totalAmount) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ success: false, message: 'Missing required order information' })
+      };
+    }
+    
+    // Generate email content
+    const htmlContent = generateEmailHTML(orderData);
+    
+    // Send email
+    const info = await transporter.sendMail({
+      from: `"Smartblinds Croatia" <${process.env.SMTP_FROM_EMAIL}>`,
+      to: customer.email,
+      subject: `Order Confirmation - #${orderId}`,
+      html: htmlContent
+    });
+    
+    console.log('Email sent:', info.messageId);
+    
+    // Return success response
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ 
+        success: true, 
+        messageId: info.messageId,
+        message: 'Order confirmation email sent successfully'
+      })
+    };
+  } catch (error) {
+    console.error('Email sending error:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ 
+        success: false, 
+        message: 'Failed to send order confirmation email',
+        error: error.message
+      })
+    };
+  }
+}; 

@@ -4,6 +4,7 @@
  */
 
 const { createClient } = require('@supabase/supabase-js');
+const fetch = require('node-fetch'); // Add node-fetch for making HTTP requests
 
 // Initialize Supabase client
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
@@ -66,6 +67,36 @@ exports.handler = async function(event, context) {
     if (error) {
       console.error('Supabase error:', error);
       throw new Error('Failed to save order to database');
+    }
+    
+    // Send order confirmation email
+    try {
+      const emailData = {
+        orderId, 
+        customer,
+        items,
+        totalAmount
+      };
+      
+      const appUrl = process.env.VITE_APP_URL || 'https://bendzosmartblinds.netlify.app';
+      const emailUrl = new URL('/.netlify/functions/send-order-confirmation', appUrl).toString();
+      
+      const emailResponse = await fetch(emailUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(emailData)
+      });
+      
+      if (emailResponse.ok) {
+        console.log('Order confirmation email sent successfully');
+      } else {
+        console.warn('Email service responded with non-200 status:', emailResponse.status);
+      }
+    } catch (emailError) {
+      console.error('Failed to send order confirmation email:', emailError);
+      // Continue processing - don't fail the order if email fails
     }
     
     // Return success response with order ID
