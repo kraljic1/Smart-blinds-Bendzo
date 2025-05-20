@@ -32,4 +32,33 @@ CREATE POLICY "Allow service role to manage orders" ON orders
 
 -- Allow users to view their own orders
 CREATE POLICY "Users can view their own orders" ON orders
-  FOR SELECT USING (auth.email() = customer_email); 
+  FOR SELECT USING (auth.email() = customer_email);
+
+-- Create admin_users table to store admin permissions
+CREATE TABLE IF NOT EXISTS admin_users (
+  id BIGSERIAL PRIMARY KEY,
+  email TEXT NOT NULL UNIQUE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create index on admin email for faster lookup
+CREATE INDEX IF NOT EXISTS idx_admin_email ON admin_users(email);
+
+-- Create RLS policy for admin_users
+ALTER TABLE admin_users ENABLE ROW LEVEL SECURITY;
+
+-- Only allow service role to manage admin users
+CREATE POLICY "Allow service role to manage admin users" ON admin_users
+  FOR ALL USING (auth.role() = 'service_role');
+
+-- Allow authenticated users to check if they are admins
+CREATE POLICY "Allow users to check if they are admins" ON admin_users
+  FOR SELECT USING (auth.email() = email);
+
+-- Add an RLS policy for admins to manage orders
+CREATE POLICY "Allow admins to manage all orders" ON orders
+  FOR ALL USING (EXISTS (
+    SELECT 1 FROM admin_users 
+    WHERE admin_users.email = auth.email()
+  )); 

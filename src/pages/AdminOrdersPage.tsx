@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Loader, LogOut, Home, ArrowUpDown, Search, Filter, RefreshCw } from 'lucide-react';
+import { Loader, LogOut, Home, ArrowUpDown, Search, Filter, RefreshCw, UserCog } from 'lucide-react';
 import SEO from '../components/SEO';
 import { supabase } from '../utils/supabaseClient';
 import { OrderData as SupabaseOrderData } from '../utils/supabaseClient';
@@ -112,6 +112,14 @@ const AdminOrdersPage: React.FC = () => {
               <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
               Refresh
             </button>
+            
+            <Link 
+              to="/admin/management"
+              className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            >
+              <UserCog className="w-4 h-4 mr-2" />
+              Admin Management
+            </Link>
             
             <Link 
               to="/"

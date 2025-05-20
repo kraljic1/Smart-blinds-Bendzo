@@ -35,6 +35,7 @@ import ProductOptionDemoPage from './pages/ProductOptionDemoPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import AccessibilityPage from './pages/AccessibilityPage';
+import AdminManagementPage from './pages/AdminManagementPage';
 import { preventOverscroll } from './utils/preventOverscroll';
 import ScrollToTop from './utils/ScrollToTop';
 
@@ -88,6 +89,14 @@ function App() {
                       element={
                         <AdminRoute>
                           <AdminOrderDetailPage />
+                        </AdminRoute>
+                      } 
+                    />
+                    <Route 
+                      path="/admin/management" 
+                      element={
+                        <AdminRoute>
+                          <AdminManagementPage />
                         </AdminRoute>
                       } 
                     />

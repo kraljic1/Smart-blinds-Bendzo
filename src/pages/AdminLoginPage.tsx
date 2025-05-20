@@ -17,15 +17,30 @@ const AdminLoginPage: React.FC = () => {
     setError(null);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      // Sign in with Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
       
-      // Store a flag in localStorage indicating admin status
-      localStorage.setItem('isAdmin', 'true');
+      if (!authData.user || !authData.user.email) {
+        throw new Error('User authentication failed');
+      }
+      
+      // Check if the user is in the admin_users table
+      const { data: adminData, error: adminError } = await supabase
+        .from('admin_users')
+        .select('id')
+        .eq('email', authData.user.email)
+        .single();
+      
+      if (adminError || !adminData) {
+        // User is not an admin
+        await supabase.auth.signOut(); // Sign out non-admin users
+        throw new Error('You do not have administrator privileges');
+      }
       
       // Redirect to admin orders page
       navigate('/admin/orders');

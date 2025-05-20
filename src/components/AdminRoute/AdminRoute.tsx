@@ -12,11 +12,40 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const { data } = await supabase.auth.getSession();
-      
-      if (data.session && localStorage.getItem('isAdmin') === 'true') {
+      try {
+        // Check if user is authenticated
+        const { data: sessionData } = await supabase.auth.getSession();
+        
+        if (!sessionData.session) {
+          setIsAuthenticated(false);
+          return;
+        }
+        
+        // Get the user's email
+        const userEmail = sessionData.session.user.email;
+        
+        if (!userEmail) {
+          setIsAuthenticated(false);
+          return;
+        }
+        
+        // Check if the user is in the admin_users table
+        const { data: adminData, error: adminError } = await supabase
+          .from('admin_users')
+          .select('id')
+          .eq('email', userEmail)
+          .single();
+        
+        if (adminError || !adminData) {
+          console.log('Not an admin:', adminError?.message);
+          setIsAuthenticated(false);
+          return;
+        }
+        
+        // User exists in admin_users table
         setIsAuthenticated(true);
-      } else {
+      } catch (error) {
+        console.error('Auth check error:', error);
         setIsAuthenticated(false);
       }
     };
