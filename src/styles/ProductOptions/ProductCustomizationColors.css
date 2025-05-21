@@ -1,0 +1,68 @@
+/* Color option specific styles */
+.color-grid {
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-gap: 4px;
+}
+
+.color-option {
+  padding: 8px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.color-swatch {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.color-option .option-content {
+  background-color: transparent;
+}
+
+.color-option .option-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+  margin-top: 4px;
+}
+
+.color-option .option-price {
+  color: #4b5563;
+}
+
+/* Specific styling for transparency options to improve contrast */
+.option-selections [id^="transparency"] .option-item {
+  background-color: #f9fafb;
+}
+
+.option-selections [id^="transparency"] .option-name {
+  color: #1f2937;
+}
+
+.option-selections [id^="transparency"] .option-price {
+  color: #4b5563;
+}
+
+/* Specific styling for transparency option buttons */
+.option-group:has([class*="transparency"]) .option-item {
+  background-color: #f9fafb;
+  border: 2px solid #e5e7eb;
+}
+
+.option-group:has([class*="transparency"]) .option-item.selected {
+  background-color: rgba(37, 99, 235, 0.05);
+  border-color: #2563eb;
+}
+
+.option-group:has([class*="transparency"]) .option-name {
+  color: #1f2937;
+}
+
+.option-group:has([class*="transparency"]) .option-price {
+  color: #4b5563;
+} 

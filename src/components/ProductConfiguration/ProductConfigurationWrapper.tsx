@@ -9,7 +9,8 @@ import ProductFeatures from './ProductFeatures';
 import ImageZoomModal from '../ImageZoomModal';
 import InfoPanel from '../InfoPanel';
 import '../../styles/ProductConfiguration.css';
-import { allProducts } from '../../data/collections';
+import { useAnimationStates, useDefaultOptions } from './ProductConfigurationHooks';
+import { handleProductOptionChange, prepareCheckoutOptions } from './ProductConfigurationUtils';
 
 interface ProductConfigurationWrapperProps {
   product: Product;
@@ -34,9 +35,11 @@ const ProductConfigurationWrapper = ({
   const [currentProduct, setCurrentProduct] = useState<Product>(product);
   const [currentImages, setCurrentImages] = useState<string[]>(allImages);
   
-  // Animation states
-  const [isVisible, setIsVisible] = useState(false);
-  const [animationFinished, setAnimationFinished] = useState(false);
+  // Use custom hooks for animations and default options
+  const { isVisible, animationFinished } = useAnimationStates();
+  const { selectedOptions, setSelectedOptions } = useDefaultOptions(customizationOptions, currentProduct);
+  
+  // Container reference for animations
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Modal states
@@ -44,137 +47,23 @@ const ProductConfigurationWrapper = ({
   const [isZoomModalOpen, setIsZoomModalOpen] = useState(false);
   const [zoomImageIndex, setZoomImageIndex] = useState(0);
   
-  // Customization state
-  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
-  
-  // Initialize default options
-  useEffect(() => {
-    if (customizationOptions.length > 0) {
-      const defaultSelections: Record<string, string> = {};
-      customizationOptions.forEach(option => {
-        if (option.options.length > 0) {
-          // If this is the color option, select the current product's ID
-          if (option.id === 'color') {
-            // Find the color option that matches the current product
-            const colorOption = option.options.find(o => o.id === currentProduct.id);
-            if (colorOption) {
-              defaultSelections[option.id] = colorOption.id;
-            } else {
-              // Fallback to first option if no match found
-              defaultSelections[option.id] = option.options[0].id;
-            }
-          } else {
-            // For other options, select the first option
-            defaultSelections[option.id] = option.options[0].id;
-          }
-        }
-      });
-      setSelectedOptions(defaultSelections);
-    }
-  }, [customizationOptions, currentProduct.id]);
-
   // Update product when changed from parent
   useEffect(() => {
     setCurrentProduct(product);
     setCurrentImages(allImages);
   }, [product, allImages]);
 
-  // Trigger animations after component mounts
-  useEffect(() => {
-    // Short delay before starting animations
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-    
-    // Set animation as finished after all staggered elements should be done
-    const animTimer = setTimeout(() => {
-      setAnimationFinished(true);
-    }, 1800);
-    
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(animTimer);
-    };
-  }, []);
-
-  // Handle option change
-  const handleOptionChange = (optionId: string, valueId: string) => {
-    // If the color option was changed, update the product
-    if (optionId === 'color') {
-      // Find the product by ID (which is the same as the color option valueId)
-      const newProduct = allProducts.find(p => p.id === valueId);
-      
-      if (newProduct) {
-        // Update the current product
-        setCurrentProduct(newProduct);
-        
-        // Generate ordered images for the new product
-        if (newProduct.images && newProduct.images.length > 0) {
-          const hasNumberedImages = newProduct.images.some(img => 
-            img.includes("/0.webp") || img.includes("/1.webp") || img.includes("/2.webp") || 
-            img.includes("/3.webp") || img.includes("/4.webp")
-          );
-          
-          if (hasNumberedImages) {
-            // Create ordered array of numbered images
-            const orderedImages: string[] = [];
-            
-            // Find the cover image (0.webp)
-            const coverImage = newProduct.images.find(img => img.includes("/0.webp"));
-            if (coverImage) {
-              orderedImages.push(coverImage);
-            } else {
-              // Fallback to main image if 0.webp not found
-              orderedImages.push(newProduct.image);
-            }
-            
-            // Add remaining images in numerical order
-            for (let i = 1; i <= 4; i++) {
-              const img = newProduct.images.find(img => img.includes(`/${i}.webp`));
-              if (img) {
-                orderedImages.push(img);
-              }
-            }
-            
-            setCurrentImages(orderedImages);
-          } else {
-            // For legacy image naming conventions
-            const images: string[] = [];
-            
-            // Add main image
-            images.push(newProduct.image);
-            
-            // Add additional images, skipping any that match the main image
-            newProduct.images.forEach(img => {
-              if (img !== newProduct.image) {
-                images.push(img);
-              }
-            });
-            
-            setCurrentImages(images);
-          }
-        } else {
-          setCurrentImages([newProduct.image]);
-        }
-        
-        // Update the selected options
-        setSelectedOptions(prev => ({
-          ...prev,
-          [optionId]: valueId
-        }));
-        
-        // Notify parent component about product change
-        if (onProductChange) {
-          onProductChange(newProduct);
-        }
-      }
-    } else {
-      // For non-color options, just update the selection
-      setSelectedOptions(prev => ({
-        ...prev,
-        [optionId]: valueId
-      }));
-    }
+  // Option change handler using utility function
+  const onOptionChange = (optionId: string, valueId: string) => {
+    handleProductOptionChange(
+      optionId,
+      valueId,
+      selectedOptions,
+      setSelectedOptions,
+      setCurrentProduct,
+      setCurrentImages,
+      onProductChange
+    );
   };
 
   // Handle checkout with dimensions and costs from form
@@ -185,25 +74,17 @@ const ProductConfigurationWrapper = ({
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     additionalCosts: { name: string; price: number }[]
   ) => {
-    // Prepare options to save with the product
-    const options: Record<string, string | number | boolean> = {
-      ...selectedOptions
-    };
+    const options = prepareCheckoutOptions(
+      quantity,
+      width,
+      height,
+      selectedOptions,
+      isAccessoryProduct
+    );
     
-    // Add width and height for non-accessory products
-    if (!isAccessoryProduct) {
-      if (typeof width === 'number' && typeof height === 'number' && width > 0 && height > 0) {
-        options.width = width;
-        options.height = height;
-      } else {
-        // For non-accessory products, width and height are required
-        alert('Please ensure width and height are valid before adding to basket');
-        return;
-      }
+    if (options) {
+      onCheckout(quantity, options);
     }
-    
-    // Pass all options to parent
-    onCheckout(quantity, options);
   };
 
   // Handle info button click
@@ -252,7 +133,7 @@ const ProductConfigurationWrapper = ({
                 isAccessoryProduct={isAccessoryProduct}
                 customizationOptions={customizationOptions}
                 selectedOptions={selectedOptions}
-                onOptionChange={handleOptionChange}
+                onOptionChange={onOptionChange}
                 onCheckout={handleCheckoutWithDetails}
                 isVisible={isVisible}
                 animationFinished={animationFinished}

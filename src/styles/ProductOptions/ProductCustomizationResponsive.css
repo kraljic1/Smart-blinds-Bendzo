@@ -1,0 +1,7 @@
+/* Responsive styling for product customization */
+@media (max-width: 640px) {
+  .color-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    grid-gap: 3px;
+  }
+} 

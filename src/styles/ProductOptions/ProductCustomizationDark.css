@@ -1,0 +1,143 @@
+/* Dark theme styles */
+.dark .customization-title {
+  color: #f9fafb;
+}
+
+.dark .customization-description {
+  color: #9ca3af;
+}
+
+.dark .option-title {
+  color: #e5e7eb;
+}
+
+.dark .info-button:hover {
+  color: #d1d5db;
+}
+
+.dark .option-item {
+  border-color: #4b5563;
+  background-color: #1f2937;
+}
+
+.dark .option-item:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .option-item.selected {
+  border-color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 1px #3b82f6, 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.dark .option-image-container {
+  background-color: #374151;
+}
+
+.dark .option-item:not(.text-only-option):not(.color-option) .option-content {
+  background-color: rgba(31, 41, 55, 0.85);
+}
+
+.dark .option-item:not(.text-only-option):not(.color-option) .option-name {
+  color: #f9fafb;
+}
+
+.dark .color-option {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+.dark .color-swatch {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .color-option .option-name {
+  color: #e5e7eb;
+}
+
+.dark .color-option .option-price {
+  color: #9ca3af;
+}
+
+.dark .option-selections [id^="transparency"] .option-item {
+  background-color: #1f2937;
+}
+
+.dark .option-selections [id^="transparency"] .option-name {
+  color: #f9fafb;
+}
+
+.dark .option-selections [id^="transparency"] .option-price {
+  color: #9ca3af;
+}
+
+.dark .option-item.selected .option-checkmark {
+  background-color: #3b82f6;
+}
+
+.dark .add-to-basket-button {
+  background-color: #059669;
+}
+
+.dark .add-to-basket-button:hover {
+  background-color: #047857;
+}
+
+.dark .add-to-basket-button.disabled {
+  background-color: #4b5563;
+  color: #9ca3af;
+}
+
+.dark .customization-warning {
+  color: #fb7185;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-item {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-item.selected {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-name {
+  color: #f9fafb;
+}
+
+.dark .option-group:has([class*="transparency"]) .option-price {
+  color: #9ca3af;
+}
+
+.dark .option-name {
+  color: #e5e7eb;
+}
+
+.dark .option-price {
+  color: #9ca3af;
+}
+
+.dark .info-message {
+  background-color: #374151;
+  color: #d1d5db;
+  border-left-color: #60a5fa;
+}
+
+.dark .fabric-option {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+.dark .fabric-swatch-container {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .fabric-option .option-name {
+  color: #e5e7eb;
+}
+
+.dark .fabric-option .option-price {
+  color: #9ca3af;
+} 

@@ -1,3 +1,9 @@
+/**
+ * DEPRECATED - This file has been modularized
+ * Please use the individual files in the ProductOptions/ directory instead
+ * This file can be safely removed after verifying that all imports have been updated
+ */
+
 /* Modern Product Options Styling */
 :root {
   --option-bg-light: #f3f4f6;

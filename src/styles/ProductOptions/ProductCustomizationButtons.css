@@ -1,0 +1,32 @@
+/* Button and action-related styles */
+.add-to-basket-container {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-to-basket-button {
+  background-color: #10b981;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 6px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+  max-width: 300px;
+  text-transform: uppercase;
+}
+
+.add-to-basket-button:hover {
+  background-color: #059669;
+}
+
+.add-to-basket-button.disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+} 

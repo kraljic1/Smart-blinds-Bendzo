@@ -1,4 +1,3 @@
-@import './styles/ProductCustomization.css';
 @import './styles/PriceCalculator.css';
 @import './styles/FilterPanel.css';
 @import './styles/animations.css';
@@ -7,6 +6,7 @@
 @import './styles/OverscrollFix.css';
 @import './styles/TabletResponsive.css';
 @import './styles/ProductConfiguration.css';
+@import './styles/ProductOptions/index.css';
 
 @tailwind base;
 @tailwind components;

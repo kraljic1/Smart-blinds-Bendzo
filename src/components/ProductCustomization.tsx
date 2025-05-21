@@ -1,7 +1,7 @@
 import { Info, Check } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Product } from '../types/product';
-import '../styles/ProductCustomization.css';
+import '../styles/ProductOptions/index.css';
 
 export interface CustomizationOption {
   id: string;

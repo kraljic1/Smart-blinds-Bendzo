@@ -1,0 +1,30 @@
+/* Text-only option styles */
+.text-only-grid {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.text-only-option {
+  padding: 10px 16px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  min-height: 50px;
+}
+
+.text-only-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.text-only-option .option-price {
+  margin-left: 8px;
+}
+
+.text-only-option.selected .option-checkmark {
+  position: static;
+  margin-left: 10px;
+} 
