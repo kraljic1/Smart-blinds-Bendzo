@@ -20,28 +20,28 @@ const AdminOrdersPage: React.FC = () => {
     navigate('/admin/login');
   };
   
-  const fetchOrders = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
-      
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
-      if (error) throw error;
-      
-      setOrders(data || []);
-    } catch (err) {
-      console.error('Error fetching orders:', err);
-      setError('Failed to load orders. Please try again later.');
-    } finally {
-      setIsLoading(false);
+    const fetchOrders = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        const { data, error } = await supabase
+          .from('orders')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        
+        setOrders(data || []);
+      } catch (err) {
+        console.error('Error fetching orders:', err);
+        setError('Failed to load orders. Please try again later.');
+      } finally {
+        setIsLoading(false);
       setIsRefreshing(false);
-    }
-  };
-  
+      }
+    };
+    
   const handleRefresh = () => {
     setIsRefreshing(true);
     fetchOrders();
@@ -121,13 +121,13 @@ const AdminOrdersPage: React.FC = () => {
               Admin Management
             </Link>
             
-            <Link 
-              to="/"
+        <Link 
+          to="/"
               className="inline-flex items-center px-3 py-2 border border-gray-300 dark:border-gray-600 shadow-sm text-sm font-medium rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
+        >
               <Home className="w-4 h-4 mr-2" />
-              Back to Home
-            </Link>
+          Back to Home
+        </Link>
             
             <button 
               onClick={handleLogout}
@@ -159,13 +159,13 @@ const AdminOrdersPage: React.FC = () => {
                 Showing <span className="font-medium">{filteredOrders.length}</span> of <span className="font-medium">{orders.length}</span> orders
               </div>
             </div>
-          </div>
-          
-          {isLoading ? (
+      </div>
+      
+      {isLoading ? (
             <div className="flex justify-center items-center py-16">
-              <Loader className="w-10 h-10 animate-spin text-blue-600" />
-            </div>
-          ) : error ? (
+          <Loader className="w-10 h-10 animate-spin text-blue-600" />
+        </div>
+      ) : error ? (
             <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-400 p-4 my-4">
               <div className="flex">
                 <div className="flex-shrink-0">
@@ -192,8 +192,8 @@ const AdminOrdersPage: React.FC = () => {
                   >
                     Clear filter
                   </button>
-                </div>
-              </div>
+        </div>
+        </div>
             ) : (
               <div className="px-4 py-16 text-center">
                 <Filter className="mx-auto h-12 w-12 text-gray-400" />
@@ -201,11 +201,11 @@ const AdminOrdersPage: React.FC = () => {
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by adding your first order.</p>
               </div>
             )
-          ) : (
-            <div className="overflow-x-auto">
+      ) : (
+        <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead className="bg-gray-50 dark:bg-gray-900">
-                  <tr>
+              <tr>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                       <div className="flex items-center">
                         Order ID
@@ -239,45 +239,45 @@ const AdminOrdersPage: React.FC = () => {
                     <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                       Actions
                     </th>
-                  </tr>
-                </thead>
+              </tr>
+            </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {filteredOrders.map((order) => (
                     <tr key={order.order_id} className="hover:bg-gray-50 dark:hover:bg-gray-750">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
-                        {order.order_id}
-                      </td>
+                    {order.order_id}
+                  </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                        {formatDate(order.created_at)}
-                      </td>
+                    {formatDate(order.created_at)}
+                  </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                        {order.customer_name}
-                      </td>
+                    {order.customer_name}
+                  </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                        {order.customer_email}
-                      </td>
+                    {order.customer_email}
+                  </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-gray-900 dark:text-white">
-                        €{order.total_amount.toFixed(2)}
-                      </td>
+                    €{order.total_amount.toFixed(2)}
+                  </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getStatusStyle(order.status)}`}>
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                        </span>
-                      </td>
+                      {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    </span>
+                  </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center text-sm">
-                        <Link 
-                          to={`/admin/orders/${order.order_id}`}
+                    <Link 
+                      to={`/admin/orders/${order.order_id}`}
                           className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
-                        >
-                          View Details
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                    >
+                      View Details
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
         </div>
       </div>
     </div>

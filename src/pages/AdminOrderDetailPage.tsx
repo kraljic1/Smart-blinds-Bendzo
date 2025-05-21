@@ -140,13 +140,13 @@ const AdminOrderDetailPage: React.FC = () => {
               <p className="text-center text-gray-600 dark:text-gray-400">{error}</p>
             </div>
             <div className="p-6 bg-gray-50 dark:bg-gray-900 flex justify-center">
-              <button 
-                onClick={() => navigate('/admin/orders')}
+          <button 
+            onClick={() => navigate('/admin/orders')}
                 className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
+          >
                 <ChevronLeft className="h-4 w-4 mr-2" />
-                Back to Orders
-              </button>
+            Back to Orders
+          </button>
             </div>
           </div>
         </div>
@@ -170,13 +170,13 @@ const AdminOrderDetailPage: React.FC = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-          <Link 
-            to="/admin/orders"
+        <Link 
+          to="/admin/orders"
             className="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
-          >
+        >
             <ChevronLeft className="w-5 h-5 mr-1" />
-            Back to Orders
-          </Link>
+          Back to Orders
+        </Link>
           
           <div className="flex gap-2">
             <button 
@@ -194,7 +194,7 @@ const AdminOrderDetailPage: React.FC = () => {
               <UserCog className="w-4 h-4 mr-2" />
               Admin Management
             </Link>
-            
+          
             <button 
               onClick={handleLogout}
               className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
@@ -225,9 +225,9 @@ const AdminOrderDetailPage: React.FC = () => {
                   </span>
                 </div>
               </div>
-            </div>
-          </div>
-          
+                </div>
+              </div>
+              
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
             <div className="lg:col-span-2 space-y-6">
               {/* Order Items */}
@@ -264,8 +264,8 @@ const AdminOrderDetailPage: React.FC = () => {
                           </div>
                           <div className="mt-2 sm:mt-0 flex flex-col items-end">
                             <p className="text-base font-medium text-gray-900 dark:text-white">€{(item.price * item.quantity).toFixed(2)}</p>
-                          </div>
-                        </div>
+                </div>
+              </div>
                       ))}
                     </div>
                   ) : (
@@ -287,7 +287,7 @@ const AdminOrderDetailPage: React.FC = () => {
                       <p className="text-base font-medium text-gray-900 dark:text-white">Order Total</p>
                       <p className="text-xl font-bold text-gray-900 dark:text-white">€{order.total_amount.toFixed(2)}</p>
                     </div>
-                  </div>
+                </div>
                 </div>
               </div>
               
@@ -346,10 +346,10 @@ const AdminOrderDetailPage: React.FC = () => {
                         <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Name</p>
                         <p className="text-sm text-gray-900 dark:text-white font-medium">{order.customer_name}</p>
                       </div>
-                    </div>
-                  </div>
-                  
-                  <div>
+            </div>
+          </div>
+          
+          <div>
                     <div className="flex items-center">
                       <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 dark:text-blue-300">
                         <Mail className="w-4 h-4" />
@@ -361,7 +361,7 @@ const AdminOrderDetailPage: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div>
+                      <div>
                     <div className="flex items-center">
                       <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 dark:text-blue-300">
                         <Phone className="w-4 h-4" />
@@ -370,8 +370,8 @@ const AdminOrderDetailPage: React.FC = () => {
                         <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</p>
                         <p className="text-sm text-gray-900 dark:text-white font-medium">{order.customer_phone}</p>
                       </div>
-                    </div>
-                  </div>
+                              </div>
+                          </div>
                   
                   <div>
                     <div className="flex items-start">
@@ -383,7 +383,7 @@ const AdminOrderDetailPage: React.FC = () => {
                         <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{order.customer_address}</p>
                       </div>
                     </div>
-                  </div>
+                </div>
                 </div>
               </div>
             </div>
