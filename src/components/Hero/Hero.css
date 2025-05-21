@@ -1,0 +1,111 @@
+/* Hero animations */
+@keyframes textReveal {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sequentialReveal {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-10px) translateX(10px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+/* Particle animations */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(1px);
+  pointer-events: none;
+}
+
+.particle-1 {
+  width: 80px;
+  height: 80px;
+  left: 10%;
+  top: 30%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.particle-2 {
+  width: 120px;
+  height: 120px;
+  right: 10%;
+  top: 40%;
+  animation: float 12s ease-in-out infinite;
+}
+
+.particle-3 {
+  width: 60px;
+  height: 60px;
+  left: 15%;
+  bottom: 20%;
+  animation: float 10s ease-in-out infinite;
+}
+
+.particle-4 {
+  width: 50px;
+  height: 50px;
+  right: 20%;
+  bottom: 30%;
+  animation: float 9s ease-in-out infinite;
+}
+
+.particle-5 {
+  width: 70px;
+  height: 70px;
+  left: 50%;
+  top: 15%;
+  animation: float 11s ease-in-out infinite;
+}
+
+/* Animation utility classes */
+.animate-text-reveal {
+  animation: textReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-sequential-reveal {
+  animation: sequentialReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-scroll-down {
+  animation: scrollDown 1.5s ease-in-out infinite;
+} 
