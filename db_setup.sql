@@ -42,7 +42,7 @@ CREATE POLICY "Allow service role to manage orders" ON orders
   FOR ALL USING (auth.role() = 'service_role');
 
 CREATE POLICY "Users can view their own orders" ON orders
-  FOR SELECT USING (auth.email() = customer_email);
+  FOR SELECT USING (auth.email() = customer_email); 
 
 CREATE POLICY "Allow admins to manage all orders" ON orders
   FOR ALL USING (EXISTS (
