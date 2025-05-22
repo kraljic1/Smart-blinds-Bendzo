@@ -207,6 +207,7 @@ export function CheckoutForm() {
                 required
                 placeholder="Enter your full name"
                 aria-required="true"
+                autoComplete="name"
               />
               <span className="input-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -226,6 +227,7 @@ export function CheckoutForm() {
                 required
                 placeholder="your@email.com"
                 aria-required="true"
+                autoComplete="email"
               />
               <span className="input-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -239,7 +241,7 @@ export function CheckoutForm() {
           <div className="phone-input-container" role="group" aria-labelledby="phone-label">
             <span id="phone-label" className="sr-only">Phone Number with country code</span>
             <div className="input-wrapper select-wrapper">
-              <select
+                              <select
                 id="phoneCode"
                 name="phoneCode"
                 value={formData.phoneCode}
@@ -247,6 +249,7 @@ export function CheckoutForm() {
                 className="phone-code-select"
                 aria-label="Country code"
                 required
+                autoComplete="tel-country-code"
               >
                 {countryPhoneCodes.map((country: CountryCode) => (
                   <option key={country.code} value={country.dial_code}>
@@ -275,6 +278,7 @@ export function CheckoutForm() {
                 aria-required="true"
                 pattern="[0-9\s\-\(\)]+"
                 title="Please enter a valid phone number"
+                autoComplete="tel-national"
               />
               <span className="input-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
@@ -317,6 +321,7 @@ export function CheckoutForm() {
               required
               placeholder="Enter your full address"
               aria-required="true"
+              autoComplete="street-address"
             />
             <span className="input-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
@@ -336,6 +341,7 @@ export function CheckoutForm() {
               required
               placeholder="Enter your shipping address"
               aria-required="true"
+              autoComplete="shipping street-address"
             />
             <span className="input-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
@@ -362,6 +368,7 @@ export function CheckoutForm() {
             value={formData.paymentMethod}
             onChange={handleChange}
             required
+            autoComplete="off"
           >
             <option value="Cash on delivery">Cash on delivery</option>
             <option value="Credit card">Credit card</option>
@@ -377,6 +384,7 @@ export function CheckoutForm() {
             value={formData.shippingMethod}
             onChange={handleChange}
             required
+            autoComplete="off"
           >
             <option value="Standard delivery">Standard delivery</option>
             <option value="Express delivery">Express delivery</option>
@@ -395,6 +403,7 @@ export function CheckoutForm() {
               rows={4}
               placeholder="Any special requests or additional information"
               aria-label="Additional notes or requests"
+              autoComplete="off"
             />
             <span className="input-icon textarea-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="15" y1="12" x2="3" y2="12"></line><line x1="17" y1="18" x2="3" y2="18"></line></svg>

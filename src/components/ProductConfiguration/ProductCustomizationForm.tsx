@@ -104,7 +104,9 @@ const ProductCustomizationForm = ({
               <input
                 id="product-width"
                 name="product-width"
-                type="text"
+                type="number"
+                min="30"
+                max="350"
                 placeholder="30 - 350 cm"
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={width}
@@ -119,7 +121,9 @@ const ProductCustomizationForm = ({
               <input
                 id="product-height"
                 name="product-height"
-                type="text"
+                type="number"
+                min="30"
+                max="350"
                 placeholder="30 - 350 cm"
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={height}
