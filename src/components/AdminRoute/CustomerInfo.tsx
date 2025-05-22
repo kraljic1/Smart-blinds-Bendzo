@@ -1,14 +1,25 @@
 import React from 'react';
-import { User, Mail, Phone, MapPin } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Truck } from 'lucide-react';
 
 interface CustomerInfoProps {
   name: string;
   email: string;
   phone: string;
-  address: string;
+  billingAddress: string;
+  shippingAddress?: string;
+  paymentMethod?: string;
+  shippingMethod?: string;
 }
 
-const CustomerInfo: React.FC<CustomerInfoProps> = ({ name, email, phone, address }) => {
+const CustomerInfo: React.FC<CustomerInfoProps> = ({ 
+  name, 
+  email, 
+  phone, 
+  billingAddress, 
+  shippingAddress,
+  paymentMethod,
+  shippingMethod
+}) => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
       <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
@@ -61,11 +72,61 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({ name, email, phone, address
               <MapPin className="w-4 h-4" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Address</p>
-              <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{address}</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Billing Address</p>
+              <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{billingAddress}</p>
             </div>
           </div>
         </div>
+        
+        {shippingAddress && shippingAddress !== billingAddress && (
+          <div>
+            <div className="flex items-start">
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 dark:text-blue-300 mt-0.5">
+                <Truck className="w-4 h-4" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Shipping Address</p>
+                <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{shippingAddress}</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {paymentMethod && (
+          <div>
+            <div className="flex items-start">
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 dark:text-blue-300 mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Payment Method</p>
+                <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{paymentMethod}</p>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {shippingMethod && (
+          <div>
+            <div className="flex items-start">
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 dark:text-blue-300 mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              </div>
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Shipping Method</p>
+                <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{shippingMethod}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

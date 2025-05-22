@@ -22,10 +22,21 @@ interface OrderItemDisplay {
   options?: Record<string, string | number | boolean>;
 }
 
+// Extended order data type that includes items
+interface ExtendedOrderData extends SupabaseOrderData {
+  items?: Array<{
+    product_id: string;
+    product_name: string;
+    quantity: number;
+    unit_price: number;
+    options?: Record<string, string | number | boolean>;
+  }> | string;
+}
+
 const AdminOrderDetailPage: React.FC = () => {
   const { orderId } = useParams<{ orderId: string }>();
   const navigate = useNavigate();
-  const [order, setOrder] = useState<SupabaseOrderData | null>(null);
+  const [order, setOrder] = useState<ExtendedOrderData | null>(null);
   const [items, setItems] = useState<OrderItemDisplay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,15 +57,26 @@ const AdminOrderDetailPage: React.FC = () => {
       
       try {
         setIsLoading(true);
-        const data = await getOrderById(orderId);
+        const data = await getOrderById(orderId) as ExtendedOrderData;
         
         if (!data) {
           setError('Order not found');
         } else {
           setOrder(data);
           
-          // Parse items from JSON string
-          if (data.items) {
+          // Check if we have items from the new schema
+          if (data.items && Array.isArray(data.items)) {
+            const formattedItems = data.items.map(item => ({
+              productId: item.product_id,
+              productName: item.product_name,
+              quantity: item.quantity,
+              price: item.unit_price,
+              options: item.options || {}
+            }));
+            setItems(formattedItems);
+          }
+          // Fallback for legacy format (JSON string)
+          else if (typeof data.items === 'string') {
             try {
               const parsedItems = JSON.parse(data.items);
               setItems(parsedItems);
@@ -62,6 +84,8 @@ const AdminOrderDetailPage: React.FC = () => {
               console.error('Failed to parse order items:', e);
               setItems([]);
             }
+          } else {
+            setItems([]);
           }
         }
       } catch (err) {
@@ -77,7 +101,7 @@ const AdminOrderDetailPage: React.FC = () => {
   
   // Handle order status update
   const handleOrderStatusUpdate = (updatedOrder: SupabaseOrderData) => {
-    setOrder(updatedOrder);
+    setOrder(updatedOrder as ExtendedOrderData);
   };
   
   if (isLoading) {
@@ -140,7 +164,10 @@ const AdminOrderDetailPage: React.FC = () => {
                 name={order.customer_name}
                 email={order.customer_email}
                 phone={order.customer_phone}
-                address={order.customer_address}
+                billingAddress={order.billing_address}
+                shippingAddress={order.shipping_address}
+                paymentMethod={order.payment_method}
+                shippingMethod={order.shipping_method}
               />
             </div>
           </div>
