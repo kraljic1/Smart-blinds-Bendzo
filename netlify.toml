@@ -3,6 +3,14 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# Development settings
+[dev]
+  port = 8888
+  publish = "public"
+  autoLaunch = true
+  framework = "#custom"
+  command = "npm run dev"
+
 # Handle client-side routing for React app
 [[redirects]]
   from = "/*"
@@ -11,7 +19,7 @@
 
 # Redirect API calls to our serverless functions
 [[redirects]]
-  from = "/.netlify/functions/*"
+  from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 

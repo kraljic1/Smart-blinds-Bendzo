@@ -7,11 +7,16 @@ const { createClient } = require('@supabase/supabase-js');
 const fetch = require('node-fetch'); // Add node-fetch for making HTTP requests
 
 // Initialize Supabase client
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+// Try regular env vars first, then fallback to VITE_ prefixed ones
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
 // Create a single supabase client for interacting with the database
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Debug: log URLs but not keys to help diagnose issues
+console.log('Supabase URL:', supabaseUrl);
+console.log('Using Supabase with key?', supabaseKey ? 'Yes' : 'No');
 
 exports.handler = async function(event, context) {
   // Only allow POST requests
@@ -66,6 +71,12 @@ exports.handler = async function(event, context) {
       updated_at: new Date().toISOString()
     };
     
+    // Check if Supabase is configured properly
+    if (!supabaseUrl || !supabaseKey) {
+      console.error('Supabase credentials missing');
+      throw new Error('Database connection failed: Missing credentials');
+    }
+    
     // Insert the order into Supabase
     const { data: insertedOrder, error } = await supabase
       .from('orders')
@@ -82,14 +93,14 @@ exports.handler = async function(event, context) {
     // Process order items
     const orderItems = items.map(item => ({
       order_id: orderId_db,
-      product_id: item.product.id,
-      product_name: item.product.name,
-      product_image: item.product.image,
+      product_id: item.productId,
+      product_name: item.productName,
+      product_image: item.productImage,
       quantity: item.quantity,
-      unit_price: item.product.price,
-      subtotal: item.product.price * item.quantity,
-      width: item.options?.width || null,
-      height: item.options?.height || null,
+      unit_price: item.price,
+      subtotal: item.price * item.quantity,
+      width: item.width || null,
+      height: item.height || null,
       options: item.options ? JSON.stringify(item.options) : null,
       created_at: new Date().toISOString()
     }));
@@ -113,7 +124,7 @@ exports.handler = async function(event, context) {
         totalAmount
       };
       
-      const appUrl = process.env.VITE_APP_URL || 'https://bendzosmartblinds.netlify.app';
+      const appUrl = process.env.VITE_APP_URL || process.env.APP_URL || 'https://bendzosmartblinds.netlify.app';
       const emailUrl = new URL('/.netlify/functions/send-order-confirmation', appUrl).toString();
       
       const emailResponse = await fetch(emailUrl, {
