@@ -25,7 +25,7 @@ exports.handler = async function(event, context) {
   try {
     // Parse the incoming request body
     const data = JSON.parse(event.body);
-    const { customer, items, notes, totalAmount } = data;
+    const { customer, items, notes, totalAmount, taxAmount, shippingCost, discount } = data;
     
     // Validate required data
     if (!customer || !items || !totalAmount) {
@@ -50,12 +50,20 @@ exports.handler = async function(event, context) {
       customer_name: customer.fullName,
       customer_email: customer.email,
       customer_phone: customer.phone,
-      customer_address: customer.address,
-      items: JSON.stringify(items),
+      billing_address: customer.address,
+      shipping_address: customer.shippingAddress || customer.address,
       notes: notes || '',
       total_amount: totalAmount,
+      tax_amount: taxAmount || null,
+      shipping_cost: shippingCost || null,
+      discount_amount: discount?.amount || null,
+      discount_code: discount?.code || null,
+      payment_method: customer.paymentMethod || 'Cash on delivery',
+      payment_status: 'pending',
+      shipping_method: customer.shippingMethod || 'Standard delivery',
       status: 'received',
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     };
     
     // Insert the order into Supabase
@@ -67,6 +75,33 @@ exports.handler = async function(event, context) {
     if (error) {
       console.error('Supabase error:', error);
       throw new Error('Failed to save order to database');
+    }
+
+    const orderId_db = insertedOrder[0].id;
+    
+    // Process order items
+    const orderItems = items.map(item => ({
+      order_id: orderId_db,
+      product_id: item.product.id,
+      product_name: item.product.name,
+      product_image: item.product.image,
+      quantity: item.quantity,
+      unit_price: item.product.price,
+      subtotal: item.product.price * item.quantity,
+      width: item.options?.width || null,
+      height: item.options?.height || null,
+      options: item.options ? JSON.stringify(item.options) : null,
+      created_at: new Date().toISOString()
+    }));
+    
+    // Insert order items into Supabase
+    const { error: itemsError } = await supabase
+      .from('order_items')
+      .insert(orderItems);
+    
+    if (itemsError) {
+      console.error('Supabase error inserting order items:', itemsError);
+      throw new Error('Failed to save order items to database');
     }
     
     // Send order confirmation email
