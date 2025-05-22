@@ -6,10 +6,11 @@
 # Development settings
 [dev]
   port = 8888
-  publish = "public"
-  autoLaunch = true
-  framework = "#custom"
+  publish = "dist"
+  targetPort = 5173
   command = "npm run dev"
+  framework = "#auto"
+  autoLaunch = true
 
 # Handle client-side routing for React app
 [[redirects]]
