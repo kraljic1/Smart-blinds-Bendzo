@@ -10,6 +10,7 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -22,6 +23,17 @@ const Header: React.FC = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Handle screen size detection
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   // Handle location changes
@@ -172,8 +184,10 @@ const Header: React.FC = () => {
         </div>
       </header>
       
-      {/* Mobile Navigation Menu */}
-      <MobileMenuWrapper isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      {/* Mobile Navigation Menu - Only render on mobile devices */}
+      {isMobile && (
+        <MobileMenuWrapper isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      )}
     </>
   );
 };

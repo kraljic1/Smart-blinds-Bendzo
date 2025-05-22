@@ -199,7 +199,7 @@ body.menu-open {
   color: #e5e7eb;
 }
 
-/* Ensure mobile menu is completely hidden on desktop screens */
+/* Additional safety: Ensure mobile menu is completely hidden on desktop screens */
 @media (min-width: 1024px) {
   .mobile-menu,
   .mobile-menu-overlay {
