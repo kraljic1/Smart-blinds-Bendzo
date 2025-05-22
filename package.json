@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "add-admin": "node scripts/add-admin.js",
-    "setup-db": "node scripts/setup-database.js"
+    "setup-db": "node scripts/setup-database.js",
+    "check-db": "node scripts/check-database.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.5",
