@@ -60,10 +60,19 @@ async function addAdmin() {
       return;
     }
     
+    // Generate username from email (part before @)
+    const username = email.split('@')[0];
+    
     // Add the user to admin_users
     const { error } = await supabase
       .from('admin_users')
-      .insert([{ email }]);
+      .insert([{ 
+        email,
+        username,
+        password_hash: 'supabase_auth', // This will be handled by Supabase Auth
+        role: 'admin',
+        is_active: true
+      }]);
       
     if (error) {
       throw error;
