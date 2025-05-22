@@ -10,11 +10,13 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "generate-sitemap": "node scripts/generate-sitemap.js",
-    "add-admin": "node scripts/add-admin.js"
+    "add-admin": "node scripts/add-admin.js",
+    "setup-db": "node scripts/setup-database.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.5",
     "dotenv": "^16.4.5",
+    "libphonenumber-js": "^1.12.8",
     "lucide-react": "^0.344.0",
     "node-fetch": "^2.7.0",
     "nodemailer": "^7.0.3",
