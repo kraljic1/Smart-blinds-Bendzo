@@ -16,4 +16,8 @@ export default defineConfig({
       },
     },
   },
+  define: {
+    // Make process.env available to client code
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  },
 });

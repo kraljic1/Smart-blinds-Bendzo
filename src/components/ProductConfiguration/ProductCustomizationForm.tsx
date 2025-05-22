@@ -98,27 +98,33 @@ const ProductCustomizationForm = ({
         {!isAccessoryProduct && !isCalculated && (
           <>
             <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '350ms' }}>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="product-width" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Width
               </label>
               <input
+                id="product-width"
+                name="product-width"
                 type="text"
                 placeholder="30 - 350 cm"
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={width}
                 onChange={handleWidthChange}
+                autoComplete="off"
               />
             </div>
             <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '400ms' }}>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="product-height" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Height
               </label>
               <input
+                id="product-height"
+                name="product-height"
                 type="text"
                 placeholder="30 - 350 cm"
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={height}
                 onChange={handleHeightChange}
+                autoComplete="off"
               />
             </div>
           </>

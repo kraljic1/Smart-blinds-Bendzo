@@ -91,7 +91,16 @@ const PriceCalculator = ({
       <div className="price-calculator-actions">
         <div className="price-calculator-quantity">
           <button className="quantity-button" onClick={decreaseQuantity} aria-label="Decrease quantity">-</button>
-          <input type="text" className="quantity-input" value={quantity} readOnly aria-label="Product quantity" />
+          <input 
+            type="text" 
+            id="product-quantity" 
+            name="product-quantity" 
+            className="quantity-input" 
+            value={quantity} 
+            readOnly 
+            aria-label="Product quantity" 
+            autoComplete="off"
+          />
           <button className="quantity-button" onClick={increaseQuantity} aria-label="Increase quantity">+</button>
         </div>
         <button className="checkout-button" onClick={handleCheckout}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BasketItem as BasketItemType } from '../../hooks/useBasket';
 import { useBasketContext } from '../../hooks/useBasketContext';
+import { formatOptionLabel, formatOptionValue } from '../../utils/formattingUtils';
 import './BasketItem.css';
 
 interface BasketItemProps {
@@ -31,18 +32,6 @@ export function BasketItem({ item, index }: BasketItemProps) {
     }
   };
 
-  // Format option labels to be more readable
-  const formatOptionLabel = (key: string): string => {
-    // Replace underscores with spaces and capitalize each word
-    return key
-      .replace(/_/g, ' ')
-      .replace(/([A-Z])/g, ' $1')
-      .trim()
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  };
-
   const formatOptions = () => {
     if (!options) return null;
     
@@ -71,7 +60,7 @@ export function BasketItem({ item, index }: BasketItemProps) {
           <div className="basket-item-option-group">
             {dimensionOptions.map(([key, value]) => (
               <span key={key} className="basket-item-option">
-                <strong>{formatOptionLabel(key)}:</strong> {value}
+                <strong>{formatOptionLabel(key)}:</strong> {typeof value === 'string' ? formatOptionValue(value) : value}
               </span>
             ))}
           </div>
@@ -81,7 +70,7 @@ export function BasketItem({ item, index }: BasketItemProps) {
           <div className="basket-item-option-group">
             {styleOptions.map(([key, value]) => (
               <span key={key} className="basket-item-option">
-                <strong>{formatOptionLabel(key)}:</strong> {value}
+                <strong>{formatOptionLabel(key)}:</strong> {typeof value === 'string' ? formatOptionValue(value) : value}
               </span>
             ))}
           </div>
@@ -91,7 +80,7 @@ export function BasketItem({ item, index }: BasketItemProps) {
           <div className="basket-item-option-group">
             {motorOptions.map(([key, value]) => (
               <span key={key} className="basket-item-option">
-                <strong>{formatOptionLabel(key)}:</strong> {value}
+                <strong>{formatOptionLabel(key)}:</strong> {typeof value === 'string' ? formatOptionValue(value) : value}
               </span>
             ))}
           </div>
@@ -101,7 +90,7 @@ export function BasketItem({ item, index }: BasketItemProps) {
           <div className="basket-item-option-group">
             {otherOptions.map(([key, value]) => (
               <span key={key} className="basket-item-option">
-                <strong>{formatOptionLabel(key)}:</strong> {value}
+                <strong>{formatOptionLabel(key)}:</strong> {typeof value === 'string' ? formatOptionValue(value) : value}
               </span>
             ))}
           </div>
@@ -132,6 +121,9 @@ export function BasketItem({ item, index }: BasketItemProps) {
         </button>
         <input
           type="number"
+          id={`quantity-${product.id}-${index}`}
+          name={`quantity-${product.id}-${index}`}
+          autoComplete="off"
           min="1"
           value={quantity}
           onChange={handleQuantityChange}

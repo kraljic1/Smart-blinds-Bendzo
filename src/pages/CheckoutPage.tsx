@@ -19,14 +19,16 @@ export default function CheckoutPage() {
         title="Checkout | Smartblinds Croatia"
         description="Complete your order by providing shipping and contact information."
       />
-      <div className="container mx-auto px-4 py-8">
-        <Breadcrumb
-          items={[
-            { label: 'Home', path: '/' },
-            { label: 'Basket', path: '/basket' },
-            { label: 'Checkout', path: '/checkout' }
-          ]}
-        />
+      <div className="container mx-auto px-4 pt-24 pb-8">
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              { label: 'Home', path: '/' },
+              { label: 'Basket', path: '/basket' },
+              { label: 'Checkout', path: '/checkout' }
+            ]}
+          />
+        </div>
         <CheckoutForm />
       </div>
     </>

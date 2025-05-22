@@ -6,6 +6,7 @@ import { getProductsByCategory } from '../hooks/useProductFilter';
 import { CustomizationOption } from '../components/ProductCustomization';
 import { getCustomizationOptions } from '../data/customizationOptionsByProduct';
 import { useBasketContext } from '../hooks/useBasketContext';
+import { useToast } from '../context/ToastContext';
 import ProductConfigurationWrapper from '../components/ProductConfiguration/ProductConfigurationWrapper';
 import ProductLoader from '../components/ProductConfiguration/ProductLoader';
 import { useProductImages } from '../hooks/useProductImages';
@@ -15,6 +16,7 @@ const ProductConfigurationPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
   const { addItem } = useBasketContext();
+  const { showToast } = useToast();
   const [product, setProduct] = useState<Product | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { allImages, updateProductImages } = useProductImages();
@@ -72,8 +74,9 @@ const ProductConfigurationPage = () => {
       // Add item to basket with selected options
       addItem(product, quantity, options);
       
-      // Show a confirmation toast
-      alert(`${quantity} ${product.name}${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'have' : 'has'} been added to your basket!`);
+      // Show a success toast notification
+      const message = `${quantity} ${product.name}${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'have' : 'has'} been added to your basket!`;
+      showToast(message, 'success', 'Added to Basket');
     }
   };
 

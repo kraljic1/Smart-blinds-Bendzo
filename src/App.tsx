@@ -4,6 +4,7 @@ import { ThemeProvider } from './components/ThemeProvider';
 import { BasketProvider } from './context/BasketContext';
 import { LikedProvider } from './context/LikedContext';
 import { OrderProvider } from './context/OrderContext';
+import { ToastProvider } from './context/ToastContext';
 import { useEffect } from 'react';
 import Layout from './components/Layout';
 import Header from './components/Header';
@@ -49,69 +50,71 @@ function App() {
     <TouchFriendly>
       <HelmetProvider>
         <ThemeProvider>
-          <BasketProvider>
-            <LikedProvider>
-              <OrderProvider>
-                <ScrollToTop />
-                <Layout>
-                <Header />
-                <main className="flex-grow overflow-x-hidden bg-white dark:bg-[#0c1222]">
-                  <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/products" element={<ProductsPage />} />
-                    <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
-                    <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
-                    <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
-                    <Route path="/products/accessories" element={<AccessoriesPage />} />
-                    <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
-                    <Route path="/pricing-demo" element={<PricingDemoPage />} />
-                    <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
-                    <Route path="/how-it-works" element={<HowItWorksPage />} />
-                    <Route path="/support" element={<SupportPage />} />
-                    <Route path="/installation-guide" element={<InstallationGuidePage />} />
-                    <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
-                    <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
-                    <Route path="/basket" element={<BasketPage />} />
-                    <Route path="/liked" element={<LikedPage />} />
-                    <Route path="/checkout" element={<CheckoutPage />} />
-                    <Route path="/thank-you" element={<ThankYouPage />} />
-                    <Route path="/admin/login" element={<AdminLoginPage />} />
-                    <Route 
-                      path="/admin/orders" 
-                      element={
-                        <AdminRoute>
-                          <AdminOrdersPage />
-                        </AdminRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/admin/orders/:orderId" 
-                      element={
-                        <AdminRoute>
-                          <AdminOrderDetailPage />
-                        </AdminRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/admin/management" 
-                      element={
-                        <AdminRoute>
-                          <AdminManagementPage />
-                        </AdminRoute>
-                      } 
-                    />
-                    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                    <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-                    <Route path="/accessibility" element={<AccessibilityPage />} />
-                  </Routes>
-                </main>
-                <Footer />
-                {/* SEO Analyzer will only show in development mode */}
-                <SEOAnalyzer />
-              </Layout>
-              </OrderProvider>
-            </LikedProvider>
-          </BasketProvider>
+          <ToastProvider>
+            <BasketProvider>
+              <LikedProvider>
+                <OrderProvider>
+                  <ScrollToTop />
+                  <Layout>
+                  <Header />
+                  <main className="flex-grow overflow-x-hidden bg-white dark:bg-[#0c1222]">
+                    <Routes>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/products" element={<ProductsPage />} />
+                      <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
+                      <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
+                      <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
+                      <Route path="/products/accessories" element={<AccessoriesPage />} />
+                      <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
+                      <Route path="/pricing-demo" element={<PricingDemoPage />} />
+                      <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
+                      <Route path="/how-it-works" element={<HowItWorksPage />} />
+                      <Route path="/support" element={<SupportPage />} />
+                      <Route path="/installation-guide" element={<InstallationGuidePage />} />
+                      <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
+                      <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
+                      <Route path="/basket" element={<BasketPage />} />
+                      <Route path="/liked" element={<LikedPage />} />
+                      <Route path="/checkout" element={<CheckoutPage />} />
+                      <Route path="/thank-you" element={<ThankYouPage />} />
+                      <Route path="/admin/login" element={<AdminLoginPage />} />
+                      <Route 
+                        path="/admin/orders" 
+                        element={
+                          <AdminRoute>
+                            <AdminOrdersPage />
+                          </AdminRoute>
+                        } 
+                      />
+                      <Route 
+                        path="/admin/orders/:orderId" 
+                        element={
+                          <AdminRoute>
+                            <AdminOrderDetailPage />
+                          </AdminRoute>
+                        } 
+                      />
+                      <Route 
+                        path="/admin/management" 
+                        element={
+                          <AdminRoute>
+                            <AdminManagementPage />
+                          </AdminRoute>
+                        } 
+                      />
+                      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                      <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                      <Route path="/accessibility" element={<AccessibilityPage />} />
+                    </Routes>
+                  </main>
+                  <Footer />
+                  {/* SEO Analyzer will only show in development mode */}
+                  <SEOAnalyzer />
+                </Layout>
+                </OrderProvider>
+              </LikedProvider>
+            </BasketProvider>
+          </ToastProvider>
         </ThemeProvider>
       </HelmetProvider>
     </TouchFriendly>

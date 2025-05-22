@@ -9,13 +9,15 @@ export default function BasketPage() {
         title="Shopping Basket | Smartblinds Croatia"
         description="Review your selections and proceed to checkout."
       />
-      <div className="container mx-auto px-4 py-8">
-        <Breadcrumb
-          items={[
-            { label: 'Home', path: '/' },
-            { label: 'Basket', path: '/basket' }
-          ]}
-        />
+      <div className="container mx-auto px-4 pt-24 pb-8">
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              { label: 'Home', path: '/' },
+              { label: 'Basket', path: '/basket' }
+            ]}
+          />
+        </div>
         <Basket />
       </div>
     </>

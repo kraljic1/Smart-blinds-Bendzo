@@ -1,6 +1,7 @@
 import { Info, Check } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Product } from '../types/product';
+import { formatOptionValue } from '../utils/formattingUtils';
 import '../styles/ProductOptions/index.css';
 
 export interface CustomizationOption {
@@ -50,6 +51,11 @@ const ProductCustomization = ({
 
   const toggleInfo = (optionId: string) => {
     setActiveInfoId(activeInfoId === optionId ? null : optionId);
+  };
+
+  // Format display name for option values
+  const getFormattedOptionName = (name: string): string => {
+    return formatOptionValue(name);
   };
 
   return (
@@ -114,7 +120,7 @@ const ProductCustomization = ({
                     <></>
                   ) : (
                     <>
-                      <span className="option-name">{value.name}</span>
+                      <span className="option-name">{getFormattedOptionName(value.name)}</span>
                       {value.price !== undefined && value.price > 0 && (
                         <span className="option-price">+€{value.price.toFixed(2)}</span>
                       )}

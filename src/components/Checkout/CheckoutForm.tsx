@@ -108,7 +108,7 @@ export function CheckoutForm() {
   
   return (
     <div className="checkout-form-container">
-      <h2>Checkout</h2>
+      <h2>Complete Your Order</h2>
       
       <form
         ref={formRef}
@@ -116,93 +116,126 @@ export function CheckoutForm() {
         className="checkout-form"
         aria-label="Checkout form"
       >
-        <div className="form-group">
-          <label htmlFor="fullName">Full Name</label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-            placeholder="Enter your full name"
-            aria-required="true"
-          />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="Enter your email address"
-            aria-required="true"
-          />
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="fullName">Full Name</label>
+            <div className="input-wrapper">
+              <input
+                type="text"
+                id="fullName"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+                placeholder="Enter your full name"
+                aria-required="true"
+              />
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </span>
+            </div>
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <div className="input-wrapper">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                placeholder="your@email.com"
+                aria-required="true"
+              />
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </span>
+            </div>
+          </div>
         </div>
         
         <div className="form-group phone-group">
           <label htmlFor="phoneNumber">Phone Number</label>
           <div className="phone-input-container" role="group" aria-labelledby="phone-label">
             <span id="phone-label" className="sr-only">Phone Number with country code</span>
-            <select
-              id="phoneCode"
-              name="phoneCode"
-              value={formData.phoneCode}
-              onChange={handleChange}
-              className="phone-code-select"
-              aria-label="Country code"
-            >
-              {countryPhoneCodes.map((country: CountryCode) => (
-                <option key={country.code} value={country.dial_code}>
-                  {country.name} ({country.dial_code})
-                </option>
-              ))}
-            </select>
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              required
-              placeholder="Enter your phone number"
-              className="phone-number-input"
-              aria-required="true"
-              pattern="[0-9]+"
-              title="Please enter only numbers"
-            />
+            <div className="input-wrapper select-wrapper">
+              <select
+                id="phoneCode"
+                name="phoneCode"
+                value={formData.phoneCode}
+                onChange={handleChange}
+                className="phone-code-select"
+                aria-label="Country code"
+                required
+              >
+                {countryPhoneCodes.map((country: CountryCode) => (
+                  <option key={country.code} value={country.dial_code}>
+                    {country.name} ({country.dial_code})
+                  </option>
+                ))}
+              </select>
+              <span className="select-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </span>
+            </div>
+            <div className="input-wrapper">
+              <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
+                placeholder="Enter your phone number"
+                className="phone-number-input"
+                aria-required="true"
+                pattern="[0-9]+"
+                title="Please enter only numbers"
+              />
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </span>
+            </div>
           </div>
         </div>
         
         <div className="form-group">
-          <label htmlFor="address">Address</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-            placeholder="Enter your full address"
-            aria-required="true"
-          />
+          <label htmlFor="address">Delivery Address</label>
+          <div className="input-wrapper">
+            <input
+              type="text"
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              required
+              placeholder="Enter your full address"
+              aria-required="true"
+            />
+            <span className="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </span>
+          </div>
         </div>
         
         <div className="form-group">
-          <label htmlFor="additionalNotes">Additional Notes</label>
-          <textarea
-            id="additionalNotes"
-            name="additionalNotes"
-            value={formData.additionalNotes}
-            onChange={handleChange}
-            rows={4}
-            placeholder="Any special requests or additional information"
-            aria-label="Additional notes or requests"
-          />
+          <label htmlFor="additionalNotes">Additional Notes <span className="optional-label">(optional)</span></label>
+          <div className="input-wrapper textarea-wrapper">
+            <textarea
+              id="additionalNotes"
+              name="additionalNotes"
+              value={formData.additionalNotes}
+              onChange={handleChange}
+              rows={4}
+              placeholder="Any special requests or additional information"
+              aria-label="Additional notes or requests"
+            />
+            <span className="input-icon textarea-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="21" y1="6" x2="3" y2="6"></line><line x1="15" y1="12" x2="3" y2="12"></line><line x1="17" y1="18" x2="3" y2="18"></line></svg>
+            </span>
+          </div>
         </div>
         
         <div className="checkout-summary" aria-label="Order summary">
@@ -210,8 +243,16 @@ export function CheckoutForm() {
           <div className="checkout-items">
             {items.map((item, index) => (
               <div key={index} className="checkout-item">
-                <div className="checkout-item-name">
-                  {item.product.name} × {item.quantity}
+                <div className="checkout-item-image">
+                  <img src={item.product.image} alt={item.product.name} />
+                </div>
+                <div className="checkout-item-content">
+                  <div className="checkout-item-name">
+                    {item.product.name}
+                  </div>
+                  <div className="checkout-item-quantity">
+                    Qty: {item.quantity}
+                  </div>
                 </div>
                 <div className="checkout-item-price">
                   €{(item.product.price * item.quantity).toFixed(2)}
@@ -227,6 +268,7 @@ export function CheckoutForm() {
         
         {formStatus.error && (
           <div className="checkout-error" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
             {formStatus.error}
           </div>
         )}
@@ -242,7 +284,12 @@ export function CheckoutForm() {
               <span className="loading-spinner"></span>
               <span>Processing...</span>
             </>
-          ) : 'Submit Order'}
+          ) : (
+            <>
+              <span>Complete Order</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </>
+          )}
         </button>
       </form>
     </div>
