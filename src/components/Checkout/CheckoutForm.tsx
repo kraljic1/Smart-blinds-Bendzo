@@ -15,7 +15,7 @@ export function CheckoutForm() {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    phoneCode: '+1', // Default to US
+    phoneCode: '+385', // Default to Croatia
     phoneNumber: '',
     address: '',
     shippingAddress: '',
@@ -211,7 +211,7 @@ export function CheckoutForm() {
               >
                 {countryPhoneCodes.map((country: CountryCode) => (
                   <option key={country.code} value={country.dial_code}>
-                    {country.name} ({country.dial_code})
+                    {country.flag} {country.name} ({country.dial_code})
                   </option>
                 ))}
               </select>
@@ -278,7 +278,7 @@ export function CheckoutForm() {
           </div>
         </div>
         
-        <div className="form-group">
+        <div className="form-group checkbox-group">
           <label htmlFor="sameAsBilling">Same as Billing Address</label>
           <input
             type="checkbox"

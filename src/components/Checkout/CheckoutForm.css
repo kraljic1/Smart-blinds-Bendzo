@@ -175,7 +175,13 @@
 
 .phone-code-select {
   width: 40%;
-  min-width: 150px;
+  min-width: 170px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.phone-code-select option {
+  padding: 0.5rem;
+  font-size: 0.95rem;
 }
 
 .phone-number-input {
@@ -437,12 +443,27 @@
   width: auto;
   margin-right: 0.5rem;
   cursor: pointer;
+  transform: scale(1.2);
 }
 
 .form-group label[for="sameAsBilling"] {
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-bottom: 0;
+}
+
+/* Create a special form group style for checkboxes */
+.form-group.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-left: 0.5rem;
+  height: 1.2rem;
+  width: 1.2rem;
 }
 
 /* Select dropdown styling improvements */
@@ -475,4 +496,45 @@
   transform: translateY(-50%);
   pointer-events: none;
   color: var(--icon-color);
+}
+
+/* Datalist styling for address autocomplete */
+input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  filter: invert(0.5);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--input-bg-color) inset;
+  -webkit-text-fill-color: var(--form-text-color);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Style for custom address suggestions */
+.address-suggestions {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--form-bg-color);
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.5rem;
+  box-shadow: var(--form-shadow);
+  margin-top: 4px;
+}
+
+.suggestion-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+  background-color: var(--input-bg-color);
 } 
