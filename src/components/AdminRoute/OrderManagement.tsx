@@ -1,12 +1,10 @@
 import React from 'react';
 import { FileEdit } from 'lucide-react';
 import OrderStatusUpdate from './OrderStatusUpdate';
-import { OrderData as SupabaseOrderData } from '../../utils/supabaseClient';
-
 interface OrderManagementProps {
   orderId: string;
   currentStatus: string;
-  onStatusUpdate: (updatedOrder: SupabaseOrderData) => void;
+  onStatusUpdate: () => void;
 }
 
 const OrderManagement: React.FC<OrderManagementProps> = ({ 

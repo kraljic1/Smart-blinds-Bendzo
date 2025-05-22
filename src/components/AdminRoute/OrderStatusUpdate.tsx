@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { AlertTriangle, CheckCircle, Loader } from 'lucide-react';
 import { OrderStatus, updateOrderStatus } from '../../utils/orderUtils';
-import { OrderData as SupabaseOrderData } from '../../utils/supabaseClient';
-
 interface OrderStatusUpdateProps {
   orderId: string;
   currentStatus: string;
-  onStatusUpdate: (updatedOrder: SupabaseOrderData) => void;
+  onStatusUpdate: () => void;
 }
 
 const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
@@ -50,8 +48,8 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
         message: result.message
       });
 
-      if (result.success && result.order) {
-        onStatusUpdate(result.order);
+      if (result.success) {
+        onStatusUpdate();
       }
     } catch (error) {
       setResult({

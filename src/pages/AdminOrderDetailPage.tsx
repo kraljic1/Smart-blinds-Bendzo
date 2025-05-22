@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { getOrderById } from '../utils/orderUtils';
-import { OrderData as SupabaseOrderData, supabase } from '../utils/supabaseClient';
+import { supabase } from '../utils/supabaseClient';
 
 // Import extracted components
 import AdminOrderHeader from '../components/AdminRoute/AdminOrderHeader';
@@ -22,16 +21,56 @@ interface OrderItemDisplay {
   options?: Record<string, string | number | boolean>;
 }
 
-// Extended order data type that includes items
-interface ExtendedOrderData extends SupabaseOrderData {
-  items?: Array<{
-    product_id: string;
-    product_name: string;
+// Extended order data type that matches the API response structure
+interface ExtendedOrderData {
+  orderId: string;
+  customerName: string;
+  email: string;
+  phone: string;
+  billingAddress: string;
+  shippingAddress: string;
+  totalAmount: number;
+  taxAmount?: number;
+  shippingCost?: number;
+  discountAmount?: number;
+  discountCode?: string;
+  paymentMethod: string;
+  paymentStatus: string;
+  shippingMethod: string;
+  trackingNumber?: string;
+  status: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt?: string;
+  items: Array<{
+    productId: string;
+    productName: string;
     quantity: number;
-    unit_price: number;
+    unitPrice: number;
+    subtotal: number;
+    width?: number;
+    height?: number;
     options?: Record<string, string | number | boolean>;
-  }> | string;
+  }>;
 }
+
+// Function to get order by ID using the Netlify function
+const getOrderById = async (orderId: string): Promise<ExtendedOrderData | null> => {
+  try {
+    const response = await fetch(`/.netlify/functions/get-orders?orderId=${encodeURIComponent(orderId)}`);
+    
+    if (!response.ok) {
+      throw new Error(`Server responded with status: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    return result.success && result.orders.length > 0 ? result.orders[0] : null;
+    
+  } catch (error) {
+    console.error(`Failed to fetch order ${orderId}:`, error);
+    return null;
+  }
+};
 
 const AdminOrderDetailPage: React.FC = () => {
   const { orderId } = useParams<{ orderId: string }>();
@@ -57,33 +96,23 @@ const AdminOrderDetailPage: React.FC = () => {
       
       try {
         setIsLoading(true);
-        const data = await getOrderById(orderId) as ExtendedOrderData;
+        const data = await getOrderById(orderId);
         
         if (!data) {
           setError('Order not found');
         } else {
           setOrder(data);
           
-          // Check if we have items from the new schema
+          // Process items from the API response
           if (data.items && Array.isArray(data.items)) {
             const formattedItems = data.items.map(item => ({
-              productId: item.product_id,
-              productName: item.product_name,
+              productId: item.productId,
+              productName: item.productName,
               quantity: item.quantity,
-              price: item.unit_price,
+              price: item.unitPrice,
               options: item.options || {}
             }));
             setItems(formattedItems);
-          }
-          // Fallback for legacy format (JSON string)
-          else if (typeof data.items === 'string') {
-            try {
-              const parsedItems = JSON.parse(data.items);
-              setItems(parsedItems);
-            } catch (e) {
-              console.error('Failed to parse order items:', e);
-              setItems([]);
-            }
           } else {
             setItems([]);
           }
@@ -100,8 +129,13 @@ const AdminOrderDetailPage: React.FC = () => {
   }, [orderId]);
   
   // Handle order status update
-  const handleOrderStatusUpdate = (updatedOrder: SupabaseOrderData) => {
-    setOrder(updatedOrder as ExtendedOrderData);
+  const handleOrderStatusUpdate = () => {
+    // Refresh the order data by fetching it again
+    if (orderId) {
+      getOrderById(orderId).then(data => {
+        if (data) setOrder(data);
+      });
+    }
   };
   
   if (isLoading) {
@@ -117,7 +151,10 @@ const AdminOrderDetailPage: React.FC = () => {
   }
   
   // Calculate order summary
-  const subtotal = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const subtotal = items.reduce((acc, item) => {
+    const price = item.price ? Number(item.price) : 0;
+    return acc + (price * item.quantity);
+  }, 0);
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-16">
@@ -132,7 +169,7 @@ const AdminOrderDetailPage: React.FC = () => {
         <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden mb-8">
           <OrderTitle 
             orderId={orderId} 
-            createdAt={order.created_at} 
+            createdAt={order.createdAt} 
             status={order.status} 
           />
               
@@ -142,7 +179,7 @@ const AdminOrderDetailPage: React.FC = () => {
               <OrderItems 
                 items={items} 
                 subtotal={subtotal} 
-                totalAmount={order.total_amount} 
+                totalAmount={order.totalAmount} 
               />
               
               {/* Customer Notes */}
@@ -161,13 +198,13 @@ const AdminOrderDetailPage: React.FC = () => {
             <div>
               {/* Customer Information */}
               <CustomerInfo
-                name={order.customer_name}
-                email={order.customer_email}
-                phone={order.customer_phone}
-                billingAddress={order.billing_address}
-                shippingAddress={order.shipping_address}
-                paymentMethod={order.payment_method}
-                shippingMethod={order.shipping_method}
+                name={order.customerName}
+                email={order.email}
+                phone={order.phone}
+                billingAddress={order.billingAddress}
+                shippingAddress={order.shippingAddress}
+                paymentMethod={order.paymentMethod}
+                shippingMethod={order.shippingMethod}
               />
             </div>
           </div>

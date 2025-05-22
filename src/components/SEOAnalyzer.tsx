@@ -119,9 +119,12 @@ const SEOAnalyzer: React.FC<SEOAnalyzerProps> = ({ showResults = false }) => {
   const [score, setScore] = useState(0);
   const location = useLocation();
 
+  // Only run in development mode, never in production
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  
   useEffect(() => {
-    // Only run in development or when showResults is true
-    if (process.env.NODE_ENV !== 'development' && !showResults) {
+    // Only run in development or when explicitly requested
+    if (!isDevelopment && !showResults) {
       return;
     }
     
@@ -137,15 +140,20 @@ const SEOAnalyzer: React.FC<SEOAnalyzerProps> = ({ showResults = false }) => {
     setIssues(seoIssues);
     setScore(calculatedScore);
     
-  }, [location.pathname, showResults]);
+  }, [location.pathname, showResults, isDevelopment]);
 
-  // Don't render anything in production unless explicitly requested
-  if ((process.env.NODE_ENV !== 'development' && !showResults) || !issues.length) {
+  // Never render in production unless explicitly requested by admin
+  if (!isDevelopment && !showResults) {
+    return null;
+  }
+
+  // Don't render if no issues found
+  if (!issues.length) {
     return null;
   }
 
   return (
-    <div className="seo-analyzer fixed bottom-0 right-0 p-4 bg-white dark:bg-gray-800 shadow-lg rounded-tl-lg border border-gray-300 dark:border-gray-700 z-40 max-w-md overflow-auto max-h-[60vh]">
+    <div className="seo-analyzer fixed bottom-4 right-4 p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-300 dark:border-gray-700 z-50 max-w-md overflow-auto max-h-[60vh] hidden lg:block">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-lg font-bold">SEO Analiza: {score}%</h2>
         <div className="w-16 h-4 bg-gray-200 rounded-full overflow-hidden">
