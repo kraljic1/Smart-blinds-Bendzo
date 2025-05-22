@@ -2,18 +2,21 @@
  * Netlify function to send order confirmation emails
  * This sends an email to customers after they place an order
  */
-const nodemailer = require('nodemailer');
+
+import nodemailer from 'nodemailer';
 
 // Configure email transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_SECURE === 'true',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.EMAIL_PORT || '587'),
+    secure: process.env.EMAIL_SECURE === 'true',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+};
 
 // Generate email HTML content
 const generateEmailHTML = (order) => {
@@ -92,7 +95,7 @@ const generateEmailHTML = (order) => {
   `;
 };
 
-exports.handler = async function(event, context) {
+export const handler = async function(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { 
@@ -118,8 +121,9 @@ exports.handler = async function(event, context) {
     const htmlContent = generateEmailHTML(orderData);
     
     // Send email
+    const transporter = createTransporter();
     const info = await transporter.sendMail({
-      from: `"Smartblinds Croatia" <${process.env.SMTP_FROM_EMAIL}>`,
+      from: `"Smartblinds Croatia" <${process.env.EMAIL_FROM_EMAIL}>`,
       to: customer.email,
       subject: `Order Confirmation - #${orderId}`,
       html: htmlContent

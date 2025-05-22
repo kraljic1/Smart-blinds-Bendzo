@@ -2,8 +2,9 @@
  * Netlify function to send order status update emails
  * This sends an email to customers when their order status changes
  */
-const nodemailer = require('nodemailer');
-const { createClient } = require('@supabase/supabase-js');
+
+import { createClient } from '@supabase/supabase-js';
+import nodemailer from 'nodemailer';
 
 // Initialize Supabase client
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
@@ -11,15 +12,17 @@ const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Configure email transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_SECURE === 'true',
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  }
-});
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.EMAIL_PORT || '587'),
+    secure: process.env.EMAIL_SECURE === 'true',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+};
 
 // Generate email HTML content for status update
 const generateStatusUpdateHTML = (order, statusInfo) => {
@@ -141,7 +144,7 @@ const getStatusInfo = (status) => {
   }
 };
 
-exports.handler = async function(event, context) {
+export const handler = async function(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { 
@@ -195,8 +198,9 @@ exports.handler = async function(event, context) {
     const htmlContent = generateStatusUpdateHTML(order, statusInfo);
     
     // Send email
+    const transporter = createTransporter();
     await transporter.sendMail({
-      from: `"Smartblinds Croatia" <${process.env.SMTP_FROM_EMAIL}>`,
+      from: `"Smartblinds Croatia" <${process.env.EMAIL_USER}>`,
       to: order.customer_email,
       subject: `Order Status Update - #${order.order_id} is now ${status.toUpperCase()}`,
       html: htmlContent

@@ -16,6 +16,16 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    // Ensure proper MIME types
+    fs: {
+      strict: true,
+    },
+    headers: {
+      // Ensure JavaScript modules are served with correct MIME type
+      'Content-Type': 'application/javascript'
+    }
+  },
   define: {
     // Make process.env available to client code
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),

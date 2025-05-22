@@ -3,7 +3,7 @@
  * This handles retrieving orders from Supabase based on customer email
  */
 
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
@@ -12,7 +12,7 @@ const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 // Create a single supabase client for interacting with the database
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-exports.handler = async function(event, context) {
+export const handler = async function(event, context) {
   // Allow both GET (with query params) and POST (with body)
   const params = event.httpMethod === 'GET' 
     ? event.queryStringParameters 

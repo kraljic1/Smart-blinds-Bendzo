@@ -3,8 +3,8 @@
  * This handles order submission, saves orders to Supabase, and returns an order ID
  */
 
-const { createClient } = require('@supabase/supabase-js');
-const fetch = require('node-fetch'); // Add node-fetch for making HTTP requests
+import { createClient } from '@supabase/supabase-js';
+import fetch from 'node-fetch'; // Add node-fetch for making HTTP requests
 
 // Initialize Supabase client
 // Try regular env vars first, then fallback to VITE_ prefixed ones
@@ -26,7 +26,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 console.log('Supabase URL:', supabaseUrl);
 console.log('Using Supabase with key?', supabaseKey ? 'Yes' : 'No');
 
-exports.handler = async function(event, context) {
+export const handler = async function(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { 
