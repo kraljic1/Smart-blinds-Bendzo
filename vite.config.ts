@@ -17,14 +17,10 @@ export default defineConfig({
     },
   },
   server: {
-    // Ensure proper MIME types
     fs: {
-      strict: true,
+      strict: false,
     },
-    headers: {
-      // Ensure JavaScript modules are served with correct MIME type
-      'Content-Type': 'application/javascript'
-    }
+    middlewareMode: false,
   },
   define: {
     // Make process.env available to client code
