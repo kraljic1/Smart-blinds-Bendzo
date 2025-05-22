@@ -47,12 +47,12 @@ const HeroContent: React.FC<HeroContentProps> = ({
                 className={`relative mt-4 text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto leading-relaxed ${
                   headingVisible ? 'animate-sequential-reveal' : 'opacity-0'
                 }`} 
-                style={{ animationDelay: '0.3s' }}
+                delay-300
               >
                 {description}
               </p>
             </div>
-            <div className={`flex justify-center ${headingVisible ? 'animate-sequential-reveal' : 'opacity-0'}`} style={{ animationDelay: '0.5s' }}>
+            <div className={`flex justify-center delay-500 ${headingVisible ? 'animate-sequential-reveal' : 'opacity-0'}`}>
               {buttonLink.startsWith('#') ? (
                 <a
                   href={buttonLink}

@@ -133,14 +133,14 @@ const ZebraBlindsPage = () => {
           Smart Zebra Blinds
         </h1>
         
-        <p className={`text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '50ms' }}>
+        <p className={`text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl slide-in-up delay-50 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           Discover our premium collection of zebra blinds with alternating opaque and sheer fabric strips.
           Control light and privacy with our smart zebra blinds.
         </p>
 
         <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Sidebar with Filters */}
-          <div className={`lg:col-span-1 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '100ms' }}>
+          <div className={`lg:col-span-1 fade-in-scale delay-100 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <CollapsibleFilterSidebar
               categoryId="zebra"
               products={zebraBlinds}

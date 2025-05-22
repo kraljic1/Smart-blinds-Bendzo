@@ -36,6 +36,35 @@
   }
 }
 
+/* Animation delay utility classes - CSP compliant */
+.delay-50 {
+  animation-delay: 50ms;
+}
+
+.delay-75 {
+  animation-delay: 75ms;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
 /* Subtle pulse hover effect - modified to be more subtle */
 @keyframes subtlePulse {
   0% {

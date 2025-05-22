@@ -17,6 +17,15 @@ body {
   padding: 0;
 }
 
+/* Touch-friendly styles - moved from TouchFriendly component for CSP compliance */
+* {
+  touch-action: manipulation;
+}
+
+a, button, [role="button"], input, select, textarea {
+  touch-action: auto;
+}
+
 /* Fix for iOS momentum scrolling */
 @supports (-webkit-overflow-scrolling: touch) {
   body {

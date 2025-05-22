@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 
 interface TouchFriendlyProps {
   children: ReactNode;
@@ -6,27 +6,11 @@ interface TouchFriendlyProps {
 
 /**
  * Component that ensures touch events work properly on mobile devices
- * Particularly helps with iOS Safari by adding touch-action CSS
+ * Touch-action CSS rules are now in OverscrollFix.css for CSP compliance
  */
 const TouchFriendly: React.FC<TouchFriendlyProps> = ({ children }) => {
-  useEffect(() => {
-    // Add a global style for better touch handling
-    const style = document.createElement('style');
-    style.innerHTML = `
-      * {
-        touch-action: manipulation;
-      }
-      a, button, [role="button"], input, select, textarea {
-        touch-action: auto;
-      }
-    `;
-    document.head.appendChild(style);
-
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
-
+  // Touch-friendly styles are now handled via CSS files
+  // No inline style injection needed - CSP compliant!
   return <>{children}</>;
 };
 

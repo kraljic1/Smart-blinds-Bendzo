@@ -151,7 +151,7 @@ const RollerBlindsPage = () => {
           Smart Roller Blinds
         </h1>
         
-        <p className={`text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '50ms' }}>
+        <p className={`text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           Discover our collection of premium smart roller blinds designed for modern homes. 
           Control your blinds with voice, app, or the smart hub.
         </p>
@@ -179,7 +179,7 @@ const RollerBlindsPage = () => {
 
         <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Sidebar with Filters */}
-          <div className={`lg:col-span-1 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '100ms' }}>
+          <div className={`lg:col-span-1 fade-in-scale delay-100 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
             <CollapsibleFilterSidebar
               categoryId="roller"
               products={rollerBlinds}

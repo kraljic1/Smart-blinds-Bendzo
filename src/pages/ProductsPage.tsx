@@ -91,7 +91,7 @@ const ProductsPage: React.FC = () => {
         </div>
         
         {/* Categories Grid */}
-        <div className={`slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '50ms' }}>
+        <div className={`slide-in-up delay-50 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <CategoryGrid onCategoryChange={handleCategoryChange} />
         </div>
 
@@ -99,7 +99,7 @@ const ProductsPage: React.FC = () => {
         <div className="mt-8 relative">
           <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 md:gap-8">
             {/* Sidebar with Filters - Hidden on mobile, toggleable on tablet, shown on desktop */}
-            <div className={`lg:col-span-1 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '100ms' }}>
+            <div className={`lg:col-span-1 fade-in-scale delay-100 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
               <CollapsibleFilterSidebar
                 categoryId={currentCategoryId}
                 products={categoryProducts}
@@ -113,7 +113,7 @@ const ProductsPage: React.FC = () => {
               <h2 
                 ref={headingRef}
                 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-                style={{ animationDelay: '150ms' }}
+                delay-150
               >
                 {currentCategoryId === 'all' ? 'All Products' : 
                 currentCategoryId === 'roller' ? 'Roller Blinds' :
@@ -129,7 +129,7 @@ const ProductsPage: React.FC = () => {
                   </p>
                 </div>
               ) : (
-                <div className={`slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`} style={{ animationDelay: '200ms' }}>
+                <div className={`slide-in-up delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
                   <ProductGrid products={filteredProducts} />
                 </div>
               )}

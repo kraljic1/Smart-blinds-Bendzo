@@ -40,7 +40,7 @@ const ProductImageGallery = ({
   };
 
   return (
-    <div className={`space-y-4 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`} style={{ animationDelay: '75ms' }}>
+            <div className={`space-y-4 delay-75 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}>
       {/* Main product image with navigation arrows */}
       <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-600 mx-auto depth-effect">
         {images.length > 1 && (
@@ -48,7 +48,7 @@ const ProductImageGallery = ({
             <button 
               onClick={handlePrevImage}
               className={`absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-r-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
-              style={{ animationDelay: '150ms' }}
+              delay-150
               aria-label="Previous image"
             >
               <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-300" />
