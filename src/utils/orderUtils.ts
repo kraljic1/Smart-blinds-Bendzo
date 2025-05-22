@@ -10,6 +10,9 @@ export interface CustomerInfo {
   email: string;
   phone: string;
   address: string;
+  shippingAddress?: string;
+  paymentMethod?: string;
+  shippingMethod?: string;
 }
 
 // Valid order statuses
@@ -18,8 +21,11 @@ export type OrderStatus = 'received' | 'processing' | 'shipped' | 'completed' | 
 export interface OrderItem {
   productId: string;
   productName: string;
+  productImage?: string;
   quantity: number;
   price: number;
+  width?: number;
+  height?: number;
   options?: Record<string, string | number | boolean>;
 }
 
@@ -28,6 +34,12 @@ export interface OrderData {
   items: OrderItem[];
   notes?: string;
   totalAmount: number;
+  taxAmount?: number;
+  shippingCost?: number;
+  discount?: {
+    code?: string;
+    amount?: number;
+  };
 }
 
 export interface OrderResponse {
@@ -68,15 +80,16 @@ export const submitOrder = async (orderData: OrderData): Promise<OrderResponse> 
  */
 export const getOrderHistory = async (email: string): Promise<SupabaseOrderData[]> => {
   try {
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
-      .eq('customer_email', email)
-      .order('created_at', { ascending: false });
+    // Use the serverless function to fetch orders with items included
+    const response = await fetch(`/.netlify/functions/get-orders?email=${encodeURIComponent(email)}`);
     
-    if (error) throw error;
+    if (!response.ok) {
+      throw new Error(`Server responded with status: ${response.status}`);
+    }
     
-    return data || [];
+    const result = await response.json();
+    return result.success ? result.orders : [];
+    
   } catch (error) {
     console.error('Failed to fetch order history:', error);
     return [];
@@ -88,15 +101,16 @@ export const getOrderHistory = async (email: string): Promise<SupabaseOrderData[
  */
 export const getOrderById = async (orderId: string): Promise<SupabaseOrderData | null> => {
   try {
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
-      .eq('order_id', orderId)
-      .single();
+    // Use the serverless function to fetch order with items included
+    const response = await fetch(`/.netlify/functions/get-orders?orderId=${encodeURIComponent(orderId)}`);
     
-    if (error) throw error;
+    if (!response.ok) {
+      throw new Error(`Server responded with status: ${response.status}`);
+    }
     
-    return data;
+    const result = await response.json();
+    return result.success && result.orders.length > 0 ? result.orders[0] : null;
+    
   } catch (error) {
     console.error(`Failed to fetch order ${orderId}:`, error);
     return null;
@@ -110,8 +124,11 @@ export const basketItemsToOrderItems = (items: BasketItem[]): OrderItem[] => {
   return items.map(item => ({
     productId: item.product.id,
     productName: item.product.name,
+    productImage: item.product.image,
     quantity: item.quantity,
     price: item.product.price,
+    width: item.options?.width as number | undefined,
+    height: item.options?.height as number | undefined,
     options: item.options
   }));
 };
@@ -140,7 +157,10 @@ export const updateOrderStatus = async (
     // Update the order status
     const { data, error } = await supabase
       .from('orders')
-      .update({ status })
+      .update({ 
+        status,
+        updated_at: new Date().toISOString()
+      })
       .eq('order_id', orderId)
       .select()
       .single();

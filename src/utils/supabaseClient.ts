@@ -9,16 +9,42 @@ export const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Order data type definition
 export interface OrderData {
+  id?: number;
   order_id: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
-  customer_address: string;
-  items: string; // JSON stringified array
+  billing_address: string;
+  shipping_address?: string;
   notes?: string;
   total_amount: number;
+  tax_amount?: number;
+  shipping_cost?: number;
+  discount_amount?: number;
+  discount_code?: string;
+  payment_method?: string;
+  payment_status?: string;
+  shipping_method?: string;
+  tracking_number?: string;
   status: string;
   created_at: string;
+  updated_at?: string;
+}
+
+// Order item data type definition
+export interface OrderItemData {
+  id?: number;
+  order_id: number;
+  product_id: string;
+  product_name: string;
+  product_image?: string;
+  quantity: number;
+  unit_price: number;
+  subtotal: number;
+  width?: number;
+  height?: number;
+  options?: Record<string, string | number | boolean>;
+  created_at?: string;
 }
 
 /**
@@ -128,6 +154,20 @@ export async function getOrderById(orderId: string) {
     console.error('Error fetching order:', error);
     throw error;
   }
+
+  // Get order items
+  if (data?.id) {
+    const { data: items, error: itemsError } = await supabase
+      .from('order_items')
+      .select('*')
+      .eq('order_id', data.id);
+    
+    if (itemsError) {
+      console.error('Error fetching order items:', itemsError);
+    } else {
+      return { ...data, items };
+    }
+  }
   
   return data;
 }
@@ -146,6 +186,35 @@ export async function getOrdersByEmail(email: string) {
   if (error) {
     console.error('Error fetching orders by email:', error);
     throw error;
+  }
+
+  // Get order items for all orders
+  if (data && data.length > 0) {
+    const orderIds = data.map(order => order.id);
+    
+    const { data: items, error: itemsError } = await supabase
+      .from('order_items')
+      .select('*')
+      .in('order_id', orderIds);
+    
+    if (itemsError) {
+      console.error('Error fetching order items:', itemsError);
+    } else {
+      // Group items by order_id
+      const itemsByOrderId = items.reduce((acc, item) => {
+        if (!acc[item.order_id]) {
+          acc[item.order_id] = [];
+        }
+        acc[item.order_id].push(item);
+        return acc;
+      }, {});
+      
+      // Add items to their respective orders
+      return data.map(order => ({
+        ...order,
+        items: itemsByOrderId[order.id] || []
+      }));
+    }
   }
   
   return data;

@@ -18,6 +18,10 @@ export function CheckoutForm() {
     phoneCode: '+1', // Default to US
     phoneNumber: '',
     address: '',
+    shippingAddress: '',
+    sameAsBilling: true,
+    paymentMethod: 'Cash on delivery',
+    shippingMethod: 'Standard delivery',
     additionalNotes: ''
   });
   
@@ -28,11 +32,38 @@ export function CheckoutForm() {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    const { name, value, type } = e.target as HTMLInputElement;
+    
+    if (type === 'checkbox') {
+      const checked = (e.target as HTMLInputElement).checked;
+      
+      if (name === 'sameAsBilling') {
+        setFormData(prev => ({
+          ...prev,
+          [name]: checked,
+          shippingAddress: checked ? prev.address : prev.shippingAddress
+        }));
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          [name]: checked
+        }));
+      }
+    } else {
+      // Handle address changes for "same as billing" logic
+      if (name === 'address' && formData.sameAsBilling) {
+        setFormData(prev => ({
+          ...prev,
+          [name]: value,
+          shippingAddress: value
+        }));
+      } else {
+        setFormData(prev => ({
+          ...prev,
+          [name]: value
+        }));
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,11 +88,19 @@ export function CheckoutForm() {
           fullName: formData.fullName,
           email: formData.email,
           phone: `${formData.phoneCode}${formData.phoneNumber}`,
-          address: formData.address
+          address: formData.address,
+          shippingAddress: formData.sameAsBilling ? formData.address : formData.shippingAddress,
+          paymentMethod: formData.paymentMethod,
+          shippingMethod: formData.shippingMethod
         },
         items: basketItemsToOrderItems(items),
         notes: formData.additionalNotes,
-        totalAmount: getTotalPrice()
+        totalAmount: getTotalPrice(),
+        // Add tax calculation (example: 13% VAT)
+        taxAmount: parseFloat((getTotalPrice() * 0.13).toFixed(2)),
+        // Add shipping cost based on method
+        shippingCost: formData.shippingMethod === 'Express delivery' ? 10 : 
+                     formData.shippingMethod === 'Same day delivery' ? 20 : 0
       };
       
       // Save customer email for future order history lookups
@@ -218,6 +257,66 @@ export function CheckoutForm() {
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
             </span>
           </div>
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="shippingAddress">Shipping Address</label>
+          <div className="input-wrapper">
+            <input
+              type="text"
+              id="shippingAddress"
+              name="shippingAddress"
+              value={formData.shippingAddress}
+              onChange={handleChange}
+              required
+              placeholder="Enter your shipping address"
+              aria-required="true"
+            />
+            <span className="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </span>
+          </div>
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="sameAsBilling">Same as Billing Address</label>
+          <input
+            type="checkbox"
+            id="sameAsBilling"
+            name="sameAsBilling"
+            checked={formData.sameAsBilling}
+            onChange={handleChange}
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="paymentMethod">Payment Method</label>
+          <select
+            id="paymentMethod"
+            name="paymentMethod"
+            value={formData.paymentMethod}
+            onChange={handleChange}
+            required
+          >
+            <option value="Cash on delivery">Cash on delivery</option>
+            <option value="Credit card">Credit card</option>
+            <option value="PayPal">PayPal</option>
+          </select>
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="shippingMethod">Shipping Method</label>
+          <select
+            id="shippingMethod"
+            name="shippingMethod"
+            value={formData.shippingMethod}
+            onChange={handleChange}
+            required
+          >
+            <option value="Standard delivery">Standard delivery</option>
+            <option value="Express delivery">Express delivery</option>
+            <option value="Same day delivery">Same day delivery</option>
+          </select>
         </div>
         
         <div className="form-group">
