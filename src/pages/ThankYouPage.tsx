@@ -5,22 +5,48 @@ import SEO from '../components/SEO';
 import { useBasketContext } from '../hooks/useBasketContext';
 import { useOrderContext } from '../context/useOrderContext';
 import { getOrderById } from '../utils/orderUtils';
-import { OrderData as SupabaseOrderData } from '../utils/supabaseClient';
 
 // Type for order items
 interface OrderItemDisplay {
   productId: string;
   productName: string;
   quantity: number;
-  price: number;
+  unitPrice: number;
+  subtotal: number;
+  width?: number;
+  height?: number;
   options?: Record<string, string | number | boolean>;
+}
+
+// Extended type that matches the structure returned by getOrderById from orderUtils
+interface ExtendedOrderData {
+  orderId: string;
+  customerName: string;
+  email: string;
+  phone: string;
+  billingAddress: string;
+  shippingAddress: string;
+  totalAmount: number;
+  taxAmount?: number;
+  shippingCost?: number;
+  discountAmount?: number;
+  discountCode?: string;
+  paymentMethod: string;
+  paymentStatus: string;
+  shippingMethod: string;
+  trackingNumber?: string;
+  status: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt?: string;
+  items: OrderItemDisplay[];
 }
 
 const ThankYouPage: React.FC = () => {
   const { clearBasket } = useBasketContext();
   const { lastOrder } = useOrderContext();
   const navigate = useNavigate();
-  const [orderDetails, setOrderDetails] = useState<SupabaseOrderData | null>(null);
+  const [orderDetails, setOrderDetails] = useState<ExtendedOrderData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
   useEffect(() => {
@@ -29,7 +55,9 @@ const ThankYouPage: React.FC = () => {
     
     // Scroll to top
     window.scrollTo(0, 0);
-    
+  }, [clearBasket]); // Include clearBasket in dependencies
+
+  useEffect(() => {
     // If there's no order info, redirect to home
     if (!lastOrder) {
       // Short delay to avoid flash of content
@@ -45,7 +73,7 @@ const ThankYouPage: React.FC = () => {
       setIsLoading(true);
       getOrderById(lastOrder.orderId)
         .then(data => {
-          setOrderDetails(data);
+          setOrderDetails(data as unknown as ExtendedOrderData);
         })
         .catch(error => {
           console.error('Error fetching order details:', error);
@@ -54,17 +82,15 @@ const ThankYouPage: React.FC = () => {
           setIsLoading(false);
         });
     }
-  }, [clearBasket, lastOrder, navigate]);
+  }, [lastOrder, navigate]); // Include lastOrder in dependencies
 
   // If no order is found, show simple message (should redirect)
   if (!lastOrder) {
     return null;
   }
 
-  // Parse items from JSON if available
-  const orderItems: OrderItemDisplay[] = orderDetails?.items 
-    ? JSON.parse(orderDetails.items) 
-    : [];
+  // Get items from the order details - they should already be an array
+  const orderItems: OrderItemDisplay[] = orderDetails?.items || [];
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
@@ -100,10 +126,10 @@ const ThankYouPage: React.FC = () => {
           ) : orderDetails && (
             <>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Customer:</p>
-              <p className="text-gray-900 dark:text-white mb-4">{orderDetails.customer_name}</p>
+              <p className="text-gray-900 dark:text-white mb-4">{orderDetails.customerName}</p>
               
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Email:</p>
-              <p className="text-gray-900 dark:text-white mb-4">{orderDetails.customer_email}</p>
+              <p className="text-gray-900 dark:text-white mb-4">{orderDetails.email}</p>
               
               {orderItems.length > 0 && (
                 <>
@@ -111,7 +137,7 @@ const ThankYouPage: React.FC = () => {
                   <div className="pl-2 mb-4">
                     {orderItems.map((item, index) => (
                       <div key={index} className="text-gray-900 dark:text-white text-sm py-1 border-b border-gray-200 dark:border-gray-600 last:border-0">
-                        {item.productName} × {item.quantity} - €{(item.price * item.quantity).toFixed(2)}
+                        {item.productName} × {item.quantity} - €{item.subtotal ? Number(item.subtotal).toFixed(2) : '0.00'}
                       </div>
                     ))}
                   </div>
@@ -120,7 +146,7 @@ const ThankYouPage: React.FC = () => {
               
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Total Amount:</p>
               <p className="text-lg font-bold text-gray-900 dark:text-white mb-4">
-                €{orderDetails.total_amount.toFixed(2)}
+                €{orderDetails.totalAmount ? Number(orderDetails.totalAmount).toFixed(2) : '0.00'}
               </p>
             </>
           )}

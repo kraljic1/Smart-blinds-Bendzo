@@ -86,7 +86,7 @@ export const submitOrder = async (orderData: OrderData): Promise<OrderResponse> 
             message: 'Order received (development mode - mock response)'
           };
         }
-      } catch (_) {
+      } catch {
         // If the test request fails, return mock data
         console.log('Netlify functions not available, returning mock response');
         

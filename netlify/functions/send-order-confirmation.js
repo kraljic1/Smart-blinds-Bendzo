@@ -95,6 +95,7 @@ const generateEmailHTML = (order) => {
   `;
 };
 
+// Use named export for compatibility with ESM
 export const handler = async function(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {

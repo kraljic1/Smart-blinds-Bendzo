@@ -29,14 +29,8 @@ const Header: React.FC = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Log menu state changes
-  useEffect(() => {
-    console.log('Menu state updated:', isMenuOpen);
-  }, [isMenuOpen]);
-
-  // Toggle menu with direct DOM manipulation as a fallback
+  // Toggle menu
   const toggleMenu = () => {
-    console.log('Toggle button clicked, current state:', isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
   };
 

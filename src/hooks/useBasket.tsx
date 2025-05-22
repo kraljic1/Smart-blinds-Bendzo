@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Product } from '../types/product';
 
 export interface BasketItem {
@@ -32,7 +32,7 @@ export function useBasket() {
   }, [items, isLoaded]);
 
   // Add item to basket
-  const addItem = (product: Product, quantity: number = 1, options?: Record<string, string | number | boolean>) => {
+  const addItem = useCallback((product: Product, quantity: number = 1, options?: Record<string, string | number | boolean>) => {
     setItems(prevItems => {
       const existingItemIndex = prevItems.findIndex(
         item => item.product.id === product.id && 
@@ -49,15 +49,15 @@ export function useBasket() {
         return [...prevItems, { product, quantity, options }];
       }
     });
-  };
+  }, []);
 
   // Remove item from basket
-  const removeItem = (itemIndex: number) => {
+  const removeItem = useCallback((itemIndex: number) => {
     setItems(prevItems => prevItems.filter((_, index) => index !== itemIndex));
-  };
+  }, []);
 
   // Update item quantity
-  const updateQuantity = (itemIndex: number, quantity: number) => {
+  const updateQuantity = useCallback((itemIndex: number, quantity: number) => {
     if (quantity <= 0) {
       removeItem(itemIndex);
       return;
@@ -68,24 +68,24 @@ export function useBasket() {
       newItems[itemIndex].quantity = quantity;
       return newItems;
     });
-  };
+  }, [removeItem]);
 
   // Clear basket
-  const clearBasket = () => {
+  const clearBasket = useCallback(() => {
     setItems([]);
-  };
+  }, []);
 
   // Calculate total price
-  const getTotalPrice = () => {
+  const getTotalPrice = useCallback(() => {
     return items.reduce((total, item) => {
       return total + (item.product.price * item.quantity);
     }, 0);
-  };
+  }, [items]);
 
   // Get total number of items
-  const getItemCount = () => {
+  const getItemCount = useCallback(() => {
     return items.reduce((count, item) => count + item.quantity, 0);
-  };
+  }, [items]);
 
   return {
     items,

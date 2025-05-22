@@ -25,7 +25,6 @@ export function BasketIcon() {
   
   function checkDarkMode() {
     const isDark = document.documentElement.classList.contains('dark');
-    console.log("Dark mode detected:", isDark);
     setIsDarkMode(isDark);
   }
   

@@ -12,6 +12,7 @@ const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 // Create a single supabase client for interacting with the database
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Use named export for compatibility with ESM
 export const handler = async function(event, context) {
   // Allow both GET (with query params) and POST (with body)
   const params = event.httpMethod === 'GET' 

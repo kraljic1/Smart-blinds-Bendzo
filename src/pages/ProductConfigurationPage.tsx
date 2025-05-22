@@ -6,7 +6,7 @@ import { getProductsByCategory } from '../hooks/useProductFilter';
 import { CustomizationOption } from '../components/ProductCustomization';
 import { getCustomizationOptions } from '../data/customizationOptionsByProduct';
 import { useBasketContext } from '../hooks/useBasketContext';
-import { useToast } from '../context/ToastContext';
+import { useToast } from '../hooks/useToast';
 import ProductConfigurationWrapper from '../components/ProductConfiguration/ProductConfigurationWrapper';
 import ProductLoader from '../components/ProductConfiguration/ProductLoader';
 import { useProductImages } from '../hooks/useProductImages';

@@ -73,7 +73,7 @@ const ProductsPage: React.FC = () => {
 
   const handleCategoryChange = (category: Category) => {
     // This is handled by the navigate in CategoryGrid, just here for extensibility
-    console.log('Category changed to:', category.name);
+    void category; // Acknowledge the parameter to satisfy ESLint
   };
 
   return (
