@@ -41,7 +41,10 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
     setResult({});
 
     try {
+      console.log(`Attempting to update order ${orderId} from ${currentStatus} to ${status}`);
       const result = await updateOrderStatus(orderId, status);
+      
+      console.log('Update result:', result);
       
       setResult({
         success: result.success,
@@ -49,12 +52,15 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
       });
 
       if (result.success) {
+        // Give user feedback about the successful update
+        console.log('Order status updated successfully, calling onStatusUpdate');
         onStatusUpdate();
       }
     } catch (error) {
+      console.error('Error in handleStatusChange:', error);
       setResult({
         success: false,
-        message: error instanceof Error ? error.message : 'An unknown error occurred'
+        message: error instanceof Error ? error.message : 'Network error occurred. Please try again.'
       });
     } finally {
       setIsLoading(false);
@@ -64,6 +70,14 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
       <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Update Order Status</h3>
+      
+      {/* Current status display */}
+      <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+        <span className="text-sm text-gray-600 dark:text-gray-400">Current Status: </span>
+        <span className="font-semibold text-gray-900 dark:text-white capitalize">
+          {currentStatus}
+        </span>
+      </div>
       
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1">

@@ -1,5 +1,4 @@
 import { BasketItem } from '../hooks/useBasket';
-import { supabase } from './supabaseClient';
 import { OrderData as SupabaseOrderData } from './supabaseClient';
 
 /**
@@ -187,7 +186,7 @@ export const basketItemsToOrderItems = (items: BasketItem[]): OrderItem[] => {
 };
 
 /**
- * Update the status of an order
+ * Update the status of an order using the Netlify function
  * @param orderId The ID of the order to update
  * @param status The new status to set
  * @returns Updated order data or null on failure
@@ -197,66 +196,38 @@ export const updateOrderStatus = async (
   status: OrderStatus
 ): Promise<{ success: boolean; message: string; order?: SupabaseOrderData }> => {
   try {
-    // Get the current order to check the previous status
-    const { data: currentOrder, error: fetchError } = await supabase
-      .from('orders')
-      .select('status')
-      .eq('order_id', orderId)
-      .single();
+    console.log(`Updating order ${orderId} to status: ${status}`);
     
-    if (fetchError) throw fetchError;
-    const previousStatus = currentOrder?.status;
-    
-    // Update the order status
-    const { data, error } = await supabase
-      .from('orders')
-      .update({ 
-        status,
-        updated_at: new Date().toISOString()
+    // Use the Netlify function for more reliable server-side processing
+    const response = await fetch('/.netlify/functions/update-order-status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        orderId,
+        status
       })
-      .eq('order_id', orderId)
-      .select()
-      .single();
+    });
+
+    const result = await response.json();
     
-    if (error) throw error;
-    
-    // Send email notification if status changed
-    if (previousStatus !== status) {
-      try {
-        const appUrl = import.meta.env.VITE_APP_URL || window.location.origin;
-        const emailUrl = new URL('/.netlify/functions/send-status-update', appUrl).toString();
-        
-        const emailResponse = await fetch(emailUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            orderId,
-            status,
-            previousStatus
-          })
-        });
-        
-        if (!emailResponse.ok) {
-          console.warn('Email service responded with non-200 status:', emailResponse.status);
-        }
-      } catch (emailError) {
-        console.error('Failed to send status update email:', emailError);
-        // Continue processing - don't fail the update if email fails
-      }
+    if (!response.ok) {
+      console.error('Order status update failed:', result);
+      return {
+        success: false,
+        message: result.message || `Server error: ${response.status}`,
+      };
     }
+
+    console.log('Order status updated successfully:', result);
+    return result;
     
-    return {
-      success: true,
-      message: `Order status updated to ${status}`,
-      order: data
-    };
   } catch (error) {
     console.error(`Failed to update order ${orderId}:`, error);
     return {
       success: false,
-      message: `Failed to update order status: ${error instanceof Error ? error.message : 'Unknown error'}`
+      message: `Failed to update order status: ${error instanceof Error ? error.message : 'Network error'}`
     };
   }
 }; 
