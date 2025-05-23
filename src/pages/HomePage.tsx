@@ -1,5 +1,5 @@
 import React from 'react';
-import SEO from '../components/SEO';
+import CroatianSEO from '../components/CroatianSEO';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import Reviews from '../components/Reviews';
@@ -21,19 +21,24 @@ const HomePage: React.FC = () => {
 
   // Website structured data for improved search results
   const websiteData = {
-    name: 'Smartblinds Croatia',
-    url: 'https://smartblinds-croatia.com',
+    name: 'Smartblinds Hrvatska',
+    url: 'https://bendzosmartblinds.netlify.app',
     potentialAction: {
-      target: 'https://smartblinds-croatia.com/search?q={search_term_string}'
+      target: 'https://bendzosmartblinds.netlify.app/search?q={search_term_string}'
     }
   };
 
   return (
     <>
-      <SEO 
-        title="Smartblinds Croatia - Intelligent window solution"
-        description="Automate your home with Smartblinds Croatia. Control light and privacy with voice commands, apps, or smart home systems."
-        keywords="smart blinds, automated blinds, smart home, window automation, motorized blinds, Croatia"
+      <CroatianSEO 
+        title="Smartblinds Hrvatska - Pametne Rolete za Moderan Dom | Automatske Rolete Zagreb"
+        description="Otkrijte najbolje pametne rolete u Hrvatskoj! Automatske rolete s daljinskim upravljanjem, smart home integracija, energetska efikasnost. Besplatna dostava po Zagrebu i Hrvatskoj. ⭐ Garancija 5 godina"
+        keywords="pametne rolete, automatske rolete, smart home hrvatska, pametni dom, rolete na daljinski, električne rolete, motorizirane rolete"
+        pageType="home"
+        ogType="website"
+        breadcrumbs={[
+          { name: 'Početna', item: 'https://bendzosmartblinds.netlify.app/' }
+        ]}
       />
       <StructuredData type="website" data={websiteData} />
       <Hero images={heroImages} autoChangeInterval={4500} />

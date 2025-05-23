@@ -1,0 +1,40 @@
+# OG Image Reference
+
+## Required Images for SEO:
+
+### 1. og-image.jpg (1200x630px)
+- Main Open Graph image for social media sharing
+- Should showcase smart blinds in a modern home setting
+- Include brand logo and key benefits text in Croatian
+- Optimized for Facebook, Twitter, LinkedIn sharing
+
+### 2. logo.png (512x512px)
+- Company logo for structured data and favicons
+- Transparent background PNG format
+- High resolution for crisp display
+
+### 3. Favicon Set (already exists in public folder):
+- favicon.ico
+- favicon.svg
+- apple-touch-icon.png
+- site.webmanifest
+
+## Croatian Text Suggestions for OG Image:
+- "Pametne Rolete za Moderan Dom"
+- "Automatske Rolete s Daljinskim Upravljanjem"
+- "Smart Home Integracija"
+- "Energetska Efikasnost"
+- "Besplatna Dostava po Hrvatskoj"
+
+## Tools for Creating OG Images:
+- Canva (templates available)
+- Figma (design tool)
+- Adobe Photoshop
+- GIMP (free alternative)
+
+## File Locations:
+- Place og-image.jpg in public/ folder
+- Place logo.png in public/ folder
+- Images will be accessible at:
+  - https://bendzosmartblinds.netlify.app/og-image.jpg
+  - https://bendzosmartblinds.netlify.app/logo.png 

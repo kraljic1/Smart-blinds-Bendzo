@@ -1,9 +1,37 @@
 User-agent: *
 Allow: /
 
-# Disallow admin or private areas if needed
-# Disallow: /admin/
-# Disallow: /private/
+# Disallow admin areas
+Disallow: /admin/
+
+# Disallow checkout and cart pages (sensitive user data)
+Disallow: /checkout
+Disallow: /basket
+Disallow: /liked
+
+# Disallow configuration pages (dynamic content)
+Disallow: /products/configure/
+
+# Disallow thank you page (only accessible after purchase)
+Disallow: /thank-you
+
+# Disallow demo pages
+Disallow: /pricing-demo
+Disallow: /product-options-demo
+
+# Allow important pages
+Allow: /products/
+Allow: /how-it-works
+Allow: /support
+Allow: /installation-guide
+Allow: /connectivity-guide
+Allow: /smart-control-guide
+Allow: /privacy-policy
+Allow: /terms-of-service
+Allow: /accessibility
 
 # Sitemap location
-Sitemap: https://smartblinds-croatia.com/sitemap.xml 
+Sitemap: https://bendzosmartblinds.netlify.app/sitemap.xml
+
+# Crawl delay (1 second between requests)
+Crawl-delay: 1
