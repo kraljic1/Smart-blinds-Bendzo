@@ -33,6 +33,18 @@ export const handler = async function(event, context) {
       };
     }
 
+    // Additional security: Rate limiting could be implemented here
+    // For now, we'll add basic input validation
+    if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'Invalid email format' 
+        })
+      };
+    }
+
     // Fetch orders
     let query = supabase.from('orders').select('*');
     
@@ -127,12 +139,16 @@ export const handler = async function(event, context) {
     };
   } catch (error) {
     console.error('Error retrieving orders:', error);
+    
+    // Don't leak sensitive error details in production
+    const isDevelopment = process.env.NODE_ENV !== 'production';
+    
     return {
       statusCode: 500,
       body: JSON.stringify({ 
         success: false, 
         message: 'Failed to retrieve orders',
-        error: error.message
+        ...(isDevelopment && { error: error.message })
       })
     };
   }

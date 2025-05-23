@@ -2,6 +2,15 @@
 
 This guide will help you set up the Supabase database for the order management system.
 
+## Security Considerations
+
+⚠️ **IMPORTANT**: This application handles customer data and orders. Please review these security measures:
+
+1. **Database Security**: Row Level Security (RLS) is enabled on all tables
+2. **Admin Access**: Only verified admin users can access admin functions  
+3. **Environment Variables**: Never commit `.env` files to version control
+4. **API Keys**: Use service role keys for server-side operations when possible
+
 ## Steps to Set Up
 
 1. **Create a Supabase Project**

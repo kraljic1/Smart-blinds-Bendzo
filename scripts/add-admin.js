@@ -1,13 +1,14 @@
 /**
  * Script to add an admin user to the database
- * Run with: node scripts/add-admin.js email@example.com
+ * Run with: node scripts/add-admin.js
+ * Security: Uses interactive prompts to prevent email exposure in command history
  */
 
 import { createClient } from '@supabase/supabase-js';
 import * as dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
-import { readFileSync } from 'fs';
+import { createInterface } from 'readline';
 
 // Get the directory name of the current module
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -15,35 +16,73 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Load environment variables from .env file
 dotenv.config({ path: resolve(__dirname, '../.env') });
 
-// Get the email from command line arguments
-const email = process.argv[2];
-
-if (!email) {
-  console.error('Please provide an email address as an argument');
-  console.error('Example: node scripts/add-admin.js admin@example.com');
-  process.exit(1);
-}
-
-// Validate email format (basic validation)
-if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-  console.error('Please provide a valid email address');
-  process.exit(1);
-}
-
 // Initialize Supabase client
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
 const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  console.error('Missing Supabase credentials. Make sure your .env file has VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
+  console.error('❌ Missing Supabase credentials. Make sure your .env file has VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
   process.exit(1);
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function addAdmin() {
+// Create readline interface for secure input
+const rl = createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+// Utility function to get user input
+function question(query) {
+  return new Promise(resolve => rl.question(query, resolve));
+}
+
+// Validate email format
+function isValidEmail(email) {
+  return email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+}
+
+async function secureAddAdmin() {
   try {
-    // First check if the admin already exists
+    console.log('🔐 SECURE ADMIN ADDITION SCRIPT');
+    console.log('===============================\n');
+    
+    // Security warning
+    console.log('⚠️  SECURITY WARNING: This script will grant admin privileges.');
+    console.log('   Only authorized personnel should run this script.\n');
+    
+    // Get email through secure prompt
+    let email;
+    while (true) {
+      email = await question('📧 Enter admin email address: ');
+      
+      if (!email.trim()) {
+        console.log('❌ Email cannot be empty. Please try again.\n');
+        continue;
+      }
+      
+      if (!isValidEmail(email)) {
+        console.log('❌ Invalid email format. Please try again.\n');
+        continue;
+      }
+      
+      break;
+    }
+    
+    // Confirmation step
+    console.log(`\n📋 You are about to add: ${email}`);
+    const confirmation = await question('⚠️  Type "CONFIRM" to proceed: ');
+    
+    if (confirmation !== 'CONFIRM') {
+      console.log('❌ Operation cancelled for security.');
+      rl.close();
+      process.exit(0);
+    }
+    
+    console.log('\n🔄 Processing...');
+    
+    // Check if the admin already exists
     const { data: existingAdmin, error: checkError } = await supabase
       .from('admin_users')
       .select('email')
@@ -56,7 +95,8 @@ async function addAdmin() {
     }
     
     if (existingAdmin) {
-      console.log(`User ${email} is already an admin`);
+      console.log(`ℹ️  User ${email} is already an admin`);
+      rl.close();
       return;
     }
     
@@ -78,18 +118,23 @@ async function addAdmin() {
       throw error;
     }
     
-    console.log(`Successfully added ${email} as an admin`);
-    console.log('This user can now log in to the admin panel using Supabase authentication');
+    console.log(`✅ Successfully added ${email} as an admin`);
+    console.log('✅ This user can now log in to the admin panel using Supabase authentication');
+    console.log('\n🔒 Security reminder: Inform the user to use strong authentication practices.');
+    
   } catch (error) {
-    console.error('Error adding admin:', error);
+    console.error('❌ Error adding admin:', error.message);
     process.exit(1);
+  } finally {
+    rl.close();
   }
 }
 
 // Run the function
-addAdmin()
+secureAddAdmin()
   .then(() => process.exit(0))
   .catch(err => {
-    console.error('Unhandled error:', err);
+    console.error('❌ Unhandled error:', err);
+    rl.close();
     process.exit(1);
   }); 
