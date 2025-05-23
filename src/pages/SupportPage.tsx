@@ -11,27 +11,39 @@ const SupportPage = () => {
             <h2 className="modern-card-title">Kontaktirajte nas</h2>
             <form className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Ime</label>
+                <label htmlFor="support-name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Ime</label>
                 <input 
                   type="text" 
+                  id="support-name"
+                  name="support-name"
                   className="modern-input" 
                   placeholder="Vaše ime"
+                  required
+                  autoComplete="name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
+                <label htmlFor="support-email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Email</label>
                 <input 
                   type="email" 
+                  id="support-email"
+                  name="support-email"
                   className="modern-input" 
                   placeholder="vas.email@primjer.com"
+                  required
+                  autoComplete="email"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Poruka</label>
+                <label htmlFor="support-message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">Poruka</label>
                 <textarea 
+                  id="support-message"
+                  name="support-message"
                   rows={4} 
                   className="modern-input"
                   placeholder="Kako vam možemo pomoći?"
+                  required
+                  autoComplete="off"
                 ></textarea>
               </div>
               <button 

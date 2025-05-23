@@ -620,4 +620,29 @@ input:-webkit-autofill:focus {
   .address-section {
     padding: 1rem;
   }
+}
+
+/* Payment method fixed display */
+.payment-method-fixed {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--input-border-color);
+  border-radius: 0.75rem;
+  background-color: var(--input-bg-color);
+  color: var(--form-text-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.payment-method-fixed .payment-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--input-focus-border-color);
+  flex-shrink: 0;
+}
+
+.payment-method-fixed span {
+  color: var(--form-text-color);
 } 

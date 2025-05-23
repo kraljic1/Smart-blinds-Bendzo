@@ -1,4 +1,4 @@
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -6,7 +6,7 @@ const headers = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   console.log('Update order status function invoked');
   
   // Handle CORS preflight request

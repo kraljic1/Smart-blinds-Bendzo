@@ -8,7 +8,8 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
 if (!stripePublishableKey) {
-  console.warn('VITE_STRIPE_PUBLISHABLE_KEY is not defined in environment variables');
+  console.warn('⚠️ VITE_STRIPE_PUBLISHABLE_KEY is not defined in environment variables');
+  console.warn('Please create a .env file with your Stripe keys. See STRIPE_SETUP.md for details.');
 }
 
 // Initialize Stripe

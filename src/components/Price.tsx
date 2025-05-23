@@ -70,9 +70,11 @@ const Price = ({ measurements, priceData, onPriceChange }: PriceProps) => {
             
             {priceData.additionalOptions.map(option => (
               <div key={option.id} className="option-row">
-                <label className="option-label">
+                <label className="option-label" htmlFor={`price-option-${option.id}`}>
                   <input
                     type="checkbox"
+                    id={`price-option-${option.id}`}
+                    name={`price-option-${option.id}`}
                     checked={selectedOptions.includes(option.id)}
                     onChange={() => toggleOption(option.id)}
                   />

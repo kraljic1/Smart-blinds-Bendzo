@@ -23,9 +23,11 @@ const FilterGroup: React.FC<FilterGroupProps> = ({
       
       <div className="filter-options">
         {group.options.map(option => (
-          <label key={option.id} className="filter-option">
+          <label key={option.id} className="filter-option" htmlFor={`filter-${group.id}-${option.id}`}>
             <input
               type="checkbox"
+              id={`filter-${group.id}-${option.id}`}
+              name={`filter-${group.id}-${option.id}`}
               className="filter-checkbox"
               checked={selectedValues.includes(option.value)}
               onChange={(e) => handleCheckboxChange(option, e.target.checked)}

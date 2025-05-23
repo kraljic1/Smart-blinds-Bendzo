@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { useOrderContext } from '../../context/useOrderContext';
 import { countryPhoneCodes, CountryCode } from '../../data/phoneCodes';
-import { submitOrder, basketItemsToOrderItems } from '../../utils/orderUtils';
+import { basketItemsToOrderItems } from '../../utils/orderUtils';
 import { 
   validatePhoneNumberRealTime, 
   getCountryCodeFromDialCode,
@@ -35,7 +35,7 @@ export function EnhancedCheckoutForm() {
     shippingCity: '',
     shippingPostalCode: '',
     sameAsBilling: true,
-    paymentMethod: 'Cash on delivery',
+    paymentMethod: 'Credit card',
     shippingMethod: 'Standard delivery',
     additionalNotes: ''
   });
@@ -80,15 +80,7 @@ export function EnhancedCheckoutForm() {
         }));
       }
     } else {
-      // Handle payment method change
-      if (name === 'paymentMethod') {
-        setPaymentState(prev => ({
-          ...prev,
-          showStripeForm: value === 'Credit card',
-          clientSecret: '',
-          paymentIntentId: ''
-        }));
-      }
+      // Payment method is always Credit card, so we don't need this logic anymore
       
       // Handle address changes for "same as billing" logic
       if ((name === 'address' || name === 'city' || name === 'postalCode') && formData.sameAsBilling) {
@@ -246,80 +238,37 @@ export function EnhancedCheckoutForm() {
     setFormStatus({ submitting: true, success: false, error: null });
     
     try {
-      if (formData.paymentMethod === 'Credit card') {
-        // Create payment intent for Stripe
-        const paymentIntentData = {
-          amount: getTotalPrice(),
-          currency: 'eur',
-          customer: {
-            fullName: formData.fullName,
-            email: formData.email,
-            phone: `${formData.phoneCode}${formData.phoneNumber}`,
-            address: `${formData.address}, ${formData.postalCode} ${formData.city}`.trim(),
-            shippingAddress: formData.sameAsBilling 
-              ? `${formData.address}, ${formData.postalCode} ${formData.city}`.trim()
-              : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`.trim()
-          },
-          items: basketItemsToOrderItems(items),
-          metadata: {
-            notes: formData.additionalNotes || ''
-          }
-        };
-
-        const paymentIntentResult = await createPaymentIntent(paymentIntentData);
-
-        if (paymentIntentResult.success && paymentIntentResult.clientSecret) {
-          setPaymentState({
-            clientSecret: paymentIntentResult.clientSecret,
-            paymentIntentId: paymentIntentResult.paymentIntentId || '',
-            showStripeForm: true,
-            processingPayment: false
-          });
-          setFormStatus({ submitting: false, success: false, error: null });
-        } else {
-          throw new Error(paymentIntentResult.error || 'Failed to initialize payment');
+      // Always use credit card payment (create payment intent for Stripe)
+      const paymentIntentData = {
+        amount: getTotalPrice(),
+        currency: 'eur',
+        customer: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: `${formData.phoneCode}${formData.phoneNumber}`,
+          address: `${formData.address}, ${formData.postalCode} ${formData.city}`.trim(),
+          shippingAddress: formData.sameAsBilling 
+            ? `${formData.address}, ${formData.postalCode} ${formData.city}`.trim()
+            : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`.trim()
+        },
+        items: basketItemsToOrderItems(items),
+        metadata: {
+          notes: formData.additionalNotes || ''
         }
+      };
+
+      const paymentIntentResult = await createPaymentIntent(paymentIntentData);
+
+      if (paymentIntentResult.success && paymentIntentResult.clientSecret) {
+        setPaymentState({
+          clientSecret: paymentIntentResult.clientSecret,
+          paymentIntentId: paymentIntentResult.paymentIntentId || '',
+          showStripeForm: true,
+          processingPayment: false
+        });
+        setFormStatus({ submitting: false, success: false, error: null });
       } else {
-        // Handle cash on delivery and other payment methods
-        const orderData = {
-          customer: {
-            fullName: formData.fullName,
-            email: formData.email,
-            phone: `${formData.phoneCode}${formData.phoneNumber}`,
-            address: `${formData.address}, ${formData.postalCode} ${formData.city}`.trim(),
-            shippingAddress: formData.sameAsBilling 
-              ? `${formData.address}, ${formData.postalCode} ${formData.city}`.trim()
-              : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`.trim(),
-            paymentMethod: formData.paymentMethod,
-            shippingMethod: formData.shippingMethod
-          },
-          items: basketItemsToOrderItems(items),
-          notes: formData.additionalNotes,
-          totalAmount: getTotalPrice(),
-          taxAmount: parseFloat((getTotalPrice() * 0.13).toFixed(2)),
-          shippingCost: formData.shippingMethod === 'Express delivery' ? 10 : 
-                       formData.shippingMethod === 'Same day delivery' ? 20 : 0
-        };
-        
-        // Save customer email for future order history lookups
-        localStorage.setItem('customerEmail', formData.email);
-        
-        // Submit order to our serverless function
-        const response = await submitOrder(orderData);
-        
-        if (response.success) {
-          // Store the order in context
-          setLastOrder(response);
-          
-          // Load order history for this customer
-          await loadOrderHistory(formData.email);
-          
-          // Clear basket and redirect to thank you page
-          clearBasket();
-          navigate('/thank-you');
-        } else {
-          throw new Error(response.message || 'Order submission failed');
-        }
+        throw new Error(paymentIntentResult.error || 'Failed to initialize payment');
       }
     } catch (error) {
       console.error('Checkout form submission error:', error);
@@ -700,19 +649,16 @@ export function EnhancedCheckoutForm() {
           </div>
         )}
         
+        {/* Payment method is fixed to Credit card only */}
         <div className="form-group">
-          <label htmlFor="paymentMethod">Način plaćanja</label>
-          <select
-            id="paymentMethod"
-            name="paymentMethod"
-            value={formData.paymentMethod}
-            onChange={handleChange}
-            required
-            autoComplete="off"
-          >
-            <option value="Cash on delivery">Plaćanje pouzećem</option>
-            <option value="Credit card">Kreditna kartica</option>
-          </select>
+          <label>Način plaćanja</label>
+          <div className="payment-method-fixed">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="payment-icon">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            <span>Kreditna ili debitna kartica</span>
+          </div>
         </div>
         
         <div className="form-group">
@@ -793,7 +739,7 @@ export function EnhancedCheckoutForm() {
           </div>
         )}
         
-        <button 
+                  <button 
           type="submit" 
           className="checkout-submit-btn"
           disabled={formStatus.submitting}
@@ -806,9 +752,7 @@ export function EnhancedCheckoutForm() {
             </>
           ) : (
             <>
-              <span>
-                {formData.paymentMethod === 'Credit card' ? 'Nastavi na plaćanje' : 'Dovršite narudžbu'}
-              </span>
+              <span>Nastavi na plaćanje</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <polyline points="19 12 12 19 5 12"></polyline>
