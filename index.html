@@ -56,14 +56,14 @@
     
     <!-- Hidden form for Netlify Forms -->
     <form name="checkout" netlify netlify-honeypot="bot-field" hidden action="https://bendzosmartblinds.netlify.app/">
-      <input type="text" name="bot-field" />
-      <input type="text" name="fullName" />
-      <input type="email" name="email" />
-      <input type="text" name="phone" />
-      <input type="text" name="address" />
-      <textarea name="additionalNotes"></textarea>
-      <input type="text" name="basketItems" />
-      <input type="text" name="totalPrice" />
+      <input type="text" name="bot-field" id="bot-field" />
+      <input type="text" name="fullName" id="netlify-fullName" />
+      <input type="email" name="email" id="netlify-email" />
+      <input type="text" name="phone" id="netlify-phone" />
+      <input type="text" name="address" id="netlify-address" />
+      <textarea name="additionalNotes" id="netlify-additionalNotes"></textarea>
+      <input type="text" name="basketItems" id="netlify-basketItems" />
+      <input type="text" name="totalPrice" id="netlify-totalPrice" />
     </form>
     
     <script type="module" src="/src/main.tsx"></script>

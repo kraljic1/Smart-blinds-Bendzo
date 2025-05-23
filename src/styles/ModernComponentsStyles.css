@@ -37,7 +37,7 @@
 
 /* Modern button */
 .modern-button {
-  @apply light-button w-full px-6 py-3.5 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 font-medium shadow-md hover:shadow-lg;
+  @apply w-full px-6 py-3.5 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 font-medium shadow-md hover:shadow-lg bg-blue-600 text-white hover:bg-blue-700;
 }
 
 /* Modern secondary button */

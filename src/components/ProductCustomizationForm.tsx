@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Product } from '../../types/product';
-import ProductCustomization, { CustomizationOption } from '../../components/ProductCustomization';
-import PriceCalculator from '../../components/PriceCalculator';
+import { Product } from '../types/product';
+import ProductCustomization, { CustomizationOption } from './ProductCustomization';
+import PriceCalculator from './PriceCalculator';
 
 interface ProductCustomizationFormProps {
   product: Product;
@@ -98,27 +98,37 @@ const ProductCustomizationForm = ({
         {!isAccessoryProduct && !isCalculated && (
           <>
             <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '350ms' }}>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="width-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Width
               </label>
               <input
-                type="text"
+                id="width-input"
+                name="width"
+                type="number"
+                min="30"
+                max="350"
                 placeholder="30 - 350 cm"
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={width}
                 onChange={handleWidthChange}
+                autoComplete="off"
               />
             </div>
             <div className={`${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '400ms' }}>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="height-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Height
               </label>
               <input
-                type="text"
+                id="height-input"
+                name="height"
+                type="number"
+                min="30"
+                max="350"
                 placeholder="30 - 350 cm"
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={height}
                 onChange={handleHeightChange}
+                autoComplete="off"
               />
             </div>
           </>

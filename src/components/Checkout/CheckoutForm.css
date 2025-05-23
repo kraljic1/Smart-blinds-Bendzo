@@ -515,38 +515,6 @@
   width: 1.2rem;
 }
 
-/* Select dropdown styling improvements */
-.form-group select {
-  width: 100%;
-  background-color: var(--input-bg-color);
-  border: 1px solid var(--input-border-color);
-  border-radius: 0.75rem;
-  padding: 0.875rem 1rem;
-  color: var(--form-text-color);
-  font-size: 1rem;
-  appearance: none;
-  cursor: pointer;
-}
-
-.form-group select:focus {
-  outline: none;
-  border-color: var(--input-focus-border-color);
-  box-shadow: var(--input-focus-shadow);
-}
-
-.select-wrapper {
-  position: relative;
-}
-
-.select-wrapper .select-icon {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: var(--icon-color);
-}
-
 /* Datalist styling for address autocomplete */
 input::-webkit-calendar-picker-indicator {
   cursor: pointer;
@@ -586,4 +554,70 @@ input:-webkit-autofill:focus {
 .suggestion-item:hover,
 .suggestion-item.active {
   background-color: var(--input-bg-color);
+}
+
+/* Disabled input styling */
+.form-group input:disabled,
+.form-group textarea:disabled,
+.form-group select:disabled {
+  background-color: var(--disabled-bg);
+  color: var(--disabled-color);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-group input:disabled::placeholder,
+.form-group textarea:disabled::placeholder {
+  color: var(--disabled-color);
+}
+
+.input-wrapper input:disabled + .input-icon {
+  color: var(--disabled-color);
+  opacity: 0.5;
+}
+
+/* Address section styling */
+.address-section {
+  padding: 1.5rem;
+  border: 1px solid var(--form-border-color);
+  border-radius: 0.875rem;
+  background-color: var(--input-bg-color);
+  margin-bottom: 1.5rem;
+}
+
+.address-section h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--form-text-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.address-section h3 svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--input-focus-border-color);
+}
+
+.address-section .form-group:last-child,
+.address-section .form-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Improved form row for address fields */
+.form-row.address-row {
+  gap: 1rem;
+  grid-template-columns: 1fr 2fr;
+}
+
+@media (max-width: 640px) {
+  .form-row.address-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .address-section {
+    padding: 1rem;
+  }
 } 

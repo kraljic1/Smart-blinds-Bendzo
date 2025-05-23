@@ -23,7 +23,11 @@ export function CheckoutForm() {
     phoneCode: '+385', // Default to Croatia
     phoneNumber: '',
     address: '',
+    city: '',
+    postalCode: '',
     shippingAddress: '',
+    shippingCity: '',
+    shippingPostalCode: '',
     sameAsBilling: true,
     paymentMethod: 'Cash on delivery',
     shippingMethod: 'Standard delivery',
@@ -52,7 +56,9 @@ export function CheckoutForm() {
         setFormData(prev => ({
           ...prev,
           [name]: checked,
-          shippingAddress: checked ? prev.address : prev.shippingAddress
+          shippingAddress: checked ? prev.address : prev.shippingAddress,
+          shippingCity: checked ? prev.city : prev.shippingCity,
+          shippingPostalCode: checked ? prev.postalCode : prev.shippingPostalCode
         }));
       } else {
         setFormData(prev => ({
@@ -62,11 +68,17 @@ export function CheckoutForm() {
       }
     } else {
       // Handle address changes for "same as billing" logic
-      if (name === 'address' && formData.sameAsBilling) {
+      if ((name === 'address' || name === 'city' || name === 'postalCode') && formData.sameAsBilling) {
+        const shippingFieldMap = {
+          address: 'shippingAddress',
+          city: 'shippingCity',
+          postalCode: 'shippingPostalCode'
+        };
+        
         setFormData(prev => ({
           ...prev,
           [name]: value,
-          shippingAddress: value
+          [shippingFieldMap[name as keyof typeof shippingFieldMap]]: value
         }));
       } else {
         setFormData(prev => ({
@@ -127,8 +139,10 @@ export function CheckoutForm() {
           fullName: formData.fullName,
           email: formData.email,
           phone: `${formData.phoneCode}${formData.phoneNumber}`,
-          address: formData.address,
-          shippingAddress: formData.sameAsBilling ? formData.address : formData.shippingAddress,
+          address: `${formData.address}, ${formData.postalCode} ${formData.city}`.trim(),
+          shippingAddress: formData.sameAsBilling 
+            ? `${formData.address}, ${formData.postalCode} ${formData.city}`.trim()
+            : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`.trim(),
           paymentMethod: formData.paymentMethod,
           shippingMethod: formData.shippingMethod
         },
@@ -309,43 +323,74 @@ export function CheckoutForm() {
           </div>
         </div>
         
-        <div className="form-group">
-          <label htmlFor="address">Delivery Address</label>
-          <div className="input-wrapper">
-            <input
-              type="text"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-              placeholder="Enter your full address"
-              aria-required="true"
-              autoComplete="street-address"
-            />
-            <span className="input-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            </span>
+        <div className="address-section">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Delivery Address
+          </h3>
+          
+          <div className="form-group">
+            <label htmlFor="address">Street Address</label>
+            <div className="input-wrapper">
+              <input
+                type="text"
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+                placeholder="Street address (e.g., Praska ulica 3)"
+                aria-required="true"
+                autoComplete="street-address"
+              />
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>
+              </span>
+            </div>
           </div>
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="shippingAddress">Shipping Address</label>
-          <div className="input-wrapper">
-            <input
-              type="text"
-              id="shippingAddress"
-              name="shippingAddress"
-              value={formData.shippingAddress}
-              onChange={handleChange}
-              required
-              placeholder="Enter your shipping address"
-              aria-required="true"
-              autoComplete="shipping street-address"
-            />
-            <span className="input-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            </span>
+          
+          <div className="form-row address-row">
+            <div className="form-group">
+              <label htmlFor="postalCode">Postal Code</label>
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  id="postalCode"
+                  name="postalCode"
+                  value={formData.postalCode}
+                  onChange={handleChange}
+                  required
+                  placeholder="e.g., 51511"
+                  aria-required="true"
+                  autoComplete="postal-code"
+                  pattern="[0-9]{5}"
+                  title="Please enter a 5-digit postal code"
+                />
+                <span className="input-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"></path></svg>
+                </span>
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="city">City</label>
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                  placeholder="e.g., Malinska"
+                  aria-required="true"
+                  autoComplete="address-level2"
+                />
+                <span className="input-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18m-2-18v18m-8-18v18m-4-18v18M3 9l9-7 9 7"></path></svg>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -358,6 +403,80 @@ export function CheckoutForm() {
             checked={formData.sameAsBilling}
             onChange={handleChange}
           />
+        </div>
+        
+        <div className="address-section">
+          <h3>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3l-3 3L6 18l-2 2z"></path><path d="M21 14v5h-5M3 10v5h5"></path></svg>
+            Shipping Address
+          </h3>
+          
+          <div className="form-group">
+            <label htmlFor="shippingAddress">Street Address</label>
+            <div className="input-wrapper">
+              <input
+                type="text"
+                id="shippingAddress"
+                name="shippingAddress"
+                value={formData.shippingAddress}
+                onChange={handleChange}
+                required
+                placeholder="Street address (e.g., Praska ulica 3)"
+                aria-required="true"
+                autoComplete="shipping street-address"
+                disabled={formData.sameAsBilling}
+              />
+              <span className="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9,22 9,12 15,12 15,22"></polyline></svg>
+              </span>
+            </div>
+          </div>
+          
+          <div className="form-row address-row">
+            <div className="form-group">
+              <label htmlFor="shippingPostalCode">Postal Code</label>
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  id="shippingPostalCode"
+                  name="shippingPostalCode"
+                  value={formData.shippingPostalCode}
+                  onChange={handleChange}
+                  required
+                  placeholder="e.g., 51511"
+                  aria-required="true"
+                  autoComplete="shipping postal-code"
+                  pattern="[0-9]{5}"
+                  title="Please enter a 5-digit postal code"
+                  disabled={formData.sameAsBilling}
+                />
+                <span className="input-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"></path></svg>
+                </span>
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="shippingCity">City</label>
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  id="shippingCity"
+                  name="shippingCity"
+                  value={formData.shippingCity}
+                  onChange={handleChange}
+                  required
+                  placeholder="e.g., Malinska"
+                  aria-required="true"
+                  autoComplete="shipping address-level2"
+                  disabled={formData.sameAsBilling}
+                />
+                <span className="input-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21h18m-2-18v18m-8-18v18m-4-18v18M3 9l9-7 9 7"></path></svg>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
         
         <div className="form-group">

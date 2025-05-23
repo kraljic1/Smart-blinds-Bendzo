@@ -19,6 +19,8 @@ interface OrderItemDisplay {
   quantity: number;
   price: number;
   options?: Record<string, string | number | boolean>;
+  width?: number;
+  height?: number;
 }
 
 // Extended order data type that matches the API response structure
@@ -110,7 +112,9 @@ const AdminOrderDetailPage: React.FC = () => {
               productName: item.productName,
               quantity: item.quantity,
               price: item.unitPrice,
-              options: item.options || {}
+              options: item.options || {},
+              width: item.width,
+              height: item.height
             }));
             setItems(formattedItems);
           } else {

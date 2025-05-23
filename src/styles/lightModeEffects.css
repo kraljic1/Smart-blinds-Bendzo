@@ -55,35 +55,6 @@
   box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2);
 }
 
-/* Luminous button effect for light mode */
-.light-button {
-  background: linear-gradient(135deg, #f5f7ff 0%, #e0e7ff 100%);
-  color: #4338ca;
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  box-shadow: 
-    0 1px 2px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(255, 255, 255, 0.8) inset;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-  transition: all 0.2s ease;
-}
-
-.light-button:hover {
-  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-  border-color: rgba(79, 70, 229, 0.4);
-  box-shadow: 
-    0 4px 12px rgba(79, 70, 229, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
-  transform: translateY(-1px);
-}
-
-.light-button:active {
-  background: linear-gradient(135deg, #dbeafe 0%, #c7d2fe 100%);
-  transform: translateY(1px);
-  box-shadow: 
-    0 2px 4px rgba(79, 70, 229, 0.15),
-    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
-}
-
 /* Subtle border highlighter for sections */
 .light-border {
   border: 1px solid rgba(231, 240, 255, 0.7);
