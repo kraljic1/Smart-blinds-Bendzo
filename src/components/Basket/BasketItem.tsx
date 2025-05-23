@@ -115,7 +115,7 @@ export function BasketItem({ item, index }: BasketItemProps) {
         <button 
           className="quantity-btn" 
           onClick={handleDecrement}
-          aria-label="Decrease quantity"
+          aria-label="Smanji količinu"
         >
           -
         </button>
@@ -132,7 +132,7 @@ export function BasketItem({ item, index }: BasketItemProps) {
         <button 
           className="quantity-btn" 
           onClick={handleIncrement}
-          aria-label="Increase quantity"
+          aria-label="Povećaj količinu"
         >
           +
         </button>
@@ -145,7 +145,7 @@ export function BasketItem({ item, index }: BasketItemProps) {
       <button 
         className="basket-item-remove" 
         onClick={() => removeItem(index)}
-        aria-label="Remove item"
+        aria-label="Ukloni proizvod"
       >
         ×
       </button>

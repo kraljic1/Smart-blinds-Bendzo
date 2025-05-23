@@ -95,8 +95,8 @@ const ThankYouPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
       <SEO 
-        title="Thank You for Your Order | Smartblinds Croatia"
-        description="Your order has been successfully submitted."
+        title="Hvala vam na narudžbi | Smartblinds Croatia"
+        description="Vaša narudžba je uspješno poslana."
       />
       
       <div className="max-w-md w-full bg-white dark:bg-gray-800 shadow-lg rounded-2xl p-8 text-center">
@@ -105,18 +105,18 @@ const ThankYouPage: React.FC = () => {
         </div>
         
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-          Thank You for Your Order!
+          Hvala vam na narudžbi!
         </h1>
         
         <div className="mb-6 text-left bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Order Reference:</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Referenca narudžbe:</p>
           <p className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{lastOrder.orderId}</p>
           
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Status:</p>
           <p className="text-green-600 dark:text-green-400 font-medium mb-4">
             {orderDetails?.status ? 
               orderDetails.status.charAt(0).toUpperCase() + orderDetails.status.slice(1) : 
-              'Order Received'}
+              'Narudžba primljena'}
           </p>
           
           {isLoading ? (
@@ -125,7 +125,7 @@ const ThankYouPage: React.FC = () => {
             </div>
           ) : orderDetails && (
             <>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Customer:</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Kupac:</p>
               <p className="text-gray-900 dark:text-white mb-4">{orderDetails.customerName}</p>
               
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Email:</p>
@@ -133,7 +133,7 @@ const ThankYouPage: React.FC = () => {
               
               {orderItems.length > 0 && (
                 <>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Items:</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Proizvodi:</p>
                   <div className="pl-2 mb-4">
                     {orderItems.map((item, index) => (
                       <div key={index} className="text-gray-900 dark:text-white text-sm py-1 border-b border-gray-200 dark:border-gray-600 last:border-0">
@@ -144,7 +144,7 @@ const ThankYouPage: React.FC = () => {
                 </>
               )}
               
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Total Amount:</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Ukupan iznos:</p>
               <p className="text-lg font-bold text-gray-900 dark:text-white mb-4">
                 €{orderDetails.totalAmount ? Number(orderDetails.totalAmount).toFixed(2) : '0.00'}
               </p>
@@ -153,8 +153,8 @@ const ThankYouPage: React.FC = () => {
         </div>
         
         <p className="text-gray-600 dark:text-gray-300 mb-6">
-          We have received your order and will process it shortly. 
-          Please save your order reference number for tracking.
+          Primili smo vašu narudžbu i uskoro ćemo je obraditi. 
+          Molimo sačuvajte broj reference narudžbe za praćenje.
         </p>
         
         <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -162,14 +162,14 @@ const ThankYouPage: React.FC = () => {
             to="/"
             className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
           >
-            Back to Home
+            Povratak na početnu
           </Link>
           
           <Link 
             to="/products"
             className="px-6 py-3 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition"
           >
-            Continue Shopping
+            Nastavi kupovinu
           </Link>
         </div>
       </div>

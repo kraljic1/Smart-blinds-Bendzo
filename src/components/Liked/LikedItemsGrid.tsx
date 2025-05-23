@@ -11,9 +11,9 @@ export const LikedItemsGrid: React.FC = () => {
   if (likedItems.length === 0) {
     return (
       <div className="liked-empty">
-        <h2>Your favorites list is empty</h2>
-        <p>Like some products to see them here.</p>
-        <Link to="/products/roller-blinds" className="liked-browse-btn">Browse Our Products</Link>
+        <h2>Vaš popis omiljenih je prazan</h2>
+        <p>Označite proizvode kao omiljene da biste ih vidjeli ovdje.</p>
+        <Link to="/products/roller-blinds" className="liked-browse-btn">Pregledajte naše proizvode</Link>
       </div>
     );
   }
@@ -21,13 +21,13 @@ export const LikedItemsGrid: React.FC = () => {
   return (
     <div className="liked-items">
       <div className="liked-header">
-        <h2 className="liked-title">Your Favorites ({likedItemsCount} {likedItemsCount === 1 ? 'item' : 'items'})</h2>
+        <h2 className="liked-title">Vaši omiljeni ({likedItemsCount} {likedItemsCount === 1 ? 'proizvod' : 'proizvoda'})</h2>
         <button 
           onClick={clearLikedItems} 
           className="liked-clear-btn"
-          aria-label="Clear favorites"
+          aria-label="Ukloni sve omiljene"
         >
-          Clear All
+          Ukloni sve
         </button>
       </div>
 

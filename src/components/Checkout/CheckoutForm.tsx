@@ -99,12 +99,12 @@ export function CheckoutForm() {
               errorMessage: validation.errorMessage || '',
               suggestion: validation.suggestion || ''
             });
-          } else if (phoneNumber && phoneNumber.length > 0) {
-            setPhoneValidation({
-              isValid: false,
-              errorMessage: 'Please select a country code',
-              suggestion: ''
-            });
+                      } else if (phoneNumber && phoneNumber.length > 0) {
+              setPhoneValidation({
+                isValid: false,
+                errorMessage: 'Molimo odaberite pozivni broj zemlje',
+                suggestion: ''
+              });
           } else {
             setPhoneValidation({
               isValid: true,
@@ -122,11 +122,11 @@ export function CheckoutForm() {
     
     // Check if basket is empty
     if (items.length === 0) {
-      setFormStatus({
-        submitting: false,
-        success: false,
-        error: "Please add some products to your basket before checking out."
-      });
+              setFormStatus({
+          submitting: false,
+          success: false,
+          error: "Molimo dodajte proizvode u košaricu prije nastavka s narudžbom."
+        });
       return;
     }
     
@@ -178,7 +178,7 @@ export function CheckoutForm() {
     } catch (error) {
       console.error('Checkout form submission error:', error);
       
-      const errorMessage = 'There was a problem submitting your order. Please try again or contact support.';
+      const errorMessage = 'Došlo je do problema s vašom narudžbom. Molimo pokušajte ponovno ili kontaktirajte podršku.';
       
       setFormStatus({
         submitting: false,
@@ -191,16 +191,16 @@ export function CheckoutForm() {
   if (formStatus.success) {
     return (
       <div className="checkout-success" role="alert" aria-live="polite">
-        <h2>Thank You for Your Order!</h2>
-        <p>We have received your inquiry and will get back to you shortly.</p>
-        <p>You should receive a confirmation on <strong>{formData.email}</strong> soon.</p>
+        <h2>Hvala vam na narudžbi!</h2>
+        <p>Primili smo vašu narudžbu i uskoro ćemo vam se javiti.</p>
+        <p>Uskoro ćete primiti potvrdu na <strong>{formData.email}</strong>.</p>
       </div>
     );
   }
   
   return (
     <div className="checkout-form-container">
-      <h2>Complete Your Order</h2>
+      <h2>Dovršite vašu narudžbu</h2>
       
       <form
         ref={formRef}
@@ -210,7 +210,7 @@ export function CheckoutForm() {
       >
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="fullName">Full Name</label>
+            <label htmlFor="fullName">Puno ime</label>
             <div className="input-wrapper">
               <input
                 type="text"
@@ -219,7 +219,7 @@ export function CheckoutForm() {
                 value={formData.fullName}
                 onChange={handleChange}
                 required
-                placeholder="Enter your full name"
+                placeholder="Unesite vaše puno ime"
                 aria-required="true"
                 autoComplete="name"
               />
@@ -230,7 +230,7 @@ export function CheckoutForm() {
           </div>
           
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">Email adresa</label>
             <div className="input-wrapper">
               <input
                 type="email"
@@ -239,7 +239,7 @@ export function CheckoutForm() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                placeholder="your@email.com"
+                placeholder="vaš@email.com"
                 aria-required="true"
                 autoComplete="email"
               />
@@ -251,9 +251,9 @@ export function CheckoutForm() {
         </div>
         
         <div className="form-group phone-group">
-          <label htmlFor="phoneNumber">Phone Number</label>
+          <label htmlFor="phoneNumber">Broj telefona</label>
           <div className="phone-input-container" role="group" aria-labelledby="phone-label">
-            <span id="phone-label" className="sr-only">Phone Number with country code</span>
+            <span id="phone-label" className="sr-only">Broj telefona s pozivnim brojem zemlje</span>
             <div className="input-wrapper select-wrapper">
                               <select
                 id="phoneCode"
@@ -261,7 +261,7 @@ export function CheckoutForm() {
                 value={formData.phoneCode}
                 onChange={handleChange}
                 className="phone-code-select"
-                aria-label="Country code"
+                aria-label="Pozivni broj zemlje"
                 required
                 autoComplete="tel-country-code"
               >
@@ -286,12 +286,12 @@ export function CheckoutForm() {
                 placeholder={
                   getCountryCodeFromDialCode(formData.phoneCode) 
                     ? getExamplePhoneNumber(getCountryCodeFromDialCode(formData.phoneCode)!) 
-                    : "Enter your phone number"
+                    : "Unesite vaš broj telefona"
                 }
                 className={`phone-number-input ${!phoneValidation.isValid && formData.phoneNumber ? 'phone-error' : ''}`}
                 aria-required="true"
                 pattern="[0-9\s\-\(\)]+"
-                title="Please enter a valid phone number"
+                title="Molimo unesite važeći broj telefona"
                 autoComplete="tel-national"
               />
               <span className="input-icon">
@@ -326,11 +326,11 @@ export function CheckoutForm() {
         <div className="address-section">
           <h3>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            Delivery Address
+            Adresa dostave
           </h3>
           
           <div className="form-group">
-            <label htmlFor="address">Street Address</label>
+            <label htmlFor="address">Adresa</label>
             <div className="input-wrapper">
               <input
                 type="text"
@@ -339,7 +339,7 @@ export function CheckoutForm() {
                 value={formData.address}
                 onChange={handleChange}
                 required
-                placeholder="Street address (e.g., Praska ulica 3)"
+                placeholder="Adresa (npr. Praska ulica 3)"
                 aria-required="true"
                 autoComplete="street-address"
               />
@@ -351,7 +351,7 @@ export function CheckoutForm() {
           
           <div className="form-row address-row">
             <div className="form-group">
-              <label htmlFor="postalCode">Postal Code</label>
+              <label htmlFor="postalCode">Poštanski broj</label>
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -360,11 +360,11 @@ export function CheckoutForm() {
                   value={formData.postalCode}
                   onChange={handleChange}
                   required
-                  placeholder="e.g., 51511"
+                  placeholder="npr. 51511"
                   aria-required="true"
                   autoComplete="postal-code"
                   pattern="[0-9]{5}"
-                  title="Please enter a 5-digit postal code"
+                  title="Molimo unesite 5-znamenkasti poštanski broj"
                 />
                 <span className="input-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h18v18H3zM12 8v8m-4-4h8"></path></svg>
@@ -373,7 +373,7 @@ export function CheckoutForm() {
             </div>
             
             <div className="form-group">
-              <label htmlFor="city">City</label>
+              <label htmlFor="city">Grad</label>
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -382,7 +382,7 @@ export function CheckoutForm() {
                   value={formData.city}
                   onChange={handleChange}
                   required
-                  placeholder="e.g., Malinska"
+                  placeholder="npr. Malinska"
                   aria-required="true"
                   autoComplete="address-level2"
                 />
@@ -395,7 +395,7 @@ export function CheckoutForm() {
         </div>
         
         <div className="form-group checkbox-group">
-          <label htmlFor="sameAsBilling">Same as Billing Address</label>
+          <label htmlFor="sameAsBilling">Ista kao adresa za naplatu</label>
           <input
             type="checkbox"
             id="sameAsBilling"
@@ -408,11 +408,11 @@ export function CheckoutForm() {
         <div className="address-section">
           <h3>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 3h5v5M4 20L21 3l-3 3L6 18l-2 2z"></path><path d="M21 14v5h-5M3 10v5h5"></path></svg>
-            Shipping Address
+            Adresa dostave
           </h3>
           
           <div className="form-group">
-            <label htmlFor="shippingAddress">Street Address</label>
+            <label htmlFor="shippingAddress">Adresa</label>
             <div className="input-wrapper">
               <input
                 type="text"
@@ -421,7 +421,7 @@ export function CheckoutForm() {
                 value={formData.shippingAddress}
                 onChange={handleChange}
                 required
-                placeholder="Street address (e.g., Praska ulica 3)"
+                placeholder="Adresa (npr. Praska ulica 3)"
                 aria-required="true"
                 autoComplete="shipping street-address"
                 disabled={formData.sameAsBilling}
@@ -434,7 +434,7 @@ export function CheckoutForm() {
           
           <div className="form-row address-row">
             <div className="form-group">
-              <label htmlFor="shippingPostalCode">Postal Code</label>
+              <label htmlFor="shippingPostalCode">Poštanski broj</label>
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -443,11 +443,11 @@ export function CheckoutForm() {
                   value={formData.shippingPostalCode}
                   onChange={handleChange}
                   required
-                  placeholder="e.g., 51511"
+                  placeholder="npr. 51511"
                   aria-required="true"
                   autoComplete="shipping postal-code"
                   pattern="[0-9]{5}"
-                  title="Please enter a 5-digit postal code"
+                  title="Molimo unesite 5-znamenkasti poštanski broj"
                   disabled={formData.sameAsBilling}
                 />
                 <span className="input-icon">
@@ -457,7 +457,7 @@ export function CheckoutForm() {
             </div>
             
             <div className="form-group">
-              <label htmlFor="shippingCity">City</label>
+              <label htmlFor="shippingCity">Grad</label>
               <div className="input-wrapper">
                 <input
                   type="text"
@@ -466,7 +466,7 @@ export function CheckoutForm() {
                   value={formData.shippingCity}
                   onChange={handleChange}
                   required
-                  placeholder="e.g., Malinska"
+                  placeholder="npr. Malinska"
                   aria-required="true"
                   autoComplete="shipping address-level2"
                   disabled={formData.sameAsBilling}
@@ -480,7 +480,7 @@ export function CheckoutForm() {
         </div>
         
         <div className="form-group">
-          <label htmlFor="paymentMethod">Payment Method</label>
+          <label htmlFor="paymentMethod">Način plaćanja</label>
           <select
             id="paymentMethod"
             name="paymentMethod"
@@ -489,14 +489,14 @@ export function CheckoutForm() {
             required
             autoComplete="off"
           >
-            <option value="Cash on delivery">Cash on delivery</option>
-            <option value="Credit card">Credit card</option>
+            <option value="Cash on delivery">Plaćanje pouzećem</option>
+            <option value="Credit card">Kreditna kartica</option>
             <option value="PayPal">PayPal</option>
           </select>
         </div>
         
         <div className="form-group">
-          <label htmlFor="shippingMethod">Shipping Method</label>
+          <label htmlFor="shippingMethod">Način dostave</label>
           <select
             id="shippingMethod"
             name="shippingMethod"
@@ -505,14 +505,14 @@ export function CheckoutForm() {
             required
             autoComplete="off"
           >
-            <option value="Standard delivery">Standard delivery</option>
-            <option value="Express delivery">Express delivery</option>
-            <option value="Same day delivery">Same day delivery</option>
+            <option value="Standard delivery">Standardna dostava</option>
+            <option value="Express delivery">Brza dostava</option>
+            <option value="Same day delivery">Dostava isti dan</option>
           </select>
         </div>
         
         <div className="form-group">
-          <label htmlFor="additionalNotes">Additional Notes <span className="optional-label">(optional)</span></label>
+          <label htmlFor="additionalNotes">Dodatne napomene <span className="optional-label">(neobavezno)</span></label>
           <div className="input-wrapper textarea-wrapper">
             <textarea
               id="additionalNotes"
@@ -520,8 +520,8 @@ export function CheckoutForm() {
               value={formData.additionalNotes}
               onChange={handleChange}
               rows={4}
-              placeholder="Any special requests or additional information"
-              aria-label="Additional notes or requests"
+              placeholder="Posebni zahtjevi ili dodatne informacije"
+              aria-label="Dodatne napomene ili zahtjevi"
               autoComplete="off"
             />
             <span className="input-icon textarea-icon">
@@ -530,8 +530,8 @@ export function CheckoutForm() {
           </div>
         </div>
         
-        <div className="checkout-summary" aria-label="Order summary">
-          <h3>Order Summary</h3>
+        <div className="checkout-summary" aria-label="Sažetak narudžbe">
+          <h3>Sažetak narudžbe</h3>
           <div className="checkout-items">
             {items.map((item, index) => (
               <div key={index} className="checkout-item">
@@ -543,7 +543,7 @@ export function CheckoutForm() {
                     {item.product.name}
                   </div>
                   <div className="checkout-item-quantity">
-                    Qty: {item.quantity}
+                    Količina: {item.quantity}
                   </div>
                 </div>
                 <div className="checkout-item-price">
@@ -553,7 +553,7 @@ export function CheckoutForm() {
             ))}
           </div>
           <div className="checkout-total">
-            <span>Total:</span>
+            <span>Ukupno:</span>
             <span>€{getTotalPrice().toFixed(2)}</span>
           </div>
         </div>
@@ -574,11 +574,11 @@ export function CheckoutForm() {
           {formStatus.submitting ? (
             <>
               <span className="loading-spinner"></span>
-              <span>Processing...</span>
+              <span>Obrađuje se...</span>
             </>
           ) : (
             <>
-              <span>Complete Order</span>
+              <span>Dovršite narudžbu</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
             </>
           )}

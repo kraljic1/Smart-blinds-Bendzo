@@ -17,9 +17,9 @@ export function Basket() {
   if (items.length === 0) {
     return (
       <div className="basket-empty">
-        <h2>Your basket is empty</h2>
-        <p>Add some products to your basket to see them here.</p>
-        <Link to="/products/roller-blinds" className="basket-continue-btn">Browse Our Products</Link>
+        <h2>Vaša košarica je prazna</h2>
+        <p>Dodajte proizvode u košaricu da biste ih vidjeli ovdje.</p>
+        <Link to="/products/roller-blinds" className="basket-continue-btn">Pregledajte naše proizvode</Link>
       </div>
     );
   }
@@ -27,13 +27,13 @@ export function Basket() {
   return (
     <div className="basket">
       <div className="basket-header">
-        <h2 className="basket-title">Your Basket ({itemCount} {itemCount === 1 ? 'item' : 'items'})</h2>
+        <h2 className="basket-title">Vaša košarica ({itemCount} {itemCount === 1 ? 'proizvod' : 'proizvoda'})</h2>
         <button 
           onClick={clearBasket} 
           className="basket-clear-btn"
-          aria-label="Clear basket"
+          aria-label="Isprazni košaricu"
         >
-          Clear All
+          Ukloni sve
         </button>
       </div>
 
@@ -49,13 +49,13 @@ export function Basket() {
 
       <div className="basket-summary">
         <div className="basket-total">
-          <span>Total:</span>
+          <span>Ukupno:</span>
           <span className="basket-total-price">€{totalPrice.toFixed(2)}</span>
         </div>
         
         <div className="basket-actions">
-          <button onClick={handleContinueShopping} className="basket-continue-btn">Continue Shopping</button>
-          <Link to="/checkout" className="basket-checkout-btn">Proceed to Checkout</Link>
+          <button onClick={handleContinueShopping} className="basket-continue-btn">Nastavi kupovinu</button>
+          <Link to="/checkout" className="basket-checkout-btn">Nastavi s narudžbom</Link>
         </div>
       </div>
     </div>

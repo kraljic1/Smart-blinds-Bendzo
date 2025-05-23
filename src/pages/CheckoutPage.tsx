@@ -16,16 +16,16 @@ export default function CheckoutPage() {
   return (
     <>
       <SEO 
-        title="Checkout | Smartblinds Croatia"
-        description="Complete your order by providing shipping and contact information."
+        title="Narudžba | Smartblinds Croatia"
+        description="Dovršite vašu narudžbu unosom podataka za dostavu i kontakt."
       />
       <div className="container mx-auto px-4 pt-24 pb-8">
         <div className="mb-6">
           <Breadcrumb
             items={[
-              { label: 'Home', path: '/' },
-              { label: 'Basket', path: '/basket' },
-              { label: 'Checkout', path: '/checkout' }
+              { label: 'Početna', path: '/' },
+              { label: 'Košarica', path: '/basket' },
+              { label: 'Narudžba', path: '/checkout' }
             ]}
           />
         </div>

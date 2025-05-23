@@ -7,14 +7,14 @@ const LikedPage: React.FC = () => {
   return (
     <>
       <SEO
-        title="My Favorites | Smartblinds"
-        description="View and manage your favorite products."
+        title="Moji omiljeni | Smartblinds"
+        description="Pregledajte i upravljajte svojim omiljenim proizvodima."
       />
       <div className="container mx-auto px-4 py-8">
         <Breadcrumb
           items={[
-            { label: 'Home', path: '/' },
-            { label: 'My Favorites', path: '/liked' }
+            { label: 'Početna', path: '/' },
+            { label: 'Moji omiljeni', path: '/liked' }
           ]}
         />
         <div className="pt-16 pb-16">
