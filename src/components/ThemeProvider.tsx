@@ -1,3 +1,4 @@
+/** @jsxImportSource react */
 import React, { ReactNode } from 'react';
 
 interface ThemeProviderProps {
@@ -5,6 +6,6 @@ interface ThemeProviderProps {
 }
 
 // ThemeProvider component - simply passes children through
-export function ThemeProvider({ children }: ThemeProviderProps) {
-  return <>{children}</>;
+export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
+  return <React.Fragment>{children}</React.Fragment>;
 } 

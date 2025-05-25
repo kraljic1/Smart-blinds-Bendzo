@@ -93,7 +93,7 @@ export function StripePaymentForm({
   return (
     <form onSubmit={handleSubmit} className="stripe-payment-form">
       <div className="payment-amount">
-        <h3>Ukupno za plaćanje: {(amount / 100).toFixed(2)} {currency.toUpperCase()}</h3>
+        <h3>Ukupno za plaćanje: {amount.toFixed(2)} {currency.toUpperCase()}</h3>
       </div>
       
       <div className="card-element-container">

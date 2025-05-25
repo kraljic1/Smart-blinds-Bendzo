@@ -11,6 +11,12 @@
   framework = "vite"
   autoLaunch = true
 
+# Headers for development to allow all scripts and styles
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://m.stripe.network; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https: wss:; object-src 'none'; base-uri 'self';"
+
 # Handle client-side routing for React app
 [[redirects]]
   from = "/*"

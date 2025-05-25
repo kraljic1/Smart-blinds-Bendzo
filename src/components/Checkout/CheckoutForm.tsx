@@ -29,7 +29,7 @@ export function CheckoutForm() {
     shippingCity: '',
     shippingPostalCode: '',
     sameAsBilling: true,
-    paymentMethod: 'Cash on delivery',
+    paymentMethod: 'Credit card',
     shippingMethod: 'Standard delivery',
     additionalNotes: ''
   });
@@ -479,20 +479,16 @@ export function CheckoutForm() {
           </div>
         </div>
         
+        {/* Payment method is fixed to Credit card only */}
         <div className="form-group">
-          <label htmlFor="paymentMethod">Način plaćanja</label>
-          <select
-            id="paymentMethod"
-            name="paymentMethod"
-            value={formData.paymentMethod}
-            onChange={handleChange}
-            required
-            autoComplete="off"
-          >
-            <option value="Cash on delivery">Plaćanje pouzećem</option>
-            <option value="Credit card">Kreditna kartica</option>
-            <option value="PayPal">PayPal</option>
-          </select>
+          <label>Način plaćanja</label>
+          <div className="payment-method-fixed">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="payment-icon">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            <span>Kreditna ili debitna kartica</span>
+          </div>
         </div>
         
         <div className="form-group">

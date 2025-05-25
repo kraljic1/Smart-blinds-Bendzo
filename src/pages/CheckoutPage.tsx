@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckoutForm } from '../components/Checkout/CheckoutForm';
+import { EnhancedCheckoutForm } from '../components/Checkout/EnhancedCheckoutForm';
 import SEO from '../components/SEO';
 import Breadcrumb from '../components/Breadcrumb';
 import { useBasketContext } from '../hooks/useBasketContext';
@@ -29,7 +29,7 @@ export default function CheckoutPage() {
             ]}
           />
         </div>
-        <CheckoutForm />
+        <EnhancedCheckoutForm />
       </div>
     </>
   );

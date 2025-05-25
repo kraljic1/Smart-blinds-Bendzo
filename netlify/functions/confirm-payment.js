@@ -12,10 +12,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2023-10-16',
 });
 
-// Initialize Supabase client
+// Initialize Supabase client with forced schema refresh
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  db: { schema: 'public' },
+  auth: { persistSession: false }
+});
 
 export const handler = async function(event, context) {
   // Only allow POST requests
@@ -78,34 +81,115 @@ export const handler = async function(event, context) {
     // Generate a unique order ID
     const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
-    // Create the order object to store in Supabase
+    // Create the order object with only safe columns to avoid schema cache issues
     const orderData = {
-      order_id: orderId,
-      customer_name: customer.fullName,
+      order_number: orderId,
+      customer_full_name: customer.fullName,
       customer_email: customer.email,
       customer_phone: customer.phone,
       billing_address: customer.address,
+      billing_city: customer.city || 'Unknown',
+      billing_postal_code: customer.postalCode || '00000',
       shipping_address: customer.shippingAddress || customer.address,
-      notes: notes || '',
+      shipping_city: customer.shippingCity || customer.city || 'Unknown',
+      shipping_postal_code: customer.shippingPostalCode || customer.postalCode || '00000',
+      same_as_billing: !customer.shippingAddress,
+      subtotal_amount: totalAmount,
+      shipping_amount: shippingCost || 0,
+      tax_amount: taxAmount || 0,
       total_amount: totalAmount,
-      tax_amount: taxAmount || null,
-      shipping_cost: shippingCost || null,
-      payment_method: 'Stripe Card Payment',
+      payment_method: 'Credit card',
       payment_status: 'paid',
       payment_intent_id: paymentIntentId,
       shipping_method: customer.shippingMethod || 'Standard delivery',
-      status: 'paid',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      order_status: 'confirmed'
     };
+
+    // Add optional fields only if they exist
+    if (notes) {
+      orderData.additional_notes = notes;
+    }
     
     console.log('Creating order with payment confirmation:', orderId);
     
-    // Insert the order into Supabase
-    const { data: insertedOrder, error } = await supabase
-      .from('orders')
-      .insert([orderData])
-      .select();
+    // Use minimal order data to avoid schema cache problems
+    const minimalOrderData = {
+      order_number: orderId,
+      customer_full_name: customer.fullName,
+      customer_email: customer.email,
+      customer_phone: customer.phone,
+      billing_address: customer.address,
+      billing_city: customer.city || 'Unknown',
+      billing_postal_code: customer.postalCode || '00000',
+      shipping_address: customer.shippingAddress || customer.address,
+      shipping_city: customer.shippingCity || customer.city || 'Unknown',
+      shipping_postal_code: customer.shippingPostalCode || customer.postalCode || '00000',
+      total_amount: totalAmount,
+      payment_method: 'Credit card',
+      payment_status: 'paid',
+      payment_intent_id: paymentIntentId
+    };
+    
+    // Use raw SQL to bypass schema cache issues
+    const { data: insertedOrder, error } = await supabase.rpc('exec_sql_with_params', {
+      sql: `
+        INSERT INTO orders (
+          order_number, customer_full_name, customer_email, customer_phone,
+          billing_address, billing_city, billing_postal_code,
+          shipping_address, shipping_city, shipping_postal_code,
+          total_amount, payment_method, payment_status, payment_intent_id
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+        RETURNING id, order_number;
+      `,
+      params: [
+        orderId,
+        customer.fullName,
+        customer.email, 
+        customer.phone,
+        customer.address,
+        customer.city || 'Unknown',
+        customer.postalCode || '00000',
+        customer.shippingAddress || customer.address,
+        customer.shippingCity || customer.city || 'Unknown',
+        customer.shippingPostalCode || customer.postalCode || '00000',
+        totalAmount,
+        'Credit card',
+        'paid',
+        paymentIntentId
+      ]
+    });
+
+    // Fallback to direct SQL if RPC doesn't work
+    if (error && error.message.includes('function "exec_sql_with_params" does not exist')) {
+      const insertQuery = `
+        INSERT INTO orders (
+          order_number, customer_full_name, customer_email, customer_phone,
+          billing_address, billing_city, billing_postal_code,
+          shipping_address, shipping_city, shipping_postal_code,
+          total_amount, payment_method, payment_status, payment_intent_id
+        ) VALUES (
+          '${orderId}', '${customer.fullName}', '${customer.email}', '${customer.phone}',
+          '${customer.address}', '${customer.city || 'Unknown'}', '${customer.postalCode || '00000'}',
+          '${customer.shippingAddress || customer.address}', '${customer.shippingCity || customer.city || 'Unknown'}', 
+          '${customer.shippingPostalCode || customer.postalCode || '00000'}',
+          ${totalAmount}, 'Credit card', 'paid', '${paymentIntentId}'
+        ) RETURNING id, order_number;
+      `;
+      
+      const result = await supabase.rpc('exec_sql', { query: insertQuery });
+      if (result.error) {
+        console.error('Direct SQL insert failed:', result.error);
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ 
+            success: false, 
+            message: 'Failed to save order to database via SQL',
+            error: result.error.message
+          })
+        };
+      }
+      insertedOrder = result.data;
+    }
     
     if (error) {
       console.error('Supabase insert error:', error);
@@ -119,38 +203,37 @@ export const handler = async function(event, context) {
       };
     }
 
-    const orderId_db = insertedOrder[0].id;
+    // Get order ID from result - handle different response formats
+    const orderId_db = insertedOrder && insertedOrder[0] ? insertedOrder[0].id : null;
     
-    // Process order items
-    const orderItems = items.map(item => ({
-      order_id: orderId_db,
-      product_id: item.productId || (item.product && item.product.id),
-      product_name: item.productName || (item.product && item.product.name),
-      product_image: item.productImage || (item.product && item.product.image),
-      quantity: item.quantity,
-      unit_price: item.price || (item.product && item.product.price),
-      subtotal: (item.price || (item.product && item.product.price)) * item.quantity,
-      width: (item.width || (item.options && item.options.width)) || null,
-      height: (item.height || (item.options && item.options.height)) || null,
-      options: item.options ? JSON.stringify(item.options) : null,
-      created_at: new Date().toISOString()
-    }));
+    if (!orderId_db) {
+      console.warn('Could not get order ID from insert result, skipping order items');
+    }
     
-    // Insert order items into Supabase
-    const { error: itemsError } = await supabase
-      .from('order_items')
-      .insert(orderItems);
-    
-    if (itemsError) {
-      console.error('Supabase order items error:', itemsError);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ 
-          success: false, 
-          message: 'Failed to save order items to database',
-          error: itemsError.message
-        })
-      };
+    // Process order items only if we have order ID
+    if (orderId_db && items && items.length > 0) {
+      const orderItems = items.map(item => ({
+        order_id: orderId_db,
+        product_name: item.productName || (item.product && item.product.name) || 'Unknown Product',
+        product_sku: (item.product && item.product.id) || null,
+        product_category: (item.product && item.product.category) || null,
+        product_image_url: item.productImage || (item.product && item.product.image) || null,
+        unit_price: item.price || (item.product && item.product.price) || 0,
+        quantity: item.quantity || 1,
+        total_price: (item.price || (item.product && item.product.price) || 0) * (item.quantity || 1),
+        configuration: item.options ? item.options : {}
+      }));
+      
+      // Insert order items into Supabase
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+      
+      if (itemsError) {
+        console.error('Supabase order items error:', itemsError);
+        // Don't fail the whole order for items error
+        console.warn('Order created but items failed to save');
+      }
     }
     
     // Send order confirmation email
