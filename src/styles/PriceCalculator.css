@@ -207,6 +207,10 @@
   white-space: nowrap;
   min-width: 150px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .checkout-button:hover {
@@ -223,6 +227,10 @@
     padding: 0 1.5rem;
     border-radius: 0.75rem;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   
   .checkout-button:hover {
@@ -232,7 +240,7 @@
 
 @media (max-width: 480px) {
   .checkout-button {
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: 56px;
     width: 100%;
     padding: 0 1rem;
@@ -240,8 +248,14 @@
     border-radius: 0.75rem;
     min-width: auto;
     max-width: 100%;
-    text-transform: none;
-    font-weight: 500;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.2;
   }
   
   .price-calculator-actions {
@@ -256,6 +270,16 @@
   /* Active state for mobile touch devices */
   .checkout-button:active {
     background-color: #059669;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+  .checkout-button {
+    font-size: 0.8rem;
+    height: 52px;
+    padding: 0 0.75rem;
+    letter-spacing: 0.2px;
   }
 }
 

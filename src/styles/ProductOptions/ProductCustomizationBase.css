@@ -51,6 +51,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 10px;
+  align-items: stretch;
 }
 
 .option-content {
@@ -87,4 +88,54 @@
   color: #f43f5e;
   text-align: center;
   max-width: 300px;
+}
+
+/* Responsive styles for option selections */
+@media (max-width: 768px) {
+  .option-selections {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  
+  .option-title {
+    font-size: 0.9rem;
+  }
+  
+  .customization-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .option-selections {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  
+  .option-group {
+    margin-bottom: 20px;
+  }
+  
+  .option-title {
+    font-size: 0.85rem;
+  }
+  
+  .customization-title {
+    font-size: 1.1rem;
+  }
+  
+  .customization-description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .option-selections {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+  
+  .option-title {
+    font-size: 0.8rem;
+  }
 } 

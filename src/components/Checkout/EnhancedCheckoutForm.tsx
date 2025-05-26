@@ -10,7 +10,7 @@ import PaymentMethodSection from './PaymentMethodSection';
 import ShippingMethodSection from './ShippingMethodSection';
 import AdditionalNotesSection from './AdditionalNotesSection';
 import OrderSummarySection from './OrderSummarySection';
-import './EnhancedCheckoutForm.css';
+import './CheckoutForm.css';
 
 export function EnhancedCheckoutForm() {
   const { items, getTotalPrice } = useBasketContext();

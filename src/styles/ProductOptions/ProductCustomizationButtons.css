@@ -19,6 +19,10 @@
   width: 100%;
   max-width: 300px;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .add-to-basket-button:hover {
@@ -29,4 +33,29 @@
   background-color: #e5e7eb;
   color: #9ca3af;
   cursor: not-allowed;
+}
+
+/* Responsive styles for add-to-basket button */
+@media (max-width: 768px) {
+  .add-to-basket-button {
+    font-size: 0.9rem;
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-to-basket-button {
+    font-size: 0.85rem;
+    padding: 16px 18px;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 360px) {
+  .add-to-basket-button {
+    font-size: 0.8rem;
+    padding: 14px 16px;
+  }
 } 

@@ -103,6 +103,15 @@
   border-color: #3b82f6;
 }
 
+/* Dark mode styles for text-only options */
+.dark .text-only-option .option-name {
+  color: #e5e7eb;
+}
+
+.dark .text-only-option .option-price {
+  color: #9ca3af;
+}
+
 .dark .option-group:has([class*="transparency"]) .option-name {
   color: #f9fafb;
 }

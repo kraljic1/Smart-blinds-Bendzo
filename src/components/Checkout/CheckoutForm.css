@@ -19,7 +19,7 @@
   --error-border: rgba(239, 68, 68, 0.3);
   --summary-bg: #f3f4f6;
   --summary-border: #e5e7eb;
-  --summary-header-color: #1f2937;
+  --summary-header-color: #111827;
   --disabled-bg: #d1d5db;
   --disabled-color: #6b7280;
   --icon-color: #9ca3af;
@@ -247,9 +247,11 @@
 
 .checkout-summary h3 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1.25rem;
   color: var(--summary-header-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .checkout-items {
@@ -319,6 +321,7 @@
   flex-shrink: 0;
   min-width: 80px;
   text-align: right;
+  color: var(--summary-header-color);
 }
 
 .checkout-total {
@@ -328,6 +331,7 @@
   border-top: 2px solid var(--summary-border);
   font-size: 1.25rem;
   font-weight: 700;
+  color: var(--summary-header-color);
 }
 
 .checkout-submit-btn {
@@ -454,6 +458,11 @@
     width: 100%;
     text-align: right;
     padding-left: 60px;
+  }
+  
+  .checkout-summary h3 {
+    font-size: 1.125rem;
+    text-align: center;
   }
 }
 
