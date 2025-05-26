@@ -85,6 +85,8 @@
   left: 0;
   height: 3px;
   background-color: #10b981;
+  width: var(--progress-width, 100%);
+  transition: width 0.1s linear;
 }
 
 .toast-success .toast-progress {

@@ -7,6 +7,7 @@
 @import './styles/TabletResponsive.css';
 @import './styles/ProductConfiguration.css';
 @import './styles/ProductOptions/index.css';
+@import './styles/CommonAnimations.css';
 
 @tailwind base;
 @tailwind components;

@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { Sun, Moon, Check, Package, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
 import { useLikedContext } from '../hooks/useLikedContext';
+import styles from './ModernProductCard.module.css';
 
 interface ModernProductCardProps {
   product: Product;
@@ -24,22 +25,15 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const { isLiked, addLikedItem, removeLikedItem } = useLikedContext();
   const productIsLiked = isLiked(product.id);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Animation effect with delay
+  // Animation effect with delay - using state instead of direct DOM manipulation
   useEffect(() => {
-    if (cardRef.current) {
-      cardRef.current.style.opacity = '0';
-      cardRef.current.style.transform = 'translateY(20px)';
-      
-      const timer = setTimeout(() => {
-        if (cardRef.current) {
-          cardRef.current.style.opacity = '1';
-          cardRef.current.style.transform = 'translateY(0)';
-        }
-      }, delay);
-      
-      return () => clearTimeout(timer);
-    }
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
+    
+    return () => clearTimeout(timer);
   }, [delay]);
 
   const handleConfigure = () => {
@@ -96,20 +90,24 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     return fabricImage || null;
   };
 
-  // Set background color for products without fabric image
-  useEffect(() => {
-    if (!hasFabricImage && colorSwatchRef.current && product.fabricColor) {
-      colorSwatchRef.current.style.backgroundColor = product.fabricColor;
-    }
-  }, [product.fabricColor, hasFabricImage]);
+  // Set background color for products without fabric image using CSS custom property
+  const colorSwatchStyle = !hasFabricImage && product.fabricColor ? {
+    backgroundColor: product.fabricColor
+  } : {};
+
+  // Get delay class based on delay prop
+  const getDelayClass = () => {
+    if (delay <= 100) return styles.delayShort;
+    if (delay <= 200) return styles.delayMedium;
+    return styles.delayLong;
+  };
 
   return (
     <div className="group h-full overflow-hidden">
       {/* Card with modern effects */}
       <div 
         ref={cardRef} 
-        className="relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-500 group-hover:shadow-xl"
-        style={{ opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.5s ease, transform 0.5s ease' }}
+        className={`relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-500 group-hover:shadow-xl ${styles.productCard} ${isVisible ? styles.productCardVisible : ''} ${getDelayClass()}`}
       >
         {/* Subtle card background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 dark:from-blue-900/10 dark:to-purple-900/20 -z-10"></div>
@@ -145,7 +143,8 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
                 <div className="p-1 rounded-full bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm border border-white/40 dark:border-gray-500 shadow-lg">
                   <div
                     ref={colorSwatchRef}
-                    className="w-14 h-14 rounded-full product-color-swatch"
+                    className={`${styles.colorSwatch} product-color-swatch`}
+                    style={colorSwatchStyle}
                     data-color={product.fabricColor}
                   />
                 </div>

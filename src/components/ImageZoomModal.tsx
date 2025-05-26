@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import styles from './ImageZoomModal.module.css';
 
 interface ImageZoomModalProps {
   imageUrl: string;
@@ -92,6 +93,10 @@ const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
     }
   };
 
+  // Calculate transform styles
+  const imageTransform = `translate(${position.x}px, ${position.y}px) scale(${scale})`;
+  const cursorClass = isDragging ? styles.grabbingCursor : styles.grabCursor;
+
   return (
     <div 
       ref={modalRef}
@@ -166,7 +171,7 @@ const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
       )}
       
       <div 
-        className="relative overflow-hidden"
+        className={`relative overflow-hidden ${styles.imageContainer}`}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -175,11 +180,8 @@ const ImageZoomModal: React.FC<ImageZoomModalProps> = ({
         <img 
           src={imageUrl} 
           alt={altText}
-          className="transition-transform max-w-[90vw] max-h-[90vh]"
-          style={{ 
-            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
-            cursor: isDragging ? 'grabbing' : 'grab'
-          }}
+          className={`${styles.zoomedImage} ${cursorClass}`}
+          style={{ transform: imageTransform }}
           draggable="false"
         />
       </div>

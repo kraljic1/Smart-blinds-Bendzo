@@ -1,0 +1,65 @@
+/* Common Animation and Gradient Styles */
+
+/* Reusable gradient classes */
+.gradient-brand {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+}
+
+.gradient-brand-text {
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.gradient-button-primary {
+  background: linear-gradient(to right, #3b82f6, #1d4ed8);
+}
+
+.gradient-button-primary:hover {
+  background: linear-gradient(to right, #1d4ed8, #1e40af);
+}
+
+/* Common animation delays */
+.anim-delay-100 { animation-delay: 100ms; }
+.anim-delay-200 { animation-delay: 200ms; }
+.anim-delay-300 { animation-delay: 300ms; }
+.anim-delay-400 { animation-delay: 400ms; }
+.anim-delay-500 { animation-delay: 500ms; }
+
+/* Disable animations on mobile for performance */
+@media (max-width: 768px) {
+  [class*="anim-delay"] {
+    animation-delay: 0ms !important;
+  }
+}
+
+/* Common card styles */
+.card-hover-effect {
+  transition: all 0.3s ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress bar base styles */
+.progress-bar {
+  transition: width 0.3s ease;
+  height: 100%;
+}
+
+/* Utility classes for dynamic content */
+.dynamic-width {
+  width: var(--dynamic-width, auto);
+}
+
+.dynamic-height {
+  height: var(--dynamic-height, auto);
+}
+
+.dynamic-transform {
+  transform: var(--dynamic-transform, none);
+} 

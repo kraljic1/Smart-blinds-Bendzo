@@ -12,14 +12,30 @@ if (!stripePublishableKey) {
   console.warn('Please create a .env file with your Stripe keys. See STRIPE_SETUP.md for details.');
 }
 
-// Initialize Stripe
+// Initialize Stripe with privacy-browser friendly options
 let stripePromise: Promise<Stripe | null>;
 
 export const getStripe = () => {
   if (!stripePromise) {
-    stripePromise = loadStripe(stripePublishableKey || '');
+    stripePromise = loadStripe(stripePublishableKey || '', {
+      // Use locale to ensure proper loading
+      locale: 'auto',
+    }).catch((error) => {
+      console.warn('Stripe loading failed, this may be due to browser privacy settings:', error);
+      // Return null instead of throwing to allow graceful degradation
+      return null;
+    });
   }
   return stripePromise;
+};
+
+export const checkStripeAvailability = async (): Promise<boolean> => {
+  try {
+    const stripe = await getStripe();
+    return stripe !== null;
+  } catch {
+    return false;
+  }
 };
 
 export { stripePublishableKey }; 

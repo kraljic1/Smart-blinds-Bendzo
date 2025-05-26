@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Toast.css';
 
 export type ToastType = 'success' | 'error' | 'info';
@@ -20,15 +20,20 @@ export const Toast: React.FC<ToastProps> = ({
   duration = 5000,
   onClose
 }) => {
-  const [progress, setProgress] = useState(100);
   const [isExiting, setIsExiting] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let currentProgress = 100;
+    
     const interval = setInterval(() => {
-      setProgress((prevProgress) => {
-        const newProgress = prevProgress - (100 / (duration / 100));
-        return newProgress > 0 ? newProgress : 0;
-      });
+      currentProgress = currentProgress - (100 / (duration / 100));
+      const finalProgress = currentProgress > 0 ? currentProgress : 0;
+      
+      // Update CSS custom property instead of inline style
+      if (progressRef.current) {
+        progressRef.current.style.setProperty('--progress-width', `${finalProgress}%`);
+      }
     }, 100);
 
     const timer = setTimeout(() => {
@@ -81,7 +86,7 @@ export const Toast: React.FC<ToastProps> = ({
       <button className="toast-close" onClick={handleClose} aria-label="Close notification">
         ×
       </button>
-      <div className="toast-progress" style={{ width: `${progress}%` }} />
+      <div ref={progressRef} className="toast-progress" />
     </div>
   );
 }; 

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import styles from './SEOAnalyzer.module.css';
 
 type SEOIssue = {
   name: string;
@@ -117,6 +118,7 @@ const performBasicSEOChecks = (document: Document): SEOIssue[] => {
 const SEOAnalyzer: React.FC<SEOAnalyzerProps> = ({ showResults = false }) => {
   const [issues, setIssues] = useState<SEOIssue[]>([]);
   const [score, setScore] = useState(0);
+  const scoreBarRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
   // Only run in development mode, never in production
@@ -140,6 +142,11 @@ const SEOAnalyzer: React.FC<SEOAnalyzerProps> = ({ showResults = false }) => {
     setIssues(seoIssues);
     setScore(calculatedScore);
     
+    // Update CSS custom property for score bar width
+    if (scoreBarRef.current) {
+      scoreBarRef.current.style.setProperty('--score-width', `${calculatedScore}%`);
+    }
+    
   }, [location.pathname, showResults, isDevelopment]);
 
   // Never render in production unless explicitly requested by admin
@@ -152,16 +159,31 @@ const SEOAnalyzer: React.FC<SEOAnalyzerProps> = ({ showResults = false }) => {
     return null;
   }
 
+  // Get score bar class based on score
+  const getScoreBarClass = () => {
+    if (score >= 80) return styles.scoreBarGreen;
+    if (score >= 60) return styles.scoreBarYellow;
+    return styles.scoreBarRed;
+  };
+
+  // Get issue class based on severity
+  const getIssueClass = (severity: string) => {
+    switch (severity) {
+      case 'error': return styles.issueError;
+      case 'warning': return styles.issueWarning;
+      case 'info': return styles.issueInfo;
+      default: return styles.issueInfo;
+    }
+  };
+
   return (
     <div className="seo-analyzer fixed bottom-4 right-4 p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-300 dark:border-gray-700 z-50 max-w-md overflow-auto max-h-[60vh] hidden lg:block">
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-lg font-bold">SEO Analiza: {score}%</h2>
         <div className="w-16 h-4 bg-gray-200 rounded-full overflow-hidden">
           <div 
-            className={`h-full ${
-              score >= 80 ? 'bg-green-500' : score >= 60 ? 'bg-yellow-500' : 'bg-red-500'
-            }`}
-            style={{ width: `${score}%` }}
+            ref={scoreBarRef}
+            className={`${styles.scoreBar} ${getScoreBarClass()}`}
           ></div>
         </div>
       </div>
@@ -170,12 +192,7 @@ const SEOAnalyzer: React.FC<SEOAnalyzerProps> = ({ showResults = false }) => {
         <p className="text-sm mb-2">{issues.length} problema pronađeno</p>
         <ul className="space-y-2">
           {issues.map((issue, index) => (
-            <li key={index} className="text-sm border-l-4 pl-2 py-1" 
-              style={{ 
-                borderColor: issue.severity === 'error' ? 'red' 
-                  : issue.severity === 'warning' ? 'orange' : 'blue' 
-              }}
-            >
+            <li key={index} className={`text-sm ${styles.issueItem} ${getIssueClass(issue.severity)}`}>
               <div className="font-medium">{issue.name}</div>
               <div className="text-gray-600 dark:text-gray-400">{issue.description}</div>
             </li>

@@ -1,0 +1,23 @@
+/* ImageZoomModal Component Styles */
+
+.zoomedImage {
+  transition: transform 0.3s ease;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.grabbingCursor {
+  cursor: grabbing;
+}
+
+.grabCursor {
+  cursor: grab;
+}
+
+/* Prevent text selection during drag */
+.imageContainer {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+} 

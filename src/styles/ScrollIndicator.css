@@ -19,6 +19,8 @@
   border-radius: 0 0 3px 3px;
   transition: height 0.1s ease; /* Smooth transition */
   box-shadow: 0 0 6px rgba(99, 102, 241, 0.5);
+  /* Use CSS custom property for dynamic height */
+  height: var(--scroll-progress, 0%);
 }
 
 /* Reduced opacity in light mode for subtlety */

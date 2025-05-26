@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../styles/ScrollIndicator.css';
 
 /**
@@ -6,7 +6,7 @@ import '../styles/ScrollIndicator.css';
  * Displays a vertical progress bar on the right side of the screen
  */
 const ScrollIndicator: React.FC = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +21,10 @@ const ScrollIndicator: React.FC = () => {
         ? (scrollTop / scrollableHeight) * 100 
         : 0;
       
-      setScrollProgress(progress);
+      // Update CSS custom property instead of inline style
+      if (barRef.current) {
+        barRef.current.style.setProperty('--scroll-progress', `${progress}%`);
+      }
     };
 
     // Add scroll event listener
@@ -39,8 +42,8 @@ const ScrollIndicator: React.FC = () => {
   return (
     <div className="scroll-indicator-container">
       <div 
+        ref={barRef}
         className="scroll-indicator-bar"
-        style={{ height: `${scrollProgress}%` }}
       />
     </div>
   );

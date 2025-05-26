@@ -474,6 +474,29 @@
   to { transform: rotate(360deg); }
 }
 
+/* Stripe loading states */
+.stripe-loading {
+  text-align: center;
+  padding: 40px;
+  background: var(--input-bg-color);
+  border-radius: 8px;
+  border: 1px solid var(--input-border-color);
+}
+
+.stripe-error {
+  padding: 24px;
+  background: #fef3cd;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  color: #92400e;
+}
+
+.dark .stripe-error {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+}
+
 /* Accessibility utilities */
 .sr-only {
   position: absolute;

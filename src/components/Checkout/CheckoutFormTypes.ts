@@ -1,0 +1,42 @@
+export interface FormData {
+  fullName: string;
+  email: string;
+  phoneCode: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  shippingAddress: string;
+  shippingCity: string;
+  shippingPostalCode: string;
+  sameAsBilling: boolean;
+  paymentMethod: string;
+  shippingMethod: string;
+  additionalNotes: string;
+}
+
+export interface FormStatus {
+  submitting: boolean;
+  success: boolean;
+  error: string | null;
+}
+
+export interface PhoneValidation {
+  isValid: boolean;
+  errorMessage: string;
+  suggestion: string;
+}
+
+export interface PaymentState {
+  clientSecret: string;
+  paymentIntentId: string;
+  showStripeForm: boolean;
+  processingPayment: boolean;
+}
+
+export interface CheckoutFormProps {
+  formData: FormData;
+  formStatus: FormStatus;
+  phoneValidation: PhoneValidation;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+} 

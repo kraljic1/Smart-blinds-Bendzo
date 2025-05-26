@@ -1,0 +1,313 @@
+.brave-guide-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fef3cd 0%, #fef7e0 100%);
+  border: 1px solid #fbbf24;
+  border-radius: 1rem;
+  color: #78350f;
+  box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.1);
+}
+
+.brave-guide-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.brave-guide-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #d97706;
+  flex-shrink: 0;
+}
+
+.brave-guide-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.brave-guide-content {
+  margin-bottom: 2rem;
+}
+
+.brave-guide-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #78350f;
+}
+
+.browser-instructions {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.browser-section {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.browser-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #92400e;
+}
+
+.browser-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.instruction-list {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #78350f;
+}
+
+.instruction-list li {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.instruction-list li:last-child {
+  margin-bottom: 0;
+}
+
+.instruction-list strong {
+  color: #92400e;
+  font-weight: 600;
+}
+
+.security-note {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.security-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #059669;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.security-note div {
+  flex: 1;
+}
+
+.security-note strong {
+  display: block;
+  color: #047857;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.security-note p {
+  margin: 0;
+  color: #065f46;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.support-section {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.support-section h4 {
+  margin: 0 0 0.75rem 0;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+.support-section p {
+  margin: 0 0 0.75rem 0;
+  color: #1e3a8a;
+}
+
+.support-section ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #1e3a8a;
+}
+
+.support-section li {
+  margin-bottom: 0.5rem;
+}
+
+.support-section strong {
+  color: #1e40af;
+}
+
+.brave-guide-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.retry-button,
+.contact-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  font-size: 0.95rem;
+}
+
+.retry-button {
+  background: #d97706;
+  color: white;
+}
+
+.retry-button:hover {
+  background: #b45309;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+}
+
+.contact-button {
+  background: #3b82f6;
+  color: white;
+}
+
+.contact-button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.retry-button svg,
+.contact-button svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Dark mode support */
+.dark .brave-guide-container {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(254, 243, 199, 0.1) 100%);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+}
+
+.dark .brave-guide-header h3 {
+  color: #fbbf24;
+}
+
+.dark .brave-guide-description {
+  color: #fbbf24;
+}
+
+.dark .browser-section {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(251, 191, 36, 0.2);
+}
+
+.dark .browser-section h4 {
+  color: #fbbf24;
+}
+
+.dark .instruction-list {
+  color: #fbbf24;
+}
+
+.dark .instruction-list strong {
+  color: #fcd34d;
+}
+
+.dark .security-note {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.dark .security-note strong {
+  color: #34d399;
+}
+
+.dark .security-note p {
+  color: #10b981;
+}
+
+.dark .support-section {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.dark .support-section h4 {
+  color: #60a5fa;
+}
+
+.dark .support-section p {
+  color: #3b82f6;
+}
+
+.dark .support-section ul {
+  color: #3b82f6;
+}
+
+.dark .support-section strong {
+  color: #60a5fa;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .brave-guide-container {
+    padding: 1.5rem;
+  }
+  
+  .brave-guide-header {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .browser-instructions {
+    gap: 1rem;
+  }
+  
+  .browser-section {
+    padding: 1rem;
+  }
+  
+  .security-note {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .brave-guide-actions {
+    flex-direction: column;
+  }
+  
+  .retry-button,
+  .contact-button {
+    width: 100%;
+    justify-content: center;
+  }
+} 

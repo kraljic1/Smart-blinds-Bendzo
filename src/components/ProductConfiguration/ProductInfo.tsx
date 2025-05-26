@@ -1,5 +1,6 @@
 import { Info } from 'lucide-react';
 import { Product } from '../../types/product';
+import styles from './ProductConfiguration.module.css';
 
 interface ProductInfoProps {
   product: Product;
@@ -15,7 +16,7 @@ const ProductInfo = ({
   animationFinished = true
 }: ProductInfoProps) => {
   return (
-    <div className={`space-y-4 sm:space-y-6 ${isVisible ? 'slide-in-up' : 'opacity-0'}`} style={{ animationDelay: '125ms' }}>
+    <div className={`space-y-4 sm:space-y-6 ${isVisible ? 'slide-in-up' : 'opacity-0'} ${styles.animDelay125}`}>
       <div>
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white uppercase">{product.name}</h1>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2">
@@ -31,7 +32,7 @@ const ProductInfo = ({
         </div>
       </div>
 
-      <p className={`text-gray-600 dark:text-gray-300 text-sm sm:text-base ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '250ms' }}>
+      <p className={`text-gray-600 dark:text-gray-300 text-sm sm:text-base ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''} ${styles.animDelay250}`}>
         {product.description || 
           `Create a pleasant atmosphere in your home with our electric Essential roller blinds! Both the
           light filtering and blackout Essential collection consist of sturdy roller blind fabrics with a
