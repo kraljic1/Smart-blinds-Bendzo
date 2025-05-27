@@ -81,76 +81,87 @@ export function EnhancedCheckoutForm() {
   };
 
   return (
-    <div className="enhanced-checkout-form">
-      <form onSubmit={handleSubmit} className="checkout-form" noValidate>
-        <CustomerInfoSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-        
-        <PhoneNumberSection 
-          formData={formData} 
-          phoneValidation={phoneValidation}
-          handleChange={handleChange} 
-        />
-        
-        <BillingAddressSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-        
-        <ShippingAddressSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-        
-        <PaymentMethodSection />
-        
-        <ShippingMethodSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-        
-        <AdditionalNotesSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
+    <div className="checkout-form-container">
+      <div className="enhanced-checkout-form">
+        <form onSubmit={handleSubmit} className="checkout-form" noValidate>
+          <div className="form-section">
+            <CustomerInfoSection 
+              formData={formData} 
+              handleChange={handleChange} 
+            />
+          </div>
+          
+          <div className="form-section">
+            <PhoneNumberSection 
+              formData={formData} 
+              phoneValidation={phoneValidation}
+              handleChange={handleChange} 
+            />
+          </div>
+          
+          <BillingAddressSection 
+            formData={formData} 
+            handleChange={handleChange} 
+          />
+          
+          <ShippingAddressSection 
+            formData={formData} 
+            handleChange={handleChange} 
+          />
+          
+          <div className="form-section">
+            <PaymentMethodSection />
+          </div>
+          
+          <div className="form-section">
+            <ShippingMethodSection 
+              formData={formData} 
+              handleChange={handleChange} 
+            />
+          </div>
+          
+          <div className="form-section">
+            <AdditionalNotesSection 
+              formData={formData} 
+              handleChange={handleChange} 
+            />
+          </div>
+          
+          {formStatus.error && (
+            <div className="checkout-error" role="alert">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              {formStatus.error}
+            </div>
+          )}
+          
+          <button 
+            type="submit" 
+            className="checkout-submit-btn"
+            disabled={formStatus.submitting}
+            aria-busy={formStatus.submitting ? "true" : "false"}
+          >
+            {formStatus.submitting ? (
+              <>
+                <span className="loading-spinner"></span>
+                <span>Obrađuje se...</span>
+              </>
+            ) : (
+              <>
+                <span>Nastavi na plaćanje</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14m-7-7l7 7-7 7"/>
+                </svg>
+              </>
+            )}
+          </button>
+        </form>
         
         <OrderSummarySection />
-        
-        {formStatus.error && (
-          <div className="checkout-error" role="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-            {formStatus.error}
-          </div>
-        )}
-        
-        <button 
-          type="submit" 
-          className="checkout-submit-btn"
-          disabled={formStatus.submitting}
-          aria-busy={formStatus.submitting ? "true" : "false"}
-        >
-          {formStatus.submitting ? (
-            <>
-              <span className="loading-spinner"></span>
-              <span>Obrađuje se...</span>
-            </>
-          ) : (
-            <>
-              <span>Nastavi na plaćanje</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <polyline points="19 12 12 19 5 12"></polyline>
-              </svg>
-            </>
-          )}
-        </button>
-      </form>
+      </div>
     </div>
   );
 } 
