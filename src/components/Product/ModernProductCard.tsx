@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useMemo, useState } from 'react';
 import { Sun, Moon, Check, Package, Heart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Product } from '../types/product';
-import { useLikedContext } from '../hooks/useLikedContext';
+import { Product } from '../../types/product';
+import { useLikedContext } from '../../hooks/useLikedContext';
 import styles from './ModernProductCard.module.css';
 
 interface ModernProductCardProps {

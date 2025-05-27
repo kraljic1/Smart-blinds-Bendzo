@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { BasketIcon } from './Basket/BasketIcon';
-import { LikedIcon } from './Liked/LikedIcon';
-import { AdminIcon } from './AdminRoute/AdminIcon';
+import { BasketIcon } from '../Basket/BasketIcon';
+import { LikedIcon } from '../Liked/LikedIcon';
+import { AdminIcon } from '../AdminRoute/AdminIcon';
 import { Menu, X, Home, ShoppingBag, HelpCircle, Settings } from 'lucide-react';
-import MobileMenuWrapper from './MobileMenuWrapper';
+import { MobileMenuWrapper } from '../Navigation';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

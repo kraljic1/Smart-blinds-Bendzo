@@ -1,5 +1,5 @@
-import ProductCard from '../components/ProductCard';
-import Breadcrumb from '../components/Breadcrumb';
+import ProductCard from '../components/Product/ProductCard';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 import { Product } from '../types/product';
 
 const HoneycombBlindsPage = () => {

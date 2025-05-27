@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import ModernProductCard from '../components/ModernProductCard';
-import Breadcrumb from '../components/Breadcrumb';
+import ModernProductCard from '../components/Product/ModernProductCard';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 import { CollapsibleFilterSidebar } from '../components/Filters';
 import { zebraBlinds } from '../data/zebrablinds';
 import { Product } from '../types/product';

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import ScrollIndicator from './ScrollIndicator';
-import BackToTop from './BackToTop';
+import { ScrollIndicator } from '../UI';
+import { BackToTop } from '../Navigation';
 
 interface LayoutProps {
   children: ReactNode;

@@ -1,6 +1,6 @@
 import { Basket } from '../components/Basket/Basket';
-import SEO from '../components/SEO';
-import Breadcrumb from '../components/Breadcrumb';
+import SEO from '../components/SEO/SEO';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 
 export default function BasketPage() {
   return (

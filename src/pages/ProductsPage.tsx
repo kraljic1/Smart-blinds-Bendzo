@@ -112,8 +112,7 @@ const ProductsPage: React.FC = () => {
             <div className="lg:col-span-3">
               <h2 
                 ref={headingRef}
-                className={`text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-                delay-150
+                className={`text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 fade-in-scale delay-150 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
               >
                 {currentCategoryId === 'all' ? 'All Products' : 
                 currentCategoryId === 'roller' ? 'Roller Blinds' :

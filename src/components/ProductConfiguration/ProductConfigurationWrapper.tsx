@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Product } from '../../types/product';
-import { CustomizationOption } from '../ProductCustomization';
+import { CustomizationOption } from '../Product/ProductCustomization';
 import ProductImageGallery from './ProductImageGallery';
 import ProductInfo from './ProductInfo';
 import ProductCustomizationForm from './ProductCustomizationForm';
 import ProductFeatures from './ProductFeatures';
-import ImageZoomModal from '../ImageZoomModal';
+import ImageZoomModal from '../UI/ImageZoomModal';
 import InfoPanel from '../InfoPanel';
 import '../../styles/ProductConfiguration.css';
 import { useAnimationStates, useDefaultOptions } from './ProductConfigurationHooks';

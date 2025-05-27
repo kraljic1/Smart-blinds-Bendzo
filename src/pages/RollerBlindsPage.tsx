@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import ModernProductCard from '../components/ModernProductCard';
-import Breadcrumb from '../components/Breadcrumb';
+import ModernProductCard from '../components/Product/ModernProductCard';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 import { CollapsibleFilterSidebar } from '../components/Filters';
-import StructuredData from '../components/StructuredData';
+import StructuredData from '../components/SEO/StructuredData';
 // Import roller blinds data directly
 import { rollerBlinds } from '../data/rollerblinds';
 import { Product } from '../types/product';

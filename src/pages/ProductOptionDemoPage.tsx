@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ProductOptions from '../components/ProductOptions';
-import ProductOptionsModal from '../components/ProductOptionsModal';
+import ProductOptions from '../components/Product/ProductOptions';
+import ProductOptionsModal from '../components/Product/ProductOptionsModal';
 import '../styles/ProductOptions/index.css';
 
 interface ProductOption {

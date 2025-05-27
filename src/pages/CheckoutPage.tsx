@@ -1,7 +1,7 @@
 import React from 'react';
 import { EnhancedCheckoutForm } from '../components/Checkout/EnhancedCheckoutForm';
-import SEO from '../components/SEO';
-import Breadcrumb from '../components/Breadcrumb';
+import SEO from '../components/SEO/SEO';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 import { useBasketContext } from '../hooks/useBasketContext';
 import { Navigate } from 'react-router-dom';
 

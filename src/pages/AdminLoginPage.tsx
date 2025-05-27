@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import { Shield, Lock, Eye, EyeOff } from 'lucide-react';
 
 const AdminLoginPage: React.FC = () => {

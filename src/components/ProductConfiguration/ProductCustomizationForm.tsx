@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Product } from '../../types/product';
-import ProductCustomization, { CustomizationOption } from '../ProductCustomization';
-import PriceCalculator from '../PriceCalculator';
+import ProductCustomization, { CustomizationOption } from '../Product/ProductCustomization';
+import PriceCalculator from '../Product/PriceCalculator';
 
 interface ProductCustomizationFormProps {
   product: Product;

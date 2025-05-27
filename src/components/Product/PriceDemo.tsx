@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Price from './Price';
-import pricingData from '../data/pricingData';
-import '../styles/PriceDemo.css';
+import Price from '../UI/Price';
+import pricingData from '../../data/pricingData';
+import '../../styles/PriceDemo.css';
 
 const PriceDemo = () => {
   const [productType, setProductType] = useState<string>('roller-blinds');

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CheckCircle, Loader } from 'lucide-react';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import { useBasketContext } from '../hooks/useBasketContext';
 import { useOrderContext } from '../context/useOrderContext';
 import { getOrderById } from '../utils/orderUtils';

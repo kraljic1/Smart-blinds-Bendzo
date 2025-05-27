@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import '../styles/AccessoriesPage.css';
 import { accessories } from '../data/accessories';
 import ModernAccessoryCard from '../components/Products/ModernAccessoryCard';

@@ -1,5 +1,5 @@
-import ModernProductCard from '../components/ModernProductCard';
-import Breadcrumb from '../components/Breadcrumb';
+import ModernProductCard from '../components/Product/ModernProductCard';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 import { Product } from '../types/product';
 import { useState, useEffect } from 'react';
 import React from 'react';

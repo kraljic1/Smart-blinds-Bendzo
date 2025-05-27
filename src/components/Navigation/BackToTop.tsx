@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/BackToTop.css';
+import '../../styles/BackToTop.css';
 
 /**
  * BackToTop - Button that appears when scrolling down to let users quickly return to top

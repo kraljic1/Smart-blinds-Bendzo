@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import { supabase } from '../utils/supabaseClient';
 
 // Import extracted components

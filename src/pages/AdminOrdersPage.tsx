@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import { supabase } from '../utils/supabaseClient';
 import { OrderData as SupabaseOrderData } from '../utils/supabaseClient';
 import AdminHeader from '../components/Admin/AdminHeader';

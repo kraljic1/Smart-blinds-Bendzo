@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import '../styles/ScrollIndicator.css';
+import '../../styles/ScrollIndicator.css';
 
 /**
  * ScrollIndicator - Shows how much of the page has been scrolled

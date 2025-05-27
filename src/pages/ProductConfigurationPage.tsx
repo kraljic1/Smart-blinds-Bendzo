@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Product } from '../types/product';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import { getProductsByCategory } from '../hooks/useProductFilter';
-import { CustomizationOption } from '../components/ProductCustomization';
+import { CustomizationOption } from '../components/Product/ProductCustomization';
 import { getCustomizationOptions } from '../data/customizationOptionsByProduct';
 import { useBasketContext } from '../hooks/useBasketContext';
 import { useToast } from '../hooks/useToast';

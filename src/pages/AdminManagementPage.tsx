@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
-import SEO from '../components/SEO';
+import SEO from '../components/SEO/SEO';
 import AdminHeader from '../components/AdminRoute/AdminHeader';
 import AlertMessage from '../components/AdminRoute/AlertMessage';
 import AddAdminForm from '../components/AdminRoute/AddAdminForm';

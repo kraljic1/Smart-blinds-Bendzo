@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import '../styles/ProductOptions/index.css';
+import '../../styles/ProductOptions/index.css';
 
 interface ProductOption {
   label: string;

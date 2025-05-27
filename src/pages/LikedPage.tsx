@@ -1,7 +1,7 @@
 import React from 'react';
 import { LikedItemsGrid } from '../components/Liked/LikedItemsGrid';
-import SEO from '../components/SEO';
-import Breadcrumb from '../components/Breadcrumb';
+import SEO from '../components/SEO/SEO';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 
 const LikedPage: React.FC = () => {
   return (

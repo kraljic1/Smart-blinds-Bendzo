@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLikedContext } from '../../hooks/useLikedContext';
-import ModernProductCard from '../ModernProductCard';
+import ModernProductCard from '../Product/ModernProductCard';
 import { Link } from 'react-router-dom';
 import './LikedItemsGrid.css';
 

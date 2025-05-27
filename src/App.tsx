@@ -1,17 +1,17 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async';
-import { ThemeProvider } from './components/ThemeProvider';
+import { ThemeProvider } from './components/Common';
 import { BasketProvider } from './context/BasketContext';
 import { LikedProvider } from './context/LikedContext';
 import { OrderProvider } from './context/OrderContext';
 import { ToastProvider } from './context/ToastProvider';
 import { useEffect } from 'react';
-import Layout from './components/Layout';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import TouchFriendly from './components/TouchFriendly';
-import SEOAnalyzer from './components/SEOAnalyzer';
+import Layout from './components/Layout/Layout';
+import Header from './components/Layout/Header';
+import Footer from './components/Layout/Footer';
+import TouchFriendly from './components/UI/TouchFriendly';
+import SEOAnalyzer from './components/SEO/SEOAnalyzer';
 import AdminRoute from './components/AdminRoute/AdminRoute';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
