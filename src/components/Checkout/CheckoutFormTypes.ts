@@ -13,6 +13,9 @@ export interface FormData {
   paymentMethod: string;
   shippingMethod: string;
   additionalNotes: string;
+  needsR1Invoice: boolean;
+  companyName: string;
+  companyOib: string;
 }
 
 export interface FormStatus {

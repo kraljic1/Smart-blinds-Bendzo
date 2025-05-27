@@ -5,6 +5,7 @@ import { createPaymentIntent } from '../../utils/stripeUtils';
 import CustomerInfoSection from './CustomerInfoSection';
 import PhoneNumberSection from './PhoneNumberSection';
 import BillingAddressSection from './BillingAddressSection';
+import CompanyInfoSection from './CompanyInfoSection';
 import ShippingAddressSection from './ShippingAddressSection';
 import PaymentMethodSection from './PaymentMethodSection';
 import ShippingMethodSection from './ShippingMethodSection';
@@ -45,7 +46,10 @@ export function EnhancedCheckoutForm() {
           address: `${formData.address}, ${formData.postalCode} ${formData.city}`,
           shippingAddress: formData.sameAsBilling 
             ? `${formData.address}, ${formData.postalCode} ${formData.city}`
-            : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`
+            : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`,
+          needsR1Invoice: formData.needsR1Invoice,
+          companyName: formData.needsR1Invoice ? formData.companyName : undefined,
+          companyOib: formData.needsR1Invoice ? formData.companyOib : undefined
         },
         items: items.map(item => ({
           productId: item.product.id,
@@ -100,6 +104,11 @@ export function EnhancedCheckoutForm() {
           </div>
           
           <BillingAddressSection 
+            formData={formData} 
+            handleChange={handleChange} 
+          />
+          
+          <CompanyInfoSection 
             formData={formData} 
             handleChange={handleChange} 
           />

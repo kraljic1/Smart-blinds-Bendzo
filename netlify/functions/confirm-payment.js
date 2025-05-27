@@ -134,12 +134,12 @@ export const handler = async function(event, context) {
     const { data: insertedOrder, error } = await supabase.rpc('exec_sql_with_params', {
       sql: `
         INSERT INTO orders (
-          order_number, customer_full_name, customer_email, customer_phone,
-          billing_address, billing_city, billing_postal_code,
-          shipping_address, shipping_city, shipping_postal_code,
-          total_amount, payment_method, payment_status, payment_intent_id
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-        RETURNING id, order_number;
+          order_id, customer_name, customer_email, customer_phone,
+          billing_address, shipping_address, notes,
+          total_amount, payment_method, payment_status,
+          needs_r1_invoice, company_name, company_oib
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        RETURNING id, order_id;
       `,
       params: [
         orderId,
@@ -147,15 +147,14 @@ export const handler = async function(event, context) {
         customer.email, 
         customer.phone,
         customer.address,
-        customer.city || 'Unknown',
-        customer.postalCode || '00000',
         customer.shippingAddress || customer.address,
-        customer.shippingCity || customer.city || 'Unknown',
-        customer.shippingPostalCode || customer.postalCode || '00000',
+        notes || '',
         totalAmount,
         'Credit card',
         'paid',
-        paymentIntentId
+        customer.needsR1Invoice || false,
+        customer.needsR1Invoice ? customer.companyName : null,
+        customer.needsR1Invoice ? customer.companyOib : null
       ]
     });
 
@@ -163,17 +162,18 @@ export const handler = async function(event, context) {
     if (error && error.message.includes('function "exec_sql_with_params" does not exist')) {
       const insertQuery = `
         INSERT INTO orders (
-          order_number, customer_full_name, customer_email, customer_phone,
-          billing_address, billing_city, billing_postal_code,
-          shipping_address, shipping_city, shipping_postal_code,
-          total_amount, payment_method, payment_status, payment_intent_id
+          order_id, customer_name, customer_email, customer_phone,
+          billing_address, shipping_address, notes,
+          total_amount, payment_method, payment_status,
+          needs_r1_invoice, company_name, company_oib
         ) VALUES (
           '${orderId}', '${customer.fullName}', '${customer.email}', '${customer.phone}',
-          '${customer.address}', '${customer.city || 'Unknown'}', '${customer.postalCode || '00000'}',
-          '${customer.shippingAddress || customer.address}', '${customer.shippingCity || customer.city || 'Unknown'}', 
-          '${customer.shippingPostalCode || customer.postalCode || '00000'}',
-          ${totalAmount}, 'Credit card', 'paid', '${paymentIntentId}'
-        ) RETURNING id, order_number;
+          '${customer.address}', '${customer.shippingAddress || customer.address}', '${notes || ''}',
+          ${totalAmount}, 'Credit card', 'paid',
+          ${customer.needsR1Invoice || false}, 
+          ${customer.needsR1Invoice ? `'${customer.companyName}'` : 'NULL'}, 
+          ${customer.needsR1Invoice ? `'${customer.companyOib}'` : 'NULL'}
+        ) RETURNING id, order_id;
       `;
       
       const result = await supabase.rpc('exec_sql', { query: insertQuery });
@@ -214,14 +214,13 @@ export const handler = async function(event, context) {
     if (orderId_db && items && items.length > 0) {
       const orderItems = items.map(item => ({
         order_id: orderId_db,
+        product_id: (item.product && item.product.id) || item.productId || 'unknown',
         product_name: item.productName || (item.product && item.product.name) || 'Unknown Product',
-        product_sku: (item.product && item.product.id) || null,
-        product_category: (item.product && item.product.category) || null,
-        product_image_url: item.productImage || (item.product && item.product.image) || null,
-        unit_price: item.price || (item.product && item.product.price) || 0,
+        product_image: item.productImage || (item.product && item.product.image) || null,
         quantity: item.quantity || 1,
-        total_price: (item.price || (item.product && item.product.price) || 0) * (item.quantity || 1),
-        configuration: item.options ? item.options : {}
+        unit_price: item.price || (item.product && item.product.price) || 0,
+        subtotal: (item.price || (item.product && item.product.price) || 0) * (item.quantity || 1),
+        options: item.options ? item.options : {}
       }));
       
       // Insert order items into Supabase

@@ -13,6 +13,9 @@ export interface CreatePaymentIntentRequest {
     phone: string;
     address: string;
     shippingAddress?: string;
+    needsR1Invoice?: boolean;
+    companyName?: string;
+    companyOib?: string;
   };
   items: Array<{
     productId: string;
@@ -41,6 +44,9 @@ export interface ConfirmPaymentRequest {
     shippingAddress: string;
     paymentMethod: string;
     shippingMethod: string;
+    needsR1Invoice?: boolean;
+    companyName?: string;
+    companyOib?: string;
   };
   items: Array<{
     productId: string;

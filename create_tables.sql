@@ -23,6 +23,9 @@ CREATE TABLE orders (
   shipping_method TEXT,
   tracking_number TEXT,
   status TEXT NOT NULL DEFAULT 'received',
+  needs_r1_invoice BOOLEAN DEFAULT FALSE,
+  company_name TEXT,
+  company_oib TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

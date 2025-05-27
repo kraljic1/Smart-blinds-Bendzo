@@ -97,11 +97,10 @@ export function StripePaymentForm({
       </div>
       
       <div className="card-element-container">
-        <label htmlFor="card-element">
+        <label>
           Podaci o kartici
         </label>
         <CardElement
-          id="card-element"
           options={CARD_ELEMENT_OPTIONS}
           onChange={handleCardChange}
         />

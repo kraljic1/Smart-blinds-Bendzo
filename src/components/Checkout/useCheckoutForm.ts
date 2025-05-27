@@ -16,7 +16,10 @@ const initialFormData: FormData = {
   sameAsBilling: true,
   paymentMethod: 'credit_card',
   shippingMethod: 'Standard delivery',
-  additionalNotes: ''
+  additionalNotes: '',
+  needsR1Invoice: false,
+  companyName: '',
+  companyOib: ''
 };
 
 const initialFormStatus: FormStatus = {
