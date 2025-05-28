@@ -10,8 +10,8 @@
   Cross-Origin-Opener-Policy: same-origin-allow-popups
   Cross-Origin-Resource-Policy: cross-origin
   
-  # Secure Content Security Policy - Removed unsafe-inline and unsafe-eval
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://gjphuebhwrvqpmxzyonx.supabase.co wss://gjphuebhwrvqpmxzyonx.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content;
+  # Enhanced Content Security Policy with Stripe support
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://js.stripe.com https://m.stripe.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://gjphuebhwrvqpmxzyonx.supabase.co wss://gjphuebhwrvqpmxzyonx.supabase.co https://api.stripe.com https://m.stripe.com https://merchant-ui-api.stripe.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-src https://js.stripe.com https://hooks.stripe.com; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content;
 
 /*.js
   Content-Type: application/javascript; charset=utf-8

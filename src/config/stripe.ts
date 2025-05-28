@@ -20,6 +20,9 @@ export const getStripe = () => {
     stripePromise = loadStripe(stripePublishableKey || '', {
       // Use locale to ensure proper loading
       locale: 'auto',
+      // Enhanced privacy settings for third-party cookie compatibility
+      stripeAccount: undefined,
+      apiVersion: '2023-10-16',
     }).catch((error) => {
       console.warn('Stripe loading failed, this may be due to browser privacy settings:', error);
       // Return null instead of throwing to allow graceful degradation

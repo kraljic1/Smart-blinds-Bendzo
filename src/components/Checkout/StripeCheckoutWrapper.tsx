@@ -3,6 +3,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { getStripe, checkStripeAvailability } from '../../config/stripe';
 import { StripePaymentForm } from './StripePaymentForm';
 import { BraveBrowserGuide } from './BraveBrowserGuide';
+import { CookieConsentNotice } from './CookieConsentNotice';
 
 interface StripeCheckoutWrapperProps {
   amount: number;
@@ -12,8 +13,6 @@ interface StripeCheckoutWrapperProps {
   disabled?: boolean;
 }
 
-const stripePromise = getStripe();
-
 export function StripeCheckoutWrapper({
   amount,
   currency = 'eur',
@@ -22,64 +21,96 @@ export function StripeCheckoutWrapper({
   disabled = false
 }: StripeCheckoutWrapperProps) {
   const [stripeLoaded, setStripeLoaded] = useState(false);
-  const [stripeError, setStripeError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [stripeAvailable, setStripeAvailable] = useState(false);
+  const [cookieConsent, setCookieConsent] = useState<'pending' | 'accepted' | 'declined'>('pending');
+  const [stripePromise, setStripePromise] = useState<ReturnType<typeof getStripe> | null>(null);
 
   useEffect(() => {
-    const initializeStripe = async () => {
-      try {
-        setIsLoading(true);
-        const available = await checkStripeAvailability();
-        
-        if (available) {
-          setStripeLoaded(true);
-          setStripeError(null);
-        } else {
-          setStripeLoaded(false);
-          setStripeError('Stripe could not be loaded. This may be due to browser privacy settings.');
-        }
-      } catch {
-        setStripeLoaded(false);
-        setStripeError('Failed to initialize payment system.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    initializeStripe();
+    // Check existing cookie consent
+    const consent = localStorage.getItem('stripe-cookie-consent');
+    if (consent === 'accepted') {
+      setCookieConsent('accepted');
+      initializeStripe();
+    } else if (consent === 'declined') {
+      setCookieConsent('declined');
+    }
   }, []);
 
-  if (isLoading) {
+  const initializeStripe = async () => {
+    try {
+      const stripe = getStripe();
+      setStripePromise(stripe);
+      
+      const available = await checkStripeAvailability();
+      setStripeAvailable(available);
+      setStripeLoaded(true);
+      
+      if (!available) {
+        onPaymentError('Stripe nije dostupan. Molimo koristite drugi način plaćanja.');
+      }
+    } catch (error) {
+      console.error('Stripe initialization error:', error);
+      setStripeLoaded(true);
+      setStripeAvailable(false);
+      onPaymentError('Greška pri učitavanju Stripe servisa.');
+    }
+  };
+
+  const handleCookieAccept = () => {
+    setCookieConsent('accepted');
+    initializeStripe();
+  };
+
+  const handleCookieDecline = () => {
+    setCookieConsent('declined');
+    onPaymentError('Plaćanje karticom nije dostupno bez prihvatanja kolačića. Molimo izaberite gotovinu kao način plaćanja.');
+  };
+
+  // Show cookie consent notice if pending
+  if (cookieConsent === 'pending') {
     return (
-      <div style={{ 
-        textAlign: 'center', 
-        padding: '40px',
-        background: '#f8fafc',
-        borderRadius: '8px',
-        border: '1px solid #e2e8f0'
-      }}>
-        <div style={{ marginBottom: '16px' }}>
-          <div style={{
-            width: '32px',
-            height: '32px',
-            border: '3px solid #e2e8f0',
-            borderTop: '3px solid #4f46e5',
-            borderRadius: '50%',
-            animation: 'spin 1s linear infinite',
-            margin: '0 auto'
-          }}></div>
-        </div>
-        <p style={{ color: '#64748b', margin: 0 }}>Učitavam sustav za plaćanje...</p>
+      <CookieConsentNotice
+        onAccept={handleCookieAccept}
+        onDecline={handleCookieDecline}
+      />
+    );
+  }
+
+  // Show message if cookies were declined
+  if (cookieConsent === 'declined') {
+    return (
+      <div className="stripe-unavailable">
+        <h3>Plaćanje karticom nije dostupno</h3>
+        <p>
+          Niste prihvatili kolačiće potrebne za plaćanje karticom. 
+          Molimo izaberite gotovinu kao način plaćanja.
+        </p>
+        <button 
+          onClick={() => {
+            localStorage.removeItem('stripe-cookie-consent');
+            setCookieConsent('pending');
+          }}
+          className="retry-button"
+        >
+          Pokušaj ponovo
+        </button>
       </div>
     );
   }
 
-  if (!stripeLoaded || stripeError) {
+  // Show loading state
+  if (!stripeLoaded) {
     return (
-      <BraveBrowserGuide 
-        onRetry={() => window.location.reload()} 
-      />
+      <div className="stripe-loading">
+        <div className="loading-spinner"></div>
+        <p>Učitavam Stripe...</p>
+      </div>
     );
+  }
+
+  // Show error if Stripe is not available
+  if (!stripeAvailable || !stripePromise) {
+    return <BraveBrowserGuide onRetry={() => window.location.reload()} />;
   }
 
   const options = {
