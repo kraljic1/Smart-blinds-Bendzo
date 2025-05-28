@@ -29,7 +29,7 @@ const initialFormStatus: FormStatus = {
 };
 
 const initialPhoneValidation: PhoneValidation = {
-  isValid: true,
+  isValid: true, // Allow empty phone initially
   errorMessage: '',
   suggestion: ''
 };
@@ -49,10 +49,13 @@ export const useCheckoutForm = () => {
 
   // Phone validation effect
   useEffect(() => {
+    console.log('Phone validation effect triggered:', { phoneNumber: formData.phoneNumber, phoneCode: formData.phoneCode });
     if (formData.phoneNumber) {
       const countryCode = getCountryCodeFromDialCode(formData.phoneCode);
+      console.log('Country code from dial code:', countryCode);
       if (countryCode) {
         const validation = validatePhoneNumberRealTime(formData.phoneNumber, countryCode);
+        console.log('Phone validation result:', validation);
         setPhoneValidation({
           isValid: validation.isValid,
           errorMessage: validation.errorMessage || '',
@@ -60,6 +63,7 @@ export const useCheckoutForm = () => {
         });
       }
     } else {
+      console.log('No phone number, setting initial validation');
       setPhoneValidation(initialPhoneValidation);
     }
   }, [formData.phoneNumber, formData.phoneCode]);

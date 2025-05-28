@@ -2,6 +2,7 @@ import React from 'react';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { useCheckoutForm } from './useCheckoutForm';
 import { createPaymentIntent } from '../../utils/stripeUtils';
+import { FormData } from './CheckoutFormTypes';
 import CustomerInfoSection from './CustomerInfoSection';
 import PhoneNumberSection from './PhoneNumberSection';
 import BillingAddressSection from './BillingAddressSection';
@@ -27,13 +28,61 @@ export function EnhancedCheckoutForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log('Form submitted!');
+    console.log('Form data:', formData);
+    console.log('Phone validation:', phoneValidation);
+    
+    // Validate ALL required fields
+    const allRequiredFields = [
+      { field: 'fullName', message: 'Molimo unesite vaše puno ime' },
+      { field: 'email', message: 'Molimo unesite email adresu' },
+      { field: 'phoneNumber', message: 'Molimo unesite broj telefona' },
+      { field: 'address', message: 'Molimo unesite adresu' },
+      { field: 'city', message: 'Molimo unesite grad' },
+      { field: 'postalCode', message: 'Molimo unesite poštanski broj' }
+    ];
+
+    // Add shipping fields to required if different from billing
+    if (!formData.sameAsBilling) {
+      allRequiredFields.push(
+        { field: 'shippingAddress', message: 'Molimo unesite adresu dostave' },
+        { field: 'shippingCity', message: 'Molimo unesite grad dostave' },
+        { field: 'shippingPostalCode', message: 'Molimo unesite poštanski broj dostave' }
+      );
+    }
+
+    // Validate all required fields
+    for (const { field, message } of allRequiredFields) {
+      const fieldValue = formData[field as keyof FormData];
+      if (!fieldValue || !fieldValue.toString().trim()) {
+        console.log(`Required field missing: ${field}`);
+        setError(message);
+        return;
+      }
+    }
+
+    // Validate company fields if R1 invoice is requested
+    if (formData.needsR1Invoice) {
+      if (!formData.companyName.trim()) {
+        console.log('Company name missing for R1 invoice');
+        setError('Molimo unesite naziv tvrtke za R1 račun');
+        return;
+      }
+      if (!formData.companyOib.trim()) {
+        console.log('Company OIB missing for R1 invoice');
+        setError('Molimo unesite OIB tvrtke za R1 račun');
+        return;
+      }
+    }
     
     if (!phoneValidation.isValid) {
-      setError('Please enter a valid phone number');
+      console.log('Phone validation failed:', phoneValidation);
+      setError('Molimo unesite važeći broj telefona');
       return;
     }
 
     try {
+      console.log('Starting payment intent creation...');
       setSubmitting(true);
       
       const paymentIntentData = {
@@ -64,7 +113,9 @@ export function EnhancedCheckoutForm() {
         }
       };
 
+      console.log('Payment intent data:', paymentIntentData);
       const paymentData = await createPaymentIntent(paymentIntentData);
+      console.log('Payment response:', paymentData);
 
       if (paymentData.success && paymentData.clientSecret && paymentData.paymentIntentId) {
         setPaymentState({
@@ -74,12 +125,14 @@ export function EnhancedCheckoutForm() {
           processingPayment: false
         });
       } else {
-        setError(paymentData.error || 'Failed to initialize payment. Please try again.');
+        setError(paymentData.error || 'Neuspješno pokretanje plaćanja. Molimo pokušajte ponovno.');
       }
     } catch (error) {
       console.error('Payment setup error:', error);
-      setError('Failed to initialize payment. Please try again.');
+      console.log('Error details:', error);
+      setError('Neuspješno pokretanje plaćanja. Molimo pokušajte ponovno.');
     } finally {
+      console.log('Setting submitting to false');
       setSubmitting(false);
     }
   };
@@ -154,6 +207,11 @@ export function EnhancedCheckoutForm() {
             className="checkout-submit-btn"
             disabled={formStatus.submitting}
             aria-busy={formStatus.submitting ? "true" : "false"}
+            onClick={() => {
+              console.log('Button clicked!');
+              console.log('Form status:', formStatus);
+              console.log('Phone validation:', phoneValidation);
+            }}
           >
             {formStatus.submitting ? (
               <>
