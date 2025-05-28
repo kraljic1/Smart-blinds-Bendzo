@@ -17,15 +17,14 @@ const CompanyInfoSection: React.FC<Pick<CheckoutFormProps, 'formData' | 'handleC
       </h3>
       
       <div className="form-group checkbox-group">
-        <label>
-          <input
-            type="checkbox"
-            name="needsR1Invoice"
-            checked={formData.needsR1Invoice}
-            onChange={handleChange}
-          />
-          Želim R1 račun za tvrtku
-        </label>
+        <label htmlFor="needsR1Invoice">Želim R1 račun za tvrtku</label>
+        <input
+          type="checkbox"
+          id="needsR1Invoice"
+          name="needsR1Invoice"
+          checked={formData.needsR1Invoice}
+          onChange={handleChange}
+        />
       </div>
 
       {formData.needsR1Invoice && (
