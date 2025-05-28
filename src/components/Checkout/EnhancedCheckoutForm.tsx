@@ -19,7 +19,7 @@ import { PaymentSuccess } from './PaymentSuccess';
 import './CheckoutForm.css';
 
 export function EnhancedCheckoutForm() {
-  const { items, getTotalPrice } = useBasketContext();
+  const { items, getTotalPrice, clearBasket } = useBasketContext();
   const {
     formData,
     formStatus,
@@ -42,25 +42,33 @@ export function EnhancedCheckoutForm() {
 
   const handlePaymentSuccess = (paymentIntentId: string) => {
     console.log('Payment successful:', paymentIntentId);
+    console.log('Current form data:', formData);
+    console.log('Total price:', getTotalPrice());
     
     // Set order details for success page
-    setOrderDetails({
+    const orderData = {
       paymentIntentId,
       amount: getTotalPrice(),
       currency: 'EUR',
       customerEmail: formData.email,
       customerName: formData.fullName
-    });
+    };
     
-    // Show success page
-    setOrderComplete(true);
+    console.log('Setting order details:', orderData);
+    setOrderDetails(orderData);
     
-    // Hide payment form
+    // Hide payment form first
     setPaymentState(prev => ({
       ...prev,
       showStripeForm: false,
       processingPayment: false
     }));
+    
+    // Show success page after a brief delay to ensure state is updated
+    setTimeout(() => {
+      console.log('Setting orderComplete to true');
+      setOrderComplete(true);
+    }, 100);
   };
 
   const handlePaymentError = (error: string) => {
@@ -76,6 +84,9 @@ export function EnhancedCheckoutForm() {
   };
 
   const handleContinueShopping = () => {
+    // Clear the basket now that the user is done
+    clearBasket();
+    
     // Reset everything and redirect to home
     setOrderComplete(false);
     setOrderDetails(null);
@@ -89,16 +100,6 @@ export function EnhancedCheckoutForm() {
     // Navigate to home page
     window.location.href = '/';
   };
-
-  // Show success page if order is complete
-  if (orderComplete && orderDetails) {
-    return (
-      <PaymentSuccess 
-        orderDetails={orderDetails}
-        onContinueShopping={handleContinueShopping}
-      />
-    );
-  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -316,6 +317,13 @@ export function EnhancedCheckoutForm() {
             onPaymentError={handlePaymentError}
           />
         </Elements>
+      )}
+      
+      {orderComplete && orderDetails && (
+        <PaymentSuccess 
+          orderDetails={orderDetails}
+          onContinueShopping={handleContinueShopping}
+        />
       )}
     </div>
   );
