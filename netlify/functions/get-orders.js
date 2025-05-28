@@ -1,154 +1,127 @@
 /**
- * Netlify function to retrieve order history
- * This handles retrieving orders from Supabase based on customer email
+ * Netlify function to retrieve orders from Supabase
+ * This function fetches orders with their items for admin viewing
  */
 
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase client
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey, {
+  db: { schema: 'public' },
+  auth: { persistSession: false }
+});
 
-// Create a single supabase client for interacting with the database
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// Use named export for compatibility with ESM
 export const handler = async function(event, context) {
-  // Allow both GET (with query params) and POST (with body)
-  const params = event.httpMethod === 'GET' 
-    ? event.queryStringParameters 
-    : JSON.parse(event.body || '{}');
-  
-  const { email, orderId } = params;
-  
+  // CORS headers for all responses
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
+  };
+
+  // Handle preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: ''
+    };
+  }
+
+  // Allow both GET and POST requests
+  if (event.httpMethod !== 'GET' && event.httpMethod !== 'POST') {
+    return { 
+      statusCode: 405,
+      headers: corsHeaders,
+      body: JSON.stringify({ success: false, message: 'Method Not Allowed' })
+    };
+  }
+
   try {
-    // If neither email nor orderId provided, return an error
-    if (!email && !orderId) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ 
-          success: false, 
-          message: 'Missing required parameter: email or orderId' 
-        })
-      };
-    }
+    // Parse query parameters for filtering
+    const queryParams = event.queryStringParameters || {};
+    const limit = parseInt(queryParams.limit) || 50;
+    const offset = parseInt(queryParams.offset) || 0;
+    const orderId = queryParams.orderId;
 
-    // Additional security: Rate limiting could be implemented here
-    // For now, we'll add basic input validation
-    if (email && !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ 
-          success: false, 
-          message: 'Invalid email format' 
-        })
-      };
-    }
+    let query = supabase
+      .from('orders')
+      .select(`
+        *,
+        order_items (
+          id,
+          product_name,
+          quantity,
+          unit_price,
+          subtotal,
+          options
+        )
+      `)
+      .order('created_at', { ascending: false });
 
-    // Fetch orders
-    let query = supabase.from('orders').select('*');
-    
-    // If we have an email, filter by customer email
-    if (email) {
-      query = query.eq('customer_email', email);
-    }
-    
-    // If we have an order ID, filter by order ID
+    // Filter by specific order ID if provided
     if (orderId) {
       query = query.eq('order_id', orderId);
     }
-    
-    // Order by created_at descending (newest first)
-    query = query.order('created_at', { ascending: false });
-    
-    // Execute the query
+
+    // Apply pagination
+    query = query.range(offset, offset + limit - 1);
+
     const { data: orders, error } = await query;
-    
+
     if (error) {
-      console.error('Supabase error fetching orders:', error);
-      throw new Error('Failed to retrieve orders from database');
+      console.error('Supabase error:', error);
+      return {
+        statusCode: 500,
+        headers: corsHeaders,
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'Failed to fetch orders',
+          error: error.message
+        })
+      };
     }
 
-    // Fetch items for all the orders
-    const orderIds = orders.map(order => order.id);
-    
-    let orderItems = [];
-    if (orderIds.length > 0) {
-      const { data: items, error: itemsError } = await supabase
-        .from('order_items')
-        .select('*')
-        .in('order_id', orderIds);
-      
-      if (itemsError) {
-        console.error('Supabase error fetching order items:', itemsError);
-        throw new Error('Failed to retrieve order items from database');
-      }
-      
-      orderItems = items || [];
+    // Get total count for pagination
+    const { count, error: countError } = await supabase
+      .from('orders')
+      .select('*', { count: 'exact', head: true });
+
+    if (countError) {
+      console.warn('Failed to get total count:', countError);
     }
-    
-    // Group order items by order ID
-    const itemsByOrderId = orderItems.reduce((acc, item) => {
-      if (!acc[item.order_id]) {
-        acc[item.order_id] = [];
-      }
-      acc[item.order_id].push({
-        productId: item.product_id,
-        productName: item.product_name,
-        productImage: item.product_image,
-        quantity: item.quantity,
-        unitPrice: item.unit_price,
-        subtotal: item.subtotal,
-        width: item.width,
-        height: item.height,
-        options: item.options ? JSON.parse(item.options) : null
-      });
-      return acc;
-    }, {});
-    
-    // Format the orders for display
-    const formattedOrders = orders.map(order => ({
-      orderId: order.order_id,
-      customerName: order.customer_name,
-      email: order.customer_email,
-      phone: order.customer_phone,
-      billingAddress: order.billing_address,
-      shippingAddress: order.shipping_address,
-      totalAmount: order.total_amount,
-      taxAmount: order.tax_amount,
-      shippingCost: order.shipping_cost,
-      discountAmount: order.discount_amount,
-      discountCode: order.discount_code,
-      paymentMethod: order.payment_method,
-      paymentStatus: order.payment_status,
-      shippingMethod: order.shipping_method,
-      trackingNumber: order.tracking_number,
-      status: order.status,
-      notes: order.notes,
-      createdAt: order.created_at,
-      updatedAt: order.updated_at,
-      items: itemsByOrderId[order.id] || []
-    }));
-    
+
     return {
       statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        ...corsHeaders
+      },
       body: JSON.stringify({
         success: true,
-        orders: formattedOrders
+        orders: orders || [],
+        pagination: {
+          total: count || 0,
+          limit,
+          offset,
+          hasMore: (count || 0) > offset + limit
+        }
       })
     };
+
   } catch (error) {
-    console.error('Error retrieving orders:', error);
-    
-    // Don't leak sensitive error details in production
-    const isDevelopment = process.env.NODE_ENV !== 'production';
+    console.error('Get orders error:', error);
     
     return {
       statusCode: 500,
-      body: JSON.stringify({ 
-        success: false, 
+      headers: corsHeaders,
+      body: JSON.stringify({
+        success: false,
         message: 'Failed to retrieve orders',
-        ...(isDevelopment && { error: error.message })
+        error: error.message
       })
     };
   }

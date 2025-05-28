@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO/SEO';
-import { supabase } from '../utils/supabaseClient';
 import { OrderData as SupabaseOrderData } from '../utils/supabaseClient';
 import AdminHeader from '../components/Admin/AdminHeader';
 import OrderSearch from '../components/Admin/OrderSearch';
@@ -8,6 +7,53 @@ import OrderTable from '../components/Admin/OrderTable';
 import OrderEmptyState from '../components/Admin/OrderEmptyState';
 import OrderLoadingState from '../components/Admin/OrderLoadingState';
 import OrderErrorState from '../components/Admin/OrderErrorState';
+
+// Interface for API response order format
+interface ApiOrderResponse {
+  id: number;
+  order_id?: string;
+  orderId?: string;
+  customer_name?: string;
+  customerName?: string;
+  customer_email?: string;
+  email?: string;
+  customer_phone?: string;
+  phone?: string;
+  billing_address?: string;
+  billingAddress?: string;
+  shipping_address?: string;
+  shippingAddress?: string;
+  notes?: string;
+  total_amount?: number;
+  totalAmount?: number;
+  tax_amount?: number;
+  taxAmount?: number;
+  shipping_cost?: number;
+  shippingCost?: number;
+  discount_amount?: number;
+  discountAmount?: number;
+  discount_code?: string;
+  discountCode?: string;
+  payment_method?: string;
+  paymentMethod?: string;
+  payment_status?: string;
+  paymentStatus?: string;
+  shipping_method?: string;
+  shippingMethod?: string;
+  tracking_number?: string;
+  trackingNumber?: string;
+  status: string;
+  needs_r1_invoice?: boolean;
+  needsR1Invoice?: boolean;
+  company_name?: string;
+  companyName?: string;
+  company_oib?: string;
+  companyOib?: string;
+  created_at?: string;
+  createdAt?: string;
+  updated_at?: string;
+  updatedAt?: string;
+}
 
 // Administratorska stranica za pregled svih narudžbi
 const AdminOrdersPage: React.FC = () => {
@@ -22,14 +68,47 @@ const AdminOrdersPage: React.FC = () => {
       setIsLoading(true);
       setError(null);
       
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .order('created_at', { ascending: false });
+      // Use the Netlify function instead of direct Supabase client
+      const response = await fetch('/.netlify/functions/get-orders');
       
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
       
-      setOrders(data || []);
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.message || 'Failed to fetch orders');
+      }
+      
+      // Transform the API response to match the expected format
+      const transformedOrders = result.orders.map((order: ApiOrderResponse) => ({
+        id: order.id,
+        order_id: order.order_id || order.orderId,
+        customer_name: order.customer_name || order.customerName,
+        customer_email: order.customer_email || order.email,
+        customer_phone: order.customer_phone || order.phone,
+        billing_address: order.billing_address || order.billingAddress,
+        shipping_address: order.shipping_address || order.shippingAddress,
+        notes: order.notes,
+        total_amount: order.total_amount || order.totalAmount,
+        tax_amount: order.tax_amount || order.taxAmount,
+        shipping_cost: order.shipping_cost || order.shippingCost,
+        discount_amount: order.discount_amount || order.discountAmount,
+        discount_code: order.discount_code || order.discountCode,
+        payment_method: order.payment_method || order.paymentMethod,
+        payment_status: order.payment_status || order.paymentStatus,
+        shipping_method: order.shipping_method || order.shippingMethod,
+        tracking_number: order.tracking_number || order.trackingNumber,
+        status: order.status,
+        needs_r1_invoice: order.needs_r1_invoice || order.needsR1Invoice,
+        company_name: order.company_name || order.companyName,
+        company_oib: order.company_oib || order.companyOib,
+        created_at: order.created_at || order.createdAt,
+        updated_at: order.updated_at || order.updatedAt
+      }));
+      
+      setOrders(transformedOrders);
     } catch (err) {
       console.error('Greška pri dohvaćanju narudžbi:', err);
       setError('Greška pri učitavanju narudžbi. Molimo pokušajte ponovno kasnije.');
