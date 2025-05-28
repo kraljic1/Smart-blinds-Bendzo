@@ -7,8 +7,8 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 // Stripe publishable key (starts with pk_)
 const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
-// Stripe API version - using latest version for new features and fixes
-const stripeApiVersion = import.meta.env.VITE_STRIPE_API_VERSION || '2025-04-30.basil';
+// Stripe API version - using stable version for reliability
+const stripeApiVersion = import.meta.env.VITE_STRIPE_API_VERSION || '2024-06-20';
 
 if (!stripePublishableKey) {
   console.warn('⚠️ VITE_STRIPE_PUBLISHABLE_KEY is not defined in environment variables');

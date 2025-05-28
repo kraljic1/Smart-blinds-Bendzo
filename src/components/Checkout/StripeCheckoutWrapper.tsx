@@ -4,6 +4,7 @@ import { getStripe, checkStripeAvailability } from '../../config/stripe';
 import { StripePaymentForm } from './StripePaymentForm';
 import { BraveBrowserGuide } from './BraveBrowserGuide';
 import { CookieConsentNotice } from './CookieConsentNotice';
+import { CookieTroubleshootingGuide } from './CookieTroubleshootingGuide';
 
 interface StripeCheckoutWrapperProps {
   amount: number;
@@ -24,6 +25,8 @@ export function StripeCheckoutWrapper({
   const [stripeAvailable, setStripeAvailable] = useState(false);
   const [cookieConsent, setCookieConsent] = useState<'pending' | 'accepted' | 'declined'>('pending');
   const [stripePromise, setStripePromise] = useState<ReturnType<typeof getStripe> | null>(null);
+  const [showTroubleshooting, setShowTroubleshooting] = useState(false);
+  const [initializationError, setInitializationError] = useState<string | null>(null);
 
   useEffect(() => {
     // Check existing cookie consent
@@ -38,6 +41,7 @@ export function StripeCheckoutWrapper({
 
   const initializeStripe = async () => {
     try {
+      setInitializationError(null);
       const stripe = getStripe();
       setStripePromise(stripe);
       
@@ -46,12 +50,14 @@ export function StripeCheckoutWrapper({
       setStripeLoaded(true);
       
       if (!available) {
+        setInitializationError('Stripe nije dostupan. Možda su kolačići blokirani.');
         onPaymentError('Stripe nije dostupan. Molimo koristite drugi način plaćanja.');
       }
     } catch (error) {
       console.error('Stripe initialization error:', error);
       setStripeLoaded(true);
       setStripeAvailable(false);
+      setInitializationError('Greška pri učitavanju Stripe servisa. Možda su kolačići blokirani.');
       onPaymentError('Greška pri učitavanju Stripe servisa.');
     }
   };
@@ -66,12 +72,32 @@ export function StripeCheckoutWrapper({
     onPaymentError('Plaćanje karticom nije dostupno bez prihvatanja kolačića. Molimo izaberite gotovinu kao način plaćanja.');
   };
 
+  const handleRetry = () => {
+    setShowTroubleshooting(false);
+    // Clear any stored consent to show the consent notice again
+    localStorage.removeItem('stripe-cookie-consent');
+    setCookieConsent('pending');
+    setStripeLoaded(false);
+    setStripeAvailable(false);
+    setInitializationError(null);
+  };
+
   // Show cookie consent notice if pending
   if (cookieConsent === 'pending') {
     return (
       <CookieConsentNotice
         onAccept={handleCookieAccept}
         onDecline={handleCookieDecline}
+      />
+    );
+  }
+
+  // Show troubleshooting guide if requested
+  if (showTroubleshooting) {
+    return (
+      <CookieTroubleshootingGuide
+        onClose={() => setShowTroubleshooting(false)}
+        onRetry={handleRetry}
       />
     );
   }
@@ -85,15 +111,23 @@ export function StripeCheckoutWrapper({
           Niste prihvatili kolačiće potrebne za plaćanje karticom. 
           Molimo izaberite gotovinu kao način plaćanja.
         </p>
-        <button 
-          onClick={() => {
-            localStorage.removeItem('stripe-cookie-consent');
-            setCookieConsent('pending');
-          }}
-          className="retry-button"
-        >
-          Pokušaj ponovo
-        </button>
+        <div className="unavailable-actions">
+          <button 
+            onClick={() => {
+              localStorage.removeItem('stripe-cookie-consent');
+              setCookieConsent('pending');
+            }}
+            className="retry-button"
+          >
+            Pokušaj ponovo
+          </button>
+          <button 
+            onClick={() => setShowTroubleshooting(true)}
+            className="help-button"
+          >
+            Pomoć sa kolačićima
+          </button>
+        </div>
       </div>
     );
   }
@@ -110,7 +144,24 @@ export function StripeCheckoutWrapper({
 
   // Show error if Stripe is not available
   if (!stripeAvailable || !stripePromise) {
-    return <BraveBrowserGuide onRetry={() => window.location.reload()} />;
+    return (
+      <div className="stripe-error">
+        <h3>Problem sa učitavanjem plaćanja</h3>
+        <p>{initializationError || 'Stripe servis trenutno nije dostupan.'}</p>
+        <div className="error-actions">
+          <button onClick={handleRetry} className="retry-button">
+            Pokušaj ponovo
+          </button>
+          <button 
+            onClick={() => setShowTroubleshooting(true)}
+            className="help-button"
+          >
+            Rešavanje problema
+          </button>
+        </div>
+        <BraveBrowserGuide onRetry={handleRetry} />
+      </div>
+    );
   }
 
   const options = {

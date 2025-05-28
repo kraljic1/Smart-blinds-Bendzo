@@ -44,6 +44,23 @@
   color: #111827;
 }
 
+.security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #dcfce7;
+  color: #166534;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.security-icon {
+  font-size: 1rem;
+}
+
 .cookie-consent-content {
   padding: 24px;
 }
@@ -68,6 +85,64 @@
 .cookie-consent-content strong {
   color: #111827;
   font-weight: 600;
+}
+
+.warning-notice {
+  background-color: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 16px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.warning-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.warning-notice p {
+  margin: 0;
+  color: #92400e;
+  font-size: 0.9rem;
+}
+
+.technical-details {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.technical-details h4 {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.technical-details p {
+  margin: 0 0 12px 0;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.technical-details p:last-child {
+  margin-bottom: 0;
+}
+
+.technical-details code {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.85rem;
 }
 
 .cookie-consent-actions {
@@ -107,15 +182,37 @@
   background-color: #e5e7eb;
 }
 
+.cookie-consent-details {
+  background-color: transparent;
+  color: #6b7280;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.cookie-consent-details:hover {
+  color: #4b5563;
+}
+
 @media (min-width: 640px) {
   .cookie-consent-actions {
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
   }
   
   .cookie-consent-accept,
   .cookie-consent-decline {
     flex: 0 0 auto;
     min-width: 140px;
+  }
+
+  .cookie-consent-details {
+    margin-right: auto;
   }
 } 

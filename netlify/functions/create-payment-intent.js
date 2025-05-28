@@ -7,7 +7,7 @@ import Stripe from 'stripe';
 
 // Initialize Stripe with secret key and latest API version
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: process.env.STRIPE_API_VERSION || '2025-04-30.basil',
+  apiVersion: process.env.STRIPE_API_VERSION || '2024-06-20',
 });
 
 export const handler = async function(event, context) {
