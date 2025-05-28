@@ -40,11 +40,10 @@ Content-Security-Policy: default-src 'self';
 Added privacy-friendly options to the Stripe initialization:
 
 ```typescript
-stripePromise = loadStripe(stripePublishableKey || '', {
-  locale: 'auto',
-  stripeAccount: undefined,
-  apiVersion: '2023-10-16',
-});
+ stripePromise = loadStripe(stripePublishableKey || '', {
+   locale: 'auto',
+   stripeAccount: undefined,
+ });
 ```
 
 ### 3. Cookie Consent Management

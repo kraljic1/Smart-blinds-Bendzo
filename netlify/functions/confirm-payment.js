@@ -7,9 +7,9 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
 
-// Initialize Stripe with secret key
+// Initialize Stripe with secret key and latest API version
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2023-10-16',
+  apiVersion: process.env.STRIPE_API_VERSION || '2025-04-30.basil',
 });
 
 // Initialize Supabase client with forced schema refresh

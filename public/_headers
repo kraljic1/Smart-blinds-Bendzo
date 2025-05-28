@@ -11,7 +11,32 @@
   Cross-Origin-Resource-Policy: cross-origin
   
   # Enhanced Content Security Policy with Stripe support
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://js.stripe.com https://m.stripe.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://gjphuebhwrvqpmxzyonx.supabase.co wss://gjphuebhwrvqpmxzyonx.supabase.co https://api.stripe.com https://m.stripe.com https://merchant-ui-api.stripe.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-src https://js.stripe.com https://hooks.stripe.com; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content;
+  Content-Security-Policy:
+    default-src 'self';
+    script-src 'self' https://js.stripe.com https://checkout.stripe.com;
+    connect-src 'self'
+      https://api.stripe.com
+      https://js.stripe.com
+      https://checkout.stripe.com
+      https://q.stripe.com
+      https://m.stripe.com;
+    frame-src
+      https://js.stripe.com
+      https://checkout.stripe.com
+      https://connect.stripe.com;
+    img-src 'self' data: https: blob: https://*.stripe.com https://*.stripecdn.com;
+    style-src 'self'
+      https://js.stripe.com
+      https://checkout.stripe.com
+      https://fonts.googleapis.com
+      https://a.stripecdn.com;
+    font-src https://a.stripecdn.com;
+    form-action 'self';
+    base-uri 'self';
+    object-src 'none';
+    frame-ancestors 'none';
+    upgrade-insecure-requests;
+    block-all-mixed-content;
 
 /*.js
   Content-Type: application/javascript; charset=utf-8
@@ -55,6 +80,17 @@
 
 /*.svg
   Content-Type: image/svg+xml
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ico
+  Content-Type: image/x-icon
+  Cache-Control: public, max-age=31536000, immutable
+
+# API endpoints should have different caching
+/.netlify/functions/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0   Content-Type: image/svg+xml
   Cache-Control: public, max-age=31536000, immutable
 
 /*.ico

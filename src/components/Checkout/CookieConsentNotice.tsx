@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './CookieConsentNotice.css';
 
 interface CookieConsentNoticeProps {
@@ -21,16 +21,30 @@ export function CookieConsentNotice({ onAccept, onDecline }: CookieConsentNotice
     }
   }, [onAccept, onDecline]);
 
-  const handleAccept = () => {
-    localStorage.setItem('stripe-cookie-consent', 'accepted');
-    setIsVisible(false);
-    onAccept();
+const handleAccept = () => {
+   try {
+     localStorage.setItem('stripe-cookie-consent', 'accepted');
+     setIsVisible(false);
+     onAccept();
+   } catch (error) {
+     console.error('Error saving consent to localStorage:', error);
+     // Still proceed with acceptance for this session
+     setIsVisible(false);
+     onAccept();
+   }
   };
 
   const handleDecline = () => {
-    localStorage.setItem('stripe-cookie-consent', 'declined');
-    setIsVisible(false);
-    onDecline();
+   try {
+     localStorage.setItem('stripe-cookie-consent', 'declined');
+     setIsVisible(false);
+     onDecline();
+   } catch (error) {
+     console.error('Error saving consent to localStorage:', error);
+     // Still proceed with decline for this session
+     setIsVisible(false);
+     onDecline();
+   }
   };
 
   if (!isVisible) {

@@ -7,6 +7,9 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 // Stripe publishable key (starts with pk_)
 const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 
+// Stripe API version - using latest version for new features and fixes
+const stripeApiVersion = import.meta.env.VITE_STRIPE_API_VERSION || '2025-04-30.basil';
+
 if (!stripePublishableKey) {
   console.warn('⚠️ VITE_STRIPE_PUBLISHABLE_KEY is not defined in environment variables');
   console.warn('Please create a .env file with your Stripe keys. See STRIPE_SETUP.md for details.');
@@ -21,8 +24,8 @@ export const getStripe = () => {
       // Use locale to ensure proper loading
       locale: 'auto',
       // Enhanced privacy settings for third-party cookie compatibility
-      stripeAccount: undefined,
-      apiVersion: '2023-10-16',
+      // Note: stripeAccount is omitted (equivalent to undefined) - operations default to platform account
+      apiVersion: stripeApiVersion,
     }).catch((error) => {
       console.warn('Stripe loading failed, this may be due to browser privacy settings:', error);
       // Return null instead of throwing to allow graceful degradation
@@ -41,4 +44,4 @@ export const checkStripeAvailability = async (): Promise<boolean> => {
   }
 };
 
-export { stripePublishableKey }; 
+export { stripePublishableKey, stripeApiVersion }; 

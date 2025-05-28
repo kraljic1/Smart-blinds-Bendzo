@@ -25,6 +25,10 @@ Add these environment variables to your project:
 VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key_here
 STRIPE_SECRET_KEY=sk_test_your_secret_key_here
 
+# Stripe API Version (optional - defaults to latest)
+VITE_STRIPE_API_VERSION=2025-04-30.basil
+STRIPE_API_VERSION=2025-04-30.basil
+
 # Supabase Configuration
 VITE_SUPABASE_URL=your_supabase_url_here
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
@@ -40,8 +44,28 @@ URL=http://localhost:8888
 3. Add the following variables:
    - `VITE_STRIPE_PUBLISHABLE_KEY`: Your Stripe publishable key
    - `STRIPE_SECRET_KEY`: Your Stripe secret key
+   - `VITE_STRIPE_API_VERSION`: Stripe API version for frontend (optional)
+   - `STRIPE_API_VERSION`: Stripe API version for backend functions (optional)
    - `SUPABASE_SERVICE_KEY`: Your Supabase service role key
    - `URL`: Your production site URL (e.g., https://your-site.netlify.app)
+
+## Step 2.1: Stripe API Version Management
+
+The application uses the latest Stripe API version (`2025-04-30.basil`) by default. You can:
+
+- **Use defaults**: The app automatically uses the latest supported version
+- **Pin to specific version**: Set `STRIPE_API_VERSION` and `VITE_STRIPE_API_VERSION` environment variables
+- **Update versions**: Change environment variables to upgrade API versions without code changes
+
+### Why API Version Matters
+- **New features**: Latest versions include new Stripe features and improvements
+- **Bug fixes**: Newer versions contain important security and stability fixes
+- **Compatibility**: Ensures your integration works with current Stripe infrastructure
+
+### Updating API Versions
+1. Check [Stripe's API versioning docs](https://stripe.com/docs/api/versioning) for latest version
+2. Update environment variables in both development and production
+3. Test thoroughly with the new version before deploying
 
 ## Step 3: Database Setup
 
