@@ -7,14 +7,32 @@ import Stripe from 'stripe';
 
 // Initialize Stripe with secret key and latest API version
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: process.env.STRIPE_API_VERSION || '2024-06-20',
+  apiVersion: '2024-11-20.acacia', // Latest API version with enhanced privacy browser support
 });
 
 export const handler = async function(event, context) {
+  // CORS headers for all responses
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
+  };
+
+  // Handle preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: ''
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { 
-      statusCode: 405, 
+      statusCode: 405,
+      headers: corsHeaders,
       body: JSON.stringify({ success: false, message: 'Method Not Allowed' })
     };
   }
@@ -26,6 +44,7 @@ export const handler = async function(event, context) {
     if (!amount || amount <= 0) {
       return {
         statusCode: 400,
+        headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
           message: 'Invalid amount provided' 
@@ -53,9 +72,7 @@ export const handler = async function(event, context) {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+        ...corsHeaders
       },
       body: JSON.stringify({
         success: true,
@@ -69,6 +86,7 @@ export const handler = async function(event, context) {
     
     return {
       statusCode: 500,
+      headers: corsHeaders,
       body: JSON.stringify({
         success: false,
         message: 'Failed to create payment intent',

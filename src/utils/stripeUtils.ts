@@ -4,6 +4,16 @@
 
 import { getStripe } from '../config/stripe';
 
+// Get the correct base URL for API calls
+const getApiBaseUrl = (): string => {
+  // In development, use the Netlify dev server URL
+  if (import.meta.env.DEV) {
+    return 'http://localhost:8901';
+  }
+  // In production, use the configured app URL or current origin
+  return import.meta.env.VITE_APP_URL || window.location.origin;
+};
+
 export interface CreatePaymentIntentRequest {
   amount: number;
   currency?: string;
@@ -76,7 +86,8 @@ export async function createPaymentIntent(
   data: CreatePaymentIntentRequest
 ): Promise<CreatePaymentIntentResponse> {
   try {
-    const response = await fetch('/.netlify/functions/create-payment-intent', {
+    const baseUrl = getApiBaseUrl();
+    const response = await fetch(`${baseUrl}/.netlify/functions/create-payment-intent`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -105,7 +116,8 @@ export async function confirmPayment(
   data: ConfirmPaymentRequest
 ): Promise<ConfirmPaymentResponse> {
   try {
-    const response = await fetch('/.netlify/functions/confirm-payment', {
+    const baseUrl = getApiBaseUrl();
+    const response = await fetch(`${baseUrl}/.netlify/functions/confirm-payment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

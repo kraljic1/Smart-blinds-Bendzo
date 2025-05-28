@@ -9,7 +9,7 @@ import fetch from 'node-fetch';
 
 // Initialize Stripe with secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: process.env.STRIPE_API_VERSION || '2024-06-20',
+  apiVersion: '2024-11-20.acacia', // Latest API version with enhanced privacy browser support
 });
 
 // Initialize Supabase client with forced schema refresh
@@ -21,10 +21,28 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
 });
 
 export const handler = async function(event, context) {
+  // CORS headers for all responses
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
+  };
+
+  // Handle preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: ''
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { 
-      statusCode: 405, 
+      statusCode: 405,
+      headers: corsHeaders,
       body: JSON.stringify({ success: false, message: 'Method Not Allowed' })
     };
   }
@@ -44,6 +62,7 @@ export const handler = async function(event, context) {
     if (!paymentIntentId || !customer || !items || !totalAmount) {
       return {
         statusCode: 400,
+        headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
           message: 'Missing required payment confirmation data' 
@@ -57,6 +76,7 @@ export const handler = async function(event, context) {
     if (paymentIntent.status !== 'succeeded') {
       return {
         statusCode: 400,
+        headers: corsHeaders,
         body: JSON.stringify({
           success: false,
           message: 'Payment has not been completed successfully',
@@ -71,6 +91,7 @@ export const handler = async function(event, context) {
       console.error(`Payment amount mismatch: paid ${paidAmount}, expected ${totalAmount}`);
       return {
         statusCode: 400,
+        headers: corsHeaders,
         body: JSON.stringify({
           success: false,
           message: 'Payment amount does not match order total'
@@ -158,6 +179,8 @@ export const handler = async function(event, context) {
       ]
     });
 
+    let finalOrderData = insertedOrder;
+
     // Fallback to direct SQL if RPC doesn't work
     if (error && error.message.includes('function "exec_sql_with_params" does not exist')) {
       const insertQuery = `
@@ -181,6 +204,7 @@ export const handler = async function(event, context) {
         console.error('Direct SQL insert failed:', result.error);
         return {
           statusCode: 500,
+          headers: corsHeaders,
           body: JSON.stringify({ 
             success: false, 
             message: 'Failed to save order to database via SQL',
@@ -188,13 +212,14 @@ export const handler = async function(event, context) {
           })
         };
       }
-      insertedOrder = result.data;
+      finalOrderData = result.data;
     }
     
     if (error) {
       console.error('Supabase insert error:', error);
       return {
         statusCode: 500,
+        headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
           message: 'Failed to save order to database',
@@ -204,7 +229,7 @@ export const handler = async function(event, context) {
     }
 
     // Get order ID from result - handle different response formats
-    const orderId_db = insertedOrder && insertedOrder[0] ? insertedOrder[0].id : null;
+    const orderId_db = finalOrderData && finalOrderData[0] ? finalOrderData[0].id : null;
     
     if (!orderId_db) {
       console.warn('Could not get order ID from insert result, skipping order items');
@@ -259,9 +284,7 @@ export const handler = async function(event, context) {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+        ...corsHeaders
       },
       body: JSON.stringify({
         success: true,
@@ -276,6 +299,7 @@ export const handler = async function(event, context) {
     
     return {
       statusCode: 500,
+      headers: corsHeaders,
       body: JSON.stringify({
         success: false,
         message: 'Failed to confirm payment and process order',

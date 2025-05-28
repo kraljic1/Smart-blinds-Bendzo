@@ -1,7 +1,9 @@
 import React from 'react';
+import { Elements } from '@stripe/react-stripe-js';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { useCheckoutForm } from './useCheckoutForm';
 import { createPaymentIntent } from '../../utils/stripeUtils';
+import { getStripe } from '../../config/stripe';
 import { FormData } from './CheckoutFormTypes';
 import CustomerInfoSection from './CustomerInfoSection';
 import PhoneNumberSection from './PhoneNumberSection';
@@ -12,6 +14,7 @@ import PaymentMethodSection from './PaymentMethodSection';
 import ShippingMethodSection from './ShippingMethodSection';
 import AdditionalNotesSection from './AdditionalNotesSection';
 import OrderSummarySection from './OrderSummarySection';
+import { StripePaymentForm } from './StripePaymentForm';
 import './CheckoutForm.css';
 
 export function EnhancedCheckoutForm() {
@@ -20,6 +23,7 @@ export function EnhancedCheckoutForm() {
     formData,
     formStatus,
     phoneValidation,
+    paymentState,
     handleChange,
     setError,
     setSubmitting,
@@ -231,6 +235,23 @@ export function EnhancedCheckoutForm() {
         
         <OrderSummarySection />
       </div>
+      
+      {paymentState.showStripeForm && (
+        <Elements stripe={getStripe()}>
+          <StripePaymentForm 
+            amount={getTotalPrice()}
+            currency="EUR"
+            onPaymentSuccess={(paymentMethodId: string) => {
+              console.log('Payment successful:', paymentMethodId);
+              // Handle successful payment
+            }}
+            onPaymentError={(error: string) => {
+              console.log('Payment error:', error);
+              setError(error);
+            }}
+          />
+        </Elements>
+      )}
     </div>
   );
 } 
