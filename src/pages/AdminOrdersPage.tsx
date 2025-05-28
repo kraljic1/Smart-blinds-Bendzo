@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO/SEO';
-import { OrderData as SupabaseOrderData } from '../utils/supabaseClient';
+import { supabase, OrderData as SupabaseOrderData } from '../utils/supabaseClient';
 import AdminHeader from '../components/Admin/AdminHeader';
 import OrderSearch from '../components/Admin/OrderSearch';
 import OrderTable from '../components/Admin/OrderTable';
@@ -68,47 +68,60 @@ const AdminOrdersPage: React.FC = () => {
       setIsLoading(true);
       setError(null);
       
-      // Use the Netlify function instead of direct Supabase client
-      const response = await fetch('/.netlify/functions/get-orders');
-      
-      if (!response.ok) {
-        throw new Error(`Server responded with status: ${response.status}`);
+      // Try to use the Netlify function first
+      try {
+        const response = await fetch('/.netlify/functions/get-orders');
+        
+        if (response.ok) {
+          const result = await response.json();
+          
+          if (result.success) {
+            // Transform the API response to match the expected format
+            const transformedOrders = result.orders.map((order: ApiOrderResponse) => ({
+              id: order.id,
+              order_id: order.order_id || order.orderId,
+              customer_name: order.customer_name || order.customerName,
+              customer_email: order.customer_email || order.email,
+              customer_phone: order.customer_phone || order.phone,
+              billing_address: order.billing_address || order.billingAddress,
+              shipping_address: order.shipping_address || order.shippingAddress,
+              notes: order.notes,
+              total_amount: order.total_amount || order.totalAmount,
+              tax_amount: order.tax_amount || order.taxAmount,
+              shipping_cost: order.shipping_cost || order.shippingCost,
+              discount_amount: order.discount_amount || order.discountAmount,
+              discount_code: order.discount_code || order.discountCode,
+              payment_method: order.payment_method || order.paymentMethod,
+              payment_status: order.payment_status || order.paymentStatus,
+              shipping_method: order.shipping_method || order.shippingMethod,
+              tracking_number: order.tracking_number || order.trackingNumber,
+              status: order.status,
+              needs_r1_invoice: order.needs_r1_invoice || order.needsR1Invoice,
+              company_name: order.company_name || order.companyName,
+              company_oib: order.company_oib || order.companyOib,
+              created_at: order.created_at || order.createdAt,
+              updated_at: order.updated_at || order.updatedAt
+            }));
+            
+            setOrders(transformedOrders);
+            return; // Success, exit early
+          }
+        }
+      } catch (netlifyError) {
+        console.warn('Netlify function not available, falling back to direct Supabase:', netlifyError);
       }
       
-      const result = await response.json();
+      // Fallback to direct Supabase client if Netlify function fails
+      console.log('Using direct Supabase client as fallback');
+      const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .order('created_at', { ascending: false });
       
-      if (!result.success) {
-        throw new Error(result.message || 'Failed to fetch orders');
-      }
+      if (error) throw error;
       
-      // Transform the API response to match the expected format
-      const transformedOrders = result.orders.map((order: ApiOrderResponse) => ({
-        id: order.id,
-        order_id: order.order_id || order.orderId,
-        customer_name: order.customer_name || order.customerName,
-        customer_email: order.customer_email || order.email,
-        customer_phone: order.customer_phone || order.phone,
-        billing_address: order.billing_address || order.billingAddress,
-        shipping_address: order.shipping_address || order.shippingAddress,
-        notes: order.notes,
-        total_amount: order.total_amount || order.totalAmount,
-        tax_amount: order.tax_amount || order.taxAmount,
-        shipping_cost: order.shipping_cost || order.shippingCost,
-        discount_amount: order.discount_amount || order.discountAmount,
-        discount_code: order.discount_code || order.discountCode,
-        payment_method: order.payment_method || order.paymentMethod,
-        payment_status: order.payment_status || order.paymentStatus,
-        shipping_method: order.shipping_method || order.shippingMethod,
-        tracking_number: order.tracking_number || order.trackingNumber,
-        status: order.status,
-        needs_r1_invoice: order.needs_r1_invoice || order.needsR1Invoice,
-        company_name: order.company_name || order.companyName,
-        company_oib: order.company_oib || order.companyOib,
-        created_at: order.created_at || order.createdAt,
-        updated_at: order.updated_at || order.updatedAt
-      }));
+      setOrders(data || []);
       
-      setOrders(transformedOrders);
     } catch (err) {
       console.error('Greška pri dohvaćanju narudžbi:', err);
       setError('Greška pri učitavanju narudžbi. Molimo pokušajte ponovno kasnije.');
