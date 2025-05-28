@@ -353,12 +353,60 @@
 
 /* Checkbox styling */
 .form-group input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
   width: 1.25rem;
   height: 1.25rem;
   margin: 0;
   cursor: pointer;
-  accent-color: var(--primary-500);
+  border: 2px solid var(--border-secondary);
   border-radius: 4px;
+  background-color: var(--bg-primary);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.form-group input[type="checkbox"]:hover {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 2px rgb(14 165 233 / 0.1);
+}
+
+.form-group input[type="checkbox"]:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgb(14 165 233 / 0.2);
+}
+
+.form-group input[type="checkbox"]:checked {
+  background-color: var(--primary-500);
+  border-color: var(--primary-500);
+}
+
+.form-group input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Dark mode checkbox styling */
+.dark .form-group input[type="checkbox"] {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-primary);
+}
+
+.dark .form-group input[type="checkbox"]:hover {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 2px rgb(14 165 233 / 0.15);
+}
+
+.dark .form-group input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 3px rgb(14 165 233 / 0.25);
 }
 
 .form-group.checkbox-group {
