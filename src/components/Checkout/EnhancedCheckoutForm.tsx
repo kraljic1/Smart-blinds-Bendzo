@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { useCheckoutForm } from './useCheckoutForm';
@@ -15,6 +15,7 @@ import ShippingMethodSection from './ShippingMethodSection';
 import AdditionalNotesSection from './AdditionalNotesSection';
 import OrderSummarySection from './OrderSummarySection';
 import { StripePaymentForm } from './StripePaymentForm';
+import { PaymentSuccess } from './PaymentSuccess';
 import './CheckoutForm.css';
 
 export function EnhancedCheckoutForm() {
@@ -29,6 +30,75 @@ export function EnhancedCheckoutForm() {
     setSubmitting,
     setPaymentState
   } = useCheckoutForm();
+
+  const [orderComplete, setOrderComplete] = useState(false);
+  const [orderDetails, setOrderDetails] = useState<{
+    paymentIntentId: string;
+    amount: number;
+    currency: string;
+    customerEmail: string;
+    customerName: string;
+  } | null>(null);
+
+  const handlePaymentSuccess = (paymentIntentId: string) => {
+    console.log('Payment successful:', paymentIntentId);
+    
+    // Set order details for success page
+    setOrderDetails({
+      paymentIntentId,
+      amount: getTotalPrice(),
+      currency: 'EUR',
+      customerEmail: formData.email,
+      customerName: formData.fullName
+    });
+    
+    // Show success page
+    setOrderComplete(true);
+    
+    // Hide payment form
+    setPaymentState(prev => ({
+      ...prev,
+      showStripeForm: false,
+      processingPayment: false
+    }));
+  };
+
+  const handlePaymentError = (error: string) => {
+    console.log('Payment error:', error);
+    setError(error);
+    
+    // Hide payment form on error so user can try again
+    setPaymentState(prev => ({
+      ...prev,
+      showStripeForm: false,
+      processingPayment: false
+    }));
+  };
+
+  const handleContinueShopping = () => {
+    // Reset everything and redirect to home
+    setOrderComplete(false);
+    setOrderDetails(null);
+    setPaymentState({
+      clientSecret: '',
+      paymentIntentId: '',
+      showStripeForm: false,
+      processingPayment: false
+    });
+    
+    // Navigate to home page
+    window.location.href = '/';
+  };
+
+  // Show success page if order is complete
+  if (orderComplete && orderDetails) {
+    return (
+      <PaymentSuccess 
+        orderDetails={orderDetails}
+        onContinueShopping={handleContinueShopping}
+      />
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -241,14 +311,9 @@ export function EnhancedCheckoutForm() {
           <StripePaymentForm 
             amount={getTotalPrice()}
             currency="EUR"
-            onPaymentSuccess={(paymentMethodId: string) => {
-              console.log('Payment successful:', paymentMethodId);
-              // Handle successful payment
-            }}
-            onPaymentError={(error: string) => {
-              console.log('Payment error:', error);
-              setError(error);
-            }}
+            clientSecret={paymentState.clientSecret}
+            onPaymentSuccess={handlePaymentSuccess}
+            onPaymentError={handlePaymentError}
           />
         </Elements>
       )}
