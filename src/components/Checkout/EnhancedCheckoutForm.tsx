@@ -108,10 +108,12 @@ export function EnhancedCheckoutForm() {
             handleChange={handleChange} 
           />
           
-          <CompanyInfoSection 
-            formData={formData} 
-            handleChange={handleChange} 
-          />
+          <div className="form-section">
+            <CompanyInfoSection 
+              formData={formData} 
+              handleChange={handleChange} 
+            />
+          </div>
           
           <ShippingAddressSection 
             formData={formData} 
