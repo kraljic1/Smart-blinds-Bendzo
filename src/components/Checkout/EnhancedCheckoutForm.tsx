@@ -74,10 +74,66 @@ export function EnhancedCheckoutForm() {
     notes: string;
   } | null>(null);
 
-  const handlePaymentSuccess = (paymentIntentId: string) => {
+  const handlePaymentSuccess = async (paymentIntentId: string) => {
     console.log('Payment successful:', paymentIntentId);
     console.log('Current form data:', formData);
     console.log('Total price:', getTotalPrice());
+    
+    try {
+      // Call the confirm-payment function to save order to database
+      console.log('Calling confirm-payment function to save order...');
+      
+      const confirmPaymentData = {
+        paymentIntentId,
+        customer: {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: `${formData.phoneCode}${formData.phoneNumber}`,
+          address: formData.address,
+          city: formData.city,
+          postalCode: formData.postalCode,
+          shippingAddress: formData.sameAsBilling ? undefined : formData.shippingAddress,
+          shippingCity: formData.sameAsBilling ? undefined : formData.shippingCity,
+          shippingPostalCode: formData.sameAsBilling ? undefined : formData.shippingPostalCode,
+          shippingMethod: formData.shippingMethod,
+          needsR1Invoice: formData.needsR1Invoice,
+          companyName: formData.needsR1Invoice ? formData.companyName : undefined,
+          companyOib: formData.needsR1Invoice ? formData.companyOib : undefined
+        },
+        items: items.map(item => ({
+          product: item.product,
+          quantity: item.quantity,
+          price: item.product.price,
+          options: item.options || {}
+        })),
+        totalAmount: getTotalPrice(),
+        notes: formData.additionalNotes || ''
+      };
+      
+      console.log('Confirm payment data:', confirmPaymentData);
+      
+      const confirmResponse = await fetch('/.netlify/functions/confirm-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(confirmPaymentData)
+      });
+      
+      const confirmResult = await confirmResponse.json();
+      console.log('Confirm payment result:', confirmResult);
+      
+      if (!confirmResult.success) {
+        console.error('Failed to save order to database:', confirmResult.message);
+        // Still show success to user since payment went through, but log the error
+        console.warn('Payment succeeded but order save failed - this needs manual intervention');
+      }
+      
+    } catch (error) {
+      console.error('Error calling confirm-payment function:', error);
+      // Still show success to user since payment went through
+      console.warn('Payment succeeded but order save failed - this needs manual intervention');
+    }
     
     // Set comprehensive order details for proper invoice
     const orderData = {
