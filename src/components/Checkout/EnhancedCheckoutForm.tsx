@@ -118,14 +118,14 @@ export function EnhancedCheckoutForm() {
         // First check if the Netlify function is available
         console.log('Checking if confirm-payment function is available...');
         const checkResponse = await fetch('/.netlify/functions/confirm-payment', {
-          method: 'HEAD'
+          method: 'OPTIONS'
         });
         
         if (checkResponse.status === 404) {
           console.log('Netlify function not deployed, using direct Supabase save');
           // Skip to fallback immediately
-        } else {
-          // Function exists, try to use it
+        } else if (checkResponse.status === 200) {
+          // Function exists and accepts OPTIONS, try to use it
           console.log('Netlify function available, attempting to use it...');
           const confirmResponse = await fetch('/.netlify/functions/confirm-payment', {
             method: 'POST',
@@ -146,6 +146,8 @@ export function EnhancedCheckoutForm() {
           } else {
             console.warn('Netlify function returned error, falling back to Supabase');
           }
+        } else {
+          console.log('Netlify function check returned unexpected status, falling back to Supabase');
         }
       } catch (netlifyError) {
         console.warn('Netlify function check failed, falling back to direct Supabase save:', netlifyError);
