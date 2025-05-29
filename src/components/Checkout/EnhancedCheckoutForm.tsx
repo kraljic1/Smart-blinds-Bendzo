@@ -115,25 +115,40 @@ export function EnhancedCheckoutForm() {
       let orderSaved = false;
       
       try {
-        const confirmResponse = await fetch('/.netlify/functions/confirm-payment', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(confirmPaymentData)
+        // First check if the Netlify function is available
+        console.log('Checking if confirm-payment function is available...');
+        const checkResponse = await fetch('/.netlify/functions/confirm-payment', {
+          method: 'HEAD'
         });
         
-        if (confirmResponse.ok) {
-          const confirmResult = await confirmResponse.json();
-          console.log('Confirm payment result:', confirmResult);
+        if (checkResponse.status === 404) {
+          console.log('Netlify function not deployed, using direct Supabase save');
+          // Skip to fallback immediately
+        } else {
+          // Function exists, try to use it
+          console.log('Netlify function available, attempting to use it...');
+          const confirmResponse = await fetch('/.netlify/functions/confirm-payment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(confirmPaymentData)
+          });
           
-          if (confirmResult.success) {
-            console.log('Order saved successfully via Netlify function');
-            orderSaved = true;
+          if (confirmResponse.ok) {
+            const confirmResult = await confirmResponse.json();
+            console.log('Confirm payment result:', confirmResult);
+            
+            if (confirmResult.success) {
+              console.log('Order saved successfully via Netlify function');
+              orderSaved = true;
+            }
+          } else {
+            console.warn('Netlify function returned error, falling back to Supabase');
           }
         }
       } catch (netlifyError) {
-        console.warn('Netlify function not available, falling back to direct Supabase save:', netlifyError);
+        console.warn('Netlify function check failed, falling back to direct Supabase save:', netlifyError);
       }
       
       // Fallback to direct Supabase save if Netlify function failed
