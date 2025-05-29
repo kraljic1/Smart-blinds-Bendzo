@@ -30,10 +30,11 @@ const CompanyInfoSection: React.FC<Pick<CheckoutFormProps, 'formData' | 'handleC
       {formData.needsR1Invoice && (
         <div className="form-row">
           <div className="form-group">
-            <label>Tvrtka</label>
+            <label htmlFor="companyName">Tvrtka</label>
             <div className="input-wrapper">
               <input
                 type="text"
+                id="companyName"
                 name="companyName"
                 value={formData.companyName}
                 onChange={handleChange}
@@ -53,10 +54,11 @@ const CompanyInfoSection: React.FC<Pick<CheckoutFormProps, 'formData' | 'handleC
           </div>
           
           <div className="form-group">
-            <label>OIB (samo za tvrtke)</label>
+            <label htmlFor="companyOib">OIB (samo za tvrtke)</label>
             <div className="input-wrapper">
               <input
                 type="text"
+                id="companyOib"
                 name="companyOib"
                 value={formData.companyOib}
                 onChange={handleChange}

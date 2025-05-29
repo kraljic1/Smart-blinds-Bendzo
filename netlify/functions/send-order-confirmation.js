@@ -7,7 +7,13 @@ import nodemailer from 'nodemailer';
 
 // Configure email transporter
 const createTransporter = () => {
-  return nodemailer.createTransport({
+  // Check if email credentials are configured
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn('Email credentials not configured. Emails will not be sent.');
+    return null;
+  }
+
+  return nodemailer.createTransporter({
     host: process.env.EMAIL_HOST || 'smtp.gmail.com',
     port: parseInt(process.env.EMAIL_PORT || '587'),
     secure: process.env.EMAIL_SECURE === 'true',
@@ -97,10 +103,28 @@ const generateEmailHTML = (order) => {
 
 // Use named export for compatibility with ESM
 export const handler = async function(event, context) {
+  // CORS headers for all responses
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
+  };
+
+  // Handle preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: ''
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { 
-      statusCode: 405, 
+      statusCode: 405,
+      headers: corsHeaders,
       body: JSON.stringify({ success: false, message: 'Method Not Allowed' })
     };
   }
@@ -114,7 +138,24 @@ export const handler = async function(event, context) {
     if (!orderId || !customer || !items || !totalAmount) {
       return {
         statusCode: 400,
+        headers: corsHeaders,
         body: JSON.stringify({ success: false, message: 'Missing required order information' })
+      };
+    }
+    
+    // Check if email is configured
+    const transporter = createTransporter();
+    
+    if (!transporter) {
+      console.log('Email not configured - skipping email send');
+      return {
+        statusCode: 200,
+        headers: corsHeaders,
+        body: JSON.stringify({ 
+          success: true, 
+          message: 'Order processed successfully (email not configured)',
+          emailSent: false
+        })
       };
     }
     
@@ -122,9 +163,8 @@ export const handler = async function(event, context) {
     const htmlContent = generateEmailHTML(orderData);
     
     // Send email
-    const transporter = createTransporter();
     const info = await transporter.sendMail({
-      from: `"Smartblinds Croatia" <${process.env.EMAIL_FROM_EMAIL}>`,
+      from: `"Smartblinds Croatia" <${process.env.EMAIL_USER}>`,
       to: customer.email,
       subject: `Order Confirmation - #${orderId}`,
       html: htmlContent
@@ -135,20 +175,24 @@ export const handler = async function(event, context) {
     // Return success response
     return {
       statusCode: 200,
+      headers: corsHeaders,
       body: JSON.stringify({ 
         success: true, 
         messageId: info.messageId,
-        message: 'Order confirmation email sent successfully'
+        message: 'Order confirmation email sent successfully',
+        emailSent: true
       })
     };
   } catch (error) {
     console.error('Email sending error:', error);
     return {
       statusCode: 500,
+      headers: corsHeaders,
       body: JSON.stringify({ 
         success: false, 
         message: 'Failed to send order confirmation email',
-        error: error.message
+        error: error.message,
+        emailSent: false
       })
     };
   }

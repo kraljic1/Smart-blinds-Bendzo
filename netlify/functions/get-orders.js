@@ -46,6 +46,7 @@ export const handler = async function(event, context) {
     const limit = parseInt(queryParams.limit) || 50;
     const offset = parseInt(queryParams.offset) || 0;
     const orderId = queryParams.orderId;
+    const email = queryParams.email;
 
     let query = supabase
       .from('orders')
@@ -67,6 +68,11 @@ export const handler = async function(event, context) {
       query = query.eq('order_id', orderId);
     }
 
+    // Filter by customer email if provided
+    if (email) {
+      query = query.eq('customer_email', email);
+    }
+
     // Apply pagination
     query = query.range(offset, offset + limit - 1);
 
@@ -85,6 +91,35 @@ export const handler = async function(event, context) {
       };
     }
 
+    // Process orders to ensure proper data structure
+    const processedOrders = (orders || []).map(order => {
+      // Ensure order_items is always an array
+      const orderItems = Array.isArray(order.order_items) ? order.order_items : [];
+      
+      // Process each order item to ensure proper structure
+      const processedItems = orderItems.map(item => ({
+        id: item.id,
+        product_name: item.product_name || '',
+        quantity: item.quantity || 1,
+        unit_price: item.unit_price || 0,
+        subtotal: item.subtotal || 0,
+        options: typeof item.options === 'string' ? 
+          (() => {
+            try {
+              return JSON.parse(item.options);
+            } catch {
+              return {};
+            }
+          })() : 
+          (item.options || {})
+      }));
+
+      return {
+        ...order,
+        order_items: processedItems
+      };
+    });
+
     // Get total count for pagination
     const { count, error: countError } = await supabase
       .from('orders')
@@ -102,7 +137,7 @@ export const handler = async function(event, context) {
       },
       body: JSON.stringify({
         success: true,
-        orders: orders || [],
+        orders: processedOrders,
         pagination: {
           total: count || 0,
           limit,
