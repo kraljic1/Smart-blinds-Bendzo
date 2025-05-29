@@ -8,7 +8,7 @@ import AdminOrderHeader from '../components/AdminRoute/AdminOrderHeader';
 import OrderTitle from '../components/AdminRoute/OrderTitle';
 import OrderItems from '../components/AdminRoute/OrderItems';
 import CustomerInfo from '../components/AdminRoute/CustomerInfo';
-import CustomerNotes from '../components/AdminRoute/CustomerNotes';
+import CustomerNotes, { SystemNotes } from '../components/AdminRoute/CustomerNotes';
 import OrderManagement from '../components/AdminRoute/OrderManagement';
 import { LoadingState, ErrorState } from '../components/AdminRoute/OrderStateDisplay';
 
@@ -314,6 +314,9 @@ const AdminOrderDetailPage: React.FC = () => {
               
               {/* Customer Notes */}
               {order.notes && <CustomerNotes notes={order.notes} />}
+              
+              {/* System Information */}
+              {order.notes && <SystemNotes notes={order.notes} />}
               
               {/* Order Status Management */}
               {orderId && (
