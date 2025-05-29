@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { getStripe, checkStripeAvailability, getBrowserCompatibilityInfo } from '../../config/stripe';
 import { StripePaymentForm } from './StripePaymentForm';
@@ -31,29 +31,7 @@ export function StripeCheckoutWrapper({
   const [initializationError, setInitializationError] = useState<string | null>(null);
   const [browserInfo, setBrowserInfo] = useState<ReturnType<typeof getBrowserCompatibilityInfo> | null>(null);
 
-  useEffect(() => {
-    // Get browser compatibility information
-    const compatInfo = getBrowserCompatibilityInfo();
-    setBrowserInfo(compatInfo);
-    
-    console.log('Browser compatibility info:', compatInfo);
-    
-    // Check existing cookie consent
-    const consent = localStorage.getItem('stripe-cookie-consent');
-    if (consent === 'accepted') {
-      setCookieConsent('accepted');
-      initializeStripe();
-    } else if (consent === 'declined') {
-      setCookieConsent('declined');
-    } else if (!compatInfo.isPrivacyMode) {
-      // For non-privacy browsers, auto-accept and initialize
-      setCookieConsent('accepted');
-      localStorage.setItem('stripe-cookie-consent', 'accepted');
-      initializeStripe();
-    }
-  }, []);
-
-  const initializeStripe = async () => {
+  const initializeStripe = useCallback(async () => {
     try {
       setInitializationError(null);
       console.log('Initializing Stripe with enhanced loading...');
@@ -85,7 +63,29 @@ export function StripeCheckoutWrapper({
       setInitializationError(errorMsg);
       onPaymentError(errorMsg);
     }
-  };
+  }, [browserInfo?.isPrivacyMode, onPaymentError]);
+
+  useEffect(() => {
+    // Get browser compatibility information
+    const compatInfo = getBrowserCompatibilityInfo();
+    setBrowserInfo(compatInfo);
+    
+    console.log('Browser compatibility info:', compatInfo);
+    
+    // Check existing cookie consent
+    const consent = localStorage.getItem('stripe-cookie-consent');
+    if (consent === 'accepted') {
+      setCookieConsent('accepted');
+      initializeStripe();
+    } else if (consent === 'declined') {
+      setCookieConsent('declined');
+    } else if (!compatInfo.isPrivacyMode) {
+      // For non-privacy browsers, auto-accept and initialize
+      setCookieConsent('accepted');
+      localStorage.setItem('stripe-cookie-consent', 'accepted');
+      initializeStripe();
+    }
+  }, [initializeStripe]);
 
   const handleCookieAccept = () => {
     setCookieConsent('accepted');
