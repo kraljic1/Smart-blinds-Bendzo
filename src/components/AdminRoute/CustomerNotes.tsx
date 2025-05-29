@@ -27,7 +27,7 @@ const CustomerNotes: React.FC<CustomerNotesProps> = ({ notes }) => {
       <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
         <div className="flex items-center">
           <FileEdit className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-2" />
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Customer Notes</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Napomene Kupca</h2>
         </div>
       </div>
       <div className="px-4 py-5 sm:p-6">
@@ -56,7 +56,7 @@ const SystemNotes: React.FC<SystemNotesProps> = ({ notes }) => {
       <div className="px-4 py-5 sm:px-6 border-b border-blue-200 dark:border-blue-700 bg-blue-100 dark:bg-blue-800/30">
         <div className="flex items-center">
           <Settings className="h-5 w-5 text-blue-500 dark:text-blue-400 mr-2" />
-          <h2 className="text-lg font-medium text-blue-900 dark:text-blue-100">System Information</h2>
+          <h2 className="text-lg font-medium text-blue-900 dark:text-blue-100">Sistemske Informacije</h2>
         </div>
       </div>
       <div className="px-4 py-5 sm:p-6">

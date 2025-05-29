@@ -3,7 +3,7 @@ import { Calendar, Package, Truck, CheckCircle, XCircle, AlertCircle } from 'luc
 
 // Format date for display
 export const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleString('en-GB', {
+  return new Date(dateString).toLocaleString('hr-HR', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { AlertTriangle, CheckCircle, Loader } from 'lucide-react';
 import { OrderStatus, updateOrderStatus } from '../../utils/orderUtils';
+import { getStatusTranslation } from '../../utils/orderStatusFormatter';
+
 interface OrderStatusUpdateProps {
   orderId: string;
   currentStatus: string;
@@ -32,7 +34,7 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
     if (status === currentStatus) {
       setResult({
         success: false,
-        message: 'No changes to save. Status is the same.'
+        message: 'Nema promjena za spremanje. Status je isti.'
       });
       return;
     }
@@ -46,9 +48,15 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
       
       console.log('Update result:', result);
       
+      // Translate success message to Croatian
+      let message = result.message;
+      if (result.success) {
+        message = `Status narudžbe je uspješno ažuriran na "${getStatusTranslation(status)}". ${result.message.includes('email') ? 'Email obavijest je poslana kupcu.' : 'Email obavijest nije konfigurirana.'}`;
+      }
+      
       setResult({
         success: result.success,
-        message: result.message
+        message: message
       });
 
       if (result.success) {
@@ -60,7 +68,7 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
       console.error('Error in handleStatusChange:', error);
       setResult({
         success: false,
-        message: error instanceof Error ? error.message : 'Network error occurred. Please try again.'
+        message: error instanceof Error ? error.message : 'Dogodila se mrežna greška. Molimo pokušajte ponovno.'
       });
     } finally {
       setIsLoading(false);
@@ -69,20 +77,20 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-      <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Update Order Status</h3>
+      <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Ažuriraj Status Narudžbe</h3>
       
       {/* Current status display */}
       <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
-        <span className="text-sm text-gray-600 dark:text-gray-400">Current Status: </span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">Trenutni Status: </span>
         <span className="font-semibold text-gray-900 dark:text-white capitalize">
-          {currentStatus}
+          {getStatusTranslation(currentStatus)}
         </span>
       </div>
       
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1">
           <label htmlFor="status-select" className="sr-only">
-            Select Status
+            Odaberi Status
           </label>
           <select
             id="status-select"
@@ -93,7 +101,7 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
           >
             {availableStatuses.map((statusOption) => (
               <option key={statusOption} value={statusOption}>
-                {statusOption.charAt(0).toUpperCase() + statusOption.slice(1)}
+                {getStatusTranslation(statusOption)}
               </option>
             ))}
           </select>
@@ -108,10 +116,10 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
           {isLoading ? (
             <>
               <Loader className="h-4 w-4 animate-spin mr-2" />
-              Updating...
+              Ažuriranje...
             </>
           ) : (
-            'Update Status'
+            'Ažuriraj Status'
           )}
         </button>
       </div>

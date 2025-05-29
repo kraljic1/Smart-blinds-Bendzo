@@ -25,7 +25,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
       <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
         <div className="flex items-center">
           <User className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-2" />
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Customer Information</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Informacije o Kupcu</h2>
         </div>
       </div>
       
@@ -36,7 +36,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
               <User className="w-4 h-4" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Name</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Ime</p>
               <p className="text-sm text-gray-900 dark:text-white font-medium">{name}</p>
             </div>
           </div>
@@ -60,7 +60,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
               <Phone className="w-4 h-4" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Telefon</p>
               <p className="text-sm text-gray-900 dark:text-white font-medium">{phone}</p>
             </div>
           </div>
@@ -72,7 +72,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
               <MapPin className="w-4 h-4" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Billing Address</p>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Adresa za Naplatu</p>
               <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{billingAddress}</p>
             </div>
           </div>
@@ -85,7 +85,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
                 <Truck className="w-4 h-4" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Shipping Address</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Adresa za Dostavu</p>
                 <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{shippingAddress}</p>
               </div>
             </div>
@@ -102,7 +102,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
                 </svg>
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Payment Method</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Način Plaćanja</p>
                 <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{paymentMethod}</p>
               </div>
             </div>
@@ -121,7 +121,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
                 </svg>
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Shipping Method</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Način Dostave</p>
                 <p className="text-sm text-gray-900 dark:text-white whitespace-pre-line font-medium">{shippingMethod}</p>
               </div>
             </div>

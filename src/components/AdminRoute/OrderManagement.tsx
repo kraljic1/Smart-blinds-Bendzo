@@ -17,7 +17,7 @@ const OrderManagement: React.FC<OrderManagementProps> = ({
       <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
         <div className="flex items-center">
           <FileEdit className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-2" />
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Manage Order</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-white">Upravljanje Narudžbom</h2>
         </div>
       </div>
       <div className="px-4 py-5 sm:p-6">

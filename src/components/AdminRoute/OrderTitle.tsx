@@ -1,6 +1,7 @@
 import React from 'react';
 import { Clock } from 'lucide-react';
 import { formatDate, getStatusIcon, getStatusStyle } from '../../utils/orderStatusUtils';
+import { getStatusTranslation } from '../../utils/orderStatusFormatter';
 
 interface OrderTitleProps {
   orderId: string | undefined;
@@ -13,7 +14,7 @@ const OrderTitle: React.FC<OrderTitleProps> = ({ orderId, createdAt, status }) =
     <div className="p-6 border-b border-gray-200 dark:border-gray-700">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-          Order <span className="text-blue-600 dark:text-blue-400 ml-2">{orderId}</span>
+          Narudžba <span className="text-blue-600 dark:text-blue-400 ml-2">{orderId}</span>
         </h1>
         
         <div className="mt-4 sm:mt-0 flex items-center">
@@ -25,7 +26,7 @@ const OrderTitle: React.FC<OrderTitleProps> = ({ orderId, createdAt, status }) =
           <div className="flex items-center space-x-1">
             {getStatusIcon(status)}
             <span className={`ml-1 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getStatusStyle(status)}`}>
-              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {getStatusTranslation(status)}
             </span>
           </div>
         </div>

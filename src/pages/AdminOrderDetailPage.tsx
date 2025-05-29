@@ -217,7 +217,7 @@ const AdminOrderDetailPage: React.FC = () => {
   useEffect(() => {
     const fetchOrderDetails = async () => {
       if (!orderId) {
-        setError('Order ID is missing');
+        setError('ID narudžbe nedostaje');
         setIsLoading(false);
         return;
       }
@@ -227,7 +227,7 @@ const AdminOrderDetailPage: React.FC = () => {
         const data = await getOrderById(orderId);
         
         if (!data) {
-          setError('Order not found');
+          setError('Narudžba nije pronađena');
         } else {
           setOrder(data);
           
@@ -249,7 +249,7 @@ const AdminOrderDetailPage: React.FC = () => {
         }
       } catch (err) {
         console.error('Error fetching order details:', err);
-        setError('Failed to load order details');
+        setError('Neuspješno učitavanje detalja narudžbe');
       } finally {
         setIsLoading(false);
       }
@@ -289,8 +289,8 @@ const AdminOrderDetailPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-16">
       <SEO 
-        title={`Order ${orderId} | Admin | Smartblinds Croatia`}
-        description="Order details page"
+        title={`Narudžba ${orderId} | Admin | Smartblinds Croatia`}
+        description="Stranica s detaljima narudžbe"
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">

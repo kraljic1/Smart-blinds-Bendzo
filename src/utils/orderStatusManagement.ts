@@ -13,19 +13,7 @@ export const updateOrderStatus = async (
   try {
     console.log(`Updating order ${orderId} to status: ${status}`);
     
-    // Check if we're in development mode (localhost)
-    const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    
-    if (isDevelopment) {
-      console.log('Development mode detected - returning mock order status update');
-      // Return mock success response for development mode
-      return {
-        success: true,
-        message: `Order ${orderId} status updated to ${status} (development mode - mock response)`
-      };
-    }
-    
-    // Use the Netlify function for more reliable server-side processing
+    // Use the Netlify function for server-side processing
     const response = await fetch('/.netlify/functions/update-order-status', {
       method: 'POST',
       headers: {

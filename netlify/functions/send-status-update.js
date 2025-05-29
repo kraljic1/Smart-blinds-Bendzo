@@ -13,7 +13,12 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Configure email transporter
 const createTransporter = () => {
-  return nodemailer.createTransport({
+  // Check if email credentials are configured
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    throw new Error('Email credentials not configured. Please set EMAIL_USER and EMAIL_PASS environment variables.');
+  }
+
+  return nodemailer.createTransporter({
     host: process.env.EMAIL_HOST || 'smtp.gmail.com',
     port: parseInt(process.env.EMAIL_PORT || '587'),
     secure: process.env.EMAIL_SECURE === 'true',
@@ -24,31 +29,46 @@ const createTransporter = () => {
   });
 };
 
+// Croatian status translations
+const getStatusTranslation = (status) => {
+  switch(status) {
+    case 'received':
+      return 'Zaprimljeno';
+    case 'processing':
+      return 'U obradi';
+    case 'shipped':
+      return 'Poslano';
+    case 'completed':
+      return 'Završeno';
+    case 'cancelled':
+      return 'Otkazano';
+    default:
+      return status.charAt(0).toUpperCase() + status.slice(1);
+  }
+};
+
 // Generate email HTML content for status update
 const generateStatusUpdateHTML = (order, statusInfo) => {
-  const { order_id, customer_name, customer_email, items: itemsJson, total_amount, status } = order;
+  const { order_id, customer_name, customer_email, total_amount, status } = order;
   
-  // Parse items
-  const items = JSON.parse(itemsJson);
-  
-  // Format items list
-  const itemsList = items.map(item => `
+  // Get order items from the order_items table
+  const itemsList = order.order_items ? order.order_items.map(item => `
     <tr>
-      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.productName}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.product_name}</td>
       <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.quantity}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">€${(item.price * item.quantity).toFixed(2)}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">€${(item.unit_price * item.quantity).toFixed(2)}</td>
     </tr>
-  `).join('');
+  `).join('') : '<tr><td colspan="3" style="padding: 10px; text-align: center;">Nema dostupnih stavki</td></tr>';
   
   // Get status-specific message
-  const statusMessage = statusInfo.message || `Your order is now ${status}`;
+  const statusMessage = statusInfo.message || `Vaša narudžba je sada ${getStatusTranslation(status)}`;
   
   return `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Order Status Update</title>
+      <title>Ažuriranje Statusa Narudžbe</title>
       <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
@@ -71,26 +91,26 @@ const generateStatusUpdateHTML = (order, statusInfo) => {
     <body>
       <div class="container">
         <div class="header">
-          <h1>Order Status Update</h1>
-          <p class="status-badge">${status.toUpperCase()}</p>
+          <h1>Ažuriranje Statusa Narudžbe</h1>
+          <p class="status-badge">${getStatusTranslation(status).toUpperCase()}</p>
           <p style="margin-top: 20px;">${statusMessage}</p>
         </div>
         
         <div class="order-details">
-          <h2>Order Information</h2>
-          <p><strong>Order Reference:</strong> ${order_id}</p>
+          <h2>Informacije o Narudžbi</h2>
+          <p><strong>Referenca Narudžbe:</strong> ${order_id}</p>
           
-          <h3>Customer Information</h3>
-          <p><strong>Name:</strong> ${customer_name}</p>
+          <h3>Informacije o Kupcu</h3>
+          <p><strong>Ime:</strong> ${customer_name}</p>
           <p><strong>Email:</strong> ${customer_email}</p>
           
-          <h3>Order Summary</h3>
+          <h3>Sažetak Narudžbe</h3>
           <table class="order-table">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th style="text-align: right;">Price</th>
+                <th>Proizvod</th>
+                <th>Količina</th>
+                <th style="text-align: right;">Cijena</th>
               </tr>
             </thead>
             <tbody>
@@ -99,13 +119,13 @@ const generateStatusUpdateHTML = (order, statusInfo) => {
           </table>
           
           <div class="order-total">
-            <p>Total: €${parseFloat(total_amount).toFixed(2)}</p>
+            <p>Ukupno: €${parseFloat(total_amount).toFixed(2)}</p>
           </div>
         </div>
         
         <div class="footer">
-          <p>If you have any questions about your order, please contact us.</p>
-          <p>© ${new Date().getFullYear()} Smartblinds Croatia. All rights reserved.</p>
+          <p>Ako imate pitanja o vašoj narudžbi, molimo kontaktirajte nas.</p>
+          <p>© ${new Date().getFullYear()} Smartblinds Croatia. Sva prava pridržana.</p>
         </div>
       </div>
     </body>
@@ -113,48 +133,81 @@ const generateStatusUpdateHTML = (order, statusInfo) => {
   `;
 };
 
-// Get status-specific information for email design
+// Get status-specific information for email design (Croatian)
 const getStatusInfo = (status) => {
   switch(status) {
     case 'processing':
       return {
         color: '#f59e0b', // Amber
-        message: 'Good news! We are now processing your order. Our team is preparing your products for shipping.'
+        message: 'Dobre vijesti! Sada obrađujemo vašu narudžbu. Naš tim priprema vaše proizvode za dostavu.'
       };
     case 'shipped':
       return {
         color: '#10b981', // Green
-        message: 'Great news! Your order has been shipped and is on its way to you. Thank you for your patience.'
+        message: 'Odlične vijesti! Vaša narudžba je poslana i na putu je do vas. Hvala vam na strpljenju.'
       };
     case 'completed':
       return {
         color: '#059669', // Emerald
-        message: 'Your order has been delivered and is now complete. We hope you enjoy your new products!'
+        message: 'Vaša narudžba je dostavljena i sada je završena. Nadamo se da ćete uživati u vašim novim proizvodima!'
       };
     case 'cancelled':
       return {
         color: '#ef4444', // Red
-        message: 'Your order has been cancelled. If you did not request this cancellation, please contact us immediately.'
+        message: 'Vaša narudžba je otkazana. Ako niste zatražili ovo otkazivanje, molimo kontaktirajte nas odmah.'
       };
     default:
       return {
         color: '#3b82f6', // Blue
-        message: `Your order status has been updated to ${status}.`
+        message: `Status vaše narudžbe je ažuriran na ${getStatusTranslation(status)}.`
       };
   }
 };
 
 // Use named export for compatibility with ESM
 export const handler = async function(event, context) {
+  // Handle CORS preflight request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      },
+      body: '',
+    };
+  }
+
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { 
       statusCode: 405, 
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ success: false, message: 'Method Not Allowed' })
     };
   }
   
   try {
+    // Check if email is configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.warn('Email not configured - skipping email notification');
+      return {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          success: true,
+          message: 'Email not configured - status updated but no email sent'
+        })
+      };
+    }
+
     // Parse the incoming request body
     const { orderId, status, previousStatus } = JSON.parse(event.body);
     
@@ -162,6 +215,10 @@ export const handler = async function(event, context) {
     if (!orderId || !status) {
       return {
         statusCode: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ success: false, message: 'Missing required order information' })
       };
     }
@@ -170,6 +227,10 @@ export const handler = async function(event, context) {
     if (status === previousStatus) {
       return {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ 
           success: true,
           message: 'Status unchanged, no email sent'
@@ -177,10 +238,19 @@ export const handler = async function(event, context) {
       };
     }
     
-    // Get order data from Supabase
+    // Get order data from Supabase with order items
     const { data: order, error } = await supabase
       .from('orders')
-      .select('*')
+      .select(`
+        *,
+        order_items (
+          id,
+          product_name,
+          quantity,
+          unit_price,
+          subtotal
+        )
+      `)
       .eq('order_id', orderId)
       .single();
     
@@ -188,6 +258,10 @@ export const handler = async function(event, context) {
       console.error('Supabase error:', error);
       return {
         statusCode: 404,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ success: false, message: 'Order not found' })
       };
     }
@@ -203,13 +277,19 @@ export const handler = async function(event, context) {
     await transporter.sendMail({
       from: `"Smartblinds Croatia" <${process.env.EMAIL_USER}>`,
       to: order.customer_email,
-      subject: `Order Status Update - #${order.order_id} is now ${status.toUpperCase()}`,
+      subject: `Ažuriranje Statusa Narudžbe - #${order.order_id} je sada ${getStatusTranslation(status).toUpperCase()}`,
       html: htmlContent
     });
+    
+    console.log(`Status update email sent successfully to ${order.customer_email}`);
     
     // Return success response
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ 
         success: true, 
         message: 'Order status update email sent successfully'
@@ -219,6 +299,10 @@ export const handler = async function(event, context) {
     console.error('Email sending error:', error);
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ 
         success: false, 
         message: 'Failed to send status update email',
