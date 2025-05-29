@@ -80,7 +80,7 @@ export function EnhancedCheckoutForm() {
     console.log('Total price:', getTotalPrice());
     
     try {
-      // Call the confirm-payment function to save order to database
+      // Try to call the confirm-payment function first
       console.log('Calling confirm-payment function to save order...');
       
       const confirmPaymentData = {
@@ -112,25 +112,119 @@ export function EnhancedCheckoutForm() {
       
       console.log('Confirm payment data:', confirmPaymentData);
       
-      const confirmResponse = await fetch('/.netlify/functions/confirm-payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(confirmPaymentData)
-      });
+      let orderSaved = false;
       
-      const confirmResult = await confirmResponse.json();
-      console.log('Confirm payment result:', confirmResult);
+      try {
+        const confirmResponse = await fetch('/.netlify/functions/confirm-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(confirmPaymentData)
+        });
+        
+        if (confirmResponse.ok) {
+          const confirmResult = await confirmResponse.json();
+          console.log('Confirm payment result:', confirmResult);
+          
+          if (confirmResult.success) {
+            console.log('Order saved successfully via Netlify function');
+            orderSaved = true;
+          }
+        }
+      } catch (netlifyError) {
+        console.warn('Netlify function not available, falling back to direct Supabase save:', netlifyError);
+      }
       
-      if (!confirmResult.success) {
-        console.error('Failed to save order to database:', confirmResult.message);
+      // Fallback to direct Supabase save if Netlify function failed
+      if (!orderSaved) {
+        console.log('Using direct Supabase client as fallback to save order');
+        
+        try {
+          // Import supabase client
+          const { supabase } = await import('../../utils/supabaseClient');
+          
+          // Generate order ID
+          const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+          
+          // Create order record
+          const orderData = {
+            order_id: orderId,
+            customer_name: formData.fullName,
+            customer_email: formData.email,
+            customer_phone: `${formData.phoneCode}${formData.phoneNumber}`,
+            billing_address: `${formData.address}, ${formData.postalCode} ${formData.city}`,
+            shipping_address: formData.sameAsBilling 
+              ? `${formData.address}, ${formData.postalCode} ${formData.city}`
+              : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`,
+            notes: `${formData.additionalNotes || ''}\n\n[System] Order saved via frontend fallback - Payment ID: ${paymentIntentId}`,
+            total_amount: getTotalPrice(),
+            payment_method: 'Credit card',
+            payment_status: 'paid',
+            shipping_method: formData.shippingMethod,
+            status: 'received',
+            needs_r1_invoice: formData.needsR1Invoice,
+            company_name: formData.needsR1Invoice ? formData.companyName : null,
+            company_oib: formData.needsR1Invoice ? formData.companyOib : null
+          };
+          
+          console.log('Saving order to Supabase:', orderData);
+          
+          const { data: order, error: orderError } = await supabase
+            .from('orders')
+            .insert(orderData)
+            .select()
+            .single();
+          
+          if (orderError) {
+            console.error('Failed to save order to Supabase:', orderError);
+            throw orderError;
+          }
+          
+          console.log('Order saved to Supabase:', order);
+          
+          // Save order items
+          if (order && items.length > 0) {
+            const orderItems = items.map(item => ({
+              order_id: order.id,
+              product_id: item.product.id,
+              product_name: item.product.name,
+              quantity: item.quantity,
+              unit_price: item.product.price,
+              subtotal: item.product.price * item.quantity,
+              options: item.options || {}
+            }));
+            
+            console.log('Saving order items to Supabase:', orderItems);
+            
+            const { error: itemsError } = await supabase
+              .from('order_items')
+              .insert(orderItems);
+            
+            if (itemsError) {
+              console.error('Failed to save order items to Supabase:', itemsError);
+              // Don't throw here - order is saved, items can be added manually
+            } else {
+              console.log('Order items saved to Supabase successfully');
+            }
+          }
+          
+          console.log('Order saved successfully via Supabase fallback');
+          orderSaved = true;
+          
+        } catch (supabaseError) {
+          console.error('Failed to save order via Supabase fallback:', supabaseError);
+        }
+      }
+      
+      if (!orderSaved) {
+        console.error('Failed to save order to database via both methods');
         // Still show success to user since payment went through, but log the error
         console.warn('Payment succeeded but order save failed - this needs manual intervention');
       }
       
     } catch (error) {
-      console.error('Error calling confirm-payment function:', error);
+      console.error('Error in payment success handling:', error);
       // Still show success to user since payment went through
       console.warn('Payment succeeded but order save failed - this needs manual intervention');
     }
