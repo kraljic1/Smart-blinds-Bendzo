@@ -189,20 +189,11 @@ export const handler = async function(event, context) {
         paymentMethod: 'Credit/Debit Card'
       };
       
-      // Use URL or VITE_APP_URL as fallback
-      const baseUrl = process.env.URL || process.env.VITE_APP_URL || 'https://smartblinds-croatia.netlify.app';
-      
-      const emailResponse = await fetch(`${baseUrl}/.netlify/functions/send-order-confirmation`, {
+      await fetch(`${process.env.URL}/.netlify/functions/send-order-confirmation`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(emailData)
       });
-      
-      if (emailResponse.ok) {
-        console.log('Order confirmation email sent successfully');
-      } else {
-        console.warn('Email service returned non-200 status:', emailResponse.status);
-      }
     } catch (emailError) {
       console.error('Failed to send confirmation email:', emailError);
       // Don't fail the order if email fails

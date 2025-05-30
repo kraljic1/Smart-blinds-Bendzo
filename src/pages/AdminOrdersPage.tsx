@@ -166,7 +166,7 @@ const AdminOrdersPage: React.FC = () => {
       return <OrderEmptyState searchTerm={searchTerm} onClearFilter={handleClearFilter} />;
     }
     
-    return <OrderTable orders={filteredOrders} />;
+    return <OrderTable orders={filteredOrders} onOrderDeleted={fetchOrders} />;
   };
   
   return (
@@ -176,7 +176,7 @@ const AdminOrdersPage: React.FC = () => {
         description="Administratorska stranica za upravljanje narudžbama"
       />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         <AdminHeader 
           title="Upravljanje Narudžbama"
           description="Upravljajte i pratite narudžbe kupaca"
