@@ -4,7 +4,7 @@ import { useBasketContext } from '../../hooks/useBasketContext';
 import { useCheckoutForm } from './useCheckoutForm';
 import { createPaymentIntent } from '../../utils/stripeUtils';
 import { getStripe } from '../../config/stripe';
-import { FormData } from './CheckoutFormTypes';
+import { supabase } from '../../utils/supabaseClient';
 import CustomerInfoSection from './CustomerInfoSection';
 import PhoneNumberSection from './PhoneNumberSection';
 import BillingAddressSection from './BillingAddressSection';
@@ -17,6 +17,7 @@ import OrderSummarySection from './OrderSummarySection';
 import { StripePaymentForm } from './StripePaymentForm';
 import { PaymentSuccess } from './PaymentSuccess';
 import './CheckoutForm.css';
+import { safeLog, sanitizeErrorMessage } from '../../utils/errorHandler';
 
 export function EnhancedCheckoutForm() {
   const { items, getTotalPrice, clearBasket } = useBasketContext();
@@ -74,14 +75,16 @@ export function EnhancedCheckoutForm() {
     notes: string;
   } | null>(null);
 
+  // Calculate shipping cost (fixed for now, can be made dynamic later)
+  const getShippingCost = () => {
+    return 0; // Free shipping for now
+  };
+
   const handlePaymentSuccess = async (paymentIntentId: string) => {
-    console.log('Payment successful:', paymentIntentId);
-    console.log('Current form data:', formData);
-    console.log('Total price:', getTotalPrice());
+    let orderId = '';
     
     try {
-      // Try to call the confirm-payment function first
-      console.log('Calling confirm-payment function to save order...');
+      safeLog.info('Payment successful');
       
       const confirmPaymentData = {
         paymentIntentId,
@@ -90,166 +93,171 @@ export function EnhancedCheckoutForm() {
           email: formData.email,
           phone: `${formData.phoneCode}${formData.phoneNumber}`,
           address: formData.address,
-          city: formData.city,
-          postalCode: formData.postalCode,
-          shippingAddress: formData.sameAsBilling ? undefined : formData.shippingAddress,
-          shippingCity: formData.sameAsBilling ? undefined : formData.shippingCity,
-          shippingPostalCode: formData.sameAsBilling ? undefined : formData.shippingPostalCode,
+          shippingAddress: formData.shippingAddress || formData.address,
+          paymentMethod: 'Credit/Debit Card',
           shippingMethod: formData.shippingMethod,
           needsR1Invoice: formData.needsR1Invoice,
-          companyName: formData.needsR1Invoice ? formData.companyName : undefined,
-          companyOib: formData.needsR1Invoice ? formData.companyOib : undefined
+          companyName: formData.companyName,
+          companyOib: formData.companyOib
         },
         items: items.map(item => ({
-          product: item.product,
+          productId: item.product.id,
+          productName: item.product.name,
           quantity: item.quantity,
           price: item.product.price,
-          options: item.options || {}
+          options: item.options
         })),
+        notes: formData.additionalNotes,
         totalAmount: getTotalPrice(),
-        notes: formData.additionalNotes || ''
+        taxAmount: 0,
+        shippingCost: getShippingCost()
       };
-      
-      console.log('Confirm payment data:', confirmPaymentData);
-      
+
+      safeLog.info('Calling confirm-payment function to save order...');
+
+      // Try to use Netlify function first, fallback to direct Supabase if needed
       let orderSaved = false;
-      
+
       try {
-        // First check if the Netlify function is available
-        console.log('Checking if confirm-payment function is available...');
-        const checkResponse = await fetch('/.netlify/functions/confirm-payment', {
-          method: 'OPTIONS'
-        });
+        safeLog.info('Checking if confirm-payment function is available...');
         
-        if (checkResponse.status === 404) {
-          console.log('Netlify function not deployed, using direct Supabase save');
-          // Skip to fallback immediately
-        } else if (checkResponse.status === 200) {
-          // Function exists and accepts OPTIONS, try to use it
-          console.log('Netlify function available, attempting to use it...');
-          const confirmResponse = await fetch('/.netlify/functions/confirm-payment', {
+        // Test if the Netlify function is available
+        const testResponse = await fetch('/.netlify/functions/confirm-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ test: true })
+        });
+
+        if (testResponse.status === 404) {
+          safeLog.info('Netlify function not deployed, using direct Supabase save');
+          throw new Error('Function not available');
+        } else {
+          safeLog.info('Netlify function available, attempting to use it...');
+          
+          // Use the Netlify function
+          const confirmResult = await fetch('/.netlify/functions/confirm-payment', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(confirmPaymentData)
           });
-          
-          if (confirmResponse.ok) {
-            const confirmResult = await confirmResponse.json();
-            console.log('Confirm payment result:', confirmResult);
+
+          if (confirmResult.ok) {
+            const result = await confirmResult.json();
+            safeLog.info('Confirm payment result received');
             
-            if (confirmResult.success) {
-              console.log('Order saved successfully via Netlify function');
+            if (result.success) {
+              safeLog.info('Order saved successfully via Netlify function');
+              orderId = result.orderId;
               orderSaved = true;
+            } else {
+              safeLog.warn('Netlify function returned error, falling back to Supabase');
+              throw new Error('Netlify function failed');
             }
           } else {
-            console.warn('Netlify function returned error, falling back to Supabase');
+            safeLog.info('Netlify function check returned unexpected status, falling back to Supabase');
+            throw new Error('Netlify function failed');
           }
-        } else {
-          console.log('Netlify function check returned unexpected status, falling back to Supabase');
         }
-      } catch (netlifyError) {
-        console.warn('Netlify function check failed, falling back to direct Supabase save:', netlifyError);
-      }
-      
-      // Fallback to direct Supabase save if Netlify function failed
-      if (!orderSaved) {
-        console.log('Using direct Supabase client as fallback to save order');
+      } catch {
+        safeLog.warn('Netlify function check failed, falling back to direct Supabase save');
         
+        // Fallback to direct Supabase save
         try {
-          // Import supabase client
-          const { supabase } = await import('../../utils/supabaseClient');
+          safeLog.info('Using direct Supabase client as fallback to save order');
           
           // Generate order ID
-          const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+          orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
           
-          // Create order record
+          // Create order data
           const orderData = {
             order_id: orderId,
             customer_name: formData.fullName,
             customer_email: formData.email,
             customer_phone: `${formData.phoneCode}${formData.phoneNumber}`,
-            billing_address: `${formData.address}, ${formData.postalCode} ${formData.city}`,
-            shipping_address: formData.sameAsBilling 
-              ? `${formData.address}, ${formData.postalCode} ${formData.city}`
-              : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`,
-            notes: `${formData.additionalNotes || ''}\n\n[System] Order saved via frontend fallback - Payment ID: ${paymentIntentId}`,
+            billing_address: formData.address,
+            shipping_address: formData.shippingAddress || formData.address,
+            notes: formData.additionalNotes,
             total_amount: getTotalPrice(),
-            payment_method: 'Credit card',
-            payment_status: 'paid',
+            tax_amount: 0,
+            shipping_cost: getShippingCost(),
+            payment_method: 'Credit/Debit Card',
+            payment_status: 'completed',
             shipping_method: formData.shippingMethod,
             status: 'received',
-            needs_r1_invoice: formData.needsR1Invoice,
-            company_name: formData.needsR1Invoice ? formData.companyName : null,
-            company_oib: formData.needsR1Invoice ? formData.companyOib : null
+            stripe_payment_intent_id: paymentIntentId,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+            company_name: formData.companyName || null,
+            company_oib: formData.companyOib || null,
+            needs_r1_invoice: formData.needsR1Invoice
           };
+
+          safeLog.info('Saving order to Supabase');
           
-          console.log('Saving order to Supabase:', orderData);
-          
+          // Insert order
           const { data: order, error: orderError } = await supabase
             .from('orders')
-            .insert(orderData)
-            .select()
-            .single();
-          
+            .insert([orderData])
+            .select();
+
           if (orderError) {
-            console.error('Failed to save order to Supabase:', orderError);
+            safeLog.error('Failed to save order to Supabase', orderError);
             throw orderError;
           }
+
+          safeLog.info('Order saved to Supabase');
+
+          // Insert order items
+          const orderItems = items.map(item => ({
+            order_id: order[0].id,
+            product_id: item.product.id,
+            product_name: item.product.name,
+            product_image: item.product.image,
+            quantity: item.quantity,
+            unit_price: item.product.price,
+            subtotal: item.product.price * item.quantity,
+            options: item.options
+          }));
+
+          safeLog.info('Saving order items to Supabase');
           
-          console.log('Order saved to Supabase:', order);
-          
-          // Save order items
-          if (order && items.length > 0) {
-            const orderItems = items.map(item => ({
-              order_id: order.id,
-              product_id: item.product.id,
-              product_name: item.product.name,
-              quantity: item.quantity,
-              unit_price: item.product.price,
-              subtotal: item.product.price * item.quantity,
-              options: item.options || {}
-            }));
-            
-            console.log('Saving order items to Supabase:', orderItems);
-            
-            const { error: itemsError } = await supabase
-              .from('order_items')
-              .insert(orderItems);
-            
-            if (itemsError) {
-              console.error('Failed to save order items to Supabase:', itemsError);
-              // Don't throw here - order is saved, items can be added manually
-            } else {
-              console.log('Order items saved to Supabase successfully');
-            }
+          const { error: itemsError } = await supabase
+            .from('order_items')
+            .insert(orderItems);
+
+          if (itemsError) {
+            safeLog.error('Failed to save order items to Supabase', itemsError);
+            throw itemsError;
           }
-          
-          console.log('Order saved successfully via Supabase fallback');
+
+          safeLog.info('Order items saved to Supabase successfully');
           orderSaved = true;
-          
+
+          safeLog.info('Order saved successfully via Supabase fallback');
+
         } catch (supabaseError) {
-          console.error('Failed to save order via Supabase fallback:', supabaseError);
+          safeLog.error('Failed to save order via Supabase fallback', supabaseError);
+          throw supabaseError;
         }
       }
-      
+
       if (!orderSaved) {
-        console.error('Failed to save order to database via both methods');
-        // Still show success to user since payment went through, but log the error
-        console.warn('Payment succeeded but order save failed - this needs manual intervention');
+        safeLog.error('Failed to save order to database via both methods');
+        
+        safeLog.warn('Payment succeeded but order save failed - this needs manual intervention');
+        throw new Error('Order save failed');
       }
-      
+
     } catch (error) {
-      console.error('Error in payment success handling:', error);
-      // Still show success to user since payment went through
-      console.warn('Payment succeeded but order save failed - this needs manual intervention');
+      safeLog.error('Error in payment success handling', error);
+      
+      safeLog.warn('Payment succeeded but order save failed - this needs manual intervention');
     }
-    
-    // Set comprehensive order details for proper invoice
+
+    // Set order details for thank you page
     const orderData = {
       paymentIntentId,
-      orderNumber: paymentIntentId.split('_')[1] || paymentIntentId.substring(3, 15),
+      orderNumber: orderId.split('-')[1] || orderId.substring(3, 15),
       date: new Date().toLocaleDateString('hr-HR'),
       time: new Date().toLocaleTimeString('hr-HR'),
       amount: getTotalPrice(),
@@ -292,34 +300,22 @@ export function EnhancedCheckoutForm() {
       total: getTotalPrice(),
       notes: formData.additionalNotes || ''
     };
-    
-    console.log('Setting order details:', orderData);
+
+    safeLog.info('Setting order details');
     setOrderDetails(orderData);
     
-    // Hide payment form first
-    setPaymentState(prev => ({
-      ...prev,
-      showStripeForm: false,
-      processingPayment: false
-    }));
+    // Clear basket
+    clearBasket();
     
-    // Show success page after a brief delay to ensure state is updated
-    setTimeout(() => {
-      console.log('Setting orderComplete to true');
-      setOrderComplete(true);
-    }, 100);
+    // Mark order as complete
+    safeLog.info('Setting orderComplete to true');
+    setOrderComplete(true);
   };
 
-  const handlePaymentError = (error: string) => {
-    console.log('Payment error:', error);
-    setError(error);
-    
-    // Hide payment form on error so user can try again
-    setPaymentState(prev => ({
-      ...prev,
-      showStripeForm: false,
-      processingPayment: false
-    }));
+  const handlePaymentError = (error: unknown) => {
+    safeLog.error('Payment error', error);
+    setError(sanitizeErrorMessage(error, 'payment'));
+    setSubmitting(false);
   };
 
   const handleContinueShopping = () => {
@@ -340,65 +336,60 @@ export function EnhancedCheckoutForm() {
     window.location.href = '/';
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted!');
-    console.log('Form data:', formData);
-    console.log('Phone validation:', phoneValidation);
     
-    // Validate ALL required fields
-    const allRequiredFields = [
-      { field: 'fullName', message: 'Molimo unesite vaše puno ime' },
-      { field: 'email', message: 'Molimo unesite email adresu' },
-      { field: 'phoneNumber', message: 'Molimo unesite broj telefona' },
-      { field: 'address', message: 'Molimo unesite adresu' },
-      { field: 'city', message: 'Molimo unesite grad' },
-      { field: 'postalCode', message: 'Molimo unesite poštanski broj' }
+    safeLog.info('Form submitted!');
+    
+    // Validate required fields
+    const requiredFields = [
+      'fullName', 'email', 'phoneNumber', 'address', 'city', 'postalCode', 'shippingMethod'
     ];
-
-    // Add shipping fields to required if different from billing
-    if (!formData.sameAsBilling) {
-      allRequiredFields.push(
-        { field: 'shippingAddress', message: 'Molimo unesite adresu dostave' },
-        { field: 'shippingCity', message: 'Molimo unesite grad dostave' },
-        { field: 'shippingPostalCode', message: 'Molimo unesite poštanski broj dostave' }
-      );
-    }
-
-    // Validate all required fields
-    for (const { field, message } of allRequiredFields) {
-      const fieldValue = formData[field as keyof FormData];
-      if (!fieldValue || !fieldValue.toString().trim()) {
-        console.log(`Required field missing: ${field}`);
+    
+    for (const field of requiredFields) {
+      if (!formData[field as keyof typeof formData]) {
+        const message = `Molimo unesite ${field === 'fullName' ? 'ime i prezime' : 
+                                        field === 'email' ? 'email adresu' :
+                                        field === 'phoneNumber' ? 'broj telefona' :
+                                        field === 'address' ? 'adresu' :
+                                        field === 'city' ? 'grad' :
+                                        field === 'postalCode' ? 'poštanski broj' :
+                                        field === 'shippingMethod' ? 'način dostave' : field}`;
+        safeLog.info(`Required field missing: ${field}`);
         setError(message);
         return;
       }
     }
 
-    // Validate company fields if R1 invoice is requested
+    // Validate company fields for R1 invoice
     if (formData.needsR1Invoice) {
-      if (!formData.companyName.trim()) {
-        console.log('Company name missing for R1 invoice');
+      if (!formData.companyName) {
+        safeLog.info('Company name missing for R1 invoice');
         setError('Molimo unesite naziv tvrtke za R1 račun');
         return;
       }
-      if (!formData.companyOib.trim()) {
-        console.log('Company OIB missing for R1 invoice');
+      
+      if (!formData.companyOib) {
+        safeLog.info('Company OIB missing for R1 invoice');
         setError('Molimo unesite OIB tvrtke za R1 račun');
         return;
       }
     }
-    
+
+    // Validate phone number
     if (!phoneValidation.isValid) {
-      console.log('Phone validation failed:', phoneValidation);
-      setError('Molimo unesite važeći broj telefona');
+      safeLog.info('Phone validation failed');
+      setError('Molimo unesite ispravan broj telefona');
       return;
     }
 
+    setSubmitting(true);
+    setError('');
+
+    safeLog.info('Starting payment intent creation...');
+
     try {
-      console.log('Starting payment intent creation...');
-      setSubmitting(true);
-      
+      // Create payment intent
       const paymentIntentData = {
         amount: getTotalPrice(),
         currency: 'eur',
@@ -406,48 +397,56 @@ export function EnhancedCheckoutForm() {
           fullName: formData.fullName,
           email: formData.email,
           phone: `${formData.phoneCode}${formData.phoneNumber}`,
-          address: `${formData.address}, ${formData.postalCode} ${formData.city}`,
-          shippingAddress: formData.sameAsBilling 
-            ? `${formData.address}, ${formData.postalCode} ${formData.city}`
-            : `${formData.shippingAddress}, ${formData.shippingPostalCode} ${formData.shippingCity}`,
+          address: formData.address,
+          shippingAddress: formData.shippingAddress || formData.address,
           needsR1Invoice: formData.needsR1Invoice,
-          companyName: formData.needsR1Invoice ? formData.companyName : undefined,
-          companyOib: formData.needsR1Invoice ? formData.companyOib : undefined
+          companyName: formData.companyName,
+          companyOib: formData.companyOib
         },
         items: items.map(item => ({
           productId: item.product.id,
           productName: item.product.name,
           quantity: item.quantity,
           price: item.product.price,
-          options: {}
+          options: item.options
         })),
         metadata: {
           shippingMethod: formData.shippingMethod,
-          additionalNotes: formData.additionalNotes || ''
+          notes: formData.additionalNotes || ''
         }
       };
 
-      console.log('Payment intent data:', paymentIntentData);
-      const paymentData = await createPaymentIntent(paymentIntentData);
-      console.log('Payment response:', paymentData);
+      safeLog.info('Payment intent data prepared');
 
-      if (paymentData.success && paymentData.clientSecret && paymentData.paymentIntentId) {
-        setPaymentState({
-          clientSecret: paymentData.clientSecret,
-          paymentIntentId: paymentData.paymentIntentId,
-          showStripeForm: true,
-          processingPayment: false
-        });
-      } else {
-        setError(paymentData.error || 'Neuspješno pokretanje plaćanja. Molimo pokušajte ponovno.');
+      const paymentData = await createPaymentIntent(paymentIntentData);
+      safeLog.info('Payment response received');
+
+      if (!paymentData.success || !paymentData.clientSecret) {
+        throw new Error(paymentData.error || 'Failed to create payment intent');
       }
+
+      // Set client secret for Stripe payment
+      setPaymentState({
+        clientSecret: paymentData.clientSecret,
+        paymentIntentId: paymentData.paymentIntentId || '',
+        showStripeForm: true,
+        processingPayment: false
+      });
+
     } catch (error) {
-      console.error('Payment setup error:', error);
-      console.log('Error details:', error);
-      setError('Neuspješno pokretanje plaćanja. Molimo pokušajte ponovno.');
-    } finally {
-      console.log('Setting submitting to false');
-      setSubmitting(false);
+      safeLog.error('Payment setup error', error);
+      setError(sanitizeErrorMessage(error, 'payment'));
+    }
+
+    safeLog.info('Setting submitting to false');
+    setSubmitting(false);
+  };
+
+  const handlePaymentButtonClick = () => {
+    safeLog.info('Button clicked!');
+    
+    if (!paymentState.showStripeForm) {
+      handleSubmit(new Event('submit') as unknown as React.FormEvent);
     }
   };
 
@@ -521,11 +520,7 @@ export function EnhancedCheckoutForm() {
             className="checkout-submit-btn"
             disabled={formStatus.submitting}
             aria-busy={formStatus.submitting ? "true" : "false"}
-            onClick={() => {
-              console.log('Button clicked!');
-              console.log('Form status:', formStatus);
-              console.log('Phone validation:', phoneValidation);
-            }}
+            onClick={handlePaymentButtonClick}
           >
             {formStatus.submitting ? (
               <>

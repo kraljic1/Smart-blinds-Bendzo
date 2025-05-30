@@ -2,7 +2,10 @@
  * Utility functions for Stripe payment processing
  */
 
-import { getStripe } from '../config/stripe';
+import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { safeLog, sanitizeErrorMessage } from './errorHandler';
+
+let stripePromise: Promise<Stripe | null>;
 
 // Get the correct base URL for API calls
 const getApiBaseUrl = (): string => {
@@ -101,10 +104,10 @@ export async function createPaymentIntent(
 
     return await response.json();
   } catch (error) {
-    console.error('Error creating payment intent:', error);
+    safeLog.error('Error creating payment intent', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
+      error: sanitizeErrorMessage(error, 'payment')
     };
   }
 }
@@ -131,10 +134,10 @@ export async function confirmPayment(
 
     return await response.json();
   } catch (error) {
-    console.error('Error confirming payment:', error);
+    safeLog.error('Error confirming payment', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
+      error: sanitizeErrorMessage(error, 'payment')
     };
   }
 }
@@ -162,7 +165,7 @@ export async function processStripePayment(
     if (error) {
       return {
         success: false,
-        error: error.message || 'Payment failed'
+        error: sanitizeErrorMessage(error, 'payment')
       };
     }
 
@@ -171,14 +174,14 @@ export async function processStripePayment(
     } else {
       return {
         success: false,
-        error: `Payment status: ${paymentIntent?.status || 'unknown'}`
+        error: sanitizeErrorMessage(null, 'payment')
       };
     }
   } catch (error) {
-    console.error('Error processing Stripe payment:', error);
+    safeLog.error('Error processing Stripe payment', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
+      error: sanitizeErrorMessage(error, 'payment')
     };
   }
 }
@@ -205,4 +208,22 @@ export function toCents(amount: number): number {
  */
 export function fromCents(cents: number): number {
   return cents / 100;
-} 
+}
+
+/**
+ * Get Stripe instance with secure error handling
+ */
+export const getStripe = (): Promise<Stripe | null> => {
+  if (!stripePromise) {
+    const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+    
+    if (!publishableKey) {
+      safeLog.warn('Stripe publishable key not configured');
+      return Promise.resolve(null);
+    }
+    
+    stripePromise = loadStripe(publishableKey);
+  }
+  
+  return stripePromise;
+}; 

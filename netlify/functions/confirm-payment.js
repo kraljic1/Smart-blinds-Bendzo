@@ -1,24 +1,47 @@
 /**
- * Netlify function to confirm Stripe payment and process order
- * This verifies payment success and creates the order in database
+ * Netlify function to confirm payment and process orders
+ * This handles payment confirmation from Stripe and creates orders
  */
 
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
+const { validateOrderData, rateLimiter } = require('./validation-utils');
 
-// Initialize Stripe with secret key
+// Initialize Stripe
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-11-20.acacia', // Latest API version with enhanced privacy browser support
+  apiVersion: '2024-11-20.acacia',
 });
 
-// Initialize Supabase client with forced schema refresh
+// Initialize Supabase client
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey, {
-  db: { schema: 'public' },
-  auth: { persistSession: false }
-});
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Secure logging function
+function secureLog(level, message, data = null) {
+  const isDev = process.env.NODE_ENV === 'development';
+  
+  if (isDev) {
+    console[level](`[CONFIRM-PAYMENT] ${message}`, data);
+  } else {
+    // In production, only log minimal information
+    console[level](`[CONFIRM-PAYMENT] ${message}`);
+  }
+}
+
+// Sanitize error messages for client response
+function sanitizeError(error, context = 'general') {
+  const userMessages = {
+    validation: 'Invalid order data provided',
+    payment: 'Payment verification failed',
+    database: 'Failed to save order to database',
+    email: 'Order created but confirmation email failed',
+    general: 'Payment confirmation failed'
+  };
+  
+  return userMessages[context] || userMessages.general;
+}
 
 export const handler = async function(event, context) {
   // CORS headers for all responses
@@ -47,6 +70,20 @@ export const handler = async function(event, context) {
     };
   }
 
+  // Rate limiting check
+  const clientIP = event.headers['x-forwarded-for'] || event.headers['x-real-ip'] || 'unknown';
+  if (!rateLimiter.isAllowed(clientIP)) {
+    return {
+      statusCode: 429,
+      headers: corsHeaders,
+      body: JSON.stringify({ 
+        success: false, 
+        message: 'Too many requests. Please try again later.',
+        remainingAttempts: rateLimiter.getRemainingAttempts(clientIP)
+      })
+    };
+  }
+
   try {
     const { 
       paymentIntentId, 
@@ -57,6 +94,23 @@ export const handler = async function(event, context) {
       taxAmount, 
       shippingCost 
     } = JSON.parse(event.body);
+
+    // Comprehensive validation using our security utilities
+    const validationResult = validateOrderData({ customer, items, notes, totalAmount });
+    
+    if (!validationResult.isValid) {
+      secureLog('warn', 'Validation failed', process.env.NODE_ENV === 'development' ? validationResult.errors : null);
+      return {
+        statusCode: 400,
+        headers: corsHeaders,
+        body: JSON.stringify({ 
+          success: false, 
+          message: sanitizeError(null, 'validation')
+        })
+      };
+    }
+
+    const { sanitizedData } = validationResult;
 
     // Validate required data
     if (!paymentIntentId || !customer || !items || !totalAmount) {
@@ -78,23 +132,21 @@ export const handler = async function(event, context) {
       paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
       
       if (paymentIntent.status !== 'succeeded') {
-        console.warn(`Payment intent ${paymentIntentId} status is ${paymentIntent.status}, not succeeded`);
+        secureLog('warn', `Payment intent status is ${paymentIntent.status}, not succeeded`);
         // Don't fail here - the frontend already confirmed the payment succeeded
       } else {
         // Verify payment amount matches order total
         const paidAmount = paymentIntent.amount / 100; // Convert from cents
         if (Math.abs(paidAmount - totalAmount) > 0.01) { // Allow for small rounding differences
-          console.warn(`Payment amount mismatch: paid ${paidAmount}, expected ${totalAmount}`);
+          secureLog('warn', 'Payment amount mismatch detected');
           // Don't fail here - log the discrepancy but continue
         } else {
           paymentVerified = true;
-          console.log(`Payment intent ${paymentIntentId} verified successfully`);
+          secureLog('info', 'Payment intent verified successfully');
         }
       }
     } catch (stripeError) {
-      console.warn(`Failed to verify payment intent ${paymentIntentId} with Stripe:`, stripeError.message);
-      console.warn('This could be due to test/live key mismatch or network issues');
-      console.warn('Proceeding with order creation since frontend confirmed payment success');
+      secureLog('warn', 'Failed to verify payment intent with Stripe');
       // Don't fail here - the payment was already confirmed successful on the frontend
     }
 
@@ -110,62 +162,72 @@ export const handler = async function(event, context) {
       ? `${notes}\n\n[System] ${verificationNote}`
       : `[System] ${verificationNote}`;
     
-    console.log('Creating order with payment confirmation:', orderId);
-    console.log('Payment verification status:', paymentVerified ? 'VERIFIED' : 'NOT VERIFIED');
+    secureLog('info', 'Creating order with payment confirmation');
     
-    // Create order using standard Supabase insert
+    // Create order data using sanitized values
     const orderData = {
       order_id: orderId,
-      customer_name: customer.fullName,
-      customer_email: customer.email,
-      customer_phone: customer.phone,
-      billing_address: customer.address,
-      shipping_address: customer.shippingAddress || customer.address,
-      notes: finalNotes,
-      total_amount: totalAmount,
-      payment_method: 'Credit card',
-      payment_status: 'paid',
-      needs_r1_invoice: customer.needsR1Invoice || false,
-      company_name: customer.needsR1Invoice ? customer.companyName : null,
-      company_oib: customer.needsR1Invoice ? customer.companyOib : null
+      customer_name: sanitizedData.customer_name || customer.fullName,
+      customer_email: sanitizedData.customer_email || customer.email,
+      customer_phone: sanitizedData.customer_phone || customer.phone,
+      billing_address: sanitizedData.billing_address || customer.address,
+      shipping_address: sanitizedData.shipping_address || customer.shippingAddress || customer.address,
+      notes: sanitizedData.notes || finalNotes,
+      total_amount: sanitizedData.total_amount || totalAmount,
+      tax_amount: taxAmount || null,
+      shipping_cost: shippingCost || null,
+      payment_method: 'Credit/Debit Card',
+      payment_status: paymentVerified ? 'completed' : 'pending_verification',
+      shipping_method: customer.shippingMethod || 'Standard delivery',
+      status: 'received',
+      stripe_payment_intent_id: paymentIntentId,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      // Add company fields if provided
+      company_name: sanitizedData.company_name || null,
+      company_oib: sanitizedData.company_oib || null,
+      needs_r1_invoice: customer.needsR1Invoice || false
     };
     
-    console.log('Inserting order data:', orderData);
-    
-    // Insert the order into Supabase
+    // Insert order into Supabase
     const { data: insertedOrder, error } = await supabase
       .from('orders')
       .insert([orderData])
       .select();
     
     if (error) {
-      console.error('Supabase insert error:', error);
+      secureLog('error', 'Supabase insert error', process.env.NODE_ENV === 'development' ? error : null);
       return {
         statusCode: 500,
         headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
-          message: 'Failed to save order to database',
-          error: error.message
+          message: sanitizeError(error, 'database')
         })
       };
     }
-
-    console.log('Order inserted successfully:', insertedOrder);
+    
     const orderId_db = insertedOrder[0].id;
     
     // Process order items only if we have order ID
     if (orderId_db && items && items.length > 0) {
-      const orderItems = items.map(item => ({
-        order_id: orderId_db,
-        product_id: (item.product && item.product.id) || item.productId || 'unknown',
-        product_name: item.productName || (item.product && item.product.name) || 'Unknown Product',
-        product_image: item.productImage || (item.product && item.product.image) || null,
-        quantity: item.quantity || 1,
-        unit_price: item.price || (item.product && item.product.price) || 0,
-        subtotal: (item.price || (item.product && item.product.price) || 0) * (item.quantity || 1),
-        options: item.options ? item.options : {}
-      }));
+      const orderItems = items.map(item => {
+        // Use sanitized data if available, otherwise fallback to original
+        const sanitizedItem = sanitizedData.items?.find(si => 
+          si.product_id === (item.productId || (item.product && item.product.id))
+        );
+        
+        return {
+          order_id: orderId_db,
+          product_id: (item.product && item.product.id) || item.productId || 'unknown',
+          product_name: sanitizedItem?.product_name || item.productName || (item.product && item.product.name) || 'Unknown Product',
+          product_image: item.productImage || (item.product && item.product.image) || null,
+          quantity: sanitizedItem?.quantity || item.quantity || 1,
+          unit_price: sanitizedItem?.unit_price || item.price || (item.product && item.product.price) || 0,
+          subtotal: (sanitizedItem?.unit_price || item.price || (item.product && item.product.price) || 0) * (sanitizedItem?.quantity || item.quantity || 1),
+          options: item.options ? item.options : {}
+        };
+      });
       
       // Insert order items into Supabase
       const { error: itemsError } = await supabase
@@ -173,9 +235,9 @@ export const handler = async function(event, context) {
         .insert(orderItems);
       
       if (itemsError) {
-        console.error('Supabase order items error:', itemsError);
+        secureLog('error', 'Supabase order items error', process.env.NODE_ENV === 'development' ? itemsError : null);
         // Don't fail the whole order for items error
-        console.warn('Order created but items failed to save');
+        secureLog('warn', 'Order created but items failed to save');
       }
     }
     
@@ -183,9 +245,14 @@ export const handler = async function(event, context) {
     try {
       const emailData = {
         orderId, 
-        customer,
+        customer: {
+          ...customer,
+          fullName: sanitizedData.customer_name || customer.fullName,
+          email: sanitizedData.customer_email || customer.email,
+          phone: sanitizedData.customer_phone || customer.phone
+        },
         items,
-        totalAmount,
+        totalAmount: sanitizedData.total_amount || totalAmount,
         paymentMethod: 'Credit/Debit Card'
       };
       
@@ -195,34 +262,30 @@ export const handler = async function(event, context) {
         body: JSON.stringify(emailData)
       });
     } catch (emailError) {
-      console.error('Failed to send confirmation email:', emailError);
+      secureLog('error', 'Failed to send confirmation email', process.env.NODE_ENV === 'development' ? emailError : null);
       // Don't fail the order if email fails
     }
     
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        ...corsHeaders
-      },
+      headers: corsHeaders,
       body: JSON.stringify({
         success: true,
         orderId,
-        paymentStatus: 'completed',
-        message: 'Order placed successfully with card payment'
+        paymentVerified,
+        message: 'Payment confirmed and order created successfully'
       })
     };
 
   } catch (error) {
-    console.error('Payment confirmation error:', error);
+    secureLog('error', 'Payment confirmation error', process.env.NODE_ENV === 'development' ? error : null);
     
     return {
       statusCode: 500,
       headers: corsHeaders,
       body: JSON.stringify({
         success: false,
-        message: 'Failed to confirm payment and process order',
-        error: error.message
+        message: sanitizeError(error, 'general')
       })
     };
   }

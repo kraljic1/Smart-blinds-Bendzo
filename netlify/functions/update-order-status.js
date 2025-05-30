@@ -6,8 +6,33 @@ const headers = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 };
 
+// Secure logging function
+function secureLog(level, message, data = null) {
+  const isDev = process.env.NODE_ENV === 'development';
+  
+  if (isDev) {
+    console[level](`[UPDATE-ORDER-STATUS] ${message}`, data);
+  } else {
+    // In production, only log minimal information
+    console[level](`[UPDATE-ORDER-STATUS] ${message}`);
+  }
+}
+
+// Sanitize error messages for client response
+function sanitizeError(error, context = 'general') {
+  const userMessages = {
+    validation: 'Invalid order status data provided',
+    database: 'Failed to update order status',
+    notfound: 'Order not found',
+    config: 'Server configuration error',
+    general: 'Failed to update order status'
+  };
+  
+  return userMessages[context] || userMessages.general;
+}
+
 export const handler = async (event, context) => {
-  console.log('Update order status function invoked');
+  secureLog('info', 'Update order status function invoked');
   
   // Handle CORS preflight request
   if (event.httpMethod === 'OPTIONS') {
@@ -32,14 +57,13 @@ export const handler = async (event, context) => {
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl || !supabaseServiceKey) {
-      console.error('Missing Supabase environment variables');
+      secureLog('error', 'Missing Supabase environment variables');
       return {
         statusCode: 500,
         headers,
         body: JSON.stringify({ 
           success: false, 
-          message: 'Server configuration error',
-          error: 'Missing database configuration'
+          message: sanitizeError(null, 'config')
         }),
       };
     }
@@ -73,7 +97,7 @@ export const handler = async (event, context) => {
       };
     }
 
-    console.log(`Updating order ${orderId} to status: ${status}`);
+    secureLog('info', `Updating order status to: ${status}`);
 
     // Get the current order to check the previous status
     const { data: currentOrder, error: fetchError } = await supabase
@@ -83,20 +107,19 @@ export const handler = async (event, context) => {
       .single();
 
     if (fetchError) {
-      console.error('Error fetching current order:', fetchError);
+      secureLog('error', 'Error fetching current order', process.env.NODE_ENV === 'development' ? fetchError : null);
       return {
         statusCode: 404,
         headers,
         body: JSON.stringify({ 
           success: false, 
-          message: 'Order not found',
-          error: fetchError.message
+          message: sanitizeError(fetchError, 'notfound')
         }),
       };
     }
 
     const previousStatus = currentOrder?.status;
-    console.log(`Previous status: ${previousStatus}, New status: ${status}`);
+    secureLog('info', `Status change: ${previousStatus} -> ${status}`);
 
     // Update the order status
     const { data: updatedOrder, error: updateError } = await supabase
@@ -110,24 +133,23 @@ export const handler = async (event, context) => {
       .single();
 
     if (updateError) {
-      console.error('Error updating order:', updateError);
+      secureLog('error', 'Error updating order', process.env.NODE_ENV === 'development' ? updateError : null);
       return {
         statusCode: 500,
         headers,
         body: JSON.stringify({ 
           success: false, 
-          message: 'Failed to update order status',
-          error: updateError.message
+          message: sanitizeError(updateError, 'database')
         }),
       };
     }
 
-    console.log('Order status updated successfully');
+    secureLog('info', 'Order status updated successfully');
 
     // Send email notification if status changed
     if (previousStatus !== status) {
       try {
-        console.log('Sending status update email notification');
+        secureLog('info', 'Sending status update email notification');
         
         const appUrl = process.env.URL || 'https://your-app.netlify.app';
         const emailUrl = new URL('/.netlify/functions/send-status-update', appUrl).toString();
@@ -147,14 +169,12 @@ export const handler = async (event, context) => {
         });
 
         if (!emailResponse.ok) {
-          console.warn('Email service responded with non-200 status:', emailResponse.status);
-          const emailError = await emailResponse.text();
-          console.warn('Email error details:', emailError);
+          secureLog('warn', 'Email service responded with non-200 status');
         } else {
-          console.log('Status update email sent successfully');
+          secureLog('info', 'Status update email sent successfully');
         }
       } catch (emailError) {
-        console.error('Failed to send status update email:', emailError);
+        secureLog('error', 'Failed to send status update email', process.env.NODE_ENV === 'development' ? emailError : null);
         // Continue processing - don't fail the update if email fails
       }
     }
@@ -171,14 +191,13 @@ export const handler = async (event, context) => {
     };
 
   } catch (error) {
-    console.error('Unexpected error in update-order-status function:', error);
+    secureLog('error', 'Unexpected error in update-order-status function', process.env.NODE_ENV === 'development' ? error : null);
     return {
       statusCode: 500,
       headers,
       body: JSON.stringify({ 
         success: false, 
-        message: 'Internal server error',
-        error: error.message
+        message: sanitizeError(error, 'general')
       }),
     };
   }

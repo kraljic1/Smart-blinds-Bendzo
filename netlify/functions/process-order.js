@@ -5,6 +5,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch'; // Add node-fetch for making HTTP requests
+const { validateOrderData, rateLimiter } = require('./validation-utils');
 
 // Initialize Supabase client
 // Try regular env vars first, then fallback to VITE_ prefixed ones
@@ -13,13 +14,11 @@ const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANO
 
 // Debug environment
 console.log('=== ENVIRONMENT DEBUG ===');
-console.log('SUPABASE_URL from env:', process.env.SUPABASE_URL);
-console.log('VITE_SUPABASE_URL from env:', process.env.VITE_SUPABASE_URL);
+console.log('SUPABASE_URL present:', !!supabaseUrl);
 console.log('SUPABASE_ANON_KEY present:', !!process.env.SUPABASE_ANON_KEY);
+console.log('VITE_SUPABASE_URL present:', !!process.env.VITE_SUPABASE_URL);
 console.log('VITE_SUPABASE_ANON_KEY present:', !!process.env.VITE_SUPABASE_ANON_KEY);
-console.log('Final supabaseUrl:', supabaseUrl);
-console.log('Final supabaseKey present:', !!supabaseKey);
-console.log('=========================');
+console.log('SUPABASE_SERVICE_KEY present:', !!process.env.SUPABASE_SERVICE_KEY);
 
 // Create a single supabase client for interacting with the database
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -33,26 +32,48 @@ export const handler = async function(event, context) {
       body: JSON.stringify({ success: false, message: 'Method Not Allowed' })
     };
   }
+
+  // Rate limiting check
+  const clientIP = event.headers['x-forwarded-for'] || event.headers['x-real-ip'] || 'unknown';
+  if (!rateLimiter.isAllowed(clientIP)) {
+    return {
+      statusCode: 429,
+      body: JSON.stringify({ 
+        success: false, 
+        message: 'Too many requests. Please try again later.',
+        remainingAttempts: rateLimiter.getRemainingAttempts(clientIP)
+      })
+    };
+  }
   
   try {
     // Parse the incoming request body
     const data = JSON.parse(event.body);
-    const { customer, items, notes, totalAmount, taxAmount, shippingCost, discount } = data;
     
-    // Validate required data
-    if (!customer || !items || !totalAmount) {
+    // Comprehensive validation using our security utilities
+    const validationResult = validateOrderData(data);
+    
+    if (!validationResult.isValid) {
+      console.log('Validation failed:', validationResult.errors);
       return {
         statusCode: 400,
-        body: JSON.stringify({ success: false, message: 'Missing required order information' })
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'Invalid order data provided',
+          errors: validationResult.errors
+        })
       };
     }
+    
+    const { sanitizedData } = validationResult;
+    const { customer, items, notes, totalAmount, taxAmount, shippingCost, discount } = data;
     
     // Generate a unique order ID
     const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     
     // Log the order (will be visible in Netlify function logs)
     console.log('New order received:', orderId);
-    console.log('Customer:', customer);
+    console.log('Sanitized customer data:', sanitizedData);
     console.log('Items:', items);
     console.log('Total Amount:', totalAmount);
     
@@ -91,16 +112,16 @@ export const handler = async function(event, context) {
     }
     console.log('=== DATABASE CONNECTION OK ===');
     
-    // Create the order object to store in Supabase
+    // Create the order object to store in Supabase using sanitized data
     const orderData = {
       order_id: orderId,
-      customer_name: customer.fullName,
-      customer_email: customer.email,
-      customer_phone: customer.phone,
-      billing_address: customer.address,
-      shipping_address: customer.shippingAddress || customer.address,
-      notes: notes || '',
-      total_amount: totalAmount,
+      customer_name: sanitizedData.customer_name || customer.fullName,
+      customer_email: sanitizedData.customer_email || customer.email,
+      customer_phone: sanitizedData.customer_phone || customer.phone,
+      billing_address: sanitizedData.billing_address || customer.address,
+      shipping_address: sanitizedData.shipping_address || customer.shippingAddress || customer.address,
+      notes: sanitizedData.notes || notes || '',
+      total_amount: sanitizedData.total_amount || totalAmount,
       tax_amount: taxAmount || null,
       shipping_cost: shippingCost || null,
       discount_amount: discount?.amount || null,
@@ -110,7 +131,11 @@ export const handler = async function(event, context) {
       shipping_method: customer.shippingMethod || 'Standard delivery',
       status: 'received',
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
+      // Add company fields if provided
+      company_name: sanitizedData.company_name || null,
+      company_oib: sanitizedData.company_oib || null,
+      needs_r1_invoice: customer.needsR1Invoice || false
     };
     
     console.log('Attempting to insert order:', JSON.stringify(orderData, null, 2));
@@ -146,57 +171,71 @@ export const handler = async function(event, context) {
     console.log('Order inserted successfully:', insertedOrder);
     const orderId_db = insertedOrder[0].id;
     
-    // Process order items
+    // Process order items with validation
     console.log('Order items to process:', JSON.stringify(items));
     
-    const orderItems = items.map(item => ({
-      order_id: orderId_db,
-      product_id: item.productId || (item.product && item.product.id),
-      product_name: item.productName || (item.product && item.product.name),
-      product_image: item.productImage || (item.product && item.product.image),
-      quantity: item.quantity,
-      unit_price: item.price || (item.product && item.product.price),
-      subtotal: (item.price || (item.product && item.product.price)) * item.quantity,
-      width: (item.width || (item.options && item.options.width)) || null,
-      height: (item.height || (item.options && item.options.height)) || null,
-      options: item.options ? JSON.stringify(item.options) : null,
-      created_at: new Date().toISOString()
-    }));
-    
-    console.log('Attempting to insert order items:', JSON.stringify(orderItems, null, 2));
-    
-    // Insert order items into Supabase
-    const { error: itemsError } = await supabase
-      .from('order_items')
-      .insert(orderItems);
-    
-    if (itemsError) {
-      console.error('Supabase order items error (detailed):', JSON.stringify(itemsError, null, 2));
+    if (items && Array.isArray(items)) {
+      const orderItems = items.map(item => {
+        // Use sanitized data if available, otherwise fallback to original
+        const sanitizedItem = sanitizedData.items?.find(si => 
+          si.product_id === (item.productId || (item.product && item.product.id))
+        );
+        
+        return {
+          order_id: orderId_db,
+          product_id: item.productId || (item.product && item.product.id),
+          product_name: sanitizedItem?.product_name || item.productName || (item.product && item.product.name),
+          product_image: item.productImage || (item.product && item.product.image),
+          quantity: sanitizedItem?.quantity || item.quantity,
+          unit_price: sanitizedItem?.unit_price || item.price || (item.product && item.product.price),
+          subtotal: (sanitizedItem?.unit_price || item.price || (item.product && item.product.price)) * (sanitizedItem?.quantity || item.quantity),
+          width: (item.width || (item.options && item.options.width)) || null,
+          height: (item.height || (item.options && item.options.height)) || null,
+          options: item.options ? JSON.stringify(item.options) : null,
+          created_at: new Date().toISOString()
+        };
+      });
       
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ 
-          success: false, 
-          message: 'Failed to save order items to database',
-          error: {
-            code: itemsError.code,
-            message: itemsError.message,
-            details: itemsError.details,
-            hint: itemsError.hint
-          }
-        })
-      };
+      console.log('Attempting to insert order items:', JSON.stringify(orderItems, null, 2));
+      
+      // Insert order items into Supabase
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+      
+      if (itemsError) {
+        console.error('Supabase order items error (detailed):', JSON.stringify(itemsError, null, 2));
+        
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ 
+            success: false, 
+            message: 'Failed to save order items to database',
+            error: {
+              code: itemsError.code,
+              message: itemsError.message,
+              details: itemsError.details,
+              hint: itemsError.hint
+            }
+          })
+        };
+      }
+      
+      console.log('Order items inserted successfully');
     }
-    
-    console.log('Order items inserted successfully');
     
     // Send order confirmation email
     try {
       const emailData = {
         orderId, 
-        customer,
+        customer: {
+          ...customer,
+          fullName: sanitizedData.customer_name || customer.fullName,
+          email: sanitizedData.customer_email || customer.email,
+          phone: sanitizedData.customer_phone || customer.phone
+        },
         items,
-        totalAmount
+        totalAmount: sanitizedData.total_amount || totalAmount
       };
       
       const appUrl = process.env.VITE_APP_URL || process.env.APP_URL || 'https://bendzosmartblinds.netlify.app';

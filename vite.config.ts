@@ -5,17 +5,44 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Remove CSP completely for development
-    headers: {}
+    // Security headers for development
+    headers: {
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'X-XSS-Protection': '1; mode=block',
+      'Referrer-Policy': 'strict-origin-when-cross-origin'
+    },
+    // Restrict development server access
+    host: 'localhost',
+    strictPort: true,
+    // Disable directory listing
+    fs: {
+      strict: true,
+      allow: ['.']
+    }
   },
   define: {
     global: 'globalThis'
   },
   build: {
+    // Security optimizations for production build
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks: undefined
       }
-    }
-  }
+    },
+    // Generate source maps for debugging but not in production
+    sourcemap: false
+  },
+  // Prevent exposure of sensitive information
+  envPrefix: ['VITE_'],
+  // Security: prevent loading of arbitrary files
+  assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg', '**/*.webp']
 });

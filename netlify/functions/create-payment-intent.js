@@ -10,6 +10,29 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-11-20.acacia', // Latest API version with enhanced privacy browser support
 });
 
+// Secure logging function
+function secureLog(level, message, data = null) {
+  const isDev = process.env.NODE_ENV === 'development';
+  
+  if (isDev) {
+    console[level](`[CREATE-PAYMENT-INTENT] ${message}`, data);
+  } else {
+    // In production, only log minimal information
+    console[level](`[CREATE-PAYMENT-INTENT] ${message}`);
+  }
+}
+
+// Sanitize error messages for client response
+function sanitizeError(error, context = 'general') {
+  const userMessages = {
+    validation: 'Invalid payment data provided',
+    stripe: 'Payment service temporarily unavailable',
+    general: 'Failed to create payment intent'
+  };
+  
+  return userMessages[context] || userMessages.general;
+}
+
 export const handler = async function(event, context) {
   // CORS headers for all responses
   const corsHeaders = {
@@ -47,10 +70,12 @@ export const handler = async function(event, context) {
         headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
-          message: 'Invalid amount provided' 
+          message: sanitizeError(null, 'validation')
         })
       };
     }
+
+    secureLog('info', 'Creating payment intent');
 
     // Create payment intent
     const paymentIntent = await stripe.paymentIntents.create({
@@ -68,6 +93,8 @@ export const handler = async function(event, context) {
       }
     });
 
+    secureLog('info', 'Payment intent created successfully');
+
     return {
       statusCode: 200,
       headers: {
@@ -82,15 +109,14 @@ export const handler = async function(event, context) {
     };
 
   } catch (error) {
-    console.error('Payment Intent creation error:', error);
+    secureLog('error', 'Payment Intent creation error', process.env.NODE_ENV === 'development' ? error : null);
     
     return {
       statusCode: 500,
       headers: corsHeaders,
       body: JSON.stringify({
         success: false,
-        message: 'Failed to create payment intent',
-        error: error.message
+        message: sanitizeError(error, 'stripe')
       })
     };
   }
