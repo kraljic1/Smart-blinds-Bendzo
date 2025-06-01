@@ -8,7 +8,11 @@ interface SecurityDashboardProps {
 
 const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ className = '' }) => {
   const [incidents, setIncidents] = useState<SecurityIncident[]>([]);
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<{
+    totalIncidents: number;
+    unresolvedIncidents: number;
+    incidentsBySeverity: Record<string, number>;
+  } | null>(null);
   const [selectedSeverity, setSelectedSeverity] = useState<SecuritySeverity | 'all'>('all');
   const [selectedType, setSelectedType] = useState<SecurityIncidentType | 'all'>('all');
   const [showResolved, setShowResolved] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useRef } from 'react';
-import { logSecurityEvent, securityLogger, SecurityIncidentType, SecuritySeverity } from '../utils/securityLogger';
+import { logSecurityEvent, securityLogger, SecurityIncidentType } from '../utils/securityLogger';
 
 interface SecurityMonitoringOptions {
   enableRateLimitMonitoring?: boolean;
@@ -11,11 +11,11 @@ interface SecurityMonitoringOptions {
 
 interface SecurityMonitoringHook {
   logFailedAuth: (email?: string, reason?: string) => void;
-  logSuspiciousActivity: (activity: string, metadata?: Record<string, any>) => void;
+  logSuspiciousActivity: (activity: string, metadata?: Record<string, unknown>) => void;
   logUnauthorizedAccess: (resource: string, userId?: string) => void;
-  logMaliciousRequest: (requestType: string, payload?: any) => void;
+  logMaliciousRequest: (requestType: string, payload?: unknown) => void;
   checkRateLimit: (endpoint: string) => boolean;
-  getSecurityStats: () => any;
+  getSecurityStats: () => Record<string, unknown>;
   isSecurityIncident: (type: SecurityIncidentType) => boolean;
 }
 
@@ -36,6 +36,13 @@ export const useSecurityMonitoring = (
 
   const requestCounts = useRef<Map<string, { count: number; firstRequest: number }>>(new Map());
   const suspiciousPatterns = useRef<Map<string, number>>(new Map());
+
+  /**
+   * Log suspicious activity
+   */
+  const logSuspiciousActivity = useCallback((activity: string, metadata?: Record<string, unknown>) => {
+    logSecurityEvent.suspiciousActivity(activity, metadata);
+  }, []);
 
   // Clean up old rate limit data periodically
   useEffect(() => {
@@ -89,7 +96,7 @@ export const useSecurityMonitoring = (
 
     const interval = setInterval(monitorPatterns, 30000); // Check every 30 seconds
     return () => clearInterval(interval);
-  }, [enableSuspiciousActivityDetection]);
+  }, [enableSuspiciousActivityDetection, logSuspiciousActivity]);
 
   /**
    * Log failed authentication attempt
@@ -111,14 +118,7 @@ export const useSecurityMonitoring = (
         });
       }
     }
-  }, [enableSuspiciousActivityDetection]);
-
-  /**
-   * Log suspicious activity
-   */
-  const logSuspiciousActivity = useCallback((activity: string, metadata?: Record<string, any>) => {
-    logSecurityEvent.suspiciousActivity(activity, metadata);
-  }, []);
+  }, [enableSuspiciousActivityDetection, logSuspiciousActivity]);
 
   /**
    * Log unauthorized access attempt
@@ -140,12 +140,12 @@ export const useSecurityMonitoring = (
         });
       }
     }
-  }, [enableUnauthorizedAccessDetection]);
+  }, [enableUnauthorizedAccessDetection, logSuspiciousActivity]);
 
   /**
    * Log malicious request
    */
-  const logMaliciousRequest = useCallback((requestType: string, payload?: any) => {
+  const logMaliciousRequest = useCallback((requestType: string, payload?: unknown) => {
     logSecurityEvent.maliciousRequest(requestType, payload);
   }, []);
 
@@ -252,7 +252,7 @@ export function withSecurityMonitoring<P extends object>(
 export const useSecurityErrorHandler = () => {
   const security = useSecurityMonitoring();
 
-  return useCallback((error: Error, errorInfo: any) => {
+  return useCallback((error: Error, errorInfo: unknown) => {
     // Check if error might be security-related
     const securityKeywords = ['unauthorized', 'forbidden', 'token', 'auth', 'permission'];
     const isSecurityError = securityKeywords.some(keyword => 

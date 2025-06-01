@@ -12,7 +12,7 @@ export interface SecurityIncident {
   userAgent?: string;
   ipAddress?: string;
   userId?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   resolved: boolean;
   resolvedAt?: Date;
   resolvedBy?: string;
@@ -55,7 +55,7 @@ class SecurityLogger {
     type: SecurityIncidentType,
     severity: SecuritySeverity,
     description: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): void {
     const incident: SecurityIncident = {
       id: this.generateIncidentId(),
@@ -105,7 +105,7 @@ class SecurityLogger {
   /**
    * Log suspicious activity
    */
-  logSuspiciousActivity(activity: string, metadata?: Record<string, any>): void {
+  logSuspiciousActivity(activity: string, metadata?: Record<string, unknown>): void {
     this.logIncident(
       SecurityIncidentType.SUSPICIOUS_ACTIVITY,
       SecuritySeverity.HIGH,
@@ -141,7 +141,7 @@ class SecurityLogger {
   /**
    * Log malicious request
    */
-  logMaliciousRequest(requestType: string, payload?: any): void {
+  logMaliciousRequest(requestType: string, payload?: unknown): void {
     this.logIncident(
       SecurityIncidentType.MALICIOUS_REQUEST,
       SecuritySeverity.HIGH,
@@ -232,11 +232,11 @@ class SecurityLogger {
     return 'client-side-unknown';
   }
 
-  private sanitizePayload(payload: any): any {
-    if (!payload) return payload;
+  private sanitizePayload(payload: unknown): unknown {
+    if (!payload || typeof payload !== 'object') return payload;
     
     // Remove sensitive information from payload
-    const sanitized = { ...payload };
+    const sanitized = { ...payload as Record<string, unknown> };
     const sensitiveKeys = ['password', 'token', 'secret', 'key', 'auth'];
     
     sensitiveKeys.forEach(key => {
@@ -322,7 +322,7 @@ export const logSecurityEvent = {
   failedAuth: (email?: string, reason?: string) => 
     securityLogger.logFailedAuth(email, reason),
   
-  suspiciousActivity: (activity: string, metadata?: Record<string, any>) => 
+  suspiciousActivity: (activity: string, metadata?: Record<string, unknown>) => 
     securityLogger.logSuspiciousActivity(activity, metadata),
   
   unauthorizedAccess: (resource: string, userId?: string) => 
@@ -331,7 +331,7 @@ export const logSecurityEvent = {
   rateLimitExceeded: (endpoint: string, limit: number) => 
     securityLogger.logRateLimitExceeded(endpoint, limit),
   
-  maliciousRequest: (requestType: string, payload?: any) => 
+  maliciousRequest: (requestType: string, payload?: unknown) => 
     securityLogger.logMaliciousRequest(requestType, payload)
 };
 
