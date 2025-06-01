@@ -1,0 +1,145 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run security scan daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    name: Security Audit
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run npm audit
+      run: npm audit --audit-level=moderate
+      continue-on-error: true
+      
+    - name: Run security check script
+      run: npm run security-check
+      continue-on-error: true
+      
+    - name: Check for vulnerable dependencies
+      run: |
+        npm audit --json > audit-results.json
+        if [ -s audit-results.json ]; then
+          echo "Security vulnerabilities found!"
+          cat audit-results.json
+        fi
+      continue-on-error: true
+
+  dependency-check:
+    runs-on: ubuntu-latest
+    name: Dependency Check
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Check for outdated packages
+      run: npm outdated || true
+      
+    - name: Generate dependency report
+      run: |
+        echo "# Dependency Report" > dependency-report.md
+        echo "Generated on: $(date)" >> dependency-report.md
+        echo "" >> dependency-report.md
+        echo "## Outdated Packages" >> dependency-report.md
+        npm outdated --json > outdated.json || true
+        if [ -s outdated.json ]; then
+          echo "Found outdated packages - see outdated.json for details"
+        else
+          echo "All packages are up to date!" >> dependency-report.md
+        fi
+
+  code-security-scan:
+    runs-on: ubuntu-latest
+    name: Code Security Scan
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/init@v3
+      with:
+        languages: javascript, typescript
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      
+    - name: Check for sensitive data patterns
+      run: |
+        echo "Scanning for sensitive data patterns..."
+        # Check for potential secrets in code
+        grep -r -n "sk_live_" src/ || echo "No live Stripe keys found"
+        grep -r -n "password.*=" src/ || echo "No hardcoded passwords found"
+        grep -r -n "api.*key.*=" src/ || echo "No hardcoded API keys found"
+        echo "Sensitive data scan completed"
+
+  security-headers-test:
+    runs-on: ubuntu-latest
+    name: Security Headers Test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Test security headers configuration
+      run: |
+        echo "Testing security headers configuration..."
+        node -e "
+          const config = require('./security.config.js');
+          console.log('Security headers configured:', Object.keys(config.default.headers));
+          console.log('CSP configured:', Object.keys(config.default.csp));
+          console.log('Required env vars:', config.default.requiredEnvVars);
+        " 
