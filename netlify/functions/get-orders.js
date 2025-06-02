@@ -5,13 +5,23 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey, {
-  db: { schema: 'public' },
-  auth: { persistSession: false }
-});
+// Initialize Supabase client with error handling
+let supabase = null;
+try {
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+  
+  if (supabaseUrl && supabaseKey) {
+    supabase = createClient(supabaseUrl, supabaseKey, {
+      db: { schema: 'public' },
+      auth: { persistSession: false }
+    });
+  } else {
+    console.error('Missing Supabase configuration for get-orders');
+  }
+} catch (supabaseError) {
+  console.error('Failed to initialize Supabase in get-orders:', supabaseError.message);
+}
 
 export const handler = async function(event, context) {
   // CORS headers for all responses
@@ -40,6 +50,19 @@ export const handler = async function(event, context) {
     };
   }
 
+  // Check if Supabase is initialized
+  if (!supabase) {
+    console.error('Supabase not initialized in get-orders');
+    return {
+      statusCode: 500,
+      headers: corsHeaders,
+      body: JSON.stringify({ 
+        success: false, 
+        message: 'Database connection not available'
+      })
+    };
+  }
+
   try {
     // Parse query parameters for filtering
     const queryParams = event.queryStringParameters || {};
@@ -47,6 +70,8 @@ export const handler = async function(event, context) {
     const offset = parseInt(queryParams.offset) || 0;
     const orderId = queryParams.orderId;
     const email = queryParams.email;
+
+    console.log('Get orders request:', { limit, offset, orderId, email });
 
     let query = supabase
       .from('orders')
@@ -79,17 +104,20 @@ export const handler = async function(event, context) {
     const { data: orders, error } = await query;
 
     if (error) {
-      console.error('Supabase error:', error);
+      console.error('Supabase error in get-orders:', error);
       return {
         statusCode: 500,
         headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
           message: 'Failed to fetch orders',
-          error: error.message
+          error: error.message,
+          details: process.env.NODE_ENV === 'development' ? error : undefined
         })
       };
     }
+
+    console.log(`Retrieved ${orders?.length || 0} orders`);
 
     // Process orders to ensure proper data structure
     const processedOrders = (orders || []).map(order => {
@@ -120,12 +148,19 @@ export const handler = async function(event, context) {
       };
     });
 
-    // Get total count for pagination
-    const { count, error: countError } = await supabase
-      .from('orders')
-      .select('*', { count: 'exact', head: true });
+    // Get total count for pagination (optional - don't fail if this fails)
+    let totalCount = 0;
+    try {
+      const { count, error: countError } = await supabase
+        .from('orders')
+        .select('*', { count: 'exact', head: true });
 
-    if (countError) {
+      if (countError) {
+        console.warn('Failed to get total count:', countError);
+      } else {
+        totalCount = count || 0;
+      }
+    } catch (countError) {
       console.warn('Failed to get total count:', countError);
     }
 
@@ -139,10 +174,10 @@ export const handler = async function(event, context) {
         success: true,
         orders: processedOrders,
         pagination: {
-          total: count || 0,
+          total: totalCount,
           limit,
           offset,
-          hasMore: (count || 0) > offset + limit
+          hasMore: totalCount > offset + limit
         }
       })
     };
@@ -156,7 +191,8 @@ export const handler = async function(event, context) {
       body: JSON.stringify({
         success: false,
         message: 'Failed to retrieve orders',
-        error: error.message
+        error: error.message,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
       })
     };
   }

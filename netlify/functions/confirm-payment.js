@@ -6,17 +6,33 @@
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch';
-const { validateOrderData, rateLimiter } = require('./validation-utils');
 
-// Initialize Stripe
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-11-20.acacia',
-});
+// Initialize Stripe with error handling
+let stripe = null;
+try {
+  if (process.env.STRIPE_SECRET_KEY) {
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2024-11-20.acacia',
+    });
+  }
+} catch (stripeError) {
+  console.error('Failed to initialize Stripe:', stripeError.message);
+}
 
-// Initialize Supabase client
-const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Initialize Supabase client with error handling
+let supabase = null;
+try {
+  const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+  
+  if (supabaseUrl && supabaseKey) {
+    supabase = createClient(supabaseUrl, supabaseKey);
+  } else {
+    console.error('Missing Supabase configuration');
+  }
+} catch (supabaseError) {
+  console.error('Failed to initialize Supabase:', supabaseError.message);
+}
 
 // Secure logging function
 function secureLog(level, message, data = null) {
@@ -37,10 +53,30 @@ function sanitizeError(error, context = 'general') {
     payment: 'Payment verification failed',
     database: 'Failed to save order to database',
     email: 'Order created but confirmation email failed',
-    general: 'Payment confirmation failed'
+    general: 'Payment confirmation failed',
+    config: 'Service configuration error'
   };
   
   return userMessages[context] || userMessages.general;
+}
+
+// Simple validation function
+function validateOrderData(data) {
+  const errors = [];
+  
+  if (!data.customer) errors.push('Customer data is required');
+  if (!data.items || !Array.isArray(data.items) || data.items.length === 0) {
+    errors.push('Order items are required');
+  }
+  if (!data.totalAmount || typeof data.totalAmount !== 'number' || data.totalAmount <= 0) {
+    errors.push('Valid total amount is required');
+  }
+  
+  return {
+    isValid: errors.length === 0,
+    errors,
+    sanitizedData: data // For now, return original data
+  };
 }
 
 export const handler = async function(event, context) {
@@ -70,21 +106,47 @@ export const handler = async function(event, context) {
     };
   }
 
-  // Rate limiting check
-  const clientIP = event.headers['x-forwarded-for'] || event.headers['x-real-ip'] || 'unknown';
-  if (!rateLimiter.isAllowed(clientIP)) {
+  // Check if services are initialized
+  if (!stripe) {
+    secureLog('error', 'Stripe not initialized');
     return {
-      statusCode: 429,
+      statusCode: 500,
       headers: corsHeaders,
       body: JSON.stringify({ 
         success: false, 
-        message: 'Too many requests. Please try again later.',
-        remainingAttempts: rateLimiter.getRemainingAttempts(clientIP)
+        message: sanitizeError(null, 'config')
+      })
+    };
+  }
+
+  if (!supabase) {
+    secureLog('error', 'Supabase not initialized');
+    return {
+      statusCode: 500,
+      headers: corsHeaders,
+      body: JSON.stringify({ 
+        success: false, 
+        message: sanitizeError(null, 'config')
       })
     };
   }
 
   try {
+    // Parse request body
+    let requestData;
+    try {
+      requestData = JSON.parse(event.body);
+    } catch (parseError) {
+      secureLog('error', 'Failed to parse request body');
+      return {
+        statusCode: 400,
+        headers: corsHeaders,
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'Invalid request data'
+        })
+      };
+    }
     const { 
       paymentIntentId, 
       customer, 
@@ -93,24 +155,23 @@ export const handler = async function(event, context) {
       totalAmount, 
       taxAmount, 
       shippingCost 
-    } = JSON.parse(event.body);
+    } = requestData;
 
-    // Comprehensive validation using our security utilities
+    // Basic validation
     const validationResult = validateOrderData({ customer, items, notes, totalAmount });
     
     if (!validationResult.isValid) {
-      secureLog('warn', 'Validation failed', process.env.NODE_ENV === 'development' ? validationResult.errors : null);
+      secureLog('warn', 'Validation failed', validationResult.errors);
       return {
         statusCode: 400,
         headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
-          message: sanitizeError(null, 'validation')
+          message: sanitizeError(null, 'validation'),
+          errors: validationResult.errors
         })
       };
     }
-
-    const { sanitizedData } = validationResult;
 
     // Validate required data
     if (!paymentIntentId || !customer || !items || !totalAmount) {
@@ -131,23 +192,21 @@ export const handler = async function(event, context) {
     try {
       paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
       
-      if (paymentIntent.status !== 'succeeded') {
-        secureLog('warn', `Payment intent status is ${paymentIntent.status}, not succeeded`);
-        // Don't fail here - the frontend already confirmed the payment succeeded
-      } else {
+      if (paymentIntent.status === 'succeeded') {
         // Verify payment amount matches order total
         const paidAmount = paymentIntent.amount / 100; // Convert from cents
-        if (Math.abs(paidAmount - totalAmount) > 0.01) { // Allow for small rounding differences
-          secureLog('warn', 'Payment amount mismatch detected');
-          // Don't fail here - log the discrepancy but continue
-        } else {
+        if (Math.abs(paidAmount - totalAmount) <= 0.01) { // Allow for small rounding differences
           paymentVerified = true;
           secureLog('info', 'Payment intent verified successfully');
+        } else {
+          secureLog('warn', `Payment amount mismatch: paid ${paidAmount}, expected ${totalAmount}`);
         }
+      } else {
+        secureLog('warn', `Payment intent status is ${paymentIntent.status}, not succeeded`);
       }
     } catch (stripeError) {
-      secureLog('warn', 'Failed to verify payment intent with Stripe');
-      // Don't fail here - the payment was already confirmed successful on the frontend
+      secureLog('warn', 'Failed to verify payment intent with Stripe', stripeError.message);
+      // Continue processing - payment was confirmed on frontend
     }
 
     // Generate a unique order ID
@@ -156,7 +215,7 @@ export const handler = async function(event, context) {
     // Add payment verification status to notes
     const verificationNote = paymentVerified 
       ? 'Payment verified with Stripe' 
-      : 'Payment confirmed by frontend but not verified with Stripe (possible test/live key mismatch)';
+      : 'Payment confirmed by frontend but not verified with Stripe';
     
     const finalNotes = notes 
       ? `${notes}\n\n[System] ${verificationNote}`
@@ -164,16 +223,16 @@ export const handler = async function(event, context) {
     
     secureLog('info', 'Creating order with payment confirmation');
     
-    // Create order data using sanitized values
+    // Create order data
     const orderData = {
       order_id: orderId,
-      customer_name: sanitizedData.customer_name || customer.fullName,
-      customer_email: sanitizedData.customer_email || customer.email,
-      customer_phone: sanitizedData.customer_phone || customer.phone,
-      billing_address: sanitizedData.billing_address || customer.address,
-      shipping_address: sanitizedData.shipping_address || customer.shippingAddress || customer.address,
-      notes: sanitizedData.notes || finalNotes,
-      total_amount: sanitizedData.total_amount || totalAmount,
+      customer_name: customer.fullName || customer.name,
+      customer_email: customer.email,
+      customer_phone: customer.phone,
+      billing_address: customer.address,
+      shipping_address: customer.shippingAddress || customer.address,
+      notes: finalNotes,
+      total_amount: totalAmount,
       tax_amount: taxAmount || null,
       shipping_cost: shippingCost || null,
       payment_method: 'Credit/Debit Card',
@@ -184,8 +243,8 @@ export const handler = async function(event, context) {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
       // Add company fields if provided
-      company_name: sanitizedData.company_name || null,
-      company_oib: sanitizedData.company_oib || null,
+      company_name: customer.companyName || null,
+      company_oib: customer.companyOib || null,
       needs_r1_invoice: customer.needsR1Invoice || false
     };
     
@@ -202,7 +261,8 @@ export const handler = async function(event, context) {
         headers: corsHeaders,
         body: JSON.stringify({ 
           success: false, 
-          message: sanitizeError(error, 'database')
+          message: sanitizeError(error, 'database'),
+          details: process.env.NODE_ENV === 'development' ? error.message : undefined
         })
       };
     }
@@ -211,23 +271,16 @@ export const handler = async function(event, context) {
     
     // Process order items only if we have order ID
     if (orderId_db && items && items.length > 0) {
-      const orderItems = items.map(item => {
-        // Use sanitized data if available, otherwise fallback to original
-        const sanitizedItem = sanitizedData.items?.find(si => 
-          si.product_id === (item.productId || (item.product && item.product.id))
-        );
-        
-        return {
-          order_id: orderId_db,
-          product_id: (item.product && item.product.id) || item.productId || 'unknown',
-          product_name: sanitizedItem?.product_name || item.productName || (item.product && item.product.name) || 'Unknown Product',
-          product_image: item.productImage || (item.product && item.product.image) || null,
-          quantity: sanitizedItem?.quantity || item.quantity || 1,
-          unit_price: sanitizedItem?.unit_price || item.price || (item.product && item.product.price) || 0,
-          subtotal: (sanitizedItem?.unit_price || item.price || (item.product && item.product.price) || 0) * (sanitizedItem?.quantity || item.quantity || 1),
-          options: item.options ? item.options : {}
-        };
-      });
+      const orderItems = items.map(item => ({
+        order_id: orderId_db,
+        product_id: (item.product && item.product.id) || item.productId || 'unknown',
+        product_name: item.productName || (item.product && item.product.name) || 'Unknown Product',
+        product_image: item.productImage || (item.product && item.product.image) || null,
+        quantity: item.quantity || 1,
+        unit_price: item.price || (item.product && item.product.price) || 0,
+        subtotal: (item.price || (item.product && item.product.price) || 0) * (item.quantity || 1),
+        options: item.options || {}
+      }));
       
       // Insert order items into Supabase
       const { error: itemsError } = await supabase
@@ -241,30 +294,34 @@ export const handler = async function(event, context) {
       }
     }
     
-    // Send order confirmation email
+    // Send order confirmation email (optional - don't fail if this fails)
     try {
       const emailData = {
         orderId, 
         customer: {
           ...customer,
-          fullName: sanitizedData.customer_name || customer.fullName,
-          email: sanitizedData.customer_email || customer.email,
-          phone: sanitizedData.customer_phone || customer.phone
+          fullName: customer.fullName || customer.name,
+          email: customer.email,
+          phone: customer.phone
         },
         items,
-        totalAmount: sanitizedData.total_amount || totalAmount,
+        totalAmount,
         paymentMethod: 'Credit/Debit Card'
       };
       
-      await fetch(`${process.env.URL}/.netlify/functions/send-order-confirmation`, {
+      const emailResponse = await fetch(`${process.env.URL}/.netlify/functions/send-order-confirmation`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(emailData)
       });
-    } catch (emailError) {
-      secureLog('error', 'Failed to send confirmation email', process.env.NODE_ENV === 'development' ? emailError : null);
-      // Don't fail the order if email fails
-    }
+      
+      if (!emailResponse.ok) {
+        secureLog('warn', 'Email confirmation failed but order was created');
+      }
+          } catch (emailError) {
+        secureLog('error', 'Failed to send confirmation email', emailError.message);
+        // Don't fail the order if email fails
+      }
     
     return {
       statusCode: 200,
@@ -285,7 +342,8 @@ export const handler = async function(event, context) {
       headers: corsHeaders,
       body: JSON.stringify({
         success: false,
-        message: sanitizeError(error, 'general')
+        message: sanitizeError(error, 'general'),
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
       })
     };
   }
