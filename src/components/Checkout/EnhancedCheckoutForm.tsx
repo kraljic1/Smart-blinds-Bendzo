@@ -16,8 +16,11 @@ import AdditionalNotesSection from './AdditionalNotesSection';
 import OrderSummarySection from './OrderSummarySection';
 import { StripePaymentForm } from './StripePaymentForm';
 import { PaymentSuccess } from './PaymentSuccess';
+import { BraveCompatibilityWarning } from '../Payment/BraveCompatibilityWarning';
+import { ManualPaymentOption } from '../Payment/ManualPaymentOption';
 import './CheckoutForm.css';
 import { safeLog, sanitizeErrorMessage } from '../../utils/errorHandler';
+import { BrowserInfo } from '../../utils/browserDetection';
 
 export function EnhancedCheckoutForm() {
   const { items, getTotalPrice, clearBasket } = useBasketContext();
@@ -33,6 +36,8 @@ export function EnhancedCheckoutForm() {
   } = useCheckoutForm();
 
   const [orderComplete, setOrderComplete] = useState(false);
+  const [browserInfo, setBrowserInfo] = useState<BrowserInfo | null>(null);
+  const [showManualPayment, setShowManualPayment] = useState(false);
   const [orderDetails, setOrderDetails] = useState<{
     paymentIntentId: string;
     orderNumber: string;
@@ -336,6 +341,16 @@ export function EnhancedCheckoutForm() {
     window.location.href = '/';
   };
 
+  const handleContactSupport = () => {
+    // You can implement this to open a contact form, email client, or chat
+    window.location.href = 'mailto:support@yourcompany.com?subject=Payment Assistance Needed&body=I need help completing my order payment.';
+  };
+
+  const handleShowManualPayment = () => {
+    setShowManualPayment(true);
+    setPaymentState(prev => ({ ...prev, showStripeForm: false }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -542,15 +557,46 @@ export function EnhancedCheckoutForm() {
       </div>
       
       {paymentState.showStripeForm && (
-        <Elements stripe={getStripe()}>
-          <StripePaymentForm 
-            amount={getTotalPrice()}
-            currency="EUR"
-            clientSecret={paymentState.clientSecret}
-            onPaymentSuccess={handlePaymentSuccess}
-            onPaymentError={handlePaymentError}
+        <div className="payment-section">
+          <BraveCompatibilityWarning 
+            onBrowserDetected={setBrowserInfo}
+            className="mb-4"
           />
-        </Elements>
+          <Elements stripe={getStripe()}>
+            <StripePaymentForm 
+              amount={getTotalPrice()}
+              currency="EUR"
+              clientSecret={paymentState.clientSecret}
+              onPaymentSuccess={handlePaymentSuccess}
+              onPaymentError={handlePaymentError}
+            />
+          </Elements>
+          
+          {/* Show manual payment option for Brave users */}
+          {browserInfo?.isBrave && (
+            <div className="mt-6">
+              <div className="text-center mb-4">
+                <button
+                  onClick={handleShowManualPayment}
+                  className="text-blue-600 hover:text-blue-800 underline text-sm font-medium"
+                >
+                  Having trouble with payment? Try alternative payment methods
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+      
+      {showManualPayment && (
+        <div className="payment-section mt-6">
+          <ManualPaymentOption
+            orderTotal={getTotalPrice()}
+            currency="EUR"
+            onContactSupport={handleContactSupport}
+            className="max-w-2xl mx-auto"
+          />
+        </div>
       )}
       
       {orderComplete && orderDetails && (
