@@ -37,6 +37,7 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
 import AccessibilityPage from './pages/AccessibilityPage';
 import AdminManagementPage from './pages/AdminManagementPage';
+import { TestPayment } from './pages/TestPayment';
 import { preventOverscroll } from './utils/preventOverscroll';
 import ScrollToTop from './utils/ScrollToTop';
 
@@ -105,6 +106,7 @@ function App() {
                       <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
                       <Route path="/terms-of-service" element={<TermsOfServicePage />} />
                       <Route path="/accessibility" element={<AccessibilityPage />} />
+                      <Route path="/test-payment" element={<TestPayment />} />
                     </Routes>
                   </main>
                   <Footer />
