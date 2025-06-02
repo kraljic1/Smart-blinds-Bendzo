@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
+import { useNavigate } from 'react-router-dom';
 import { useBasketContext } from '../../hooks/useBasketContext';
+import { useOrderContext } from '../../context/useOrderContext';
 import { useCheckoutForm } from './useCheckoutForm';
 import { createPaymentIntent } from '../../utils/stripeUtils';
 import { getStripe } from '../../config/stripe';
@@ -25,7 +27,9 @@ import { BrowserInfo } from '../../utils/browserDetection';
 export function EnhancedCheckoutForm() {
   console.log('[CHECKOUT] EnhancedCheckoutForm component mounted');
   
+  const navigate = useNavigate();
   const { items, getTotalPrice, clearBasket } = useBasketContext();
+  const { setLastOrder } = useOrderContext();
   console.log('[CHECKOUT] Basket items:', items.length);
   console.log('[CHECKOUT] Total price:', getTotalPrice());
   
@@ -340,12 +344,22 @@ export function EnhancedCheckoutForm() {
     safeLog.info('Setting order details');
     setOrderDetails(orderData);
     
+    // Set order in context for Thank You page
+    console.log('[CHECKOUT] Setting order in context for Thank You page');
+    safeLog.info('Setting order in context for Thank You page');
+    setLastOrder({
+      success: true,
+      orderId: orderId,
+      message: 'Order created successfully'
+    });
+    
     // Clear basket
     clearBasket();
     
-    // Mark order as complete
-    safeLog.info('Setting orderComplete to true');
-    setOrderComplete(true);
+    // Navigate to Thank You page
+    console.log('[CHECKOUT] Navigating to Thank You page');
+    safeLog.info('Navigating to Thank You page');
+    navigate('/thank-you');
   };
 
   const handlePaymentError = (error: unknown) => {
@@ -380,6 +394,16 @@ export function EnhancedCheckoutForm() {
   const handleShowManualPayment = () => {
     setShowManualPayment(true);
     setPaymentState(prev => ({ ...prev, showStripeForm: false }));
+  };
+
+  const handleClosePayment = () => {
+    setPaymentState({
+      clientSecret: '',
+      paymentIntentId: '',
+      showStripeForm: false,
+      processingPayment: false
+    });
+    setShowManualPayment(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -596,7 +620,7 @@ export function EnhancedCheckoutForm() {
       </div>
       
       {paymentState.showStripeForm && (
-        <div className="payment-section">
+        <>
           <BraveCompatibilityWarning 
             onBrowserDetected={setBrowserInfo}
             className="mb-4"
@@ -608,6 +632,7 @@ export function EnhancedCheckoutForm() {
               clientSecret={paymentState.clientSecret}
               onPaymentSuccess={handlePaymentSuccess}
               onPaymentError={handlePaymentError}
+              onClose={handleClosePayment}
             />
           </Elements>
           
@@ -624,7 +649,7 @@ export function EnhancedCheckoutForm() {
               </div>
             </div>
           )}
-        </div>
+        </>
       )}
       
       {showManualPayment && (
