@@ -1,12 +1,5 @@
 name: "CodeQL Config"
 
-# Disable default queries that might cause false positives
-disable-default-queries: false
-
-# Add custom query packs
-packs:
-  - codeql/javascript-queries
-
 # Exclude certain paths from analysis
 paths-ignore:
   - "node_modules/**"
@@ -24,22 +17,6 @@ paths:
   - "*.config.js"
   - "*.config.ts"
 
-# Custom queries to exclude
+# Use default queries but exclude some problematic ones
 queries:
-  - exclude:
-      id: js/unused-local-variable
-  - exclude:
-      id: js/debugger-statement
-  - exclude:
-      id: js/alert-call
-
-# Security-focused query suites
-query-filters:
-  - exclude:
-      tags: "external/cwe/cwe-079"  # XSS - we handle this with CSP
-  - include:
-      tags: "security"
-  - include:
-      tags: "external/cwe/cwe-089"  # SQL injection
-  - include:
-      tags: "external/cwe/cwe-078"  # Command injection 
+  - uses: security-and-quality 
