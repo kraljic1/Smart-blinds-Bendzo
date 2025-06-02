@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CheckCircle, Loader, User, Mail, Phone, MapPin, CreditCard, Truck, FileText, Calendar, Clock } from 'lucide-react';
+import { CheckCircle, Loader, User, Mail, Phone, MapPin, CreditCard, Truck, FileText, Calendar, Clock, Printer } from 'lucide-react';
 import SEO from '../components/SEO/SEO';
 import { useBasketContext } from '../hooks/useBasketContext';
 import { useOrderContext } from '../context/useOrderContext';
 import { getOrderById } from '../utils/orderUtils';
+import '../styles/print.css';
 
 // Type for order items
 interface OrderItemDisplay {
@@ -114,6 +115,10 @@ const ThankYouPage: React.FC = () => {
     }
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
       <SEO 
@@ -123,7 +128,7 @@ const ThankYouPage: React.FC = () => {
       
       <div className="max-w-4xl mx-auto">
         {/* Success Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 print-hide">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full mb-4">
             <CheckCircle className="w-12 h-12 text-green-600 dark:text-green-400" />
           </div>
@@ -135,8 +140,19 @@ const ThankYouPage: React.FC = () => {
           </p>
         </div>
 
+        {/* Print Button */}
+        <div className="text-center mb-6 print-hide">
+          <button 
+            onClick={handlePrint}
+            className="print-button"
+          >
+            <Printer />
+            Ispiši račun
+          </button>
+        </div>
+
         {/* Order Receipt */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <div className="print-invoice bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
           {/* Company Header */}
           <div className="bg-blue-600 dark:bg-blue-700 text-white p-6">
             <div className="flex justify-between items-start">
@@ -340,7 +356,7 @@ const ThankYouPage: React.FC = () => {
         </div>
 
         {/* Next Steps */}
-        <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6">
+        <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 print-hide">
           <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">Što slijedi?</h3>
           <ul className="space-y-2 text-blue-800 dark:text-blue-200">
             <li className="flex items-start">
@@ -359,7 +375,7 @@ const ThankYouPage: React.FC = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4 print-hide">
           <button 
             onClick={() => window.print()}
             className="px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center"
@@ -384,7 +400,7 @@ const ThankYouPage: React.FC = () => {
         </div>
 
         {/* Contact Info */}
-        <div className="mt-8 text-center text-gray-500 dark:text-gray-400">
+        <div className="mt-8 text-center text-gray-500 dark:text-gray-400 print-hide">
           <p className="mb-2">Imate pitanja o vašoj narudžbi?</p>
           <p>
             Kontaktirajte nas na{' '}
