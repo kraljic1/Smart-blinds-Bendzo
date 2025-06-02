@@ -256,14 +256,8 @@ export const handler = async function(event, context) {
     const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     console.log('[CONFIRM-PAYMENT] Generated order ID:', orderId);
     
-    // Add payment verification status to notes
-    const verificationNote = paymentVerified 
-      ? 'Payment verified with Stripe' 
-      : 'Payment confirmed by frontend but not verified with Stripe';
-    
-    const finalNotes = notes 
-      ? `${notes}\n\n[System] ${verificationNote}`
-      : `[System] ${verificationNote}`;
+    // Keep customer notes separate from system logs
+    const finalNotes = notes || null;
     
     console.log('[CONFIRM-PAYMENT] Creating order with payment confirmation');
     secureLog('info', 'Creating order with payment confirmation');
