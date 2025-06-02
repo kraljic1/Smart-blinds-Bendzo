@@ -49,28 +49,34 @@ export function StripePaymentForm({
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
+    console.log('[STRIPE] Payment form submitted');
     event.preventDefault();
 
     if (!stripe || !elements) {
+      console.log('[STRIPE] Stripe or elements not available');
       return;
     }
 
     if (isProcessing || disabled) {
+      console.log('[STRIPE] Already processing or disabled');
       return;
     }
 
+    console.log('[STRIPE] Starting payment processing...');
     setIsProcessing(true);
     setCardError(null);
 
     const cardElement = elements.getElement(CardElement);
 
     if (!cardElement) {
+      console.log('[STRIPE] Card element not found');
       setCardError('Card element not found');
       setIsProcessing(false);
       return;
     }
 
     try {
+      console.log('[STRIPE] Confirming card payment with client secret:', clientSecret);
       // Confirm the payment intent
       const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -79,23 +85,24 @@ export function StripePaymentForm({
       });
 
       if (error) {
-        console.error('Payment confirmation error:', error);
+        console.error('[STRIPE] Payment confirmation error:', error);
         setCardError(error.message || 'An error occurred');
         onPaymentError(error.message || 'Payment confirmation failed');
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        console.log('Payment succeeded:', paymentIntent);
+        console.log('[STRIPE] Payment succeeded:', paymentIntent);
         onPaymentSuccess(paymentIntent.id);
       } else {
-        console.log('Payment intent status:', paymentIntent?.status);
+        console.log('[STRIPE] Payment intent status:', paymentIntent?.status);
         setCardError('Payment was not completed successfully');
         onPaymentError('Payment was not completed successfully');
       }
     } catch (error) {
-      console.error('Payment error:', error);
+      console.error('[STRIPE] Payment error:', error);
       const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
       setCardError(errorMessage);
       onPaymentError(errorMessage);
     } finally {
+      console.log('[STRIPE] Setting processing to false');
       setIsProcessing(false);
     }
   };

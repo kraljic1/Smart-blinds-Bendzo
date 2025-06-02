@@ -23,7 +23,12 @@ import { safeLog, sanitizeErrorMessage } from '../../utils/errorHandler';
 import { BrowserInfo } from '../../utils/browserDetection';
 
 export function EnhancedCheckoutForm() {
+  console.log('[CHECKOUT] EnhancedCheckoutForm component mounted');
+  
   const { items, getTotalPrice, clearBasket } = useBasketContext();
+  console.log('[CHECKOUT] Basket items:', items.length);
+  console.log('[CHECKOUT] Total price:', getTotalPrice());
+  
   const {
     formData,
     formStatus,
@@ -34,6 +39,9 @@ export function EnhancedCheckoutForm() {
     setSubmitting,
     setPaymentState
   } = useCheckoutForm();
+  
+  console.log('[CHECKOUT] Form status:', formStatus);
+  console.log('[CHECKOUT] Payment state:', paymentState);
 
   const [orderComplete, setOrderComplete] = useState(false);
   const [browserInfo, setBrowserInfo] = useState<BrowserInfo | null>(null);
@@ -86,9 +94,11 @@ export function EnhancedCheckoutForm() {
   };
 
   const handlePaymentSuccess = async (paymentIntentId: string) => {
+    console.log('[CHECKOUT] handlePaymentSuccess called with paymentIntentId:', paymentIntentId);
     let orderId = '';
     
     try {
+      console.log('[CHECKOUT] Payment successful, preparing confirmation data');
       safeLog.info('Payment successful');
       
       const confirmPaymentData = {
@@ -118,47 +128,68 @@ export function EnhancedCheckoutForm() {
         shippingCost: getShippingCost()
       };
 
+      console.log('[CHECKOUT] Confirm payment data prepared:', confirmPaymentData);
+      console.log('[CHECKOUT] Calling confirm-payment function to save order...');
       safeLog.info('Calling confirm-payment function to save order...');
 
       // Try to use Netlify function first, fallback to direct Supabase if needed
+      console.log('[CHECKOUT] Attempting to save order via Netlify function...');
       let orderSaved = false;
 
       try {
+        console.log('[CHECKOUT] Checking if confirm-payment function is available...');
         safeLog.info('Checking if confirm-payment function is available...');
         
         // Test if the Netlify function is available
+        console.log('[CHECKOUT] Making test request to confirm-payment function');
         const testResponse = await fetch('/.netlify/functions/confirm-payment', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ test: true })
         });
 
+        console.log('[CHECKOUT] Test response status:', testResponse.status);
+        console.log('[CHECKOUT] Test response ok:', testResponse.ok);
+
         if (testResponse.status === 404) {
+          console.log('[CHECKOUT] Netlify function not deployed, using direct Supabase save');
           safeLog.info('Netlify function not deployed, using direct Supabase save');
           throw new Error('Function not available');
         } else {
+          console.log('[CHECKOUT] Netlify function available, attempting to use it...');
           safeLog.info('Netlify function available, attempting to use it...');
           
           // Use the Netlify function
+          console.log('[CHECKOUT] Making actual request to confirm-payment function');
           const confirmResult = await fetch('/.netlify/functions/confirm-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(confirmPaymentData)
           });
 
+          console.log('[CHECKOUT] Confirm result status:', confirmResult.status);
+          console.log('[CHECKOUT] Confirm result ok:', confirmResult.ok);
+
           if (confirmResult.ok) {
+            console.log('[CHECKOUT] Parsing confirm result JSON...');
             const result = await confirmResult.json();
+            console.log('[CHECKOUT] Confirm payment result:', result);
             safeLog.info('Confirm payment result received');
             
             if (result.success) {
+              console.log('[CHECKOUT] Order saved successfully via Netlify function');
               safeLog.info('Order saved successfully via Netlify function');
               orderId = result.orderId;
               orderSaved = true;
             } else {
+              console.log('[CHECKOUT] Netlify function returned error:', result);
               safeLog.warn('Netlify function returned error, falling back to Supabase');
               throw new Error('Netlify function failed');
             }
           } else {
+            console.log('[CHECKOUT] Netlify function returned non-ok status, falling back to Supabase');
+            const errorText = await confirmResult.text();
+            console.log('[CHECKOUT] Error response text:', errorText);
             safeLog.info('Netlify function check returned unexpected status, falling back to Supabase');
             throw new Error('Netlify function failed');
           }
@@ -352,11 +383,14 @@ export function EnhancedCheckoutForm() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('[CHECKOUT] handleSubmit called');
     e.preventDefault();
     
+    console.log('[CHECKOUT] Form submitted!');
     safeLog.info('Form submitted!');
     
     // Validate required fields
+    console.log('[CHECKOUT] Validating required fields...');
     const requiredFields = [
       'fullName', 'email', 'phoneNumber', 'address', 'city', 'postalCode', 'shippingMethod'
     ];
@@ -458,10 +492,15 @@ export function EnhancedCheckoutForm() {
   };
 
   const handlePaymentButtonClick = () => {
+    console.log('[CHECKOUT] Payment button clicked!');
+    console.log('[CHECKOUT] Current payment state:', paymentState);
     safeLog.info('Button clicked!');
     
     if (!paymentState.showStripeForm) {
+      console.log('[CHECKOUT] Stripe form not shown, calling handleSubmit');
       handleSubmit(new Event('submit') as unknown as React.FormEvent);
+    } else {
+      console.log('[CHECKOUT] Stripe form already shown');
     }
   };
 

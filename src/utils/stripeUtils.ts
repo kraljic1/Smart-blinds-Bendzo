@@ -89,8 +89,14 @@ export async function createPaymentIntent(
   data: CreatePaymentIntentRequest
 ): Promise<CreatePaymentIntentResponse> {
   try {
+    console.log('[STRIPE-UTILS] Creating payment intent with data:', data);
     const baseUrl = getApiBaseUrl();
-    const response = await fetch(`${baseUrl}/.netlify/functions/create-payment-intent`, {
+    console.log('[STRIPE-UTILS] Using base URL:', baseUrl);
+    
+    const url = `${baseUrl}/.netlify/functions/create-payment-intent`;
+    console.log('[STRIPE-UTILS] Making request to:', url);
+    
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -98,12 +104,20 @@ export async function createPaymentIntent(
       body: JSON.stringify(data),
     });
 
+    console.log('[STRIPE-UTILS] Response status:', response.status);
+    console.log('[STRIPE-UTILS] Response ok:', response.ok);
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.log('[STRIPE-UTILS] Error response text:', errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json();
+    const result = await response.json();
+    console.log('[STRIPE-UTILS] Payment intent result:', result);
+    return result;
   } catch (error) {
+    console.log('[STRIPE-UTILS] Error creating payment intent:', error);
     safeLog.error('Error creating payment intent', error);
     return {
       success: false,
