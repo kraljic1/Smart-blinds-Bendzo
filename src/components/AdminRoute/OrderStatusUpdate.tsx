@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AlertTriangle, CheckCircle, Loader } from 'lucide-react';
 import { OrderStatus, updateOrderStatus } from '../../utils/orderUtils';
 import { getStatusTranslation } from '../../utils/orderStatusFormatter';
+import ModernDropdown from '../UI/ModernDropdown';
 
 interface OrderStatusUpdateProps {
   orderId: string;
@@ -29,6 +30,12 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
     'completed',
     'cancelled'
   ];
+
+  // Convert statuses to dropdown options
+  const dropdownOptions = availableStatuses.map(statusOption => ({
+    value: statusOption,
+    label: getStatusTranslation(statusOption)
+  }));
 
   const handleStatusChange = async () => {
     if (status === currentStatus) {
@@ -92,19 +99,14 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
           <label htmlFor="status-select" className="sr-only">
             Odaberi Status
           </label>
-          <select
-            id="status-select"
-            className="block w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+          <ModernDropdown
+            options={dropdownOptions}
             value={status}
-            onChange={(e) => setStatus(e.target.value as OrderStatus)}
+            onChange={(value) => setStatus(value as OrderStatus)}
+            placeholder="Odaberi status"
             disabled={isLoading}
-          >
-            {availableStatuses.map((statusOption) => (
-              <option key={statusOption} value={statusOption}>
-                {getStatusTranslation(statusOption)}
-              </option>
-            ))}
-          </select>
+            className="w-full"
+          />
         </div>
         
         <button
