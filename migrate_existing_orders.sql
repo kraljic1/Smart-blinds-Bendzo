@@ -108,16 +108,21 @@ WHERE created_at IS NOT NULL;
 -- This script handles data migration from old schema to new schema
 -- It should be run AFTER create_tables.sql
 
--- Create helper function to check if a column exists
+-- Create helper function to check if a column exists (SECURE VERSION)
 CREATE OR REPLACE FUNCTION column_exists(tbl text, col text) RETURNS boolean AS $$
 BEGIN
+  -- Set secure search path to prevent injection
+  SET search_path = public, pg_catalog;
+  
   RETURN EXISTS (
     SELECT 1 
     FROM information_schema.columns 
-    WHERE table_name = tbl AND column_name = col
+    WHERE table_schema = 'public' 
+    AND table_name = tbl 
+    AND column_name = col
   );
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- First, create a backup of existing orders data if the table exists
 DO $$
