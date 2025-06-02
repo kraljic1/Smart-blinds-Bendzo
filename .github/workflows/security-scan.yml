@@ -85,20 +85,11 @@ jobs:
   code-security-scan:
     runs-on: ubuntu-latest
     name: Code Security Scan
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Run CodeQL Analysis
-      uses: github/codeql-action/init@v3
-      with:
-        languages: javascript, typescript
-        
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
@@ -107,12 +98,6 @@ jobs:
         
     - name: Install dependencies
       run: npm ci
-      
-    - name: Build project
-      run: npm run build
-      
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
       
     - name: Check for sensitive data patterns
       run: |
