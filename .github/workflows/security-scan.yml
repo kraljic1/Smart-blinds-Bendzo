@@ -89,6 +89,7 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: javascript, typescript
+        config-file: ./.github/codeql/codeql-config.yml
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -135,11 +136,4 @@ jobs:
       run: npm run build
       
     - name: Test security headers configuration
-      run: |
-        echo "Testing security headers configuration..."
-        node -e "
-          const config = require('./security.config.js');
-          console.log('Security headers configured:', Object.keys(config.default.headers));
-          console.log('CSP configured:', Object.keys(config.default.csp));
-          console.log('Required env vars:', config.default.requiredEnvVars);
-        " 
+      run: node scripts/security-test.js 

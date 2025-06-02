@@ -17,7 +17,8 @@
     "audit-fix": "npm audit fix",
     "security-check": "npm audit && npm outdated",
     "security-monitor": "node scripts/security-monitor.js",
-    "security-scan": "npm run security-monitor && npm run audit",
+    "security-test": "node scripts/security-test.js",
+    "security-scan": "npm run security-monitor && npm run audit && npm run security-test",
     "security-update": "npm audit fix && npm update"
   },
   "dependencies": {

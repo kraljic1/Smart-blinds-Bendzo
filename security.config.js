@@ -5,12 +5,67 @@ export const securityConfig = {
   // Content Security Policy for production
   csp: {
     'default-src': ["'self'"],
-    'script-src': ["'self'", "'unsafe-inline'", "https://js.stripe.com"],
-    'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-    'font-src': ["'self'", "https://fonts.gstatic.com"],
-    'img-src': ["'self'", "data:", "https:"],
-    'connect-src': ["'self'", "https://api.stripe.com", "https://*.supabase.co"],
-    'frame-src': ["https://js.stripe.com"],
+    'script-src': [
+      "'self'", 
+      "'unsafe-inline'", 
+      "'unsafe-eval'",
+      "https://js.stripe.com",
+      "https://checkout.stripe.com",
+      "https://m.stripe.com",
+      "https://m.stripe.network"
+    ],
+    'style-src': [
+      "'self'", 
+      "'unsafe-inline'", 
+      "https://fonts.googleapis.com",
+      "https://js.stripe.com",
+      "https://checkout.stripe.com",
+      "https://a.stripecdn.com"
+    ],
+    'font-src': [
+      "'self'", 
+      "https://fonts.gstatic.com",
+      "https://a.stripecdn.com"
+    ],
+    'img-src': [
+      "'self'", 
+      "data:", 
+      "https:",
+      "blob:",
+      "https://*.stripe.com",
+      "https://*.stripecdn.com"
+    ],
+    'connect-src': [
+      "'self'", 
+      "https://api.stripe.com",
+      "https://js.stripe.com",
+      "https://checkout.stripe.com",
+      "https://q.stripe.com",
+      "https://m.stripe.com",
+      "https://merchant-ui-api.stripe.com",
+      "https://r.stripe.com",
+      "https://hooks.stripe.com",
+      "https://m.stripe.network",
+      "https://*.stripe.com",
+      "wss://*.stripe.com",
+      "https://*.supabase.co",
+      "https://*.supabase.io",
+      "wss://*.supabase.co",
+      "wss://*.supabase.io"
+    ],
+    'frame-src': [
+      "'self'",
+      "https://js.stripe.com",
+      "https://checkout.stripe.com",
+      "https://connect.stripe.com",
+      "https://hooks.stripe.com"
+    ],
+    'worker-src': [
+      "'self'",
+      "blob:",
+      "https://m.stripe.network",
+      "https://m.stripe.com"
+    ],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],
     'form-action': ["'self'"]
