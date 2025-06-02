@@ -34,7 +34,7 @@ export interface BrowserInfo {
  * Brave pretends to be Chrome in the user agent, so we need to use JavaScript detection
  */
 export async function detectBrave(): Promise<boolean> {
-  // Method 1: Check for Brave-specific navigator properties
+  // Method 1: Check for Brave-specific navigator properties (most reliable)
   if ('brave' in navigator && navigator.brave && typeof navigator.brave.isBrave === 'function') {
     try {
       return await navigator.brave.isBrave();
@@ -43,42 +43,29 @@ export async function detectBrave(): Promise<boolean> {
     }
   }
 
-  // Method 2: Check for Brave-specific features
-  if (window.chrome && window.chrome.runtime && window.chrome.runtime.onConnect) {
-    // Check if certain Chrome APIs are blocked (Brave blocks some)
-    try {
-      const isBlocked = !window.chrome.runtime.getManifest;
-      if (isBlocked) return true;
-    } catch (error) {
-      // If we get an error, it might be Brave
-      return true;
-    }
-  }
-
-  // Method 3: Check user agent for Brave-specific patterns
+  // Method 2: Check user agent for Brave-specific patterns
   const userAgent = navigator.userAgent;
   if (userAgent.includes('Brave')) {
     return true;
   }
 
-  // Method 4: Check for blocked resources (Brave blocks ads/trackers)
-  try {
-    const testElement = document.createElement('div');
-    testElement.className = 'adsbox';
-    testElement.style.position = 'absolute';
-    testElement.style.left = '-9999px';
-    document.body.appendChild(testElement);
-    
-    const isBlocked = testElement.offsetHeight === 0;
-    document.body.removeChild(testElement);
-    
-    if (isBlocked) {
-      // This could indicate an ad blocker, possibly Brave
+  // Method 3: Check for Brave-specific features (only if Chrome-like)
+  // Only run this check if the browser appears to be Chrome-based
+  if (userAgent.includes('Chrome') && !userAgent.includes('Safari') && window.chrome) {
+    try {
+      // Check if certain Chrome APIs are blocked (Brave blocks some)
+      if (window.chrome.runtime && !window.chrome.runtime.getManifest) {
+        return true;
+      }
+    } catch (error) {
+      // If we get an error accessing Chrome APIs, it might be Brave
+      console.log('Chrome API check failed, might be Brave:', error);
       return true;
     }
-  } catch (error) {
-    console.log('Ad blocker detection failed:', error);
   }
+
+  // Don't use ad blocker detection as it's too unreliable and causes false positives
+  // Many browsers and extensions can block ads, not just Brave
 
   return false;
 }
@@ -90,11 +77,17 @@ export async function getBrowserInfo(): Promise<BrowserInfo> {
   const userAgent = navigator.userAgent;
   const isBrave = await detectBrave();
   
+  // More accurate Safari detection
+  const isSafari = userAgent.includes('Safari') && 
+                   !userAgent.includes('Chrome') && 
+                   !userAgent.includes('Chromium') &&
+                   !isBrave;
+  
   return {
     isBrave,
-    isChrome: userAgent.includes('Chrome') && !isBrave,
+    isChrome: userAgent.includes('Chrome') && !isBrave && !isSafari,
     isFirefox: userAgent.includes('Firefox'),
-    isSafari: userAgent.includes('Safari') && !userAgent.includes('Chrome'),
+    isSafari,
     isEdge: userAgent.includes('Edge'),
     userAgent
   };

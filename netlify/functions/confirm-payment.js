@@ -80,6 +80,9 @@ function validateOrderData(data) {
 }
 
 export const handler = async function(event, context) {
+  console.log('[CONFIRM-PAYMENT] Function started');
+  console.log('[CONFIRM-PAYMENT] HTTP Method:', event.httpMethod);
+  
   // CORS headers for all responses
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -90,6 +93,7 @@ export const handler = async function(event, context) {
 
   // Handle preflight OPTIONS request
   if (event.httpMethod === 'OPTIONS') {
+    console.log('[CONFIRM-PAYMENT] Handling OPTIONS request');
     return {
       statusCode: 200,
       headers: corsHeaders,
@@ -99,6 +103,7 @@ export const handler = async function(event, context) {
 
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
+    console.log('[CONFIRM-PAYMENT] Invalid method:', event.httpMethod);
     return { 
       statusCode: 405,
       headers: corsHeaders,
@@ -106,8 +111,12 @@ export const handler = async function(event, context) {
     };
   }
 
+  console.log('[CONFIRM-PAYMENT] Checking service initialization...');
+  
   // Check if services are initialized
   if (!stripe) {
+    console.error('[CONFIRM-PAYMENT] Stripe not initialized');
+    console.log('[CONFIRM-PAYMENT] STRIPE_SECRET_KEY present:', !!process.env.STRIPE_SECRET_KEY);
     secureLog('error', 'Stripe not initialized');
     return {
       statusCode: 500,
@@ -120,6 +129,12 @@ export const handler = async function(event, context) {
   }
 
   if (!supabase) {
+    console.error('[CONFIRM-PAYMENT] Supabase not initialized');
+    console.log('[CONFIRM-PAYMENT] SUPABASE_URL present:', !!process.env.SUPABASE_URL);
+    console.log('[CONFIRM-PAYMENT] VITE_SUPABASE_URL present:', !!process.env.VITE_SUPABASE_URL);
+    console.log('[CONFIRM-PAYMENT] SUPABASE_SERVICE_KEY present:', !!process.env.SUPABASE_SERVICE_KEY);
+    console.log('[CONFIRM-PAYMENT] SUPABASE_ANON_KEY present:', !!process.env.SUPABASE_ANON_KEY);
+    console.log('[CONFIRM-PAYMENT] VITE_SUPABASE_ANON_KEY present:', !!process.env.VITE_SUPABASE_ANON_KEY);
     secureLog('error', 'Supabase not initialized');
     return {
       statusCode: 500,
@@ -131,12 +146,20 @@ export const handler = async function(event, context) {
     };
   }
 
+  console.log('[CONFIRM-PAYMENT] Services initialized successfully');
+
   try {
+    console.log('[CONFIRM-PAYMENT] Starting request processing...');
+    
     // Parse request body
     let requestData;
     try {
+      console.log('[CONFIRM-PAYMENT] Parsing request body...');
+      console.log('[CONFIRM-PAYMENT] Request body length:', event.body?.length || 0);
       requestData = JSON.parse(event.body);
+      console.log('[CONFIRM-PAYMENT] Request data parsed successfully');
     } catch (parseError) {
+      console.error('[CONFIRM-PAYMENT] Failed to parse request body:', parseError.message);
       secureLog('error', 'Failed to parse request body');
       return {
         statusCode: 400,
@@ -147,6 +170,7 @@ export const handler = async function(event, context) {
         })
       };
     }
+    
     const { 
       paymentIntentId, 
       customer, 
@@ -157,10 +181,18 @@ export const handler = async function(event, context) {
       shippingCost 
     } = requestData;
 
+    console.log('[CONFIRM-PAYMENT] Extracted data:');
+    console.log('[CONFIRM-PAYMENT] - paymentIntentId:', paymentIntentId ? 'present' : 'missing');
+    console.log('[CONFIRM-PAYMENT] - customer:', customer ? 'present' : 'missing');
+    console.log('[CONFIRM-PAYMENT] - items count:', items?.length || 0);
+    console.log('[CONFIRM-PAYMENT] - totalAmount:', totalAmount);
+
     // Basic validation
+    console.log('[CONFIRM-PAYMENT] Running validation...');
     const validationResult = validateOrderData({ customer, items, notes, totalAmount });
     
     if (!validationResult.isValid) {
+      console.error('[CONFIRM-PAYMENT] Validation failed:', validationResult.errors);
       secureLog('warn', 'Validation failed', validationResult.errors);
       return {
         statusCode: 400,
@@ -175,6 +207,7 @@ export const handler = async function(event, context) {
 
     // Validate required data
     if (!paymentIntentId || !customer || !items || !totalAmount) {
+      console.error('[CONFIRM-PAYMENT] Missing required data');
       return {
         statusCode: 400,
         headers: corsHeaders,
@@ -185,32 +218,43 @@ export const handler = async function(event, context) {
       };
     }
 
+    console.log('[CONFIRM-PAYMENT] Validation passed');
+
     // Retrieve and verify payment intent from Stripe
+    console.log('[CONFIRM-PAYMENT] Verifying payment with Stripe...');
     let paymentIntent = null;
     let paymentVerified = false;
     
     try {
+      console.log('[CONFIRM-PAYMENT] Retrieving payment intent:', paymentIntentId);
       paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      console.log('[CONFIRM-PAYMENT] Payment intent status:', paymentIntent.status);
       
       if (paymentIntent.status === 'succeeded') {
         // Verify payment amount matches order total
         const paidAmount = paymentIntent.amount / 100; // Convert from cents
+        console.log('[CONFIRM-PAYMENT] Payment amounts - paid:', paidAmount, 'expected:', totalAmount);
         if (Math.abs(paidAmount - totalAmount) <= 0.01) { // Allow for small rounding differences
           paymentVerified = true;
+          console.log('[CONFIRM-PAYMENT] Payment verification successful');
           secureLog('info', 'Payment intent verified successfully');
         } else {
+          console.warn('[CONFIRM-PAYMENT] Payment amount mismatch');
           secureLog('warn', `Payment amount mismatch: paid ${paidAmount}, expected ${totalAmount}`);
         }
       } else {
+        console.warn('[CONFIRM-PAYMENT] Payment not succeeded, status:', paymentIntent.status);
         secureLog('warn', `Payment intent status is ${paymentIntent.status}, not succeeded`);
       }
     } catch (stripeError) {
+      console.error('[CONFIRM-PAYMENT] Stripe verification error:', stripeError.message);
       secureLog('warn', 'Failed to verify payment intent with Stripe', stripeError.message);
       // Continue processing - payment was confirmed on frontend
     }
 
     // Generate a unique order ID
     const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    console.log('[CONFIRM-PAYMENT] Generated order ID:', orderId);
     
     // Add payment verification status to notes
     const verificationNote = paymentVerified 
@@ -221,6 +265,7 @@ export const handler = async function(event, context) {
       ? `${notes}\n\n[System] ${verificationNote}`
       : `[System] ${verificationNote}`;
     
+    console.log('[CONFIRM-PAYMENT] Creating order with payment confirmation');
     secureLog('info', 'Creating order with payment confirmation');
     
     // Create order data
@@ -248,23 +293,40 @@ export const handler = async function(event, context) {
       needs_r1_invoice: customer.needsR1Invoice || false
     };
     
-    // Insert order into Supabase
-    const { data: insertedOrder, error } = await supabase
-      .from('orders')
-      .insert([orderData])
-      .select();
+    console.log('[CONFIRM-PAYMENT] Order data prepared, inserting into database...');
+    console.log('[CONFIRM-PAYMENT] Order data keys:', Object.keys(orderData));
     
-    if (error) {
-      secureLog('error', 'Supabase insert error', process.env.NODE_ENV === 'development' ? error : null);
-      return {
-        statusCode: 500,
-        headers: corsHeaders,
-        body: JSON.stringify({ 
-          success: false, 
-          message: sanitizeError(error, 'database'),
-          details: process.env.NODE_ENV === 'development' ? error.message : undefined
-        })
-      };
+    // Insert order into Supabase
+    try {
+      console.log('[CONFIRM-PAYMENT] Attempting Supabase insert...');
+      const { data: insertedOrder, error } = await supabase
+        .from('orders')
+        .insert([orderData])
+        .select();
+      
+      if (error) {
+        console.error('[CONFIRM-PAYMENT] Supabase insert error:', error);
+        console.error('[CONFIRM-PAYMENT] Error code:', error.code);
+        console.error('[CONFIRM-PAYMENT] Error message:', error.message);
+        console.error('[CONFIRM-PAYMENT] Error details:', error.details);
+        console.error('[CONFIRM-PAYMENT] Error hint:', error.hint);
+        secureLog('error', 'Supabase insert error', process.env.NODE_ENV === 'development' ? error : null);
+        return {
+          statusCode: 500,
+          headers: corsHeaders,
+          body: JSON.stringify({ 
+            success: false, 
+            message: sanitizeError(error, 'database'),
+            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+          })
+        };
+      }
+      
+      console.log('[CONFIRM-PAYMENT] Order inserted successfully');
+      console.log('[CONFIRM-PAYMENT] Inserted order ID:', insertedOrder[0]?.id);
+    } catch (insertError) {
+      console.error('[CONFIRM-PAYMENT] Database insert exception:', insertError);
+      throw insertError;
     }
     
     const orderId_db = insertedOrder[0].id;
@@ -335,6 +397,8 @@ export const handler = async function(event, context) {
     };
 
   } catch (error) {
+    console.error('[CONFIRM-PAYMENT] Unhandled error in payment confirmation:', error);
+    console.error('[CONFIRM-PAYMENT] Error stack:', error.stack);
     secureLog('error', 'Payment confirmation error', process.env.NODE_ENV === 'development' ? error : null);
     
     return {
