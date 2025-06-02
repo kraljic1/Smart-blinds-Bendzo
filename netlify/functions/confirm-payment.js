@@ -297,9 +297,10 @@ export const handler = async function(event, context) {
     console.log('[CONFIRM-PAYMENT] Order data keys:', Object.keys(orderData));
     
     // Insert order into Supabase
+    let insertedOrder = null;
     try {
       console.log('[CONFIRM-PAYMENT] Attempting Supabase insert...');
-      const { data: insertedOrder, error } = await supabase
+      const { data, error } = await supabase
         .from('orders')
         .insert([orderData])
         .select();
@@ -322,6 +323,7 @@ export const handler = async function(event, context) {
         };
       }
       
+      insertedOrder = data;
       console.log('[CONFIRM-PAYMENT] Order inserted successfully');
       console.log('[CONFIRM-PAYMENT] Inserted order ID:', insertedOrder[0]?.id);
     } catch (insertError) {
