@@ -17,7 +17,8 @@ updates:
         patterns:
           - "*"
         update-types:
-          - "security"
+          - "patch"
+          - "minor"
     # Allow both patch and minor updates
     open-pull-requests-limit: 5
     # Add reviewers (optional - you can remove this)
