@@ -136,13 +136,15 @@ export function StripePaymentForm({
           </div>
           
           <div className="card-element-container">
-            <label>
+            <label htmlFor="card-element">
               Podaci o kartici
             </label>
-            <CardElement
-              options={CARD_ELEMENT_OPTIONS}
-              onChange={handleCardChange}
-            />
+            <div id="card-element">
+              <CardElement
+                options={CARD_ELEMENT_OPTIONS}
+                onChange={handleCardChange}
+              />
+            </div>
             
             {cardError && (
               <div className="card-error" role="alert">

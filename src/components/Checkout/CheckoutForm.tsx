@@ -126,8 +126,8 @@ export function CheckoutForm() {
         aria-label="Checkout form"
       >
         {/* Netlify Forms hidden field */}
-        <input type="hidden" name="form-name" value="checkout" />
-        <input type="hidden" name="basketItems" value={JSON.stringify(
+        <input type="hidden" id="form-name" name="form-name" value="checkout" />
+        <input type="hidden" id="basketItems" name="basketItems" value={JSON.stringify(
           items.map(item => ({
             productId: item.product.id,
             productName: item.product.name,
@@ -135,10 +135,10 @@ export function CheckoutForm() {
             options: item.options
           }))
         )} />
-        <input type="hidden" name="totalPrice" value={getTotalPrice().toFixed(2)} />
+        <input type="hidden" id="totalPrice" name="totalPrice" value={getTotalPrice().toFixed(2)} />
         <p hidden>
           <label>
-            Don't fill this out if you're human: <input name="bot-field" />
+            Don't fill this out if you're human: <input id="bot-field" name="bot-field" />
           </label>
         </p>
         
