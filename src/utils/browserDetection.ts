@@ -38,7 +38,7 @@ export async function detectBrave(): Promise<boolean> {
   if ('brave' in navigator && navigator.brave && typeof navigator.brave.isBrave === 'function') {
     try {
       return await navigator.brave.isBrave();
-    } catch (error) {
+    } catch {
       // Brave detection method 1 failed - silently continue to next method
     }
   }
@@ -57,7 +57,7 @@ export async function detectBrave(): Promise<boolean> {
       if (window.chrome.runtime && !window.chrome.runtime.getManifest) {
         return true;
       }
-    } catch (error) {
+    } catch {
       // If we get an error accessing Chrome APIs, it might be Brave
       // Chrome API check failed - treating as potential Brave browser
       return true;

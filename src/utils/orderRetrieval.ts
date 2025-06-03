@@ -49,7 +49,7 @@ export const testOrderFetching = async (): Promise<boolean> => {
     console.log('✅ Supabase client available');
     
     // Test 2: Check if we can connect to the database
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('orders')
       .select('count(*)')
       .limit(1);

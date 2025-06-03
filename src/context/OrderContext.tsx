@@ -54,11 +54,8 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   };
 
   const setLastOrderDetails = (orderDetails: OrderDetails) => {
-    console.log('[ORDER-CONTEXT] Setting last order details:', orderDetails);
-    console.log('[ORDER-CONTEXT] Order details items:', orderDetails.items);
     setLastOrderDetailsState(orderDetails);
     localStorage.setItem('lastOrderDetails', JSON.stringify(orderDetails));
-    console.log('[ORDER-CONTEXT] Stored in localStorage');
   };
 
   const clearLastOrder = () => {

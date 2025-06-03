@@ -62,7 +62,7 @@ export const SECURITY_CONFIG = {
   // Data validation
   VALIDATION: {
     EMAIL_REGEX: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    PHONE_REGEX: /^[\+]?[1-9][\d]{0,15}$/,
+    PHONE_REGEX: /^[+]?[1-9][\d]{0,15}$/,
     
     // Input sanitization
     STRIP_HTML: true,

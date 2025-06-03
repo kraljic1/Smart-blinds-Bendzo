@@ -6,10 +6,6 @@ interface StoredOrderDetailsSectionProps {
 }
 
 const StoredOrderDetailsSection: React.FC<StoredOrderDetailsSectionProps> = ({ orderDetails }) => {
-  console.log('[STORED-ORDER-DETAILS] Received order details:', orderDetails);
-  console.log('[STORED-ORDER-DETAILS] Order details items:', orderDetails.items);
-  console.log('[STORED-ORDER-DETAILS] Items length:', orderDetails.items?.length);
-  
   return (
     <>
       {/* Customer Information */}

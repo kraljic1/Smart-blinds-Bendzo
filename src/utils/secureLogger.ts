@@ -6,13 +6,6 @@ interface LogLevel {
   DEBUG: 'debug';
 }
 
-const LOG_LEVELS: LogLevel = {
-  ERROR: 'error',
-  WARN: 'warn',
-  INFO: 'info',
-  DEBUG: 'debug'
-};
-
 // Sensitive keywords that should be sanitized from logs
 const SENSITIVE_KEYWORDS = [
   'password',

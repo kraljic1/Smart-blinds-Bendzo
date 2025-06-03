@@ -64,7 +64,7 @@ export class MonitoringService {
    * Send incident to Supabase (example implementation)
    * @unused - Example implementation for future use
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   private async sendToSupabase(incident: SecurityIncident): Promise<void> {
     try {
       const response = await fetch('/api/security/incidents', {
@@ -98,7 +98,7 @@ export class MonitoringService {
    * Send incident to external logging service (example implementation)
    * @unused - Example implementation for future use
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   private async sendToLoggingService(incident: SecurityIncident): Promise<void> {
     try {
       const response = await fetch('https://your-logging-service.com/api/incidents', {
@@ -122,7 +122,7 @@ export class MonitoringService {
    * Send webhook notification (example implementation)
    * @unused - Example implementation for future use
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   private async sendWebhookNotification(incident: SecurityIncident): Promise<void> {
     try {
       const webhookUrl = import.meta.env.VITE_SECURITY_WEBHOOK_URL;
