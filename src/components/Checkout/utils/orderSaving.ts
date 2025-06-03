@@ -19,6 +19,13 @@ export const saveOrderToDatabase = async ({
   getShippingCost
 }: OrderSaveData): Promise<string> => {
   console.log('[CHECKOUT] Preparing confirmation data');
+  console.log('[CHECKOUT] Items being saved:', items);
+  console.log('[CHECKOUT] Items details:', items.map(item => ({
+    id: item.product.id,
+    name: item.product.name,
+    price: item.product.price,
+    quantity: item.quantity
+  })));
   safeLog.info('Payment successful');
   
   const confirmPaymentData = {
@@ -35,18 +42,26 @@ export const saveOrderToDatabase = async ({
       companyName: formData.companyName,
       companyOib: formData.companyOib
     },
-    items: items.map(item => ({
-      productId: item.product.id,
-      productName: item.product.name,
-      quantity: item.quantity,
-      price: item.product.price,
-      options: item.options
-    })),
+    items: items.map(item => {
+      console.log('[CHECKOUT] Mapping item for API:', item);
+      const mappedItem = {
+        productId: item.product.id,
+        productName: item.product.name,
+        quantity: item.quantity,
+        price: item.product.price,
+        options: item.options
+      };
+      console.log('[CHECKOUT] Mapped item:', mappedItem);
+      return mappedItem;
+    }),
     notes: formData.additionalNotes,
     totalAmount: getTotalPrice(),
     taxAmount: 0,
     shippingCost: getShippingCost()
   };
+
+  console.log('[CHECKOUT] Confirm payment data:', confirmPaymentData);
+  console.log('[CHECKOUT] Confirm payment data items:', confirmPaymentData.items);
 
   let orderId = '';
   let orderSaved = false;
@@ -140,17 +155,23 @@ export const saveOrderToDatabase = async ({
       safeLog.info('Order saved to Supabase');
 
       // Insert order items
-      const orderItems = items.map(item => ({
-        order_id: order[0].id,
-        product_id: item.product.id,
-        product_name: item.product.name,
-        product_image: item.product.image,
-        quantity: item.quantity,
-        unit_price: item.product.price,
-        subtotal: item.product.price * item.quantity,
-        options: item.options
-      }));
+      const orderItems = items.map(item => {
+        console.log('[CHECKOUT-SUPABASE] Mapping item for Supabase:', item);
+        const mappedItem = {
+          order_id: order[0].id,
+          product_id: item.product.id,
+          product_name: item.product.name,
+          product_image: item.product.image,
+          quantity: item.quantity,
+          unit_price: item.product.price,
+          subtotal: item.product.price * item.quantity,
+          options: item.options
+        };
+        console.log('[CHECKOUT-SUPABASE] Mapped item for Supabase:', mappedItem);
+        return mappedItem;
+      });
 
+      console.log('[CHECKOUT-SUPABASE] Order items to be saved:', orderItems);
       safeLog.info('Saving order items to Supabase');
       
       const { error: itemsError } = await supabase

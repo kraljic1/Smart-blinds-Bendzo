@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckoutFormProps } from './CheckoutFormTypes';
+import ToggleSwitch from '../UI/ToggleSwitch';
 
 const BillingAddressSection: React.FC<Pick<CheckoutFormProps, 'formData' | 'handleChange'>> = ({
   formData,
@@ -86,16 +87,15 @@ const BillingAddressSection: React.FC<Pick<CheckoutFormProps, 'formData' | 'hand
         </div>
       </div>
       
-      <div className="form-group checkbox-group">
-        <label htmlFor="sameAsBilling">Ista kao adresa za dostavu</label>
-        <input
-          type="checkbox"
-          id="sameAsBilling"
-          name="sameAsBilling"
-          checked={formData.sameAsBilling}
-          onChange={handleChange}
-        />
-      </div>
+      <ToggleSwitch
+        id="sameAsBilling"
+        name="sameAsBilling"
+        checked={formData.sameAsBilling}
+        onChange={handleChange}
+        label="Ista kao adresa za dostavu"
+        variant="success"
+        size="medium"
+      />
     </div>
   );
 };

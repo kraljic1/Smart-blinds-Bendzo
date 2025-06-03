@@ -30,7 +30,9 @@ const OrderItemsTable: React.FC<OrderItemsTableProps> = ({ orderItems }) => {
                 <tr key={index} className="border-b border-gray-100 dark:border-gray-700 last:border-0">
                   <td className="py-4 px-2">
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">{item.productName}</p>
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {item.productName || 'Proizvod bez naziva'}
+                      </p>
                       {(item.width || item.height) && (
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           Dimenzije: {item.width}cm × {item.height}cm

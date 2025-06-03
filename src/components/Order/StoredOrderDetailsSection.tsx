@@ -6,6 +6,10 @@ interface StoredOrderDetailsSectionProps {
 }
 
 const StoredOrderDetailsSection: React.FC<StoredOrderDetailsSectionProps> = ({ orderDetails }) => {
+  console.log('[STORED-ORDER-DETAILS] Received order details:', orderDetails);
+  console.log('[STORED-ORDER-DETAILS] Order details items:', orderDetails.items);
+  console.log('[STORED-ORDER-DETAILS] Items length:', orderDetails.items?.length);
+  
   return (
     <>
       {/* Customer Information */}
@@ -109,7 +113,9 @@ const StoredOrderDetailsSection: React.FC<StoredOrderDetailsSectionProps> = ({ o
                 <tr key={index} className="border-b border-gray-100 dark:border-gray-800">
                   <td className="py-4">
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">{item.name}</p>
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {item.name || 'Proizvod bez naziva'}
+                      </p>
                       {item.description && (
                         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{item.description}</p>
                       )}

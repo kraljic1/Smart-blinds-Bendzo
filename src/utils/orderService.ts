@@ -140,7 +140,7 @@ export const getOrderByIdFallback = async (orderId: string): Promise<ExtendedOrd
             updatedAt: order.updated_at || order.updatedAt,
             items: (order.order_items || []).map((item: ApiOrderItem) => ({
               productId: item.product_id || item.productId || 'unknown',
-              productName: item.product_name || item.productName,
+              productName: item.product_name || item.productName || 'Proizvod bez naziva',
               quantity: item.quantity,
               unitPrice: item.unit_price || item.unitPrice,
               subtotal: item.subtotal,
@@ -205,7 +205,7 @@ export const getOrderByIdFallback = async (orderId: string): Promise<ExtendedOrd
       updatedAt: order.updated_at,
       items: (order.order_items || []).map((item: SupabaseOrderItem) => ({
         productId: `product-${item.id}`,
-        productName: item.product_name,
+        productName: item.product_name || 'Proizvod bez naziva',
         quantity: item.quantity,
         unitPrice: item.unit_price,
         subtotal: item.subtotal,

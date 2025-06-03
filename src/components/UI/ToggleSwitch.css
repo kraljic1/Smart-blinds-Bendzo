@@ -1,0 +1,265 @@
+/* Toggle Switch Component Styles */
+.toggle-switch-container {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-switch-container:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.toggle-switch-container.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.toggle-switch-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  margin: 0;
+  font-weight: 400;
+  color: #374151;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.toggle-switch-text {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+.toggle-switch-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.toggle-switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.toggle-switch-slider {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+  background-color: #e5e7eb;
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-switch-icon {
+  width: 12px;
+  height: 12px;
+  transition: all 0.2s ease;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.toggle-switch-icon-check {
+  color: #ffffff;
+}
+
+.toggle-switch-icon-cross {
+  color: #6b7280;
+}
+
+/* Checked state */
+.toggle-switch-input:checked + .toggle-switch-slider {
+  background-color: #3b82f6;
+  box-shadow: inset 0 1px 3px rgba(59, 130, 246, 0.2);
+}
+
+.toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-thumb {
+  transform: translateX(24px);
+  background-color: #ffffff;
+}
+
+.toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-icon-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-icon-cross {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* Unchecked state */
+.toggle-switch-input:not(:checked) + .toggle-switch-slider .toggle-switch-icon-cross {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.toggle-switch-input:not(:checked) + .toggle-switch-slider .toggle-switch-icon-check {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* Focus state */
+.toggle-switch-input:focus + .toggle-switch-slider {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Size variants */
+.toggle-switch-container.small .toggle-switch-slider {
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+}
+
+.toggle-switch-container.small .toggle-switch-thumb {
+  width: 18px;
+  height: 18px;
+}
+
+.toggle-switch-container.small .toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-thumb {
+  transform: translateX(18px);
+}
+
+.toggle-switch-container.small .toggle-switch-icon {
+  width: 10px;
+  height: 10px;
+}
+
+.toggle-switch-container.large .toggle-switch-slider {
+  width: 64px;
+  height: 34px;
+  border-radius: 17px;
+}
+
+.toggle-switch-container.large .toggle-switch-thumb {
+  width: 30px;
+  height: 30px;
+  top: 2px;
+  left: 2px;
+}
+
+.toggle-switch-container.large .toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-thumb {
+  transform: translateX(30px);
+}
+
+.toggle-switch-container.large .toggle-switch-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Color variants */
+.toggle-switch-container.success .toggle-switch-input:checked + .toggle-switch-slider {
+  background-color: #10b981;
+}
+
+.toggle-switch-container.warning .toggle-switch-input:checked + .toggle-switch-slider {
+  background-color: #f59e0b;
+}
+
+/* Dark mode support */
+.dark .toggle-switch-container {
+  background-color: transparent;
+  border-color: #374151;
+}
+
+.dark .toggle-switch-container:hover {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+.dark .toggle-switch-label {
+  color: #d1d5db;
+}
+
+.dark .toggle-switch-slider {
+  background-color: #374151;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark .toggle-switch-thumb {
+  background-color: #f9fafb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.dark .toggle-switch-input:checked + .toggle-switch-slider {
+  background-color: #3b82f6;
+}
+
+.dark .toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-thumb {
+  background-color: #ffffff;
+}
+
+.dark .toggle-switch-icon-cross {
+  color: #9ca3af;
+}
+
+/* Animation enhancements */
+@keyframes toggleBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-thumb {
+  animation: toggleBounce 0.3s ease;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .toggle-switch-slider,
+  .toggle-switch-thumb,
+  .toggle-switch-icon {
+    transition: none;
+  }
+  
+  .toggle-switch-input:checked + .toggle-switch-slider .toggle-switch-thumb {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .toggle-switch-container {
+    border-width: 2px;
+  }
+  
+  .toggle-switch-slider {
+    border: 1px solid currentColor;
+  }
+  
+  .toggle-switch-thumb {
+    border: 1px solid currentColor;
+  }
+} 

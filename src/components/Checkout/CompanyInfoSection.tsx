@@ -1,5 +1,6 @@
 import React from 'react';
 import { CheckoutFormProps } from './CheckoutFormTypes';
+import ToggleSwitch from '../UI/ToggleSwitch';
 
 const CompanyInfoSection: React.FC<Pick<CheckoutFormProps, 'formData' | 'handleChange'>> = ({
   formData,
@@ -16,16 +17,15 @@ const CompanyInfoSection: React.FC<Pick<CheckoutFormProps, 'formData' | 'handleC
         Podaci za tvrtku
       </h3>
       
-      <div className="form-group checkbox-group">
-        <label htmlFor="needsR1Invoice">Želim R1 račun za tvrtku</label>
-        <input
-          type="checkbox"
-          id="needsR1Invoice"
-          name="needsR1Invoice"
-          checked={formData.needsR1Invoice}
-          onChange={handleChange}
-        />
-      </div>
+      <ToggleSwitch
+        id="needsR1Invoice"
+        name="needsR1Invoice"
+        checked={formData.needsR1Invoice}
+        onChange={handleChange}
+        label="Želim R1 račun za tvrtku"
+        variant="primary"
+        size="medium"
+      />
 
       {formData.needsR1Invoice && (
         <div className="form-row">

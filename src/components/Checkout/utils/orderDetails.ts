@@ -58,7 +58,10 @@ export const createOrderDetails = ({
   items,
   getTotalPrice
 }: CreateOrderDetailsParams): OrderDetails => {
-  return {
+  console.log('[CREATE-ORDER-DETAILS] Creating order details with items:', items);
+  console.log('[CREATE-ORDER-DETAILS] Items length:', items.length);
+  
+  const orderDetails = {
     paymentIntentId,
     orderNumber: orderId.split('-')[1] || orderId.substring(3, 15),
     date: new Date().toLocaleDateString('hr-HR'),
@@ -90,17 +93,25 @@ export const createOrderDetails = ({
         postalCode: formData.shippingPostalCode
       }
     },
-    items: items.map(item => ({
-      id: item.product.id,
-      name: item.product.name,
-      quantity: item.quantity,
-      unitPrice: item.product.price,
-      totalPrice: item.product.price * item.quantity,
-      description: item.product.description || ''
-    })),
+    items: items.map(item => {
+      console.log('[CREATE-ORDER-DETAILS] Processing item:', item);
+      return {
+        id: item.product.id,
+        name: item.product.name,
+        quantity: item.quantity,
+        unitPrice: item.product.price,
+        totalPrice: item.product.price * item.quantity,
+        description: item.product.description || ''
+      };
+    }),
     subtotal: getTotalPrice(),
     tax: getTotalPrice() * 0.25, // 25% PDV
     total: getTotalPrice(),
     notes: formData.additionalNotes || ''
   };
+  
+  console.log('[CREATE-ORDER-DETAILS] Created order details:', orderDetails);
+  console.log('[CREATE-ORDER-DETAILS] Order details items:', orderDetails.items);
+  
+  return orderDetails;
 }; 

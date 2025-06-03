@@ -238,7 +238,7 @@ export const getOrderById = async (orderId: string): Promise<TransformedOrderDat
         updatedAt: order.updated_at,
         items: (order.order_items || []).map((item: SupabaseOrderItem) => ({
           productId: item.product_id || `item-${item.id}`,
-          productName: item.product_name,
+          productName: item.product_name || 'Proizvod bez naziva',
           quantity: item.quantity,
           unitPrice: item.unit_price,
           subtotal: item.subtotal,
@@ -307,7 +307,7 @@ export const getOrderById = async (orderId: string): Promise<TransformedOrderDat
       updatedAt: order.updated_at,
       items: (order.order_items || []).map((item: any) => ({
         productId: item.product_id || `item-${item.id}`,
-        productName: item.product_name,
+        productName: item.product_name || 'Proizvod bez naziva',
         quantity: item.quantity,
         unitPrice: item.unit_price,
         subtotal: item.subtotal,
