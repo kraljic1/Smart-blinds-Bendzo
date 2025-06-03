@@ -57,7 +57,10 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders, onOrderDeleted }) => {
   const handleDeleteConfirm = async () => {
     setIsDeleting(true);
     try {
+      console.log('Starting order deletion process for:', deleteDialog.orderId);
       const result = await deleteOrder(deleteDialog.orderId);
+      
+      console.log('Delete order result:', result);
       
       if (result.success) {
         // Close dialog
@@ -73,13 +76,20 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders, onOrderDeleted }) => {
         
         console.log('Order deleted successfully:', result.message);
       } else {
-        // Show error notification
-        showNotification('error', `Greška pri brisanju narudžbe: ${result.message}`);
+        // Show detailed error notification
+        const errorMessage = `Greška pri brisanju narudžbe: ${result.message}`;
+        showNotification('error', errorMessage);
         console.error('Failed to delete order:', result.message);
+        
+        // Log additional debugging information
+        console.error('Order ID that failed to delete:', deleteDialog.orderId);
+        console.error('Order ID type:', typeof deleteDialog.orderId);
+        console.error('Order ID length:', deleteDialog.orderId.length);
       }
     } catch (error) {
       console.error('Unexpected error during deletion:', error);
-      showNotification('error', 'Neočekivana greška pri brisanju narudžbe');
+      const errorMessage = `Neočekivana greška pri brisanju narudžbe: ${error instanceof Error ? error.message : 'Nepoznata greška'}`;
+      showNotification('error', errorMessage);
     } finally {
       setIsDeleting(false);
     }

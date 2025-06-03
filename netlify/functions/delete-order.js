@@ -8,6 +8,8 @@ const headers = {
 
 export const handler = async (event, context) => {
   console.log('Delete order function invoked');
+  console.log('HTTP Method:', event.httpMethod);
+  console.log('Request body:', event.body);
   
   // Handle CORS preflight request
   if (event.httpMethod === 'OPTIONS') {
@@ -30,6 +32,13 @@ export const handler = async (event, context) => {
     // Initialize Supabase client with fallback environment variables
     const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+
+    console.log('Environment check:', {
+      hasSupabaseUrl: !!supabaseUrl,
+      hasServiceKey: !!supabaseServiceKey,
+      urlLength: supabaseUrl?.length || 0,
+      keyLength: supabaseServiceKey?.length || 0
+    });
 
     if (!supabaseUrl || !supabaseServiceKey) {
       console.error('Missing Supabase environment variables');
@@ -58,9 +67,26 @@ export const handler = async (event, context) => {
     });
 
     // Parse request body
-    const { orderId } = JSON.parse(event.body);
+    let parsedBody;
+    try {
+      parsedBody = JSON.parse(event.body);
+      console.log('Parsed request body:', parsedBody);
+    } catch (parseError) {
+      console.error('Failed to parse request body:', parseError);
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ 
+          success: false, 
+          message: 'Invalid JSON in request body' 
+        }),
+      };
+    }
+
+    const { orderId } = parsedBody;
 
     if (!orderId) {
+      console.error('Missing orderId in request');
       return {
         statusCode: 400,
         headers,
@@ -72,6 +98,8 @@ export const handler = async (event, context) => {
     }
 
     console.log(`Attempting to delete order: ${orderId}`);
+    console.log('Order ID type:', typeof orderId);
+    console.log('Order ID length:', orderId.length);
 
     // First, check if the order exists
     const { data: existingOrder, error: fetchError } = await supabase
@@ -79,6 +107,8 @@ export const handler = async (event, context) => {
       .select('id, order_id, customer_name, customer_email')
       .eq('order_id', orderId)
       .single();
+
+    console.log('Database query result:', { existingOrder, fetchError });
 
     if (fetchError || !existingOrder) {
       console.error('Order not found:', fetchError);
