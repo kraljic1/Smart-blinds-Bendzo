@@ -4,7 +4,6 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
-import fetch from 'node-fetch'; // Add node-fetch for making HTTP requests
 import { validateOrderData, rateLimiter } from './validation-utils.js';
 
 // Initialize Supabase client

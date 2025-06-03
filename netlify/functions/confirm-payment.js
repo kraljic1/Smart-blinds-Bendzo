@@ -5,7 +5,6 @@
 
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
-import fetch from 'node-fetch';
 
 // Initialize Stripe with error handling
 let stripe = null;
