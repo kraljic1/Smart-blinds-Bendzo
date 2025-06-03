@@ -21,7 +21,7 @@ const Header: React.FC = () => {
       setScrolled(isScrolled);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
     };
 
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener('resize', checkScreenSize, { passive: true });
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
