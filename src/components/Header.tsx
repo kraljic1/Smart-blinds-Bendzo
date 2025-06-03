@@ -3,8 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { BasketIcon } from './Basket/BasketIcon';
 import { LikedIcon } from './Liked/LikedIcon';
 import { Menu, X, Home, ShoppingBag, HelpCircle, Settings } from 'lucide-react';
-import MobileMenuWrapper from './MobileMenuWrapper';
-import BlackOverlay from './BlackOverlay';
+import { MobileMenuWrapper } from './Navigation';
+import BlackOverlay from './UI/BlackOverlay';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
