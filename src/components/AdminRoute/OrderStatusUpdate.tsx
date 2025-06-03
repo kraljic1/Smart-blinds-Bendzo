@@ -108,6 +108,7 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
             placeholder="Odaberi status"
             disabled={isLoading}
             className="w-full"
+            id="status-select"
           />
         </div>
         

@@ -7,6 +7,8 @@ import OrderTable from '../components/Admin/OrderTable';
 import OrderEmptyState from '../components/Admin/OrderEmptyState';
 import OrderLoadingState from '../components/Admin/OrderLoadingState';
 import OrderErrorState from '../components/Admin/OrderErrorState';
+import Pagination from '../components/UI/Pagination';
+import { usePagination } from '../hooks/usePagination';
 
 // Interface for API response order format
 interface ApiOrderResponse {
@@ -62,6 +64,9 @@ const AdminOrdersPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
+  
+  // Pagination configuration
+  const ITEMS_PER_PAGE = 10;
   
   const fetchOrders = async () => {
     try {
@@ -152,6 +157,17 @@ const AdminOrdersPage: React.FC = () => {
     order.status.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
+  // Pagination hook
+  const {
+    currentPage,
+    totalPages,
+    paginatedData: paginatedOrders,
+    goToPage
+  } = usePagination({
+    data: filteredOrders,
+    itemsPerPage: ITEMS_PER_PAGE
+  });
+  
   // Renderiranje sadržaja tablice ovisno o stanju učitavanja
   const renderTableContent = () => {
     if (isLoading) {
@@ -166,7 +182,18 @@ const AdminOrdersPage: React.FC = () => {
       return <OrderEmptyState searchTerm={searchTerm} onClearFilter={handleClearFilter} />;
     }
     
-    return <OrderTable orders={filteredOrders} onOrderDeleted={fetchOrders} />;
+    return (
+      <>
+        <OrderTable orders={paginatedOrders} onOrderDeleted={fetchOrders} />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={goToPage}
+          itemsPerPage={ITEMS_PER_PAGE}
+          totalItems={filteredOrders.length}
+        />
+      </>
+    );
   };
   
   return (
@@ -190,6 +217,8 @@ const AdminOrdersPage: React.FC = () => {
             setSearchTerm={setSearchTerm}
             totalOrders={orders.length}
             filteredOrdersCount={filteredOrders.length}
+            currentPage={currentPage}
+            itemsPerPage={ITEMS_PER_PAGE}
           />
           
           {renderTableContent()}

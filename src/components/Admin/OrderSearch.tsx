@@ -6,14 +6,27 @@ interface OrderSearchProps {
   setSearchTerm: (term: string) => void;
   totalOrders: number;
   filteredOrdersCount: number;
+  currentPage?: number;
+  itemsPerPage?: number;
 }
 
 const OrderSearch: React.FC<OrderSearchProps> = ({
   searchTerm,
   setSearchTerm,
   totalOrders,
-  filteredOrdersCount
+  filteredOrdersCount,
+  currentPage,
+  itemsPerPage
 }) => {
+  // Calculate display information for pagination
+  const getDisplayInfo = () => {
+    if (currentPage && itemsPerPage) {
+      const startItem = (currentPage - 1) * itemsPerPage + 1;
+      const endItem = Math.min(currentPage * itemsPerPage, filteredOrdersCount);
+      return `Stranica ${currentPage} - prikazano ${startItem}-${endItem} od ${filteredOrdersCount} ${searchTerm ? 'filtriranih' : ''} narudžbi (ukupno ${totalOrders})`;
+    }
+    return `Prikazano ${filteredOrdersCount} od ${totalOrders} narudžbi`;
+  };
   return (
     <div className="border-b border-gray-200 dark:border-gray-700 p-4 bg-gray-50 dark:bg-gray-900 sm:rounded-t-lg">
       <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
@@ -33,7 +46,7 @@ const OrderSearch: React.FC<OrderSearchProps> = ({
         </div>
         
         <div className="text-sm text-gray-500 dark:text-gray-400">
-          Prikazano <span className="font-medium">{filteredOrdersCount}</span> od <span className="font-medium">{totalOrders}</span> narudžbi
+          {getDisplayInfo()}
         </div>
       </div>
     </div>

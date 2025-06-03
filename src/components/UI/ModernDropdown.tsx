@@ -13,6 +13,7 @@ interface ModernDropdownProps {
   placeholder?: string;
   disabled?: boolean;
   className?: string;
+  id?: string;
 }
 
 const ModernDropdown: React.FC<ModernDropdownProps> = ({
@@ -21,7 +22,8 @@ const ModernDropdown: React.FC<ModernDropdownProps> = ({
   onChange,
   placeholder = "Select an option",
   disabled = false,
-  className = ""
+  className = "",
+  id
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
@@ -124,6 +126,7 @@ const ModernDropdown: React.FC<ModernDropdownProps> = ({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button
         type="button"
+        id={id}
         className={`
           relative w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 
           rounded-lg shadow-sm pl-3 pr-10 py-2.5 text-left cursor-pointer
