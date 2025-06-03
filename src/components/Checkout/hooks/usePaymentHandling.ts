@@ -20,7 +20,7 @@ export const usePaymentHandling = (
 ) => {
   const navigate = useNavigate();
   const { items, getTotalPrice, clearBasket } = useBasketContext();
-  const { setLastOrder } = useOrderContext();
+  const { setLastOrder, setLastOrderDetails } = useOrderContext();
 
   const [paymentState, setPaymentState] = useState<PaymentHandlingState>({
     orderComplete: false,
@@ -63,6 +63,11 @@ export const usePaymentHandling = (
         orderId: orderId,
         message: 'Order created successfully'
       });
+      
+      // Also store the complete order details
+      console.log('[CHECKOUT] Setting complete order details in context');
+      safeLog.info('Setting complete order details in context');
+      setLastOrderDetails(orderDetails);
       
       // Clear basket
       clearBasket();

@@ -10,4 +10,5 @@ export { default as ActionButtons } from './ActionButtons';
 export { default as ContactInfo } from './ContactInfo';
 export { default as LoadingSpinner } from './LoadingSpinner';
 export { default as OrderDetailsSection } from './OrderDetailsSection';
+export { default as StoredOrderDetailsSection } from './StoredOrderDetailsSection';
 export * from './types'; 

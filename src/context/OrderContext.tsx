@@ -1,10 +1,13 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { OrderResponse, getOrderHistory } from '../utils/orderUtils';
 import { OrderData as SupabaseOrderData } from '../utils/supabaseClient';
+import { OrderDetails } from '../components/Checkout/utils/orderDetails';
 
 interface OrderContextValue {
   lastOrder: OrderResponse | null;
+  lastOrderDetails: OrderDetails | null;
   setLastOrder: (order: OrderResponse) => void;
+  setLastOrderDetails: (orderDetails: OrderDetails) => void;
   clearLastOrder: () => void;
   orderHistory: SupabaseOrderData[];
   loadOrderHistory: (email: string) => Promise<void>;
@@ -28,6 +31,20 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     return null;
   });
 
+  const [lastOrderDetails, setLastOrderDetailsState] = useState<OrderDetails | null>(() => {
+    // Check if we have stored order details in localStorage
+    const storedOrderDetails = localStorage.getItem('lastOrderDetails');
+    if (storedOrderDetails) {
+      try {
+        return JSON.parse(storedOrderDetails);
+      } catch (error) {
+        console.error('Failed to parse stored order details:', error);
+        return null;
+      }
+    }
+    return null;
+  });
+
   const [orderHistory, setOrderHistory] = useState<SupabaseOrderData[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
 
@@ -36,9 +53,16 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('lastOrder', JSON.stringify(order));
   };
 
+  const setLastOrderDetails = (orderDetails: OrderDetails) => {
+    setLastOrderDetailsState(orderDetails);
+    localStorage.setItem('lastOrderDetails', JSON.stringify(orderDetails));
+  };
+
   const clearLastOrder = () => {
     setLastOrderState(null);
+    setLastOrderDetailsState(null);
     localStorage.removeItem('lastOrder');
+    localStorage.removeItem('lastOrderDetails');
   };
 
   const loadOrderHistory = async (email: string) => {
@@ -66,7 +90,9 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   return (
     <OrderContext.Provider value={{ 
       lastOrder, 
+      lastOrderDetails,
       setLastOrder, 
+      setLastOrderDetails,
       clearLastOrder,
       orderHistory,
       loadOrderHistory,

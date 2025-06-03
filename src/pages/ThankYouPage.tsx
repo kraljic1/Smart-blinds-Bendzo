@@ -8,6 +8,7 @@ import {
   PrintButton,
   InvoiceHeader,
   OrderDetailsSection,
+  StoredOrderDetailsSection,
   NextSteps,
   ActionButtons,
   ContactInfo
@@ -16,7 +17,7 @@ import '../styles/print.css';
 
 const ThankYouPage: React.FC = () => {
   const { clearBasket } = useBasketContext();
-  const { lastOrder } = useOrderContext();
+  const { lastOrder, lastOrderDetails } = useOrderContext();
   const navigate = useNavigate();
   
   useEffect(() => {
@@ -66,7 +67,12 @@ const ThankYouPage: React.FC = () => {
             orderDetails={null} 
           />
 
-          <OrderDetailsSection orderId={lastOrder.orderId || ''} />
+          {/* Use stored order details if available, otherwise fetch from database */}
+          {lastOrderDetails ? (
+            <StoredOrderDetailsSection orderDetails={lastOrderDetails} />
+          ) : (
+            <OrderDetailsSection orderId={lastOrder.orderId || ''} />
+          )}
         </div>
 
         <NextSteps />
