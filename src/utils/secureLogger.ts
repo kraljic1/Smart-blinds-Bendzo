@@ -6,6 +6,11 @@ interface LogLevel {
   DEBUG: 'debug';
 }
 
+// Type for any loggable data
+type LoggableData = string | number | boolean | null | undefined | LoggableObject | LoggableArray;
+type LoggableObject = { [key: string]: LoggableData };
+type LoggableArray = LoggableData[];
+
 // Sensitive keywords that should be sanitized from logs
 const SENSITIVE_KEYWORDS = [
   'password',
@@ -21,7 +26,7 @@ const SENSITIVE_KEYWORDS = [
 /**
  * Sanitizes sensitive information from log messages and objects
  */
-function sanitizeLogData(data: any): any {
+function sanitizeLogData(data: LoggableData): LoggableData {
   if (typeof data === 'string') {
     return sanitizeString(data);
   }
@@ -50,12 +55,12 @@ function sanitizeString(str: string): string {
 /**
  * Sanitizes sensitive properties from objects
  */
-function sanitizeObject(obj: any): any {
+function sanitizeObject(obj: LoggableObject | LoggableArray): LoggableObject | LoggableArray {
   if (Array.isArray(obj)) {
     return obj.map(item => sanitizeLogData(item));
   }
   
-  const sanitized: any = {};
+  const sanitized: LoggableObject = {};
   
   for (const [key, value] of Object.entries(obj)) {
     const lowerKey = key.toLowerCase();
@@ -91,7 +96,7 @@ export class SecureLogger {
     return SecureLogger.instance;
   }
   
-  private log(level: keyof LogLevel, message: string, ...args: any[]): void {
+  private log(level: keyof LogLevel, message: string, ...args: LoggableData[]): void {
     if (!this.isDevelopment && level === 'DEBUG') {
       return; // Skip debug logs in production
     }
@@ -120,19 +125,19 @@ export class SecureLogger {
     }
   }
   
-  error(message: string, ...args: any[]): void {
+  error(message: string, ...args: LoggableData[]): void {
     this.log('ERROR', message, ...args);
   }
   
-  warn(message: string, ...args: any[]): void {
+  warn(message: string, ...args: LoggableData[]): void {
     this.log('WARN', message, ...args);
   }
   
-  info(message: string, ...args: any[]): void {
+  info(message: string, ...args: LoggableData[]): void {
     this.log('INFO', message, ...args);
   }
   
-  debug(message: string, ...args: any[]): void {
+  debug(message: string, ...args: LoggableData[]): void {
     this.log('DEBUG', message, ...args);
   }
 }
@@ -141,7 +146,7 @@ export class SecureLogger {
 export const secureLogger = SecureLogger.getInstance();
 
 // Export convenience functions
-export const logError = (message: string, ...args: any[]) => secureLogger.error(message, ...args);
-export const logWarn = (message: string, ...args: any[]) => secureLogger.warn(message, ...args);
-export const logInfo = (message: string, ...args: any[]) => secureLogger.info(message, ...args);
-export const logDebug = (message: string, ...args: any[]) => secureLogger.debug(message, ...args); 
+export const logError = (message: string, ...args: LoggableData[]) => secureLogger.error(message, ...args);
+export const logWarn = (message: string, ...args: LoggableData[]) => secureLogger.warn(message, ...args);
+export const logInfo = (message: string, ...args: LoggableData[]) => secureLogger.info(message, ...args);
+export const logDebug = (message: string, ...args: LoggableData[]) => secureLogger.debug(message, ...args); 

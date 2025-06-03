@@ -3,7 +3,7 @@
  * Helper functions for security operations, data sanitization, and environment detection
  */
 
-import type { SecurityIncident } from '../../types/security';
+import type { SecurityIncident, SecurityIncidentType, SecuritySeverity } from '../../types/security';
 
 /**
  * Generate a unique incident ID
@@ -51,16 +51,16 @@ export function sanitizePayload(payload: unknown): unknown {
  * Create a basic security incident object
  */
 export function createSecurityIncident(
-  type: string,
-  severity: string,
+  type: SecurityIncidentType,
+  severity: SecuritySeverity,
   description: string,
   metadata?: Record<string, unknown>
 ): SecurityIncident {
   return {
     id: generateIncidentId(),
     timestamp: new Date(),
-    type: type as any,
-    severity: severity as any,
+    type,
+    severity,
     description,
     userAgent: getUserAgent(),
     ipAddress: getClientIP(),

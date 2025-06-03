@@ -4,12 +4,19 @@ interface DeletedOrderData {
   customerEmail: string;
 }
 
+interface OrderData {
+  order_id: string;
+  customer_name: string;
+  customer_email: string;
+  [key: string]: unknown; // Allow additional properties
+}
+
 /**
  * Test function to check if an order exists
  * @param orderId The ID of the order to check
  * @returns Promise with order existence status
  */
-export const checkOrderExists = async (orderId: string): Promise<{ exists: boolean; message: string; order?: any }> => {
+export const checkOrderExists = async (orderId: string): Promise<{ exists: boolean; message: string; order?: OrderData }> => {
   try {
     console.log(`Checking if order exists: ${orderId}`);
     

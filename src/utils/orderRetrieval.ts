@@ -30,7 +30,7 @@ interface TransformedOrderData {
     subtotal: number;
     width?: number;
     height?: number;
-    options: Record<string, any>;
+    options: Record<string, string | number | boolean>;
   }>;
 }
 
@@ -305,7 +305,7 @@ export const getOrderById = async (orderId: string): Promise<TransformedOrderDat
       notes: order.notes,
       createdAt: order.created_at,
       updatedAt: order.updated_at,
-      items: (order.order_items || []).map((item: any) => ({
+      items: (order.order_items || []).map((item: SupabaseOrderItem) => ({
         productId: item.product_id || `item-${item.id}`,
         productName: item.product_name || 'Proizvod bez naziva',
         quantity: item.quantity,

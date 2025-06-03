@@ -87,7 +87,7 @@ export interface SupabaseOrderItem {
   quantity: number;
   unit_price: number;
   subtotal: number;
-  options?: Record<string, any>;
+  options?: Record<string, string | number | boolean>;
   width?: number;
   height?: number;
 } 

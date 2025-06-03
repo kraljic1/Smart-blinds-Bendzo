@@ -4,6 +4,7 @@
  */
 
 import type { SecurityIncident } from '../../types/security';
+import { SecurityIncidentType, SecuritySeverity } from '../../types/security';
 
 export class MonitoringService {
   private isProduction: boolean;
@@ -174,8 +175,8 @@ export class MonitoringService {
       // Test with a dummy incident
       const testIncident: Partial<SecurityIncident> = {
         id: 'test_' + Date.now(),
-        type: 'SECURITY_SCAN_DETECTED' as any,
-        severity: 'low' as any,
+        type: SecurityIncidentType.SECURITY_SCAN_DETECTED,
+        severity: SecuritySeverity.LOW,
         description: 'Connectivity test',
         timestamp: new Date()
       };
