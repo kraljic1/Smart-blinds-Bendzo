@@ -11,6 +11,10 @@ Create a `.env` file in the project root with the following variables:
 VITE_SUPABASE_URL=your_supabase_project_url_here
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 
+# For Netlify Functions (Server-side)
+SUPABASE_URL=your_supabase_project_url_here
+SUPABASE_SERVICE_KEY=your_supabase_service_role_key_here
+
 # Stripe Configuration
 VITE_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key_here
 
@@ -31,6 +35,11 @@ SECURITY_HEADERS_ENABLED=true
 2. Select your project
 3. Go to Settings > API
 4. Copy the Project URL and anon/public key
+5. For server-side functions, also copy the service_role key (keep this secret!)
+
+**Note:** 
+- `VITE_SUPABASE_ANON_KEY` is for client-side operations (safe to expose)
+- `SUPABASE_SERVICE_KEY` is for server-side operations (must be kept secret)
 
 ### Stripe
 1. Go to your [Stripe Dashboard](https://dashboard.stripe.com)

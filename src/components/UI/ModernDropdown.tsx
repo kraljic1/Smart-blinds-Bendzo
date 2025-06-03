@@ -24,6 +24,7 @@ const ModernDropdown: React.FC<ModernDropdownProps> = ({
   className = ""
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -56,6 +57,8 @@ const ModernDropdown: React.FC<ModernDropdownProps> = ({
     }
   }, [isOpen]);
 
+
+
   const selectedOption = options.find(option => option.value === value);
 
   const handleOptionClick = (optionValue: string) => {
@@ -70,11 +73,39 @@ const ModernDropdown: React.FC<ModernDropdownProps> = ({
       case 'Enter':
       case ' ':
         event.preventDefault();
+        if (!isOpen && dropdownRef.current) {
+          const rect = dropdownRef.current.getBoundingClientRect();
+          const top = rect.bottom + 4;
+          const left = rect.left;
+          const width = rect.width;
+          const maxTop = window.innerHeight - 240;
+          const finalTop = Math.min(top, maxTop);
+          
+          setDropdownPosition({
+            top: finalTop,
+            left: left,
+            width: width
+          });
+        }
         setIsOpen(!isOpen);
         break;
       case 'ArrowDown':
         event.preventDefault();
         if (!isOpen) {
+          if (dropdownRef.current) {
+            const rect = dropdownRef.current.getBoundingClientRect();
+            const top = rect.bottom + 4;
+            const left = rect.left;
+            const width = rect.width;
+            const maxTop = window.innerHeight - 240;
+            const finalTop = Math.min(top, maxTop);
+            
+            setDropdownPosition({
+              top: finalTop,
+              left: left,
+              width: width
+            });
+          }
           setIsOpen(true);
         } else {
           // Focus next option logic could be added here
@@ -104,7 +135,29 @@ const ModernDropdown: React.FC<ModernDropdownProps> = ({
           }
           ${isOpen ? 'ring-2 ring-blue-500 border-blue-500' : ''}
         `}
-        onClick={() => !disabled && setIsOpen(!isOpen)}
+                onClick={() => {
+          if (!disabled) {
+            if (!isOpen && dropdownRef.current) {
+              const rect = dropdownRef.current.getBoundingClientRect();
+              
+              // Calculate position relative to viewport, not page
+              const top = rect.bottom + 4;
+              const left = rect.left;
+              const width = rect.width;
+              
+              // Ensure dropdown stays within viewport
+              const maxTop = window.innerHeight - 240; // 240px is max dropdown height
+              const finalTop = Math.min(top, maxTop);
+              
+              setDropdownPosition({
+                top: finalTop,
+                left: left,
+                width: width
+              });
+            }
+            setIsOpen(!isOpen);
+          }
+        }}
         onKeyDown={handleKeyDown}
         disabled={disabled}
         aria-haspopup="listbox"
@@ -123,7 +176,13 @@ const ModernDropdown: React.FC<ModernDropdownProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute z-50 mt-1 w-full bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none border border-gray-200 dark:border-gray-600">
+        <div className="fixed z-[9999] bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none border border-gray-200 dark:border-gray-600"
+             style={{
+               top: dropdownPosition.top,
+               left: dropdownPosition.left,
+               width: dropdownPosition.width
+             }}>
+
           {options.map((option) => (
             <div
               key={option.value}

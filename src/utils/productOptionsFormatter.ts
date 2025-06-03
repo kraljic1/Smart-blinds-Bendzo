@@ -72,6 +72,10 @@ const VALUE_MAPPINGS: Record<string, string> = {
   rechts: 'Right Side',
   left: 'Left Side',
   right: 'Right Side',
+  both_sides_motor_right: 'Both Sides Motor Right',
+  both_sides_motor_left: 'Both Sides Motor Left',
+  right_motor_left: 'Right Motor Left',
+  left_motor_right: 'Left Motor Right',
   
   // Systems
   brackets: 'Bracket System',
@@ -144,6 +148,13 @@ export function formatOptionValue(value: string | number | boolean): string {
   if (normalizedValue.includes('-')) {
     return value.toString()
       .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+  
+  if (normalizedValue.includes('_')) {
+    return value.toString()
+      .split('_')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ');
   }

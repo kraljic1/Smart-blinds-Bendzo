@@ -19,6 +19,14 @@ export default defineConfig({
     fs: {
       strict: true,
       allow: ['.']
+    },
+    // Proxy Netlify functions to the correct port during development
+    proxy: {
+      '/.netlify/functions': {
+        target: 'http://localhost:8901',
+        changeOrigin: true,
+        secure: false
+      }
     }
   },
   define: {

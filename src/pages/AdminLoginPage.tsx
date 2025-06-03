@@ -17,18 +17,26 @@ const AdminLoginPage: React.FC = () => {
     setLoading(true);
     setError(null);
 
+    console.log('🔐 Login attempt started for email:', email);
+
     try {
       // Sign in with Supabase Auth
+      console.log('📡 Attempting Supabase auth...');
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
+      console.log('🔍 Auth result:', { authData, authError });
+
       if (authError) throw authError;
       
       if (!authData.user || !authData.user.email) {
+        console.log('❌ No user data in auth response');
         throw new Error('User authentication failed');
       }
+      
+      console.log('✅ Auth successful, checking admin status for:', authData.user.email);
       
       // Check if the user is in the admin_users table
       const { data: adminData, error: adminError } = await supabase
@@ -37,11 +45,17 @@ const AdminLoginPage: React.FC = () => {
         .eq('email', authData.user.email)
         .single();
       
+      console.log('🔍 Admin check result:', { adminData, adminError });
+      console.log('🔍 Admin error details:', adminError?.message, adminError?.details, adminError?.hint);
+      
       if (adminError || !adminData) {
         // User is not an admin
+        console.log('❌ User is not an admin, signing out');
         await supabase.auth.signOut(); // Sign out non-admin users
         throw new Error('You do not have administrator privileges');
       }
+      
+      console.log('✅ Admin verification successful, redirecting...');
       
       // Redirect to admin orders page
       navigate('/admin/orders');

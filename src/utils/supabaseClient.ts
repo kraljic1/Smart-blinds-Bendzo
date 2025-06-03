@@ -57,40 +57,85 @@ export interface OrderItemData {
  */
 
 /**
- * Add a user as an admin
+ * Add a user as an admin with temporary password
  * @param email The email of the user to add as admin
- * @returns True if successful, false otherwise
+ * @param temporaryPassword The temporary password for the new admin
+ * @returns Object with success status and temporary password
  */
-export async function addAdminUser(email: string): Promise<boolean> {
+export async function addAdminUser(email: string, temporaryPassword?: string): Promise<{success: boolean, temporaryPassword?: string}> {
   try {
-    // First check if the user already exists
-    const { data: existingAdmin } = await supabase
-      .from('admin_users')
-      .select('email')
-      .eq('email', email)
-      .single();
-      
-    if (existingAdmin) {
-      console.log('User is already an admin');
-      return true;
+    // Call the Netlify function to create admin user (server-side with service role)
+    const response = await fetch('/.netlify/functions/create-admin-user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        temporaryPassword
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error from create-admin-user function:', errorText);
+      return { success: false };
     }
-    
-    // Add the user to admin_users
-    const { error } = await supabase
-      .from('admin_users')
-      .insert([{ email }]);
-      
-    if (error) {
-      console.error('Error adding admin user:', error);
-      return false;
-    }
-    
-    return true;
+
+    const result = await response.json();
+
+    return {
+      success: result.success,
+      temporaryPassword: result.temporaryPassword
+    };
   } catch (error) {
     console.error('Error in addAdminUser:', error);
-    return false;
+    return { success: false };
   }
 }
+
+export async function resetAdminPassword(email: string): Promise<{success: boolean, temporaryPassword?: string}> {
+  try {
+    // Call the Netlify function to reset admin password (server-side with service role)
+    const response = await fetch('/.netlify/functions/reset-admin-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error from reset-admin-password function:', errorText);
+      return { success: false };
+    }
+
+    const result = await response.json();
+
+    return {
+      success: result.success,
+      temporaryPassword: result.temporaryPassword
+    };
+  } catch (error) {
+    console.error('Error in resetAdminPassword:', error);
+    return { success: false };
+  }
+}
+
+// Helper function to generate temporary password
+function generateTemporaryPassword(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+  let password = '';
+  for (let i = 0; i < 12; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return password;
+}
+
+
 
 /**
  * Remove admin privileges from a user

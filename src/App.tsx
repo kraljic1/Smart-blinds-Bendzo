@@ -42,8 +42,11 @@ import { preventOverscroll } from './utils/preventOverscroll';
 import ScrollToTop from './utils/ScrollToTop';
 
 function App() {
+  console.log('🚀 App component rendered');
+  
   // Initialize overscroll prevention
   useEffect(() => {
+    console.log('🔧 App useEffect running');
     preventOverscroll();
   }, []);
 
