@@ -64,6 +64,9 @@ export interface OrderItemData {
  */
 export async function addAdminUser(email: string, temporaryPassword?: string): Promise<{success: boolean, temporaryPassword?: string}> {
   try {
+    // Generate temporary password if not provided
+    const finalPassword = temporaryPassword || generateTemporaryPassword();
+    
     // Call the Netlify function to create admin user (server-side with service role)
     const response = await fetch('/.netlify/functions/create-admin-user', {
       method: 'POST',
@@ -72,7 +75,7 @@ export async function addAdminUser(email: string, temporaryPassword?: string): P
       },
       body: JSON.stringify({
         email,
-        temporaryPassword
+        temporaryPassword: finalPassword
       }),
     });
 

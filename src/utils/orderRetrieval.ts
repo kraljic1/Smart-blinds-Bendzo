@@ -1,6 +1,39 @@
 import { SupabaseOrderData } from './orderTypes';
 import { supabase } from './supabaseClient';
 
+// Interface for the transformed order data that matches the expected format
+interface TransformedOrderData {
+  orderId: string;
+  customerName: string;
+  email: string;
+  phone: string;
+  billingAddress: string;
+  shippingAddress?: string;
+  totalAmount: number;
+  taxAmount?: number;
+  shippingCost?: number;
+  discountAmount?: number;
+  discountCode?: string;
+  paymentMethod?: string;
+  paymentStatus?: string;
+  shippingMethod?: string;
+  trackingNumber?: string;
+  status: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt?: string;
+  items: Array<{
+    productId: string;
+    productName: string;
+    quantity: number;
+    unitPrice: number;
+    subtotal: number;
+    width?: number;
+    height?: number;
+    options: Record<string, any>;
+  }>;
+}
+
 /**
  * Get order history for a customer by email
  */
@@ -57,7 +90,7 @@ export const getOrderHistory = async (email: string): Promise<SupabaseOrderData[
 /**
  * Get a specific order by ID
  */
-export const getOrderById = async (orderId: string): Promise<any | null> => {
+export const getOrderById = async (orderId: string): Promise<TransformedOrderData | null> => {
   try {
     console.log('Fetching order by ID:', orderId);
     
@@ -88,13 +121,22 @@ export const getOrderById = async (orderId: string): Promise<any | null> => {
       
       if (error) {
         console.error('Supabase error in development:', error);
+        if (error.code === 'PGRST116') {
+          console.log('Order not found in database');
+          return null;
+        }
+        throw new Error(`Database error: ${error.message}`);
+      }
+      
+      if (!order) {
+        console.log('No order data returned');
         return null;
       }
       
-      if (!order) return null;
+      console.log('Raw order data from Supabase:', order);
       
       // Transform to expected format
-      return {
+      const transformedOrder: TransformedOrderData = {
         orderId: order.order_id,
         customerName: order.customer_name,
         email: order.customer_email,
@@ -125,20 +167,81 @@ export const getOrderById = async (orderId: string): Promise<any | null> => {
           options: item.options || {}
         }))
       };
+      
+      console.log('Transformed order data:', transformedOrder);
+      return transformedOrder;
     }
     
     // Use the serverless function to fetch order with items included
-    const response = await fetch(`/.netlify/functions/get-orders?orderId=${encodeURIComponent(orderId)}`);
+    console.log('Production mode - using Netlify function');
+    const url = `/.netlify/functions/get-orders?orderId=${encodeURIComponent(orderId)}`;
+    console.log('Fetching from URL:', url);
+    
+    const response = await fetch(url);
+    
+    console.log('Response status:', response.status);
+    console.log('Response headers:', Object.fromEntries(response.headers.entries()));
     
     if (!response.ok) {
-      throw new Error(`Server responded with status: ${response.status}`);
+      const errorText = await response.text();
+      console.error('Server error response:', errorText);
+      throw new Error(`Server responded with status: ${response.status} - ${errorText}`);
     }
     
     const result = await response.json();
-    return result.success && result.orders.length > 0 ? result.orders[0] : null;
+    console.log('API response:', result);
+    
+    if (!result.success) {
+      console.error('API returned error:', result.message);
+      throw new Error(result.message || 'API request failed');
+    }
+    
+    if (!result.orders || result.orders.length === 0) {
+      console.log('No orders found in API response');
+      return null;
+    }
+    
+    const order = result.orders[0];
+    console.log('Order found:', order);
+    
+    // Transform the order data to match expected format
+    const transformedOrder: TransformedOrderData = {
+      orderId: order.order_id,
+      customerName: order.customer_name,
+      email: order.customer_email,
+      phone: order.customer_phone,
+      billingAddress: order.billing_address,
+      shippingAddress: order.shipping_address,
+      totalAmount: order.total_amount,
+      taxAmount: order.tax_amount,
+      shippingCost: order.shipping_cost,
+      discountAmount: order.discount_amount,
+      discountCode: order.discount_code,
+      paymentMethod: order.payment_method,
+      paymentStatus: order.payment_status,
+      shippingMethod: order.shipping_method,
+      trackingNumber: order.tracking_number,
+      status: order.status,
+      notes: order.notes,
+      createdAt: order.created_at,
+      updatedAt: order.updated_at,
+      items: (order.order_items || []).map((item: any) => ({
+        productId: item.product_id || `item-${item.id}`,
+        productName: item.product_name,
+        quantity: item.quantity,
+        unitPrice: item.unit_price,
+        subtotal: item.subtotal,
+        width: item.width,
+        height: item.height,
+        options: item.options || {}
+      }))
+    };
+    
+    console.log('Final transformed order:', transformedOrder);
+    return transformedOrder;
     
   } catch (error) {
     console.error(`Failed to fetch order ${orderId}:`, error);
-    return null;
+    throw error; // Re-throw to let the calling code handle it
   }
 }; 

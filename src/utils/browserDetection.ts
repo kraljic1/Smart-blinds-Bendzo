@@ -13,8 +13,8 @@ declare global {
   interface Window {
     chrome?: {
       runtime?: {
-        onConnect?: any;
-        getManifest?: () => any;
+        onConnect?: unknown;
+        getManifest?: () => unknown;
       };
     };
   }
@@ -107,11 +107,11 @@ export async function checkStripeCompatibility(): Promise<{
 
   try {
     // Test if we can load Stripe's JS
-    const stripeTest = await fetch('https://js.stripe.com/v3/', { 
+    await fetch('https://js.stripe.com/v3/', { 
       method: 'HEAD',
       mode: 'no-cors'
     });
-  } catch (error) {
+  } catch {
     isBlocked = true;
     canLoadStripe = false;
     recommendations.push('Stripe resources are being blocked by your browser');

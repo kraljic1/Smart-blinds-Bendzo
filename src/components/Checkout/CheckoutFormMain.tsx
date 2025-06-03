@@ -1,5 +1,4 @@
-import React from 'react';
-import { useBasketContext } from '../../hooks/useBasketContext';
+
 import { useCheckoutForm } from './useCheckoutForm';
 import { usePaymentHandling } from './hooks/usePaymentHandling';
 import { usePaymentState } from './hooks/usePaymentState';
@@ -17,10 +16,8 @@ import AdditionalNotesSection from './AdditionalNotesSection';
 import OrderSummarySection from './OrderSummarySection';
 import './CheckoutForm.css';
 
-export function EnhancedCheckoutForm() {
-  console.log('[CHECKOUT] EnhancedCheckoutForm component mounted');
-  
-  const { getTotalPrice } = useBasketContext();
+export function CheckoutFormMain() {
+  console.log('[CHECKOUT] CheckoutFormMain component mounted');
   
   const {
     formData,
@@ -163,7 +160,7 @@ export function EnhancedCheckoutForm() {
         paymentState={stripePaymentState}
         browserInfo={browserInfo}
         showManualPayment={handlingState.showManualPayment}
-        totalAmount={getTotalPrice()}
+        totalAmount={100} // This should come from basket context
         onPaymentSuccess={handlePaymentSuccess}
         onPaymentError={handlePaymentError}
         onClosePayment={handleClosePaymentWrapper}

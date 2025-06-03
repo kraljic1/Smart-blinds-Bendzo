@@ -9,4 +9,5 @@ export { default as NextSteps } from './NextSteps';
 export { default as ActionButtons } from './ActionButtons';
 export { default as ContactInfo } from './ContactInfo';
 export { default as LoadingSpinner } from './LoadingSpinner';
+export { default as OrderDetailsSection } from './OrderDetailsSection';
 export * from './types'; 

@@ -1,0 +1,3289 @@
+{
+  "timestamp": "2025-06-03T09:15:09.592Z",
+  "stats": {
+    "filesScanned": 328,
+    "issuesFound": 411,
+    "criticalIssues": 0,
+    "highIssues": 8,
+    "mediumIssues": 7,
+    "lowIssues": 396
+  },
+  "issues": [
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/App.tsx",
+      "match": "console.log(",
+      "line": 45
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/App.tsx",
+      "match": "console.log(",
+      "line": 45
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Admin/OrderTable.tsx",
+      "match": "console.log(",
+      "line": 74
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Hardcoded password",
+      "file": "src/components/AdminRoute/AddAdminForm.tsx",
+      "match": "password:', err);\n      onError(err instanceof Err...",
+      "line": 70
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Hardcoded password",
+      "file": "src/components/AdminRoute/ForcePasswordChange.tsx",
+      "match": "password:', err);\n      setError(err instanceof Er...",
+      "line": 61
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/AdminRoute/OrderStatusUpdate.tsx",
+      "match": "console.log(",
+      "line": 55
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/AdminRoute/OrderStatusUpdate.tsx",
+      "match": "console.log(",
+      "line": 55
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/AdminRoute/OrderStatusUpdate.tsx",
+      "match": "console.log(",
+      "line": 55
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/CheckoutForm.tsx",
+      "match": "console.log(",
+      "line": 72
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/CheckoutFormMain.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/EnhancedCheckoutForm.tsx",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripeCheckoutWrapper.tsx",
+      "match": "console.log(",
+      "line": 37
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripeCheckoutWrapper.tsx",
+      "match": "console.log(",
+      "line": 37
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripeCheckoutWrapper.tsx",
+      "match": "console.log(",
+      "line": 37
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Hardcoded secret",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "secret:', clientSecret);\n      // Confirm the paym...",
+      "line": 81
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/StripePaymentForm.tsx",
+      "match": "console.log(",
+      "line": 54
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/useFormSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/useFormSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/useFormSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/useFormSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/useFormSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/useFormSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/useFormSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/usePaymentHandling.ts",
+      "match": "console.log(",
+      "line": 36
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/usePaymentHandling.ts",
+      "match": "console.log(",
+      "line": 36
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/hooks/usePaymentHandling.ts",
+      "match": "console.log(",
+      "line": 36
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/useCheckoutForm.ts",
+      "match": "console.log(",
+      "line": 52
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/useCheckoutForm.ts",
+      "match": "console.log(",
+      "line": 52
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/useCheckoutForm.ts",
+      "match": "console.log(",
+      "line": 52
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/useCheckoutForm.ts",
+      "match": "console.log(",
+      "line": 52
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/utils/orderSaving.ts",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/utils/orderSaving.ts",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/utils/orderSaving.ts",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/utils/orderSaving.ts",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/utils/orderSaving.ts",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Checkout/utils/orderSaving.ts",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Order/OrderDetailsSection.tsx",
+      "match": "console.log(",
+      "line": 25
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/components/Order/OrderDetailsSection.tsx",
+      "match": "console.log(",
+      "line": 25
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/config/stripe.ts",
+      "match": "console.log(",
+      "line": 75
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/config/stripe.ts",
+      "match": "console.log(",
+      "line": 75
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/config/stripe.ts",
+      "match": "console.log(",
+      "line": 75
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/config/stripe.ts",
+      "match": "console.log(",
+      "line": 75
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/config/stripe.ts",
+      "match": "console.log(",
+      "line": 75
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/config/stripe.ts",
+      "match": "console.log(",
+      "line": 75
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/config/stripe.ts",
+      "match": "console.log(",
+      "line": 75
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminLoginPage.tsx",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/pages/AdminOrdersPage.tsx",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/browserDetection.ts",
+      "match": "console.log(",
+      "line": 42
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/browserDetection.ts",
+      "match": "console.log(",
+      "line": 42
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/errorHandler.ts",
+      "match": "console.log(",
+      "line": 140
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/imageChecker.ts",
+      "match": "console.log(",
+      "line": 99
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderDeletion.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderDeletion.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderRetrieval.ts",
+      "match": "console.log(",
+      "line": 46
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderService.ts",
+      "match": "console.log(",
+      "line": 55
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderStatusManagement.ts",
+      "match": "console.log(",
+      "line": 14
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderStatusManagement.ts",
+      "match": "console.log(",
+      "line": 14
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/orderSubmission.ts",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/productDebugUtils.ts",
+      "match": "console.log(",
+      "line": 69
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "MEDIUM",
+      "description": "Hardcoded token",
+      "file": "src/utils/securityLogger.ts",
+      "match": "TOKEN = 'invalid_token'",
+      "line": 28
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/stripeUtils.ts",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Hardcoded password",
+      "file": "src/utils/supabaseClient.ts",
+      "match": "Password:', error);\n    return { success: false };...",
+      "line": 126
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/add-admin.js",
+      "match": "console.log(",
+      "line": 48
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/check-database.js",
+      "match": "console.log(",
+      "line": 18
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/enable-codeql.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/generate-sitemap.js",
+      "match": "console.log(",
+      "line": 95
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/generate-sitemap.js",
+      "match": "console.log(",
+      "line": 95
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/generate-sitemap.js",
+      "match": "console.log(",
+      "line": 95
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/generate-sitemap.js",
+      "match": "console.log(",
+      "line": 95
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/generate-sitemap.js",
+      "match": "console.log(",
+      "line": 95
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/generate-sitemap.js",
+      "match": "console.log(",
+      "line": 95
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/ReportGenerator.js",
+      "match": "console.log(",
+      "line": 63
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/SecurityMonitor.js",
+      "match": "console.log(",
+      "line": 33
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Use of eval() function",
+      "file": "scripts/security-monitor/config.js",
+      "match": "eval(",
+      "line": 53
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/DependencyScanner.js",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/DependencyScanner.js",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/DependencyScanner.js",
+      "match": "console.log(",
+      "line": 20
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/EnvironmentScanner.js",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/EnvironmentScanner.js",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/FilePermissionScanner.js",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/FilePermissionScanner.js",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/SecurityHeaderScanner.js",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/SecurityHeaderScanner.js",
+      "match": "console.log(",
+      "line": 21
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/SensitiveDataScanner.js",
+      "match": "console.log(",
+      "line": 24
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor/scanners/SensitiveDataScanner.js",
+      "match": "console.log(",
+      "line": 24
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-monitor.js",
+      "match": "console.log(",
+      "line": 109
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Use of eval() function",
+      "file": "scripts/security-monitor.js",
+      "match": "eval(",
+      "line": 65
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/security-test.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "scripts/setup-database.js",
+      "match": "console.log(",
+      "line": 26
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/confirm-payment.js",
+      "match": "console.log(",
+      "line": 83
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/create-admin-user.js",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/create-admin-user.js",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/create-admin-user.js",
+      "match": "console.log(",
+      "line": 92
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/delete-order.js",
+      "match": "console.log(",
+      "line": 10
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/delete-order.js",
+      "match": "console.log(",
+      "line": 10
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/delete-order.js",
+      "match": "console.log(",
+      "line": 10
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/delete-order.js",
+      "match": "console.log(",
+      "line": 10
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/get-orders.js",
+      "match": "console.log(",
+      "line": 74
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/get-orders.js",
+      "match": "console.log(",
+      "line": 74
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/process-order.js",
+      "match": "console.log(",
+      "line": 16
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Hardcoded password",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "password:', updateError);\n          return {\n     ...",
+      "line": 130
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/reset-admin-password.js",
+      "match": "console.log(",
+      "line": 115
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/send-order-confirmation.js",
+      "match": "console.log(",
+      "line": 150
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/send-order-confirmation.js",
+      "match": "console.log(",
+      "line": 150
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "netlify/functions/send-status-update.js",
+      "match": "console.log(",
+      "line": 287
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "HIGH",
+      "description": "Use of eval() function",
+      "file": "netlify/functions/validation-utils.js",
+      "match": "eval(",
+      "line": 44
+    },
+    {
+      "type": "ENVIRONMENT_CONFIG",
+      "severity": "MEDIUM",
+      "description": "Missing required environment variable: VITE_STRIPE_PUBLISHABLE_KEY",
+      "file": ".env.production"
+    },
+    {
+      "type": "FILE_PERMISSIONS",
+      "severity": "MEDIUM",
+      "description": "File .env is world-readable",
+      "file": ".env"
+    },
+    {
+      "type": "FILE_PERMISSIONS",
+      "severity": "MEDIUM",
+      "description": "File .env.production is world-readable",
+      "file": ".env.production"
+    },
+    {
+      "type": "FILE_PERMISSIONS",
+      "severity": "MEDIUM",
+      "description": "File package.json is world-readable",
+      "file": "package.json"
+    },
+    {
+      "type": "FILE_PERMISSIONS",
+      "severity": "MEDIUM",
+      "description": "File package-lock.json is world-readable",
+      "file": "package-lock.json"
+    },
+    {
+      "type": "SECURITY_HEADERS",
+      "severity": "MEDIUM",
+      "description": "Missing security header: Content-Security-Policy",
+      "file": "security.config.js"
+    }
+  ]
+}

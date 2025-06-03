@@ -4,14 +4,14 @@ interface TestResult {
   test: string;
   success: boolean;
   error?: string;
-  data?: any;
+  data?: unknown;
 }
 
 export function TestPayment() {
   const [results, setResults] = useState<TestResult[]>([]);
   const [testing, setTesting] = useState(false);
 
-  const runTest = async (testName: string, testFn: () => Promise<any>) => {
+  const runTest = async (testName: string, testFn: () => Promise<unknown>) => {
     try {
       const data = await testFn();
       setResults(prev => [...prev, { test: testName, success: true, data }]);
