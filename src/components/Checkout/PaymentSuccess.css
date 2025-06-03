@@ -338,15 +338,17 @@
 .print-receipt-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
+  gap: 6px;
+  padding: 10px 20px;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   cursor: pointer;
   border: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  min-height: 40px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .continue-shopping-btn {
@@ -356,26 +358,35 @@
 
 .continue-shopping-btn:hover {
   background: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 2px 6px 0 rgba(59, 130, 246, 0.3);
+}
+
+.continue-shopping-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .print-receipt-btn {
-  background: #f3f4f6;
+  background: #f9fafb;
   color: #374151;
   border: 1px solid #d1d5db;
 }
 
 .print-receipt-btn:hover {
-  background: #e5e7eb;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.print-receipt-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .continue-shopping-btn svg,
 .print-receipt-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 /* Responsive Design */

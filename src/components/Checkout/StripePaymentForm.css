@@ -162,30 +162,36 @@
 }
 
 .payment-submit-button {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: #3b82f6;
   color: white;
   border: none;
-  padding: 16px 24px;
+  padding: 12px 20px;
   border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 56px;
+  min-height: 44px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .payment-submit-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  background: #2563eb;
+  box-shadow: 0 2px 6px 0 rgba(59, 130, 246, 0.3);
+}
+
+.payment-submit-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .payment-submit-button:disabled {
   background: #9ca3af;
+  color: #6b7280;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -196,8 +202,8 @@
 }
 
 .payment-submit-button svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 .loading-spinner {
@@ -277,19 +283,28 @@
 }
 
 .back-button {
-  background: #f1f5f9;
+  background: #f9fafb;
   color: #475569;
-  border: 1px solid #cbd5e1;
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-size: 14px;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
+  min-height: 40px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .back-button:hover:not(:disabled) {
-  background: #e2e8f0;
-  border-color: #94a3b8;
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.back-button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .back-button:disabled {
@@ -358,34 +373,52 @@
 }
 
 .retry-button {
-  background-color: #4f46e5;
+  background-color: #3b82f6;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-
-.retry-button:hover {
-  background-color: #4338ca;
-}
-
-.help-button {
-  background-color: #f3f4f6;
-  color: #374151;
-  border: 1px solid #d1d5db;
-  padding: 12px 24px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
+  font-size: 0.95rem;
+  min-height: 40px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.retry-button:hover {
+  background-color: #2563eb;
+  box-shadow: 0 2px 6px 0 rgba(59, 130, 246, 0.3);
+}
+
+.retry-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.help-button {
+  background-color: #f9fafb;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-size: 0.95rem;
+  min-height: 40px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .help-button:hover {
-  background-color: #e5e7eb;
+  background-color: #f3f4f6;
   border-color: #9ca3af;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.help-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 640px) {
