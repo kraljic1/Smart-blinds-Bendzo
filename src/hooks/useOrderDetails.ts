@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ExtendedOrderData, OrderItemDisplay } from '../types/adminOrder';
-import { getOrderById } from '../utils/orderService';
+import { getOrderByIdFallback } from '../utils/orderService';
 
 interface UseOrderDetailsReturn {
   order: ExtendedOrderData | null;
@@ -25,7 +25,7 @@ export const useOrderDetails = (orderId: string | undefined): UseOrderDetailsRet
 
     try {
       setIsLoading(true);
-      const data = await getOrderById(orderId);
+      const data = await getOrderByIdFallback(orderId);
 
       if (!data) {
         setError('Narudžba nije pronađena');
@@ -38,7 +38,7 @@ export const useOrderDetails = (orderId: string | undefined): UseOrderDetailsRet
             productId: item.productId,
             productName: item.productName,
             quantity: item.quantity,
-            price: item.unitPrice,
+            price: item.unitPrice || 0,
             options: item.options || {},
             width: item.width,
             height: item.height
@@ -58,7 +58,7 @@ export const useOrderDetails = (orderId: string | undefined): UseOrderDetailsRet
 
   const refreshOrder = async () => {
     if (orderId) {
-      const data = await getOrderById(orderId);
+      const data = await getOrderByIdFallback(orderId);
       if (data) setOrder(data);
     }
   };
