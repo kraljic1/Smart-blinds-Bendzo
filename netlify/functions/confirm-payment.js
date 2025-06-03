@@ -328,16 +328,32 @@ export const handler = async function(event, context) {
     
     // Process order items only if we have order ID
     if (orderId_db && items && items.length > 0) {
-      const orderItems = items.map(item => ({
-        order_id: orderId_db,
-        product_id: (item.product && item.product.id) || item.productId || 'unknown',
-        product_name: item.productName || (item.product && item.product.name) || 'Unknown Product',
-        product_image: item.productImage || (item.product && item.product.image) || null,
-        quantity: item.quantity || 1,
-        unit_price: item.price || (item.product && item.product.price) || 0,
-        subtotal: (item.price || (item.product && item.product.price) || 0) * (item.quantity || 1),
-        options: item.options || {}
-      }));
+      console.log('[CONFIRM-PAYMENT] Processing order items:', JSON.stringify(items, null, 2));
+      
+      const orderItems = items.map(item => {
+        // Extract price from various possible locations
+        const unitPrice = item.price || item.unitPrice || (item.product && item.product.price) || 0;
+        const quantity = item.quantity || 1;
+        
+        console.log('[CONFIRM-PAYMENT] Item processing:', {
+          productId: item.productId,
+          productName: item.productName,
+          unitPrice,
+          quantity,
+          subtotal: unitPrice * quantity
+        });
+        
+        return {
+          order_id: orderId_db,
+          product_id: item.productId || (item.product && item.product.id) || 'unknown',
+          product_name: item.productName || (item.product && item.product.name) || 'Unknown Product',
+          product_image: item.productImage || (item.product && item.product.image) || null,
+          quantity: quantity,
+          unit_price: unitPrice,
+          subtotal: unitPrice * quantity,
+          options: item.options || {}
+        };
+      });
       
       // Insert order items into Supabase
       const { error: itemsError } = await supabase

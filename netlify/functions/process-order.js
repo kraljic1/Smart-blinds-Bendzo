@@ -171,7 +171,7 @@ export const handler = async function(event, context) {
     const orderId_db = insertedOrder[0].id;
     
     // Process order items with validation
-    console.log('Order items to process:', JSON.stringify(items));
+    console.log('Order items to process:', JSON.stringify(items, null, 2));
     
     if (items && Array.isArray(items)) {
       const orderItems = items.map(item => {
@@ -180,14 +180,26 @@ export const handler = async function(event, context) {
           si.product_id === (item.productId || (item.product && item.product.id))
         );
         
+        // Extract price from various possible locations
+        const unitPrice = sanitizedItem?.unit_price || item.price || item.unitPrice || (item.product && item.product.price) || 0;
+        const quantity = sanitizedItem?.quantity || item.quantity || 1;
+        
+        console.log('Processing item:', {
+          productId: item.productId || (item.product && item.product.id),
+          productName: item.productName || (item.product && item.product.name),
+          unitPrice,
+          quantity,
+          subtotal: unitPrice * quantity
+        });
+        
         return {
           order_id: orderId_db,
           product_id: item.productId || (item.product && item.product.id),
           product_name: sanitizedItem?.product_name || item.productName || (item.product && item.product.name),
           product_image: item.productImage || (item.product && item.product.image),
-          quantity: sanitizedItem?.quantity || item.quantity,
-          unit_price: sanitizedItem?.unit_price || item.price || (item.product && item.product.price),
-          subtotal: (sanitizedItem?.unit_price || item.price || (item.product && item.product.price)) * (sanitizedItem?.quantity || item.quantity),
+          quantity: quantity,
+          unit_price: unitPrice,
+          subtotal: unitPrice * quantity,
           width: (item.width || (item.options && item.options.width)) || null,
           height: (item.height || (item.options && item.options.height)) || null,
           options: item.options ? JSON.stringify(item.options) : null,
