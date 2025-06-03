@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getOrderById } from '../../utils/orderUtils';
 import { ExtendedOrderData, OrderItemDisplay } from './types';
 import CustomerInformation from './CustomerInformation';
@@ -16,7 +16,7 @@ const OrderDetailsSection: React.FC<OrderDetailsSectionProps> = ({ orderId }) =>
   const [isLoading, setIsLoading] = useState(false);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
-  const fetchOrderDetails = async () => {
+  const fetchOrderDetails = useCallback(async () => {
     if (!orderId) return;
     
     setIsLoading(true);
@@ -40,11 +40,11 @@ const OrderDetailsSection: React.FC<OrderDetailsSectionProps> = ({ orderId }) =>
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [orderId]);
 
   useEffect(() => {
     fetchOrderDetails();
-  }, [orderId]);
+  }, [fetchOrderDetails]);
 
   const handleRetryFetch = () => {
     fetchOrderDetails();

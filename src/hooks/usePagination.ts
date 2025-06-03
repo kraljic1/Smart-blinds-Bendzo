@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 interface UsePaginationProps<T> {
   data: T[];
@@ -64,11 +64,11 @@ export const usePagination = <T>({
   const canGoPrevious = currentPage > 1;
 
   // Reset to first page when data changes
-  useMemo(() => {
+  useEffect(() => {
     if (currentPage > totalPages && totalPages > 0) {
       setCurrentPage(1);
     }
-  }, [data.length, totalPages, currentPage]);
+  }, [data, totalPages, currentPage]);
 
   return {
     currentPage,
