@@ -1,29 +1,24 @@
 /**
- * Security Validation Module
- * Main entry point for all security validation functionality
+ * Security Logger utilities index
+ * Provides clean exports for security logging functionality
  */
 
-// Export types and constants
-export * from './types';
+// Main logger
+export { default as securityLogger, logSecurityEvent } from '../securityLogger';
 
-// Export field validators
-export * from './fieldValidators';
+// Individual components
+export { IncidentManager } from './incidentManager';
+export { AlertSystem } from './alertSystem';
+export { MonitoringService } from './monitoringService';
 
-// Export basic validators
-export * from './basicValidators';
+// Utilities
+export * from './securityUtils';
 
-// Export business validators
-export * from './businessValidators';
-
-// Export phone validation
-export * from './phoneValidation';
-
-// Export comprehensive validation
-export * from './comprehensiveValidation';
-
-// Export rate limiter
-export * from './rateLimiter';
-
-// Re-export commonly used functions for backward compatibility
-export { validateFormData } from './comprehensiveValidation';
-export { formSubmissionLimiter, validationLimiter } from './rateLimiter'; 
+// Types and enums
+export { SecurityIncidentType, SecuritySeverity } from '../../types/security';
+export type {
+  SecurityIncident,
+  SecurityStats,
+  AlertThresholds,
+  SecurityLoggerConfig
+} from '../../types/security'; 

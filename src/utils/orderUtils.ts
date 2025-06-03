@@ -18,7 +18,7 @@ export type {
 export { submitOrder } from './orderSubmission';
 
 // Export order retrieval functions
-export { getOrderHistory, getOrderById } from './orderRetrieval';
+export { getOrderHistory, getOrderById, testOrderFetching } from './orderRetrieval';
 
 // Export data transformation functions
 export { basketItemsToOrderItems } from './orderTransformers';

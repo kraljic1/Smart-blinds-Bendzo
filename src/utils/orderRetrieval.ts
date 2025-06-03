@@ -1,4 +1,4 @@
-import { SupabaseOrderData } from './orderTypes';
+import { SupabaseOrderData, SupabaseOrderItem } from './orderTypes';
 import { supabase } from './supabaseClient';
 
 // Interface for the transformed order data that matches the expected format
@@ -35,15 +35,81 @@ interface TransformedOrderData {
 }
 
 /**
+ * Test function to verify order fetching functionality
+ */
+export const testOrderFetching = async (): Promise<boolean> => {
+  try {
+    console.log('Testing order fetching functionality...');
+    
+    // Test 1: Check if Supabase client is available
+    if (!supabase) {
+      console.error('❌ Supabase client not available');
+      return false;
+    }
+    console.log('✅ Supabase client available');
+    
+    // Test 2: Check if we can connect to the database
+    const { data, error } = await supabase
+      .from('orders')
+      .select('count(*)')
+      .limit(1);
+    
+    if (error) {
+      console.error('❌ Database connection failed:', error.message);
+      return false;
+    }
+    console.log('✅ Database connection successful');
+    
+    // Test 3: Check if Netlify function is available (in production)
+    const isDevelopment = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    
+    if (!isDevelopment) {
+      try {
+        const response = await fetch('/.netlify/functions/get-orders?limit=1');
+        if (response.ok) {
+          console.log('✅ Netlify function available');
+        } else {
+          console.warn('⚠️ Netlify function not responding correctly');
+        }
+      } catch (error) {
+        console.warn('⚠️ Netlify function test failed:', error);
+      }
+    }
+    
+    console.log('✅ Order fetching functionality test completed');
+    return true;
+    
+  } catch (error) {
+    console.error('❌ Order fetching test failed:', error);
+    return false;
+  }
+};
+
+/**
  * Get order history for a customer by email
  */
 export const getOrderHistory = async (email: string): Promise<SupabaseOrderData[]> => {
   try {
+    // Validate email parameter
+    if (!email || typeof email !== 'string') {
+      console.error('Invalid email parameter provided to getOrderHistory');
+      return [];
+    }
+
     // Check if we're in development mode (localhost)
-    const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isDevelopment = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     
     if (isDevelopment) {
       console.log('Development mode detected - using direct Supabase client');
+      
+      // Ensure supabase client is available
+      if (!supabase) {
+        console.error('Supabase client not available in development mode');
+        return [];
+      }
+      
       // Use direct Supabase client in development
       const { data: orders, error } = await supabase
         .from('orders')
@@ -92,13 +158,27 @@ export const getOrderHistory = async (email: string): Promise<SupabaseOrderData[
  */
 export const getOrderById = async (orderId: string): Promise<TransformedOrderData | null> => {
   try {
+    // Validate orderId parameter
+    if (!orderId || typeof orderId !== 'string') {
+      console.error('Invalid orderId parameter provided to getOrderById');
+      return null;
+    }
+
     console.log('Fetching order by ID:', orderId);
     
     // Check if we're in development mode (localhost)
-    const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const isDevelopment = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
     
     if (isDevelopment) {
       console.log('Development mode detected - using direct Supabase client');
+      
+      // Ensure supabase client is available
+      if (!supabase) {
+        console.error('Supabase client not available in development mode');
+        return null;
+      }
+      
       // Use direct Supabase client in development
       const { data: order, error } = await supabase
         .from('orders')
@@ -156,7 +236,7 @@ export const getOrderById = async (orderId: string): Promise<TransformedOrderDat
         notes: order.notes,
         createdAt: order.created_at,
         updatedAt: order.updated_at,
-        items: (order.order_items || []).map((item: any) => ({
+        items: (order.order_items || []).map((item: SupabaseOrderItem) => ({
           productId: item.product_id || `item-${item.id}`,
           productName: item.product_name,
           quantity: item.quantity,

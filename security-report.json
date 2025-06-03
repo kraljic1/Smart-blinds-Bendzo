@@ -1,11 +1,11 @@
 {
-  "timestamp": "2025-06-03T09:35:00.097Z",
+  "timestamp": "2025-06-03T09:54:50.675Z",
   "stats": {
-    "filesScanned": 330,
-    "issuesFound": 404,
+    "filesScanned": 342,
+    "issuesFound": 405,
     "criticalIssues": 0,
     "highIssues": 0,
-    "mediumIssues": 6,
+    "mediumIssues": 7,
     "lowIssues": 398
   },
   "issues": [
@@ -491,6 +491,14 @@
     },
     {
       "type": "SENSITIVE_DATA",
+      "severity": "MEDIUM",
+      "description": "Hardcoded token",
+      "file": "src/types/security.ts",
+      "match": "TOKEN = 'invalid_token'",
+      "line": 27
+    },
+    {
+      "type": "SENSITIVE_DATA",
       "severity": "LOW",
       "description": "Console.log statement (potential info disclosure)",
       "file": "src/utils/browserDetection.ts",
@@ -775,7 +783,7 @@
       "description": "Console.log statement (potential info disclosure)",
       "file": "src/utils/orderService.ts",
       "match": "console.log(",
-      "line": 55
+      "line": 159
     },
     {
       "type": "SENSITIVE_DATA",

@@ -1,8 +1,112 @@
 import { supabase } from './supabaseClient';
 import { ExtendedOrderData, ApiOrderItem, SupabaseOrderItem } from '../types/adminOrder';
+import type { OrderData } from '../types/order';
+
+/**
+ * Order management functions
+ */
+
+/**
+ * Retrieves an order by its ID
+ * @param orderId The unique ID of the order to retrieve
+ */
+export async function getOrderById(orderId: string) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('order_id', orderId)
+    .single();
+  
+  if (error) {
+    console.error('Error fetching order:', error);
+    throw error;
+  }
+
+  // Get order items
+  if (data?.id) {
+    const { data: items, error: itemsError } = await supabase
+      .from('order_items')
+      .select('*')
+      .eq('order_id', data.id);
+    
+    if (itemsError) {
+      console.error('Error fetching order items:', itemsError);
+    } else {
+      return { ...data, items };
+    }
+  }
+  
+  return data;
+}
+
+/**
+ * Retrieves orders by customer email
+ * @param email The email of the customer
+ */
+export async function getOrdersByEmail(email: string) {
+  const { data, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('customer_email', email)
+    .order('created_at', { ascending: false });
+  
+  if (error) {
+    console.error('Error fetching orders by email:', error);
+    throw error;
+  }
+
+  // Get order items for all orders
+  if (data && data.length > 0) {
+    const orderIds = data.map(order => order.id);
+    
+    const { data: items, error: itemsError } = await supabase
+      .from('order_items')
+      .select('*')
+      .in('order_id', orderIds);
+    
+    if (itemsError) {
+      console.error('Error fetching order items:', itemsError);
+    } else {
+      // Group items by order_id
+      const itemsByOrderId = items.reduce((acc, item) => {
+        if (!acc[item.order_id]) {
+          acc[item.order_id] = [];
+        }
+        acc[item.order_id].push(item);
+        return acc;
+      }, {});
+      
+      // Add items to their respective orders
+      return data.map(order => ({
+        ...order,
+        items: itemsByOrderId[order.id] || []
+      }));
+    }
+  }
+  
+  return data;
+}
+
+/**
+ * Creates a new order
+ * @param orderData The order data to insert
+ */
+export async function createOrder(orderData: OrderData) {
+  const { data, error } = await supabase
+    .from('orders')
+    .insert([orderData])
+    .select();
+  
+  if (error) {
+    console.error('Error creating order:', error);
+    throw error;
+  }
+  
+  return data?.[0];
+}
 
 // Function to get order by ID using the Netlify function with fallback
-export const getOrderById = async (orderId: string): Promise<ExtendedOrderData | null> => {
+export const getOrderByIdFallback = async (orderId: string): Promise<ExtendedOrderData | null> => {
   try {
     // Try Netlify function first
     try {
