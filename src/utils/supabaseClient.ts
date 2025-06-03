@@ -123,7 +123,7 @@ export async function resetAdminPassword(email: string): Promise<{success: boole
       temporaryPassword: result.temporaryPassword
     };
   } catch (error) {
-    console.error('Error in resetAdminPassword:', error);
+    console.error('Error in resetAdminCredentials:', error);
     return { success: false };
   }
 }

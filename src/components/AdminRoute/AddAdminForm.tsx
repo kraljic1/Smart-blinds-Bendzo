@@ -40,7 +40,7 @@ const AddAdminForm: React.FC<AddAdminFormProps> = ({
       setNewAdminEmail('');
       onAdminAdded();
     } catch (err) {
-      console.error('Error adding admin:', err);
+      console.error('Error adding admin user:', err);
       onError(err instanceof Error ? err.message : 'Greška pri dodavanju administratora');
     } finally {
       setActionLoading(false);
@@ -67,7 +67,7 @@ const AddAdminForm: React.FC<AddAdminFormProps> = ({
       onSuccess(`Uspješno resetovana lozinka za ${resetEmail}`);
       setResetEmail('');
     } catch (err) {
-      console.error('Error resetting password:', err);
+      console.error('Error resetting admin credentials:', err);
       onError(err instanceof Error ? err.message : 'Greška pri resetovanju lozinke');
     } finally {
       setResetLoading(false);

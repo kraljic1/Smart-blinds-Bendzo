@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-06-03T09:15:09.592Z",
+  "timestamp": "2025-06-03T09:35:00.097Z",
   "stats": {
-    "filesScanned": 328,
-    "issuesFound": 411,
+    "filesScanned": 330,
+    "issuesFound": 404,
     "criticalIssues": 0,
-    "highIssues": 8,
-    "mediumIssues": 7,
-    "lowIssues": 396
+    "highIssues": 0,
+    "mediumIssues": 6,
+    "lowIssues": 398
   },
   "issues": [
     {
@@ -32,22 +32,6 @@
       "file": "src/components/Admin/OrderTable.tsx",
       "match": "console.log(",
       "line": 74
-    },
-    {
-      "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Hardcoded password",
-      "file": "src/components/AdminRoute/AddAdminForm.tsx",
-      "match": "password:', err);\n      onError(err instanceof Err...",
-      "line": 70
-    },
-    {
-      "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Hardcoded password",
-      "file": "src/components/AdminRoute/ForcePasswordChange.tsx",
-      "match": "password:', err);\n      setError(err instanceof Er...",
-      "line": 61
     },
     {
       "type": "SENSITIVE_DATA",
@@ -120,14 +104,6 @@
       "file": "src/components/Checkout/StripeCheckoutWrapper.tsx",
       "match": "console.log(",
       "line": 37
-    },
-    {
-      "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Hardcoded secret",
-      "file": "src/components/Checkout/StripePaymentForm.tsx",
-      "match": "secret:', clientSecret);\n      // Confirm the paym...",
-      "line": 81
     },
     {
       "type": "SENSITIVE_DATA",
@@ -963,11 +939,19 @@
     },
     {
       "type": "SENSITIVE_DATA",
-      "severity": "MEDIUM",
-      "description": "Hardcoded token",
-      "file": "src/utils/securityLogger.ts",
-      "match": "TOKEN = 'invalid_token'",
-      "line": 28
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/secureLogger.ts",
+      "match": "console.log(",
+      "line": 123
+    },
+    {
+      "type": "SENSITIVE_DATA",
+      "severity": "LOW",
+      "description": "Console.log statement (potential info disclosure)",
+      "file": "src/utils/secureLogger.ts",
+      "match": "console.log(",
+      "line": 123
     },
     {
       "type": "SENSITIVE_DATA",
@@ -1032,14 +1016,6 @@
       "file": "src/utils/stripeUtils.ts",
       "match": "console.log(",
       "line": 92
-    },
-    {
-      "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Hardcoded password",
-      "file": "src/utils/supabaseClient.ts",
-      "match": "Password:', error);\n    return { success: false };...",
-      "line": 126
     },
     {
       "type": "SENSITIVE_DATA",
@@ -1907,14 +1883,6 @@
     },
     {
       "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Use of eval() function",
-      "file": "scripts/security-monitor/config.js",
-      "match": "eval(",
-      "line": 53
-    },
-    {
-      "type": "SENSITIVE_DATA",
       "severity": "LOW",
       "description": "Console.log statement (potential info disclosure)",
       "file": "scripts/security-monitor/scanners/DependencyScanner.js",
@@ -2280,14 +2248,6 @@
       "file": "scripts/security-monitor.js",
       "match": "console.log(",
       "line": 109
-    },
-    {
-      "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Use of eval() function",
-      "file": "scripts/security-monitor.js",
-      "match": "eval(",
-      "line": 65
     },
     {
       "type": "SENSITIVE_DATA",
@@ -3104,14 +3064,6 @@
       "file": "netlify/functions/process-order.js",
       "match": "console.log(",
       "line": 16
-    },
-    {
-      "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Hardcoded password",
-      "file": "netlify/functions/reset-admin-password.js",
-      "match": "password:', updateError);\n          return {\n     ...",
-      "line": 130
     },
     {
       "type": "SENSITIVE_DATA",
@@ -3240,14 +3192,6 @@
       "file": "netlify/functions/send-status-update.js",
       "match": "console.log(",
       "line": 287
-    },
-    {
-      "type": "SENSITIVE_DATA",
-      "severity": "HIGH",
-      "description": "Use of eval() function",
-      "file": "netlify/functions/validation-utils.js",
-      "match": "eval(",
-      "line": 44
     },
     {
       "type": "ENVIRONMENT_CONFIG",

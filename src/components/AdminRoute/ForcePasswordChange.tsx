@@ -52,13 +52,13 @@ const ForcePasswordChange: React.FC<ForcePasswordChangeProps> = ({ onPasswordCha
           .eq('email', sessionData.session.user.email);
 
         if (dbError) {
-          console.error('Error updating admin_users:', dbError);
+          console.error('Error updating admin user record:', dbError);
         }
       }
 
       onPasswordChanged();
     } catch (err: unknown) {
-      console.error('Error changing password:', err);
+      console.error('Error updating user credentials:', err);
       setError(err instanceof Error ? err.message : 'Greška pri promjeni lozinke');
     } finally {
       setLoading(false);

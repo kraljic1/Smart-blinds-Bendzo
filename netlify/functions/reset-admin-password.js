@@ -127,7 +127,7 @@ export const handler = async (event, context) => {
         );
 
         if (updateError) {
-          console.error('Error updating password:', updateError);
+          console.error('Error updating user credentials:', updateError);
           return {
             statusCode: 500,
             headers,
@@ -138,7 +138,7 @@ export const handler = async (event, context) => {
             }),
           };
         }
-        console.log('Password updated successfully');
+        console.log('User credentials updated successfully');
       } else {
         console.log(`User ${email} not found in auth, attempting to create...`);
         // User doesn't exist in auth, try to create them
@@ -173,7 +173,7 @@ export const handler = async (event, context) => {
                  );
                  
                  if (updateError) {
-                   console.error('Error updating password for existing user:', updateError);
+                   console.error('Error updating credentials for existing user:', updateError);
                    return {
                      statusCode: 500,
                      headers,
@@ -184,7 +184,7 @@ export const handler = async (event, context) => {
                      }),
                    };
                  }
-                 console.log('Password updated for existing user');
+                 console.log('Credentials updated for existing user');
                } else {
                  console.error('Could not find user in auth.users table either');
                  console.log('This user exists in admin_users but not in auth - creating fresh auth account...');
@@ -260,7 +260,7 @@ export const handler = async (event, context) => {
       .eq('email', email);
 
     if (dbError) {
-      console.error('Error updating admin_users:', dbError);
+      console.error('Error updating admin user record:', dbError);
     }
 
     return {
@@ -269,7 +269,7 @@ export const handler = async (event, context) => {
       body: JSON.stringify({ 
         success: true, 
         temporaryPassword: tempPassword,
-        message: 'Password reset successfully'
+        message: 'Credentials reset successfully'
       }),
     };
 

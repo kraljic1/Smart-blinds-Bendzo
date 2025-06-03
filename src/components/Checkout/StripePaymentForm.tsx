@@ -78,7 +78,7 @@ export function StripePaymentForm({
     }
 
     try {
-      console.log('[STRIPE] Confirming card payment with client secret:', clientSecret);
+      console.log('[STRIPE] Confirming card payment with client configuration');
       // Confirm the payment intent
       const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -91,7 +91,7 @@ export function StripePaymentForm({
         setCardError(error.message || 'An error occurred');
         onPaymentError(error.message || 'Payment confirmation failed');
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        console.log('[STRIPE] Payment succeeded:', paymentIntent);
+        console.log('[STRIPE] Payment completed successfully');
         onPaymentSuccess(paymentIntent.id);
       } else {
         console.log('[STRIPE] Payment intent status:', paymentIntent?.status);
@@ -99,7 +99,7 @@ export function StripePaymentForm({
         onPaymentError('Payment was not completed successfully');
       }
     } catch (error) {
-      console.error('[STRIPE] Payment error:', error);
+      console.error('[STRIPE] Payment processing failed:', error);
       const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
       setCardError(errorMessage);
       onPaymentError(errorMessage);
