@@ -24,7 +24,7 @@ export enum SecurityIncidentType {
   DATA_BREACH_ATTEMPT = 'data_breach_attempt',
   MALICIOUS_REQUEST = 'malicious_request',
   RATE_LIMIT_EXCEEDED = 'rate_limit_exceeded',
-  INVALID_TOKEN = 'invalid_token',
+  INVALID_AUTH_TOKEN = 'invalid_auth_token',
   PERMISSION_VIOLATION = 'permission_violation',
   SECURITY_SCAN_DETECTED = 'security_scan_detected',
   UNUSUAL_BEHAVIOR = 'unusual_behavior'

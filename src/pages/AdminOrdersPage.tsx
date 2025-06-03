@@ -112,7 +112,7 @@ const AdminOrdersPage: React.FC = () => {
       }
       
       // Fallback to direct Supabase client if Netlify function fails
-      console.log('Using direct Supabase client as fallback');
+      // Using direct Supabase client as fallback
       const { data, error } = await supabase
         .from('orders')
         .select('*')

@@ -39,7 +39,7 @@ export async function detectBrave(): Promise<boolean> {
     try {
       return await navigator.brave.isBrave();
     } catch (error) {
-      console.log('Brave detection method 1 failed:', error);
+      // Brave detection method 1 failed - silently continue to next method
     }
   }
 
@@ -59,7 +59,7 @@ export async function detectBrave(): Promise<boolean> {
       }
     } catch (error) {
       // If we get an error accessing Chrome APIs, it might be Brave
-      console.log('Chrome API check failed, might be Brave:', error);
+      // Chrome API check failed - treating as potential Brave browser
       return true;
     }
   }

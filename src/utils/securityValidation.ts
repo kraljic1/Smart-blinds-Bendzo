@@ -12,4 +12,13 @@ export * from './security';
 
 // Maintain backward compatibility by re-exporting the main functions
 export { validateFormData } from './security/comprehensiveValidation';
-export { formSubmissionLimiter } from './security/rateLimiter'; 
+export { formSubmissionLimiter } from './security/rateLimiter';
+
+// Re-export individual field validators
+export { validateEmail, validateName } from './security/fieldValidators';
+export { validateAddress, validateCity, validatePostalCode } from './security/basicValidators';
+export { validateCompanyName, validateOIB, validateNotes } from './security/businessValidators';
+export { validatePhoneSecure as validatePhone } from './security/phoneValidation';
+
+// Export types
+export type { ValidationResult } from './security/types'; 

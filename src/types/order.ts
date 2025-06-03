@@ -25,7 +25,7 @@ export interface OrderData {
 // Order item data type definition
 export interface OrderItemData {
   id?: number;
-  order_id: number;
+  order_id: number; // Foreign key referencing orders.id (auto-increment primary key)
   product_id: string;
   product_name: string;
   product_image?: string;
