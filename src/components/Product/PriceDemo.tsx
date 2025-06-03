@@ -33,12 +33,15 @@ const PriceDemo = () => {
         <h2 className="demo-title">Price Calculator Demo</h2>
         
         <div className="control-group">
-          <label className="control-label">
+          <label htmlFor="product-type-select" className="control-label">
             Product Type:
             <select 
+              id="product-type-select"
+              name="productType"
               className="product-select" 
               value={productType} 
               onChange={handleProductChange}
+              aria-label="Select product type"
             >
               <option value="roller-blinds">Roller Blinds</option>
               <option value="zebra-blinds">Zebra Blinds</option>
@@ -48,29 +51,35 @@ const PriceDemo = () => {
         </div>
         
         <div className="control-group measurements">
-          <label className="control-label">
+          <label htmlFor="width-input" className="control-label">
             Width (cm):
             <input
               type="number"
+              id="width-input"
               name="width"
               value={measurements.width}
               onChange={handleMeasurementChange}
               min="20"
               max="300"
               className="measurement-input"
+              aria-label="Product width in centimeters"
+              required
             />
           </label>
           
-          <label className="control-label">
+          <label htmlFor="height-input" className="control-label">
             Height (cm):
             <input
               type="number"
+              id="height-input"
               name="height"
               value={measurements.height}
               onChange={handleMeasurementChange}
               min="20"
               max="300"
               className="measurement-input"
+              aria-label="Product height in centimeters"
+              required
             />
           </label>
         </div>

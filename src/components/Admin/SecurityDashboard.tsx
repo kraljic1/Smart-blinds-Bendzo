@@ -157,11 +157,14 @@ const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ className = '' })
       <div className="p-6 border-b border-gray-200">
         <div className="flex flex-wrap gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Severity</label>
+            <label htmlFor="severity-filter" className="block text-sm font-medium text-gray-700 mb-1">Severity</label>
             <select
+              id="severity-filter"
+              name="severity-filter"
               value={selectedSeverity}
               onChange={(e) => setSelectedSeverity(e.target.value as SecuritySeverity | 'all')}
               className="border border-gray-300 rounded-md px-3 py-2 text-sm"
+              aria-label="Filter by incident severity"
             >
               <option value="all">All Severities</option>
               <option value={SecuritySeverity.LOW}>Low</option>
@@ -172,11 +175,14 @@ const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ className = '' })
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+            <label htmlFor="type-filter" className="block text-sm font-medium text-gray-700 mb-1">Type</label>
             <select
+              id="type-filter"
+              name="type-filter"
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value as SecurityIncidentType | 'all')}
               className="border border-gray-300 rounded-md px-3 py-2 text-sm"
+              aria-label="Filter by incident type"
             >
               <option value="all">All Types</option>
               {Object.values(SecurityIncidentType).map(type => (
@@ -186,12 +192,15 @@ const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ className = '' })
           </div>
 
           <div className="flex items-end">
-            <label className="flex items-center space-x-2">
+            <label htmlFor="show-resolved" className="flex items-center space-x-2">
               <input
                 type="checkbox"
+                id="show-resolved"
+                name="show-resolved"
                 checked={showResolved}
                 onChange={(e) => setShowResolved(e.target.checked)}
                 className="rounded border-gray-300"
+                aria-label="Show resolved incidents"
               />
               <span className="text-sm text-gray-700">Show resolved</span>
             </label>
