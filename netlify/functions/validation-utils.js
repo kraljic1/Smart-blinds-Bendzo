@@ -590,7 +590,7 @@ class ServerRateLimiter {
 const rateLimiter = new ServerRateLimiter();
 
 // Export functions
-module.exports = {
+export {
   validateEmail,
   validateName,
   validateAddress,

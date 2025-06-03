@@ -5,7 +5,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import fetch from 'node-fetch'; // Add node-fetch for making HTTP requests
-const { validateOrderData, rateLimiter } = require('./validation-utils');
+import { validateOrderData, rateLimiter } from './validation-utils.js';
 
 // Initialize Supabase client
 // Try regular env vars first, then fallback to VITE_ prefixed ones
