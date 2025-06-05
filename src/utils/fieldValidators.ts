@@ -6,7 +6,6 @@
 import { 
   validateEmail, 
   validateName, 
-  validateAddress, 
   validateCity, 
   validatePostalCode, 
   validateCompanyName, 
@@ -14,6 +13,7 @@ import {
   validateNotes,
   type ValidationResult 
 } from './securityValidation';
+import { validateAddress } from './security/fieldValidators';
 import { validatePhoneNumberRealTime, getCountryCodeFromDialCode } from './phoneValidation';
 import type { FormData } from '../types/validation';
 
@@ -39,11 +39,11 @@ export const validateFormField = (
     }
     
     case 'address': {
-      return validateAddress(value as string, 'Address');
+      return validateAddress(value as string);
     }
     
     case 'shippingAddress': {
-      return validateAddress(value as string, 'Shipping address');
+      return validateAddress(value as string);
     }
     
     case 'city':
@@ -71,8 +71,8 @@ export const validateFormField = (
         return {
           isValid: result.isValid,
           sanitizedValue: value as string,
-          errors: result.errorMessage ? [result.errorMessage] : [],
-          warnings: result.suggestion ? [result.suggestion] : []
+          errors: result.error ? [result.error] : [],
+          warnings: []
         };
       }
       return { isValid: false, errors: ['Invalid phone number'], sanitizedValue: value as string };

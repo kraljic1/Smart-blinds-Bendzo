@@ -31,24 +31,35 @@ export const SHIPPING_METHODS: ShippingMethod[] = [
 ];
 
 /**
+ * Mapping of display names to shipping method IDs
+ * Centralized to avoid duplication and ensure consistency
+ */
+const SHIPPING_METHOD_NAME_MAP: Record<string, string> = {
+  'Standard delivery': 'standard',
+  'Standardna dostava': 'standard',
+  'Express delivery': 'express',
+  'Brza dostava (+€10)': 'express',
+  'Same day delivery': 'same-day',
+  'Dostava isti dan (+€20)': 'same-day'
+};
+
+/**
+ * Helper function to find shipping method by display name or ID
+ * @param shippingMethod - The selected shipping method (display name or ID)
+ * @returns The shipping method object or null if not found
+ */
+const findShippingMethod = (shippingMethod: string): ShippingMethod | null => {
+  const methodId = SHIPPING_METHOD_NAME_MAP[shippingMethod] || shippingMethod || 'standard';
+  return SHIPPING_METHODS.find(m => m.id === methodId) || null;
+};
+
+/**
  * Get shipping cost based on delivery method
  * @param shippingMethod - The selected shipping method
  * @returns The shipping cost in euros
  */
 export const getShippingCost = (shippingMethod: string): number => {
-  // Map display names to shipping method IDs
-  const methodMap: Record<string, string> = {
-    'Standard delivery': 'standard',
-    'Standardna dostava': 'standard',
-    'Express delivery': 'express',
-    'Brza dostava (+€10)': 'express',
-    'Same day delivery': 'same-day',
-    'Dostava isti dan (+€20)': 'same-day'
-  };
-
-  const methodId = methodMap[shippingMethod] || 'standard';
-  const method = SHIPPING_METHODS.find(m => m.id === methodId);
-  
+  const method = findShippingMethod(shippingMethod);
   return method ? method.cost : 0;
 };
 
@@ -58,15 +69,5 @@ export const getShippingCost = (shippingMethod: string): number => {
  * @returns The shipping method object or null if not found
  */
 export const getShippingMethodDetails = (shippingMethod: string): ShippingMethod | null => {
-  const methodMap: Record<string, string> = {
-    'Standard delivery': 'standard',
-    'Standardna dostava': 'standard',
-    'Express delivery': 'express',
-    'Brza dostava (+€10)': 'express',
-    'Same day delivery': 'same-day',
-    'Dostava isti dan (+€20)': 'same-day'
-  };
-
-  const methodId = methodMap[shippingMethod] || 'standard';
-  return SHIPPING_METHODS.find(m => m.id === methodId) || null;
+  return findShippingMethod(shippingMethod);
 }; 

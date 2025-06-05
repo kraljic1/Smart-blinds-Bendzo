@@ -177,6 +177,9 @@ export function EnhancedCheckoutForm() {
               formData={formData} 
               phoneValidation={phoneValidation}
               handleChange={handleEnhancedChange}
+              handleBlur={handleEnhancedBlur}
+              getFieldError={getFieldError}
+              hasFieldError={(fieldName: string) => !!getFieldError(fieldName)}
             />
           </div>
           
