@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import { Sun, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { Product } from '../types/product';
+import { Product } from '../../types/product';
 import {
   CardRoot,
   CardImage,
@@ -9,7 +9,7 @@ import {
   CardTitle,
   CardPrice,
   CardActions,
-} from './Card';
+} from '../Card';
 
 interface ProductCardProps {
   product: Product;
@@ -41,10 +41,26 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   };
 
+  // Handle card click - same as configure action
+  const handleCardClick = () => {
+    handleConfigure();
+  };
+
+  // Handle button clicks with event propagation prevention
+  const handleConfigureClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleConfigure();
+  };
+
+  const handleRequestSampleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleRequestSample();
+  };
+
   // Check if product has an image with "4.webp" or "4.jpg" (fabric detail image)
   const hasFabricImage = useMemo((): boolean => {
     if (!product.images) return false;
-    return product.images.some(img => 
+    return product.images.some((img: string) => 
       img.includes("4.webp") || 
       img.endsWith("/4.webp") || 
       img.includes("4.jpg") || 
@@ -60,7 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     if (!product.images) return null;
     
     // First, look for exact matches for fabric samples
-    const fabricImage = product.images.find(img => 
+    const fabricImage = product.images.find((img: string) => 
       img.includes("4.webp") || 
       img.endsWith("/4.webp") || 
       img.includes("4.jpg") || 
@@ -81,7 +97,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   }, [product.fabricColor, hasFabricImage]);
 
   return (
-    <CardRoot className="h-full flex flex-col">
+    <CardRoot 
+      className="h-full flex flex-col cursor-pointer" 
+      onClick={handleCardClick}
+    >
       <div className="relative">
         <CardImage src={product.image} alt={product.name} />
         <div className="absolute bottom-4 right-4">
@@ -109,7 +128,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         <div className="flex items-center space-x-2 mb-4">
-          {product.features.map((feature, i) => (
+          {product.features.map((feature: string, i: number) => (
             <span
               key={i}
               className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm uppercase"
@@ -138,7 +157,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         <CardActions className="mt-auto">
           <button
-            onClick={handleConfigure}
+            onClick={handleConfigureClick}
             className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600"
           >
             {configureButtonText}
@@ -146,7 +165,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           
           {onRequestSample && (
             <button
-              onClick={handleRequestSample}
+              onClick={handleRequestSampleClick}
               className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
             >
               Request Sample

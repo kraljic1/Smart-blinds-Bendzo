@@ -39,6 +39,17 @@ const ModernAccessoryCard: React.FC<ModernAccessoryCardProps> = ({
     navigate(`/products/configure/${product.id}`);
   };
 
+  // Handle card click - same as configure action
+  const handleCardClick = () => {
+    handleConfigure();
+  };
+
+  // Handle button clicks with event propagation prevention
+  const handleConfigureClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleConfigure();
+  };
+
   const handleToggleLike = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (productIsLiked) {
@@ -62,8 +73,9 @@ const ModernAccessoryCard: React.FC<ModernAccessoryCardProps> = ({
       {/* Card with modern effects */}
       <div 
         ref={cardRef} 
-        className="relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-500 group-hover:shadow-xl"
+        className="relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-500 group-hover:shadow-xl cursor-pointer"
         style={{ opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.5s ease, transform 0.5s ease' }}
+        onClick={handleCardClick}
       >
         {/* Subtle card background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 dark:from-blue-900/10 dark:to-purple-900/20 -z-10"></div>
@@ -120,7 +132,7 @@ const ModernAccessoryCard: React.FC<ModernAccessoryCardProps> = ({
           {/* Action buttons */}
           <div className="mt-auto pt-4">
             <button
-              onClick={handleConfigure}
+              onClick={handleConfigureClick}
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-400 dark:hover:to-indigo-500 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
             >
               <span>Configure & Buy</span>
