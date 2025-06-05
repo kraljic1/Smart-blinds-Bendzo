@@ -1,5 +1,5 @@
 [build]
-  command = "rm -rf node_modules package-lock.json && npm install --legacy-peer-deps && npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
   functions = "netlify/functions"
 
@@ -34,11 +34,11 @@
     # Comprehensive CSP to fix Stripe r.stripe.com blocking issues and allow Supabase
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://checkout.stripe.com https://m.stripe.com https://m.stripe.network; connect-src 'self' https://api.stripe.com https://js.stripe.com https://checkout.stripe.com https://q.stripe.com https://m.stripe.com https://merchant-ui-api.stripe.com https://r.stripe.com https://hooks.stripe.com https://m.stripe.network https://*.stripe.com wss://*.stripe.com https://*.supabase.co https://*.supabase.io wss://*.supabase.co wss://*.supabase.io; frame-src 'self' https://js.stripe.com https://checkout.stripe.com https://connect.stripe.com https://hooks.stripe.com; worker-src 'self' blob: https://m.stripe.network https://m.stripe.com; img-src 'self' data: https: blob: https://*.stripe.com https://*.stripecdn.com; style-src 'self' 'unsafe-inline' https://js.stripe.com https://checkout.stripe.com https://fonts.googleapis.com https://a.stripecdn.com; font-src 'self' https://a.stripecdn.com https://fonts.gstatic.com; form-action 'self'; base-uri 'self'; object-src 'none';"
 
-# Handle client-side routing for React app
+# Handle client-side routing for React app - Updated after dark mode removal
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200 
+  status = 200
 
 # Additional settings for form handling
 [build.processing.html]
@@ -51,4 +51,10 @@
     [forms.checkout.notifications]
       [forms.checkout.notifications.email]
         to = "vidk@codeandsail.com"
-        subject = "New order submission from Smartblinds" 
+        subject = "New order submission from Smartblinds"
+
+# Force rebuild after dark mode removal - 2024-01-20 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 
