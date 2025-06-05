@@ -87,15 +87,6 @@ export default defineConfig({
             './src/pages/InstallationGuidePage.tsx',
             './src/pages/ConnectivityGuidePage.tsx',
             './src/pages/SmartControlGuidePage.tsx'
-          ],
-          
-          // Data collections (likely large due to images)
-          'data-collections': [
-            './src/data/collections/index.ts',
-            './src/data/collections/essentialCollection.ts',
-            './src/data/collections/essentialCollectionPart2.ts',
-            './src/data/collections/solarCollection.ts',
-            './src/data/collections/comfortCollection.ts'
           ]
         }
       }
