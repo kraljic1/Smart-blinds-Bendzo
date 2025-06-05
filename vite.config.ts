@@ -50,9 +50,58 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: undefined
+        manualChunks: {
+          // Vendor libraries
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-ui': ['lucide-react', 'react-helmet-async'],
+          'vendor-payment': ['@stripe/stripe-js', '@stripe/react-stripe-js'],
+          'vendor-supabase': ['@supabase/supabase-js'],
+          'vendor-utils': ['libphonenumber-js', 'dompurify'],
+          
+          // Large page components
+          'pages-main': [
+            './src/pages/HomePage.tsx',
+            './src/pages/ProductsPage.tsx',
+            './src/pages/RollerBlindsPage.tsx',
+            './src/pages/ZebraBlindsPage.tsx'
+          ],
+          'pages-product': [
+            './src/pages/ProductConfigurationPage.tsx',
+            './src/pages/AccessoriesPage.tsx',
+            './src/pages/CurtainTracksPage.tsx'
+          ],
+          'pages-checkout': [
+            './src/pages/CheckoutPage.tsx',
+            './src/pages/BasketPage.tsx',
+            './src/pages/ThankYouPage.tsx'
+          ],
+          'pages-admin': [
+            './src/pages/AdminLoginPage.tsx',
+            './src/pages/AdminOrdersPage.tsx',
+            './src/pages/AdminOrderDetailPage.tsx',
+            './src/pages/AdminManagementPage.tsx'
+          ],
+          'pages-support': [
+            './src/pages/HowItWorksPage.tsx',
+            './src/pages/SupportPage.tsx',
+            './src/pages/InstallationGuidePage.tsx',
+            './src/pages/ConnectivityGuidePage.tsx',
+            './src/pages/SmartControlGuidePage.tsx'
+          ],
+          
+          // Data collections (likely large due to images)
+          'data-collections': [
+            './src/data/collections/index.ts',
+            './src/data/collections/essentialCollection.ts',
+            './src/data/collections/essentialCollectionPart2.ts',
+            './src/data/collections/solarCollection.ts',
+            './src/data/collections/comfortCollection.ts'
+          ]
+        }
       }
     },
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000,
     // Generate source maps for debugging but not in production
     sourcemap: false
   },

@@ -5,41 +5,53 @@ import { BasketProvider } from './context/BasketContext';
 import { LikedProvider } from './context/LikedContext';
 import { OrderProvider } from './context/OrderContext';
 import { ToastProvider } from './context/ToastProvider';
-import { useEffect } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import Layout from './components/Layout/Layout';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
 import TouchFriendly from './components/UI/TouchFriendly';
 import SEOAnalyzer from './components/SEO/SEOAnalyzer';
 import AdminRoute from './components/AdminRoute/AdminRoute';
-import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
-import RollerBlindsPage from './pages/RollerBlindsPage';
-import ZebraBlindsPage from './pages/ZebraBlindsPage';
-import CurtainTracksPage from './pages/CurtainTracksPage';
-import AccessoriesPage from './pages/AccessoriesPage';
-import HowItWorksPage from './pages/HowItWorksPage';
-import SupportPage from './pages/SupportPage';
-import InstallationGuidePage from './pages/InstallationGuidePage';
-import ConnectivityGuidePage from './pages/ConnectivityGuidePage';
-import SmartControlGuidePage from './pages/SmartControlGuidePage';
-import ProductConfigurationPage from './pages/ProductConfigurationPage';
-import PricingDemoPage from './pages/PricingDemoPage';
-import BasketPage from './pages/BasketPage';
-import LikedPage from './pages/LikedPage';
-import CheckoutPage from './pages/CheckoutPage';
-import ThankYouPage from './pages/ThankYouPage';
-import AdminLoginPage from './pages/AdminLoginPage';
-import AdminOrdersPage from './pages/AdminOrdersPage';
-import AdminOrderDetailPage from './pages/AdminOrderDetailPage';
-import ProductOptionDemoPage from './pages/ProductOptionDemoPage';
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
-import TermsOfServicePage from './pages/TermsOfServicePage';
-import AccessibilityPage from './pages/AccessibilityPage';
-import AdminManagementPage from './pages/AdminManagementPage';
-import { TestPayment } from './pages/TestPayment';
 import { preventOverscroll } from './utils/preventOverscroll';
 import ScrollToTop from './utils/ScrollToTop';
+
+// Lazy load pages for code splitting
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ProductsPage = lazy(() => import('./pages/ProductsPage'));
+const RollerBlindsPage = lazy(() => import('./pages/RollerBlindsPage'));
+const ZebraBlindsPage = lazy(() => import('./pages/ZebraBlindsPage'));
+const CurtainTracksPage = lazy(() => import('./pages/CurtainTracksPage'));
+const AccessoriesPage = lazy(() => import('./pages/AccessoriesPage'));
+const HowItWorksPage = lazy(() => import('./pages/HowItWorksPage'));
+const SupportPage = lazy(() => import('./pages/SupportPage'));
+const InstallationGuidePage = lazy(() => import('./pages/InstallationGuidePage'));
+const ConnectivityGuidePage = lazy(() => import('./pages/ConnectivityGuidePage'));
+const SmartControlGuidePage = lazy(() => import('./pages/SmartControlGuidePage'));
+const ProductConfigurationPage = lazy(() => import('./pages/ProductConfigurationPage'));
+const PricingDemoPage = lazy(() => import('./pages/PricingDemoPage'));
+const BasketPage = lazy(() => import('./pages/BasketPage'));
+const LikedPage = lazy(() => import('./pages/LikedPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const ThankYouPage = lazy(() => import('./pages/ThankYouPage'));
+const AdminLoginPage = lazy(() => import('./pages/AdminLoginPage'));
+const AdminOrdersPage = lazy(() => import('./pages/AdminOrdersPage'));
+const AdminOrderDetailPage = lazy(() => import('./pages/AdminOrderDetailPage'));
+const ProductOptionDemoPage = lazy(() => import('./pages/ProductOptionDemoPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
+const AccessibilityPage = lazy(() => import('./pages/AccessibilityPage'));
+const AdminManagementPage = lazy(() => import('./pages/AdminManagementPage'));
+const TestPayment = lazy(() => import('./pages/TestPayment').then(module => ({ default: module.TestPayment })));
+
+// Loading component for Suspense fallback
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-[400px]">
+    <div className="flex flex-col items-center space-y-4">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+    </div>
+  </div>
+);
 
 function App() {
   console.log('🚀 App component rendered');
@@ -62,55 +74,57 @@ function App() {
                   <Layout>
                   <Header />
                   <main className="flex-grow overflow-x-hidden bg-white dark:bg-[#0c1222]">
-                    <Routes>
-                      <Route path="/" element={<HomePage />} />
-                      <Route path="/products" element={<ProductsPage />} />
-                      <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
-                      <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
-                      <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
-                      <Route path="/products/accessories" element={<AccessoriesPage />} />
-                      <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
-                      <Route path="/pricing-demo" element={<PricingDemoPage />} />
-                      <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
-                      <Route path="/how-it-works" element={<HowItWorksPage />} />
-                      <Route path="/support" element={<SupportPage />} />
-                      <Route path="/installation-guide" element={<InstallationGuidePage />} />
-                      <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
-                      <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
-                      <Route path="/basket" element={<BasketPage />} />
-                      <Route path="/liked" element={<LikedPage />} />
-                      <Route path="/checkout" element={<CheckoutPage />} />
-                      <Route path="/thank-you" element={<ThankYouPage />} />
-                      <Route path="/admin/login" element={<AdminLoginPage />} />
-                      <Route 
-                        path="/admin/orders" 
-                        element={
-                          <AdminRoute>
-                            <AdminOrdersPage />
-                          </AdminRoute>
-                        } 
-                      />
-                      <Route 
-                        path="/admin/orders/:orderId" 
-                        element={
-                          <AdminRoute>
-                            <AdminOrderDetailPage />
-                          </AdminRoute>
-                        } 
-                      />
-                      <Route 
-                        path="/admin/management" 
-                        element={
-                          <AdminRoute>
-                            <AdminManagementPage />
-                          </AdminRoute>
-                        } 
-                      />
-                      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                      <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-                      <Route path="/accessibility" element={<AccessibilityPage />} />
-                      <Route path="/test-payment" element={<TestPayment />} />
-                    </Routes>
+                    <Suspense fallback={<PageLoader />}>
+                      <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/products" element={<ProductsPage />} />
+                        <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
+                        <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
+                        <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
+                        <Route path="/products/accessories" element={<AccessoriesPage />} />
+                        <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
+                        <Route path="/pricing-demo" element={<PricingDemoPage />} />
+                        <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
+                        <Route path="/how-it-works" element={<HowItWorksPage />} />
+                        <Route path="/support" element={<SupportPage />} />
+                        <Route path="/installation-guide" element={<InstallationGuidePage />} />
+                        <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
+                        <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
+                        <Route path="/basket" element={<BasketPage />} />
+                        <Route path="/liked" element={<LikedPage />} />
+                        <Route path="/checkout" element={<CheckoutPage />} />
+                        <Route path="/thank-you" element={<ThankYouPage />} />
+                        <Route path="/admin/login" element={<AdminLoginPage />} />
+                        <Route 
+                          path="/admin/orders" 
+                          element={
+                            <AdminRoute>
+                              <AdminOrdersPage />
+                            </AdminRoute>
+                          } 
+                        />
+                        <Route 
+                          path="/admin/orders/:orderId" 
+                          element={
+                            <AdminRoute>
+                              <AdminOrderDetailPage />
+                            </AdminRoute>
+                          } 
+                        />
+                        <Route 
+                          path="/admin/management" 
+                          element={
+                            <AdminRoute>
+                              <AdminManagementPage />
+                            </AdminRoute>
+                          } 
+                        />
+                        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                        <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                        <Route path="/accessibility" element={<AccessibilityPage />} />
+                        <Route path="/test-payment" element={<TestPayment />} />
+                      </Routes>
+                    </Suspense>
                   </main>
                   <Footer />
                   {/* SEO Analyzer will only show in development mode */}

@@ -1,4 +1,3 @@
-/** @jsxImportSource react */
 import React, { ReactNode } from 'react';
 
 interface ThemeProviderProps {

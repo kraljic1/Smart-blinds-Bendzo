@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { ScrollIndicator } from '../UI';
 import { BackToTop } from '../Navigation';
 

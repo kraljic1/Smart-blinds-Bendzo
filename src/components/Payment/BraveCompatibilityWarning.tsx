@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AlertTriangle, Shield, Chrome, Globe } from 'lucide-react';
 import { getBrowserInfo, checkStripeCompatibility, getPaymentInstructions, BrowserInfo } from '../../utils/browserDetection';
 
