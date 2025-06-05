@@ -105,10 +105,10 @@ export function BraveCompatibilityWarning({ onBrowserDetected, className = '' }:
                 </div>
               )}
 
-              {/* Alternative browser options */}
+              {/* Troubleshooting Options */}
               <div className="bg-white rounded-md p-3 border border-amber-200">
                 <h4 className="font-medium text-amber-800 text-sm mb-2">
-                  Alternative Options
+                  Troubleshooting Options
                 </h4>
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2 text-sm text-amber-700">
@@ -125,7 +125,7 @@ export function BraveCompatibilityWarning({ onBrowserDetected, className = '' }:
                   </div>
                 </div>
                 <ul className="list-disc list-inside space-y-1 text-sm text-amber-700 mt-2">
-                  {instructions.alternativeOptions.map((option, index) => (
+                  {instructions.troubleshootingOptions.map((option, index) => (
                     <li key={index}>{option}</li>
                   ))}
                 </ul>

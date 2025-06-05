@@ -33,7 +33,6 @@ export function EnhancedCheckoutForm() {
 
   const {
     paymentState: stripePaymentState,
-    browserInfo,
     setBrowserInfo,
     handleClosePayment,
     updatePaymentState
@@ -43,9 +42,7 @@ export function EnhancedCheckoutForm() {
     paymentState: handlingState,
     handlePaymentSuccess,
     handlePaymentError,
-    handleContinueShopping,
-    handleContactSupport,
-    handleShowManualPayment
+    handleContinueShopping
   } = usePaymentHandling(formData, setError, setSubmitting);
 
   const {
@@ -61,11 +58,6 @@ export function EnhancedCheckoutForm() {
 
   const handlePaymentButtonClickWrapper = () => {
     handlePaymentButtonClick(stripePaymentState);
-  };
-
-  const handleClosePaymentWrapper = () => {
-    handleClosePayment();
-    handleShowManualPayment();
   };
 
   return (
@@ -161,15 +153,11 @@ export function EnhancedCheckoutForm() {
       
       <PaymentSection
         paymentState={stripePaymentState}
-        browserInfo={browserInfo}
-        showManualPayment={handlingState.showManualPayment}
         totalAmount={getTotalPrice()}
         onPaymentSuccess={handlePaymentSuccess}
         onPaymentError={handlePaymentError}
-        onClosePayment={handleClosePaymentWrapper}
+        onClosePayment={handleClosePayment}
         onBrowserDetected={setBrowserInfo}
-        onShowManualPayment={handleShowManualPayment}
-        onContactSupport={handleContactSupport}
       />
       
       {handlingState.orderComplete && handlingState.orderDetails && (

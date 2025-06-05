@@ -1,4 +1,3 @@
-
 import { useCheckoutForm } from './useCheckoutForm';
 import { usePaymentHandling } from './hooks/usePaymentHandling';
 import { usePaymentState } from './hooks/usePaymentState';
@@ -30,7 +29,6 @@ export function CheckoutFormMain() {
 
   const {
     paymentState: stripePaymentState,
-    browserInfo,
     setBrowserInfo,
     handleClosePayment,
     updatePaymentState
@@ -40,9 +38,7 @@ export function CheckoutFormMain() {
     paymentState: handlingState,
     handlePaymentSuccess,
     handlePaymentError,
-    handleContinueShopping,
-    handleContactSupport,
-    handleShowManualPayment
+    handleContinueShopping
   } = usePaymentHandling(formData, setError, setSubmitting);
 
   const {
@@ -58,11 +54,6 @@ export function CheckoutFormMain() {
 
   const handlePaymentButtonClickWrapper = () => {
     handlePaymentButtonClick(stripePaymentState);
-  };
-
-  const handleClosePaymentWrapper = () => {
-    handleClosePayment();
-    handleShowManualPayment();
   };
 
   return (
@@ -158,15 +149,11 @@ export function CheckoutFormMain() {
       
       <PaymentSection
         paymentState={stripePaymentState}
-        browserInfo={browserInfo}
-        showManualPayment={handlingState.showManualPayment}
         totalAmount={100} // This should come from basket context
         onPaymentSuccess={handlePaymentSuccess}
         onPaymentError={handlePaymentError}
-        onClosePayment={handleClosePaymentWrapper}
+        onClosePayment={handleClosePayment}
         onBrowserDetected={setBrowserInfo}
-        onShowManualPayment={handleShowManualPayment}
-        onContactSupport={handleContactSupport}
       />
       
       {handlingState.orderComplete && handlingState.orderDetails && (

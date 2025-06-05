@@ -9,7 +9,6 @@ import { createOrderDetails, OrderDetails } from '../utils/orderDetails';
 
 interface PaymentHandlingState {
   orderComplete: boolean;
-  showManualPayment: boolean;
   orderDetails: OrderDetails | null;
 }
 
@@ -24,7 +23,6 @@ export const usePaymentHandling = (
 
   const [paymentState, setPaymentState] = useState<PaymentHandlingState>({
     orderComplete: false,
-    showManualPayment: false,
     orderDetails: null
   });
 
@@ -93,7 +91,6 @@ export const usePaymentHandling = (
     clearBasket();
     setPaymentState({
       orderComplete: false,
-      showManualPayment: false,
       orderDetails: null
     });
     window.location.href = '/';
@@ -103,17 +100,12 @@ export const usePaymentHandling = (
     window.location.href = 'mailto:support@yourcompany.com?subject=Payment Assistance Needed&body=I need help completing my order payment.';
   };
 
-  const handleShowManualPayment = () => {
-    setPaymentState(prev => ({ ...prev, showManualPayment: true }));
-  };
-
   return {
     paymentState,
     handlePaymentSuccess,
     handlePaymentError,
     handleContinueShopping,
     handleContactSupport,
-    handleShowManualPayment,
     getShippingCost
   };
 }; 

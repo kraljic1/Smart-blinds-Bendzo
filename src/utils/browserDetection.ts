@@ -123,7 +123,6 @@ export async function checkStripeCompatibility(): Promise<{
     recommendations.push('You are using Brave browser. For the best payment experience:');
     recommendations.push('• Temporarily disable Brave Shields for this site');
     recommendations.push('• Or use Chrome, Firefox, or Safari for payment');
-    recommendations.push('• Or try our alternative payment methods below');
   }
 
   return {
@@ -139,7 +138,7 @@ export async function checkStripeCompatibility(): Promise<{
 export function getPaymentInstructions(browserInfo: BrowserInfo): {
   title: string;
   instructions: string[];
-  alternativeOptions: string[];
+  troubleshootingOptions: string[];
 } {
   if (browserInfo.isBrave) {
     return {
@@ -150,10 +149,9 @@ export function getPaymentInstructions(browserInfo: BrowserInfo): {
         '3. Refresh the page and try payment again',
         '4. Re-enable Shields after completing your purchase'
       ],
-      alternativeOptions: [
+      troubleshootingOptions: [
         'Use Chrome, Firefox, or Safari for payment',
-        'Contact us for manual payment processing',
-        'Use PayPal or bank transfer if available'
+        'Contact support if you continue to experience issues'
       ]
     };
   }
@@ -165,7 +163,7 @@ export function getPaymentInstructions(browserInfo: BrowserInfo): {
       'Disable any ad blockers for this site',
       'Make sure JavaScript is enabled'
     ],
-    alternativeOptions: [
+    troubleshootingOptions: [
       'Try a different browser if issues persist',
       'Contact support for assistance'
     ]
