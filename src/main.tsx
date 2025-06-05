@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
-import './utils/imageChecker' // Import the image checker utility
+
 import disableReactDevLogs from './utils/disableReactDevLogs' // Import our log disabler
 
 // Disable React DevTools logs

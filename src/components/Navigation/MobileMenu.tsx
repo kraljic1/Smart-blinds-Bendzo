@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X, ChevronRight, Home, ShoppingBag, HelpCircle, Settings, Heart } from 'lucide-react';
-import { useTheme } from '../../hooks/useTheme';
+
 import ModalBackground from '../UI/ModalBackground';
 import './MobileMenu.css';
 
@@ -11,7 +11,6 @@ interface MobileMenuProps {
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
-  const { isDark } = useTheme();
   const location = useLocation();
 
   if (!isOpen) return null;
@@ -37,12 +36,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       <ModalBackground onClick={onClose} />
       
       {/* Menu panel */}
-      <div className={`mobile-menu-panel ${isDark ? 'dark' : 'light'}`} onClick={(e) => e.stopPropagation()}>
+      <div className="mobile-menu-panel light" onClick={(e) => e.stopPropagation()}>
         <div className="mobile-menu-content">
           {/* Close button */}
           <button
             onClick={onClose}
-            className={`mobile-menu-close ${isDark ? 'dark' : 'light'}`}
+            className="mobile-menu-close light"
             aria-label="Close menu"
           >
             <X size={20} />
@@ -57,10 +56,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                 <Link
                   key={index}
                   to={item.path}
-                  className={`mobile-menu-item ${isActive ? 'active' : 'inactive'} ${isDark ? 'dark' : 'light'}`}
+                  className={`mobile-menu-item ${isActive ? 'active' : 'inactive'} light`}
                   onClick={onClose}
                 >
-                  <div className={`mobile-menu-item-icon ${isActive ? 'active' : 'inactive'} ${isDark ? 'dark' : 'light'}`}>
+                  <div className={`mobile-menu-item-icon ${isActive ? 'active' : 'inactive'} light`}>
                     {item.icon}
                   </div>
                   <span>{item.label}</span>
@@ -71,8 +70,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           </div>
           
           {/* Footer */}
-          <div className={`mobile-menu-footer ${isDark ? 'dark' : 'light'}`}>
-            <div className={`mobile-menu-footer-content ${isDark ? 'dark' : 'light'}`}>
+          <div className="mobile-menu-footer light">
+            <div className="mobile-menu-footer-content light">
               <span>© {new Date().getFullYear()} Smartblinds</span>
             </div>
           </div>

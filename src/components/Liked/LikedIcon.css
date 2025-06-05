@@ -46,10 +46,6 @@
   color: #000000;
 }
 
-.liked-icon.dark-mode {
-  color: #ffffff;
-}
-
 .liked-icon-link:hover .liked-icon {
   transform: scale(1.1);
   color: var(--icon-hover-color, #ef4444);

@@ -46,10 +46,6 @@
   color: #000000;
 }
 
-.basket-icon.dark-mode {
-  color: #ffffff;
-}
-
 .basket-icon-link:hover .basket-icon {
   transform: scale(1.1);
   color: var(--icon-hover-color, #10b981);

@@ -2,12 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLikedContext } from '../../hooks/useLikedContext';
-import { useTheme } from '../../hooks/useTheme';
+
 import './LikedIcon.css';
 
 export const LikedIcon: React.FC = () => {
   const { likedItems, getLikedItemsCount } = useLikedContext();
-  const { isDark } = useTheme();
   const [showPreview, setShowPreview] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const likedCount = getLikedItemsCount();
@@ -40,7 +39,7 @@ export const LikedIcon: React.FC = () => {
         }}
         aria-label="View liked items"
       >
-        <div className={`liked-icon ${isDark ? 'dark-mode' : 'light-mode'}`}>
+        <div className="liked-icon light-mode">
           <Heart size={24} />
           {likedCount > 0 && (
             <span className="liked-icon-count">{likedCount}</span>

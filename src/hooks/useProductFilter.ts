@@ -1,10 +1,6 @@
 import { useMemo } from 'react';
 import { Product } from '../types/product';
-import { 
-  rollerBlinds, 
-  zebraBlinds, 
-  curtainBlinds
-} from '../data/productData';
+import { rollerBlinds, zebraBlinds, curtainBlinds } from '../data/collections';
 
 // Import accessories from the data file
 import { accessories } from '../data/accessories';

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async';
-import { ThemeProvider } from './components/Common';
+
 import { BasketProvider } from './context/BasketContext';
 import { LikedProvider } from './context/LikedContext';
 import { OrderProvider } from './context/OrderContext';
@@ -65,8 +65,7 @@ function App() {
   return (
     <TouchFriendly>
       <HelmetProvider>
-        <ThemeProvider>
-          <ToastProvider>
+        <ToastProvider>
             <BasketProvider>
               <LikedProvider>
                 <OrderProvider>
@@ -130,12 +129,11 @@ function App() {
                   {/* SEO Analyzer will only show in development mode */}
                   <SEOAnalyzer />
                 </Layout>
-                </OrderProvider>
-              </LikedProvider>
-            </BasketProvider>
-          </ToastProvider>
-        </ThemeProvider>
-      </HelmetProvider>
+                            </OrderProvider>
+          </LikedProvider>
+        </BasketProvider>
+      </ToastProvider>
+    </HelmetProvider>
     </TouchFriendly>
   );
 }
