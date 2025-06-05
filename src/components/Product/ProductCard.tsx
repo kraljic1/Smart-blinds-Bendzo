@@ -59,34 +59,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   // Check if product has an image with "4.webp" or "4.jpg" (fabric detail image)
   const hasFabricImage = useMemo((): boolean => {
-    if (!product.images) return false;
-    return product.images.some((img: string) => 
-      img.includes("4.webp") || 
-      img.endsWith("/4.webp") || 
-      img.includes("4.jpg") || 
-      img.endsWith("/4.jpg") ||
-      img.endsWith("/4") ||
-      img.includes("fabric") ||
-      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
-    );
+    // Always use the last image if images array exists and has items
+    return !!(product.images && product.images.length > 0);
   }, [product.images]);
 
-  // Get the fabric image (with "4.webp" or "4.jpg")
+  // Get the fabric image (last image in the array)
   const getFabricImage = (): string | null => {
-    if (!product.images) return null;
+    if (!product.images || product.images.length === 0) return null;
     
-    // First, look for exact matches for fabric samples
-    const fabricImage = product.images.find((img: string) => 
-      img.includes("4.webp") || 
-      img.endsWith("/4.webp") || 
-      img.includes("4.jpg") || 
-      img.endsWith("/4.jpg") ||
-      img.endsWith("/4") ||
-      img.includes("fabric") ||
-      (img.includes("/") && img.split("/").pop()?.startsWith("4"))
-    );
-    
-    return fabricImage || null;
+    // Return the last image (typically the fabric detail image)
+    return product.images[product.images.length - 1];
   };
 
   // Set background color for products without fabric image
