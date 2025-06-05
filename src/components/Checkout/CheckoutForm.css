@@ -548,6 +548,44 @@
   flex-shrink: 0;
 }
 
+/* Field validation styles */
+.input-error {
+  border-color: var(--error-500) !important;
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1) !important;
+}
+
+.input-error:focus {
+  border-color: var(--error-600) !important;
+  box-shadow: 0 0 0 3px rgb(220 38 38 / 0.15) !important;
+}
+
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--error-50);
+  border: 1px solid var(--error-500);
+  border-radius: 8px;
+  color: var(--error-600);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dark .field-error {
+  background-color: rgb(239 68 68 / 0.1);
+  border-color: var(--error-500);
+  color: var(--error-500);
+}
+
+.field-error svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--error-500);
+  flex-shrink: 0;
+}
+
 .checkout-success {
   max-width: 600px;
   margin: 4rem auto;

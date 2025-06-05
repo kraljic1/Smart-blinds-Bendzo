@@ -71,7 +71,7 @@ export function EnhancedCheckoutForm() {
   return (
     <div className="checkout-form-container">
       <div className="enhanced-checkout-form">
-        <form onSubmit={handleSubmit} className="checkout-form" noValidate>
+        <form onSubmit={handleSubmit} className="checkout-form">
           <div className="form-section">
             <CustomerInfoSection 
               formData={formData} 

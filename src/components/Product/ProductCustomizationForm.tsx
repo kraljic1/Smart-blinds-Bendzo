@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Product } from '../types/product';
+import { Product } from '../../types/product';
 import ProductCustomization, { CustomizationOption } from './ProductCustomization';
 import PriceCalculator from './PriceCalculator';
+import { validateDimension, validateDimensions, formatDimensionRange, DEFAULT_DIMENSION_CONSTRAINTS } from '../../utils/dimensionValidation';
 
 interface ProductCustomizationFormProps {
   product: Product;
@@ -56,24 +57,25 @@ const ProductCustomizationForm = ({
     updateAdditionalCosts();
   }, [updateAdditionalCosts]);
 
-  // Handle width input change
+  // Handle width input change with validation
   const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setWidth(value === '' ? '' : Number(value));
+    const validatedValue = validateDimension(e.target.value);
+    setWidth(validatedValue);
   };
 
-  // Handle height input change
+  // Handle height input change with validation
   const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setHeight(value === '' ? '' : Number(value));
+    const validatedValue = validateDimension(e.target.value);
+    setHeight(validatedValue);
   };
 
-  // Handle calculate price button
+  // Handle calculate price button with enhanced validation
   const handleCalculatePrice = () => {
-    if (typeof width === 'number' && typeof height === 'number' && width > 0 && height > 0) {
+    const validation = validateDimensions(width, height);
+    if (validation.isValid) {
       setIsCalculated(true);
     } else {
-      alert('Please enter valid width and height values');
+      alert(validation.errorMessage);
     }
   };
 
@@ -107,7 +109,7 @@ const ProductCustomizationForm = ({
                 type="number"
                 min="30"
                 max="350"
-                placeholder="30 - 350 cm"
+                placeholder={formatDimensionRange(DEFAULT_DIMENSION_CONSTRAINTS)}
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={width}
                 onChange={handleWidthChange}
@@ -124,7 +126,7 @@ const ProductCustomizationForm = ({
                 type="number"
                 min="30"
                 max="350"
-                placeholder="30 - 350 cm"
+                placeholder={formatDimensionRange(DEFAULT_DIMENSION_CONSTRAINTS)}
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={height}
                 onChange={handleHeightChange}

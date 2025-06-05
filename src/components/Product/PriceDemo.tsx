@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Price from '../UI/Price';
 import pricingData from '../../data/pricingData';
+import { validateDimension, DEMO_DIMENSION_CONSTRAINTS } from '../../utils/dimensionValidation';
 import '../../styles/PriceDemo.css';
 
 const PriceDemo = () => {
@@ -17,10 +18,19 @@ const PriceDemo = () => {
 
   const handleMeasurementChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setMeasurements(prev => ({
-      ...prev,
-      [name]: parseInt(value, 10) || 0
-    }));
+    
+    if (name === 'width' || name === 'height') {
+      const validatedValue = validateDimension(value, DEMO_DIMENSION_CONSTRAINTS);
+      setMeasurements(prev => ({
+        ...prev,
+        [name]: validatedValue || 0
+      }));
+    } else {
+      setMeasurements(prev => ({
+        ...prev,
+        [name]: parseInt(value, 10) || 0
+      }));
+    }
   };
 
   const handlePriceChange = (price: number) => {
@@ -59,8 +69,8 @@ const PriceDemo = () => {
               name="width"
               value={measurements.width}
               onChange={handleMeasurementChange}
-              min="20"
-              max="300"
+              min={DEMO_DIMENSION_CONSTRAINTS.min}
+              max={DEMO_DIMENSION_CONSTRAINTS.max}
               className="measurement-input"
               aria-label="Product width in centimeters"
               required
@@ -75,8 +85,8 @@ const PriceDemo = () => {
               name="height"
               value={measurements.height}
               onChange={handleMeasurementChange}
-              min="20"
-              max="300"
+              min={DEMO_DIMENSION_CONSTRAINTS.min}
+              max={DEMO_DIMENSION_CONSTRAINTS.max}
               className="measurement-input"
               aria-label="Product height in centimeters"
               required
