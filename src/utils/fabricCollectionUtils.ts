@@ -63,15 +63,20 @@ export const getRelatedProducts = (
 };
 
 /**
- * Gets the last image from a product's images array (typically the one showing fabric details)
+ * Gets the fabric/color image from a product's images array
  * @param product The product object
- * @returns The URL of the last image or null if no images
+ * @returns The URL of the fabric image or null if no images
  */
 export const getProductFabricImage = (product: Product): string | null => {
   if (!product.images || product.images.length === 0) {
     return null;
   }
   
-  // Return the last image (usually the fabric detail image)
+  // Special case for glider-track: use the third image (index 2) which shows colors
+  if (product.id === 'glider-track' && product.images.length > 2) {
+    return product.images[2];
+  }
+  
+  // For all other products: return the last image (typically the fabric detail image)
   return product.images[product.images.length - 1];
 }; 

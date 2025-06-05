@@ -87,11 +87,16 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
     return !!(product.images && product.images.length > 0);
   }, [product.images]);
 
-  // Get the fabric image (last image in the array)
+  // Get the fabric image (last image in the array, except for glider-track which uses index 2)
   const getFabricImage = (): string | null => {
     if (!product.images || product.images.length === 0) return null;
     
-    // Return the last image (typically the fabric detail image)
+    // Special case for glider-track: use the third image (index 2) which shows colors
+    if (product.id === 'glider-track' && product.images.length > 2) {
+      return product.images[2];
+    }
+    
+    // For all other products: return the last image (typically the fabric detail image)
     return product.images[product.images.length - 1];
   };
 
