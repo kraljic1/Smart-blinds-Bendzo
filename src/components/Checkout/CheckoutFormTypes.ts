@@ -16,6 +16,7 @@ export interface FormData {
   needsR1Invoice: boolean;
   companyName: string;
   companyOib: string;
+  [key: string]: unknown;
 }
 
 export interface FormStatus {
@@ -42,4 +43,8 @@ export interface CheckoutFormProps {
   formStatus: FormStatus;
   phoneValidation: PhoneValidation;
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  handleBlur?: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  getFieldError?: (fieldName: string) => string | null;
+  getFieldWarning?: (fieldName: string) => string | null;
+  hasFieldError?: (fieldName: string) => boolean;
 } 

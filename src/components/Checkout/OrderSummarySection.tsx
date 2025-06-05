@@ -1,8 +1,18 @@
 import React from 'react';
 import { useBasketContext } from '../../hooks/useBasketContext';
+import { getShippingCost } from '../../utils/shippingCosts';
 
-const OrderSummarySection: React.FC = () => {
+interface OrderSummarySectionProps {
+  shippingMethod?: string;
+}
+
+const OrderSummarySection: React.FC<OrderSummarySectionProps> = ({ 
+  shippingMethod = 'Standard delivery' 
+}) => {
   const { items, getTotalPrice } = useBasketContext();
+  const subtotal = getTotalPrice();
+  const shippingCost = getShippingCost(shippingMethod);
+  const total = subtotal + shippingCost;
 
   return (
     <div className="checkout-summary" aria-label="Sažetak narudžbe">
@@ -27,9 +37,20 @@ const OrderSummarySection: React.FC = () => {
           </div>
         ))}
       </div>
+      
+      <div className="checkout-subtotal">
+        <span>Međuzbroj:</span>
+        <span>€{subtotal.toFixed(2)}</span>
+      </div>
+      
+      <div className="checkout-shipping">
+        <span>Dostava:</span>
+        <span>€{shippingCost.toFixed(2)}</span>
+      </div>
+      
       <div className="checkout-total">
         <span>Ukupno:</span>
-        <span>€{getTotalPrice().toFixed(2)}</span>
+        <span>€{total.toFixed(2)}</span>
       </div>
     </div>
   );

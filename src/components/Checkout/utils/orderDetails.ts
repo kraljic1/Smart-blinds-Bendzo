@@ -1,5 +1,6 @@
 import { FormData } from '../CheckoutFormTypes';
 import { BasketItem } from '../../../hooks/useBasket';
+import { getShippingCost } from '../../../utils/shippingCosts';
 
 export interface OrderDetails {
   paymentIntentId: string;
@@ -38,6 +39,7 @@ export interface OrderDetails {
     description: string;
   }[];
   subtotal: number;
+  shippingCost: number;
   tax: number;
   total: number;
   notes: string;
@@ -58,12 +60,16 @@ export const createOrderDetails = ({
   items,
   getTotalPrice
 }: CreateOrderDetailsParams): OrderDetails => {
+  const subtotal = getTotalPrice();
+  const shippingCost = getShippingCost(formData.shippingMethod || 'Standard delivery');
+  const totalWithShipping = subtotal + shippingCost;
+  
   const orderDetails = {
     paymentIntentId,
     orderNumber: orderId.split('-')[1] || orderId.substring(3, 15),
     date: new Date().toLocaleDateString('hr-HR'),
     time: new Date().toLocaleTimeString('hr-HR'),
-    amount: getTotalPrice(),
+    amount: totalWithShipping,
     currency: 'EUR',
     customer: {
       name: formData.fullName,
@@ -98,9 +104,10 @@ export const createOrderDetails = ({
       totalPrice: item.product.price * item.quantity,
       description: item.product.description || ''
     })),
-    subtotal: getTotalPrice(),
-    tax: getTotalPrice() * 0.25, // 25% PDV
-    total: getTotalPrice(),
+    subtotal: subtotal,
+    shippingCost: shippingCost,
+    tax: totalWithShipping * 0.25, // 25% PDV
+    total: totalWithShipping,
     notes: formData.additionalNotes || ''
   };
   

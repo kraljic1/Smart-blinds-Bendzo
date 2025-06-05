@@ -1,4 +1,6 @@
 import { useCheckoutForm } from './useCheckoutForm';
+import { useBasketContext } from '../../hooks/useBasketContext';
+import { getShippingCost } from '../../utils/shippingCosts';
 import { usePaymentHandling } from './hooks/usePaymentHandling';
 import { usePaymentState } from './hooks/usePaymentState';
 import { useFormSubmission } from './hooks/useFormSubmission';
@@ -26,6 +28,15 @@ export function CheckoutFormMain() {
     setError,
     setSubmitting
   } = useCheckoutForm();
+
+  const { getTotalPrice } = useBasketContext();
+  
+  // Calculate total including shipping
+  const calculateTotalWithShipping = () => {
+    const subtotal = getTotalPrice();
+    const shippingCost = getShippingCost(formData.shippingMethod || 'Standard delivery');
+    return subtotal + shippingCost;
+  };
 
   const {
     paymentState: stripePaymentState,
@@ -144,12 +155,12 @@ export function CheckoutFormMain() {
           </button>
         </form>
         
-        <OrderSummarySection />
+        <OrderSummarySection shippingMethod={formData.shippingMethod} />
       </div>
       
       <PaymentSection
         paymentState={stripePaymentState}
-        totalAmount={100} // This should come from basket context
+        totalAmount={calculateTotalWithShipping()}
         onPaymentSuccess={handlePaymentSuccess}
         onPaymentError={handlePaymentError}
         onClosePayment={handleClosePayment}

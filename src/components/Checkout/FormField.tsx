@@ -15,6 +15,9 @@ interface FormFieldProps {
   icon?: React.ReactNode;
   validateOnChange?: boolean;
   validateOnBlur?: boolean;
+  externalError?: string | null;
+  externalWarning?: string | null;
+  showValidation?: boolean;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -31,11 +34,13 @@ export const FormField: React.FC<FormFieldProps> = ({
   label,
   icon,
   validateOnChange = true,
-  validateOnBlur = true
+  validateOnBlur = true,
+  externalError,
+  externalWarning,
+  showValidation = true
 }) => {
-  const [error, setError] = useState<string | null>(null);
   const [touched, setTouched] = useState(false);
-  const [isValid, setIsValid] = useState(true);
+  const [internalError, setInternalError] = useState<string>('');
 
   // Simple validation function
   const validateField = useCallback((fieldValue: string, shouldSetTouched = false) => {
@@ -142,8 +147,8 @@ export const FormField: React.FC<FormFieldProps> = ({
       }
     }
 
-    setIsValid(valid);
-    setError(valid ? null : errorMessage);
+    setInternalError(errorMessage);
+    return { valid, errorMessage };
   }, [name, label, required, touched]);
 
   // Validate on value change
@@ -170,7 +175,17 @@ export const FormField: React.FC<FormFieldProps> = ({
     }
   };
 
-  const hasError = touched && !isValid && error;
+  // Determine which error to show (external takes precedence)
+  const displayError = showValidation ? (externalError || (touched ? internalError : '')) : '';
+  const displayWarning = showValidation ? externalWarning : '';
+  const hasError = !!displayError;
+  const hasWarning = !!displayWarning && !hasError;
+
+  const fieldClassName = `
+    form-field-input
+    ${hasError ? 'error' : ''}
+    ${hasWarning ? 'warning' : ''}
+  `.trim();
 
   return (
     <div className="form-group">
@@ -188,10 +203,10 @@ export const FormField: React.FC<FormFieldProps> = ({
           autoComplete={autoComplete}
           pattern={pattern}
           title={title}
-          className={hasError ? 'input-error' : ''}
+          className={fieldClassName}
           aria-required={required ? 'true' : 'false'}
           aria-invalid={hasError ? 'true' : 'false'}
-          aria-describedby={hasError ? `${id}-error` : undefined}
+          aria-describedby={hasError ? `${id}-error` : hasWarning ? `${id}-warning` : undefined}
         />
         {icon && <span className="input-icon">{icon}</span>}
       </div>
@@ -202,7 +217,17 @@ export const FormField: React.FC<FormFieldProps> = ({
             <line x1="12" y1="8" x2="12" y2="12"></line>
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
-          {error}
+          {displayError}
+        </div>
+      )}
+      {hasWarning && (
+        <div id={`${id}-warning`} className="field-warning">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+            <line x1="12" y1="9" x2="12" y2="13"></line>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          {displayWarning}
         </div>
       )}
     </div>

@@ -6,6 +6,7 @@ import { safeLog, sanitizeErrorMessage } from '../../../utils/errorHandler';
 import { FormData } from '../CheckoutFormTypes';
 import { saveOrderToDatabase } from '../utils/orderSaving';
 import { createOrderDetails, OrderDetails } from '../utils/orderDetails';
+import { getShippingCost } from '../../../utils/shippingCosts';
 
 interface PaymentHandlingState {
   orderComplete: boolean;
@@ -26,8 +27,8 @@ export const usePaymentHandling = (
     orderDetails: null
   });
 
-  const getShippingCost = () => {
-    return 0; // Free shipping for now
+  const getShippingCostForOrder = () => {
+    return getShippingCost(formData.shippingMethod || 'Standard delivery');
   };
 
   const handlePaymentSuccess = async (paymentIntentId: string) => {
@@ -39,7 +40,7 @@ export const usePaymentHandling = (
         formData,
         items,
         getTotalPrice,
-        getShippingCost
+        getShippingCost: getShippingCostForOrder
       });
 
       const orderDetails = createOrderDetails({
@@ -106,6 +107,6 @@ export const usePaymentHandling = (
     handlePaymentError,
     handleContinueShopping,
     handleContactSupport,
-    getShippingCost
+    getShippingCost: getShippingCostForOrder
   };
 }; 
