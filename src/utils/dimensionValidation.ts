@@ -18,7 +18,30 @@ export const DEMO_DIMENSION_CONSTRAINTS: DimensionConstraints = {
 };
 
 /**
+ * Validates a dimension value for real-time input without auto-correction
+ * Allows free typing and only returns empty string for invalid input
+ * @param value - The input value to validate
+ * @returns The numeric value or empty string if input was empty/invalid
+ */
+export const validateDimensionInput = (
+  value: string | number
+): number | '' => {
+  if (value === '' || value === null || value === undefined) {
+    return '';
+  }
+
+  const numValue = typeof value === 'string' ? Number(value) : value;
+
+  if (isNaN(numValue)) {
+    return '';
+  }
+
+  return numValue;
+};
+
+/**
  * Validates and constrains a dimension value within specified limits
+ * This should be used for final validation (on blur, submit, etc.)
  * @param value - The input value to validate
  * @param constraints - The min/max constraints to apply
  * @returns The constrained value or empty string if input was empty
@@ -45,6 +68,39 @@ export const validateDimension = (
   }
 
   return numValue;
+};
+
+/**
+ * Checks if a dimension value is within valid range without modifying it
+ * @param value - The value to check
+ * @param constraints - The min/max constraints to check against
+ * @returns Object with validation status and suggested value if out of range
+ */
+export const checkDimensionRange = (
+  value: number | '',
+  constraints: DimensionConstraints = DEFAULT_DIMENSION_CONSTRAINTS
+): { isValid: boolean; suggestedValue?: number; message?: string } => {
+  if (value === '' || typeof value !== 'number') {
+    return { isValid: false, message: 'Please enter a valid number' };
+  }
+
+  if (value < constraints.min) {
+    return { 
+      isValid: false, 
+      suggestedValue: constraints.min,
+      message: `Minimum value is ${constraints.min} cm`
+    };
+  }
+
+  if (value > constraints.max) {
+    return { 
+      isValid: false, 
+      suggestedValue: constraints.max,
+      message: `Maximum value is ${constraints.max} cm`
+    };
+  }
+
+  return { isValid: true };
 };
 
 /**

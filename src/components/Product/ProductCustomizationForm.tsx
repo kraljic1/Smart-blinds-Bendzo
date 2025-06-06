@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Product } from '../../types/product';
 import ProductCustomization, { CustomizationOption } from './ProductCustomization';
 import PriceCalculator from './PriceCalculator';
-import { validateDimension, validateDimensions, formatDimensionRange, DEFAULT_DIMENSION_CONSTRAINTS } from '../../utils/dimensionValidation';
+import { validateDimensionInput, validateDimension, validateDimensions, formatDimensionRange, DEFAULT_DIMENSION_CONSTRAINTS } from '../../utils/dimensionValidation';
 
 interface ProductCustomizationFormProps {
   product: Product;
@@ -10,7 +10,7 @@ interface ProductCustomizationFormProps {
   customizationOptions: CustomizationOption[];
   selectedOptions: Record<string, string>;
   onOptionChange: (optionId: string, valueId: string) => void;
-  onCheckout: (quantity: number, width: number | '', height: number | '', additionalCosts: { name: string; price: number }[]) => void;
+  onCheckout: (quantity: number, width: number | '', height: number | '', additionalCosts: { name: string; price: number }[], calculatedPrice: number) => void;
   isVisible?: boolean;
   animationFinished?: boolean;
 }
@@ -57,16 +57,28 @@ const ProductCustomizationForm = ({
     updateAdditionalCosts();
   }, [updateAdditionalCosts]);
 
-  // Handle width input change with validation
+  // Handle width input change with validation (allows free typing)
   const handleWidthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const validatedValue = validateDimension(e.target.value);
+    const validatedValue = validateDimensionInput(e.target.value);
     setWidth(validatedValue);
   };
 
-  // Handle height input change with validation
+  // Handle height input change with validation (allows free typing)
   const handleHeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const validatedValue = validateDimension(e.target.value);
+    const validatedValue = validateDimensionInput(e.target.value);
     setHeight(validatedValue);
+  };
+
+  // Handle width blur - apply constraints when user finishes typing
+  const handleWidthBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const constrainedValue = validateDimension(e.target.value);
+    setWidth(constrainedValue);
+  };
+
+  // Handle height blur - apply constraints when user finishes typing
+  const handleHeightBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const constrainedValue = validateDimension(e.target.value);
+    setHeight(constrainedValue);
   };
 
   // Handle calculate price button with enhanced validation
@@ -79,9 +91,9 @@ const ProductCustomizationForm = ({
     }
   };
 
-  // Handle checkout with dimensions and costs
-  const handleCheckoutWithDetails = (quantity: number) => {
-    onCheckout(quantity, width, height, additionalCosts);
+  // Handle checkout with dimensions, costs, and calculated price
+  const handleCheckoutWithDetails = (quantity: number, calculatedPrice: number) => {
+    onCheckout(quantity, width, height, additionalCosts, calculatedPrice);
   };
 
   return (
@@ -113,6 +125,7 @@ const ProductCustomizationForm = ({
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={width}
                 onChange={handleWidthChange}
+                onBlur={handleWidthBlur}
                 autoComplete="off"
               />
             </div>
@@ -130,6 +143,7 @@ const ProductCustomizationForm = ({
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-white product-configuration-input"
                 value={height}
                 onChange={handleHeightChange}
+                onBlur={handleHeightBlur}
                 autoComplete="off"
               />
             </div>

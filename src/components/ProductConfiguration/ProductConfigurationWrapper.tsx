@@ -18,7 +18,7 @@ interface ProductConfigurationWrapperProps {
   customizationOptions: CustomizationOption[];
   allImages: string[];
   onGoBack: () => void;
-  onCheckout: (quantity: number, options: Record<string, string | number | boolean>) => void;
+  onCheckout: (quantity: number, options: Record<string, string | number | boolean>, calculatedPrice: number) => void;
   onProductChange?: (product: Product) => void;
 }
 
@@ -66,13 +66,14 @@ const ProductConfigurationWrapper = ({
     );
   };
 
-  // Handle checkout with dimensions and costs from form
+  // Handle checkout with dimensions, costs, and calculated price from form
   const handleCheckoutWithDetails = (
     quantity: number, 
     width: number | '', 
     height: number | '', 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    additionalCosts: { name: string; price: number }[]
+    additionalCosts: { name: string; price: number }[],
+    calculatedPrice: number
   ) => {
     const options = prepareCheckoutOptions(
       quantity,
@@ -83,7 +84,7 @@ const ProductConfigurationWrapper = ({
     );
     
     if (options) {
-      onCheckout(quantity, options);
+      onCheckout(quantity, options, calculatedPrice);
     }
   };
 

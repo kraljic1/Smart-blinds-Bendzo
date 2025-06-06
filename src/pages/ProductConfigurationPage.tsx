@@ -69,10 +69,10 @@ const ProductConfigurationPage = () => {
     navigate(-1);
   };
 
-  const handleCheckout = (quantity: number = 1, options: Record<string, string | number | boolean> = {}) => {
+  const handleCheckout = (quantity: number = 1, options: Record<string, string | number | boolean> = {}, calculatedPrice: number) => {
     if (product) {
-      // Add item to basket with selected options
-      addItem(product, quantity, options);
+      // Add item to basket with selected options and calculated price
+      addItem(product, quantity, options, calculatedPrice);
       
       // Show a success toast notification
       const message = `${quantity} ${product.name}${quantity > 1 ? 's' : ''} ${quantity > 1 ? 'have' : 'has'} been added to your basket!`;

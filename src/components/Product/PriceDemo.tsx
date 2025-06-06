@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Price from '../UI/Price';
 import pricingData from '../../data/pricingData';
-import { validateDimension, DEMO_DIMENSION_CONSTRAINTS } from '../../utils/dimensionValidation';
+import { validateDimensionInput, validateDimension, DEMO_DIMENSION_CONSTRAINTS } from '../../utils/dimensionValidation';
 import '../../styles/PriceDemo.css';
 
 const PriceDemo = () => {
@@ -20,7 +20,7 @@ const PriceDemo = () => {
     const { name, value } = e.target;
     
     if (name === 'width' || name === 'height') {
-      const validatedValue = validateDimension(value, DEMO_DIMENSION_CONSTRAINTS);
+      const validatedValue = validateDimensionInput(value);
       setMeasurements(prev => ({
         ...prev,
         [name]: validatedValue || 0
@@ -29,6 +29,18 @@ const PriceDemo = () => {
       setMeasurements(prev => ({
         ...prev,
         [name]: parseInt(value, 10) || 0
+      }));
+    }
+  };
+
+  const handleMeasurementBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    if (name === 'width' || name === 'height') {
+      const constrainedValue = validateDimension(value, DEMO_DIMENSION_CONSTRAINTS);
+      setMeasurements(prev => ({
+        ...prev,
+        [name]: constrainedValue || 0
       }));
     }
   };
@@ -69,6 +81,7 @@ const PriceDemo = () => {
               name="width"
               value={measurements.width}
               onChange={handleMeasurementChange}
+              onBlur={handleMeasurementBlur}
               min={DEMO_DIMENSION_CONSTRAINTS.min}
               max={DEMO_DIMENSION_CONSTRAINTS.max}
               className="measurement-input"
@@ -85,6 +98,7 @@ const PriceDemo = () => {
               name="height"
               value={measurements.height}
               onChange={handleMeasurementChange}
+              onBlur={handleMeasurementBlur}
               min={DEMO_DIMENSION_CONSTRAINTS.min}
               max={DEMO_DIMENSION_CONSTRAINTS.max}
               className="measurement-input"

@@ -5,6 +5,7 @@ export interface BasketItem {
   product: Product;
   quantity: number;
   options?: Record<string, string | number | boolean>;
+  calculatedPrice?: number; // Price including customizations and dimensions
 }
 
 export function useBasket() {
@@ -32,7 +33,12 @@ export function useBasket() {
   }, [items, isLoaded]);
 
   // Add item to basket
-  const addItem = useCallback((product: Product, quantity: number = 1, options?: Record<string, string | number | boolean>) => {
+  const addItem = useCallback((
+    product: Product, 
+    quantity: number = 1, 
+    options?: Record<string, string | number | boolean>,
+    calculatedPrice?: number
+  ) => {
     setItems(prevItems => {
       const existingItemIndex = prevItems.findIndex(
         item => item.product.id === product.id && 
@@ -46,7 +52,7 @@ export function useBasket() {
         return newItems;
       } else {
         // Add new item
-        return [...prevItems, { product, quantity, options }];
+        return [...prevItems, { product, quantity, options, calculatedPrice }];
       }
     });
   }, []);
@@ -75,10 +81,11 @@ export function useBasket() {
     setItems([]);
   }, []);
 
-  // Calculate total price
+  // Calculate total price using calculated prices when available
   const getTotalPrice = useCallback(() => {
     return items.reduce((total, item) => {
-      return total + (item.product.price * item.quantity);
+      const itemPrice = item.calculatedPrice ?? item.product.price;
+      return total + (itemPrice * item.quantity);
     }, 0);
   }, [items]);
 

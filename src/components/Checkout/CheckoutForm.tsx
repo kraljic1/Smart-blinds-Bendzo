@@ -52,7 +52,7 @@ export function CheckoutForm() {
       productId: item.product.id,
       productName: item.product.name,
       quantity: item.quantity,
-      price: item.product.price,
+      price: item.calculatedPrice ?? item.product.price, // Use calculated price if available
       options: item.options
     }));
     
@@ -132,6 +132,7 @@ export function CheckoutForm() {
             productId: item.product.id,
             productName: item.product.name,
             quantity: item.quantity,
+            price: item.calculatedPrice ?? item.product.price,
             options: item.options
           }))
         )} />
@@ -239,9 +240,9 @@ export function CheckoutForm() {
                 <div className="checkout-item-name">
                   {item.product.name} × {item.quantity}
                 </div>
-                <div className="checkout-item-price">
-                  €{(item.product.price * item.quantity).toFixed(2)}
-                </div>
+                                  <div className="checkout-item-price">
+                    €{((item.calculatedPrice ?? item.product.price) * item.quantity).toFixed(2)}
+                  </div>
               </div>
             ))}
           </div>

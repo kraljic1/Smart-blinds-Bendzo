@@ -7,7 +7,7 @@ interface PriceCalculatorProps {
   width: number;
   height: number;
   additionalCosts: { name: string; price: number }[];
-  onCheckout: (quantity: number) => void;
+  onCheckout: (quantity: number, calculatedPrice: number) => void;
   isAccessory?: boolean;
 }
 
@@ -26,7 +26,8 @@ const PriceCalculator = ({
   const areaCost = isAccessory ? basePrice : basePrice * areaDimension;
   
   const additionalCostsTotal = additionalCosts.reduce((sum, item) => sum + item.price, 0);
-  const totalPrice = (areaCost + additionalCostsTotal) * quantity;
+  const unitPrice = areaCost + additionalCostsTotal; // Price per unit including all costs
+  const totalPrice = unitPrice * quantity;
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -43,7 +44,7 @@ const PriceCalculator = ({
   };
   
   const handleCheckout = () => {
-    onCheckout(quantity);
+    onCheckout(quantity, unitPrice); // Pass the calculated unit price
   };
 
   return (
@@ -78,12 +79,12 @@ const PriceCalculator = ({
           
           <div className="price-calculator-subtotal">
             <span>Subtotal</span>
-            <span>€{(areaCost + additionalCostsTotal).toFixed(2)}</span>
+            <span>€{unitPrice.toFixed(2)}</span>
           </div>
           
           <div className="price-calculator-tax">
             <span>Including VAT</span>
-            <span>€{((areaCost + additionalCostsTotal) * 0.21).toFixed(2)}</span>
+            <span>€{(unitPrice * 0.21).toFixed(2)}</span>
           </div>
         </div>
       )}

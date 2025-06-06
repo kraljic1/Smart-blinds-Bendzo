@@ -18,24 +18,29 @@ const OrderSummarySection: React.FC<OrderSummarySectionProps> = ({
     <div className="checkout-summary" aria-label="Sažetak narudžbe">
       <h3>Sažetak narudžbe</h3>
       <div className="checkout-items">
-        {items.map((item, index) => (
-          <div key={index} className="checkout-item">
-            <div className="checkout-item-image">
-              <img src={item.product.image} alt={item.product.name} />
-            </div>
-            <div className="checkout-item-content">
-              <div className="checkout-item-name">
-                {item.product.name}
+        {items.map((item, index) => {
+          // Use calculated price if available, otherwise fall back to product price
+          const itemPrice = item.calculatedPrice ?? item.product.price;
+          
+          return (
+            <div key={index} className="checkout-item">
+              <div className="checkout-item-image">
+                <img src={item.product.image} alt={item.product.name} />
               </div>
-              <div className="checkout-item-quantity">
-                Količina: {item.quantity}
+              <div className="checkout-item-content">
+                <div className="checkout-item-name">
+                  {item.product.name}
+                </div>
+                <div className="checkout-item-quantity">
+                  Količina: {item.quantity}
+                </div>
+              </div>
+              <div className="checkout-item-price">
+                €{(itemPrice * item.quantity).toFixed(2)}
               </div>
             </div>
-            <div className="checkout-item-price">
-              €{(item.product.price * item.quantity).toFixed(2)}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       
       <div className="checkout-subtotal">
