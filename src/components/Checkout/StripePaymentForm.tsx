@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js';
 import './StripePaymentForm.css';
@@ -44,6 +44,28 @@ export function StripePaymentForm({
   const [isProcessing, setIsProcessing] = useState(false);
   const [cardError, setCardError] = useState<string | null>(null);
   const [cardComplete, setCardComplete] = useState(false);
+
+  // Prevent body scrolling when modal is open
+  useEffect(() => {
+    // Add class to body to prevent scrolling
+    document.body.classList.add('modal-open');
+    
+    // Handle Escape key to close modal
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && onClose) {
+        document.body.classList.remove('modal-open');
+        onClose();
+      }
+    };
+    
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    // Cleanup function to remove class and event listener when component unmounts
+    return () => {
+      document.body.classList.remove('modal-open');
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [onClose]);
 
   const handleCardChange = (event: StripeCardElementChangeEvent) => {
     setCardError(event.error ? event.error.message : null);
@@ -92,6 +114,7 @@ export function StripePaymentForm({
         onPaymentError(error.message || 'Payment confirmation failed');
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         console.log('[STRIPE] Payment completed successfully');
+        document.body.classList.remove('modal-open');
         onPaymentSuccess(paymentIntent.id);
       } else {
         console.log('[STRIPE] Payment intent status:', paymentIntent?.status);
@@ -109,8 +132,16 @@ export function StripePaymentForm({
     }
   };
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    // Close modal if clicking on the overlay (not the modal content)
+    if (e.target === e.currentTarget && onClose) {
+      document.body.classList.remove('modal-open');
+      onClose();
+    }
+  };
+
   return (
-    <div className="stripe-payment-form-overlay">
+    <div className="stripe-payment-form-overlay" onClick={handleOverlayClick}>
       <div className="stripe-payment-form-container">
         <form onSubmit={handleSubmit} className="stripe-payment-form">
           <div className="payment-header">
@@ -119,7 +150,10 @@ export function StripePaymentForm({
               {onClose && (
                 <button 
                   type="button" 
-                  onClick={onClose}
+                  onClick={() => {
+                    document.body.classList.remove('modal-open');
+                    onClose();
+                  }}
                   className="close-button"
                   aria-label="Zatvori"
                 >

@@ -37,6 +37,8 @@ const AdminOrderDetailPage: React.FC = () => {
   
   // Calculate order summary
   const subtotal = calculateOrderSubtotal(items);
+  const shippingCost = order.shippingCost || 0;
+  const totalWithShipping = subtotal + shippingCost;
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-16">
@@ -61,7 +63,8 @@ const AdminOrderDetailPage: React.FC = () => {
               <OrderItems 
                 items={items} 
                 subtotal={subtotal} 
-                totalAmount={order.totalAmount} 
+                shippingCost={shippingCost}
+                totalAmount={totalWithShipping} 
               />
               
               {/* Customer Notes */}

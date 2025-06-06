@@ -15,6 +15,9 @@ const PrintButton: React.FC<PrintButtonProps> = ({ onClick }) => {
         <Printer />
         Ispiši račun
       </button>
+      <p className="text-sm text-gray-500 mt-2">
+        Napomena: U postavkama ispisa isključite "Zaglavlja i podnožja" za čišći račun
+      </p>
     </div>
   );
 };

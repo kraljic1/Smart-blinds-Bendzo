@@ -17,10 +17,11 @@ interface OrderItemDisplay {
 interface OrderItemsProps {
   items: OrderItemDisplay[];
   subtotal: number;
+  shippingCost?: number;
   totalAmount: number;
 }
 
-const OrderItems: React.FC<OrderItemsProps> = ({ items, subtotal, totalAmount }) => {
+const OrderItems: React.FC<OrderItemsProps> = ({ items, subtotal, shippingCost = 0, totalAmount }) => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
       <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800">
@@ -95,7 +96,7 @@ const OrderItems: React.FC<OrderItemsProps> = ({ items, subtotal, totalAmount })
           </div>
           <div className="mt-2 flex justify-between items-center">
             <p className="text-sm text-gray-600 dark:text-gray-400">Dostava</p>
-            <p className="text-sm font-medium text-gray-900 dark:text-white">Izračunava se pri plaćanju</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">€{shippingCost.toFixed(2)}</p>
           </div>
           <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center">
             <p className="text-base font-medium text-gray-900 dark:text-white">Ukupno Narudžbe</p>

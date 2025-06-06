@@ -39,6 +39,7 @@ interface PaymentSuccessProps {
       description: string;
     }[];
     subtotal: number;
+    shippingCost: number;
     tax: number;
     total: number;
     notes: string;
@@ -152,6 +153,12 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
                 <span>Neto iznos:</span>
                 <span>{(orderDetails.subtotal - orderDetails.tax).toFixed(2)} {orderDetails.currency}</span>
               </div>
+              {orderDetails.shippingCost > 0 && (
+                <div className="total-row">
+                  <span>Dostava:</span>
+                  <span>{orderDetails.shippingCost.toFixed(2)} {orderDetails.currency}</span>
+                </div>
+              )}
               <div className="total-row">
                 <span>PDV (25%):</span>
                 <span>{orderDetails.tax.toFixed(2)} {orderDetails.currency}</span>

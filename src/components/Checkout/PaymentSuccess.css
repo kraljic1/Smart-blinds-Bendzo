@@ -475,14 +475,10 @@
     color: #10b981 !important;
   }
   
-  .action-buttons {
-    display: none;
-  }
-  
+  .action-buttons,
+  .success-message-section,
   .next-steps {
-    background: #f9fafb !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    display: none !important;
   }
   
   .customer-section {
@@ -501,5 +497,10 @@
     background: #f3f4f6 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+  }
+  
+  /* Hide notes section if it contains non-essential information */
+  .notes-section {
+    display: none !important;
   }
 } 

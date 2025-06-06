@@ -37,6 +37,9 @@
   .breadcrumb,
   .back-button,
   .print-hide,
+  .success-message-section,
+  .next-steps,
+  .action-buttons,
   button:not(.print-show),
   .btn:not(.print-show) {
     display: none !important;
@@ -136,10 +139,19 @@
     page-break-after: always;
   }
   
-  /* Remove margins from page */
+  /* Remove margins from page and hide browser headers/footers */
   @page {
     margin: 0.5in;
     size: A4;
+    /* Hide browser's default headers and footers */
+    margin-top: 0.5in;
+    margin-bottom: 0.5in;
+  }
+  
+  /* Hide browser's default print headers and footers */
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   
   /* Hide icons that don't print well */

@@ -141,6 +141,12 @@ const StoredOrderDetailsSection: React.FC<StoredOrderDetailsSectionProps> = ({ o
               <span>Međuzbroj:</span>
               <span>€{orderDetails.subtotal.toFixed(2)}</span>
             </div>
+            {orderDetails.shippingCost > 0 && (
+              <div className="flex justify-between text-gray-600 dark:text-gray-300">
+                <span>Dostava:</span>
+                <span>€{orderDetails.shippingCost.toFixed(2)}</span>
+              </div>
+            )}
             <div className="flex justify-between text-gray-600 dark:text-gray-300">
               <span>PDV (25%):</span>
               <span>€{orderDetails.tax.toFixed(2)}</span>

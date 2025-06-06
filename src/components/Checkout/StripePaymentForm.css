@@ -1,3 +1,10 @@
+/* Prevent body scrolling when modal is open */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
 .stripe-payment-form-overlay {
   position: fixed;
   top: 0;
