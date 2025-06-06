@@ -29,6 +29,20 @@ const PriceCalculator = ({
   const unitPrice = areaCost + additionalCostsTotal; // Price per unit including all costs
   const totalPrice = unitPrice * quantity;
 
+  // Debug logging
+  console.log('PriceCalculator Debug:', {
+    basePrice,
+    width,
+    height,
+    areaDimension,
+    areaCost,
+    additionalCosts,
+    additionalCostsTotal,
+    unitPrice,
+    totalPrice,
+    isAccessory
+  });
+
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
