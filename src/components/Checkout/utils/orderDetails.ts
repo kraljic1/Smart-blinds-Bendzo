@@ -60,9 +60,12 @@ export const createOrderDetails = ({
   items,
   getTotalPrice
 }: CreateOrderDetailsParams): OrderDetails => {
-  const subtotal = getTotalPrice();
+  const subtotal = getTotalPrice(); // This is VAT-inclusive
   const shippingCost = getShippingCost(formData.shippingMethod || 'Standard delivery');
   const totalWithShipping = subtotal + shippingCost;
+  
+  // Calculate VAT from VAT-inclusive prices: VAT = price × (25/125) = price × 0.2
+  const vatAmount = subtotal * 0.2;
   
   const orderDetails = {
     paymentIntentId,
@@ -100,14 +103,14 @@ export const createOrderDetails = ({
       id: item.product.id,
       name: item.product.name,
       quantity: item.quantity,
-      unitPrice: item.product.price,
-      totalPrice: item.product.price * item.quantity,
+      unitPrice: item.calculatedPrice ?? item.product.price, // Use calculated price if available
+      totalPrice: (item.calculatedPrice ?? item.product.price) * item.quantity,
       description: item.product.description || ''
     })),
-    subtotal: subtotal,
+    subtotal: subtotal, // VAT-inclusive subtotal
     shippingCost: shippingCost,
-    tax: totalWithShipping * 0.25, // 25% PDV
-    total: totalWithShipping,
+    tax: vatAmount, // VAT portion of the inclusive price
+    total: totalWithShipping, // Total including shipping
     notes: formData.additionalNotes || ''
   };
   

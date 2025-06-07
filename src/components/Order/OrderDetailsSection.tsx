@@ -53,11 +53,15 @@ const OrderDetailsSection: React.FC<OrderDetailsSectionProps> = ({ orderId }) =>
   // Get items from the order details
   const orderItems: OrderItemDisplay[] = orderDetails?.items || [];
 
-  // Calculate subtotal from items
+  // Calculate subtotal from items (VAT-inclusive prices)
   const subtotal = orderItems.reduce((sum, item) => sum + (item.subtotal || 0), 0);
-  const taxAmount = orderDetails?.taxAmount || (subtotal * 0.25); // 25% PDV
+  
+  // Calculate VAT from VAT-inclusive prices: VAT = price × (25/125) = price × 0.2
+  const taxAmount = orderDetails?.taxAmount || (subtotal * 0.2); // VAT from inclusive price
   const shippingCost = orderDetails?.shippingCost || 0;
-  const total = orderDetails?.totalAmount || (subtotal + taxAmount + shippingCost);
+  
+  // Total is subtotal + shipping (VAT already included in subtotal)
+  const total = orderDetails?.totalAmount || (subtotal + shippingCost);
 
   if (isLoading) {
     return <LoadingSpinner />;

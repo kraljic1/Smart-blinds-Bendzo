@@ -10,8 +10,11 @@ const OrderSummarySection: React.FC<OrderSummarySectionProps> = ({
   shippingMethod = 'Standard delivery' 
 }) => {
   const { items, getTotalPrice } = useBasketContext();
-  const subtotal = getTotalPrice();
+  const subtotal = getTotalPrice(); // This is VAT-inclusive
   const shippingCost = getShippingCost(shippingMethod);
+  
+  // Calculate VAT from VAT-inclusive prices: VAT = price × (25/125) = price × 0.2
+  const vatAmount = subtotal * 0.2;
   const total = subtotal + shippingCost;
 
   return (
@@ -51,6 +54,11 @@ const OrderSummarySection: React.FC<OrderSummarySectionProps> = ({
       <div className="checkout-shipping">
         <span>Dostava:</span>
         <span>€{shippingCost.toFixed(2)}</span>
+      </div>
+      
+      <div className="checkout-tax">
+        <span>PDV (25%):</span>
+        <span>€{vatAmount.toFixed(2)}</span>
       </div>
       
       <div className="checkout-total">

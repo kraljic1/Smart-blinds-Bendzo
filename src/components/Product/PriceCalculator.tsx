@@ -26,8 +26,16 @@ const PriceCalculator = ({
   const areaCost = isAccessory ? basePrice : basePrice * areaDimension;
   
   const additionalCostsTotal = additionalCosts.reduce((sum, item) => sum + item.price, 0);
-  const unitPrice = areaCost + additionalCostsTotal; // Price per unit including all costs
+  
+  // Calculate price excluding VAT first
+  const priceExcludingVAT = areaCost + additionalCostsTotal;
+  
+  // Add 25% VAT to get the final VAT-inclusive price
+  const unitPrice = priceExcludingVAT * 1.25; // Price per unit including 25% VAT
   const totalPrice = unitPrice * quantity;
+  
+  // Calculate VAT amount (25% of the exclusive price, or 20% of the inclusive price)
+  const vatAmount = priceExcludingVAT * 0.25;
 
   // Debug logging
   console.log('PriceCalculator Debug:', {
@@ -38,6 +46,8 @@ const PriceCalculator = ({
     areaCost,
     additionalCosts,
     additionalCostsTotal,
+    priceExcludingVAT,
+    vatAmount,
     unitPrice,
     totalPrice,
     isAccessory
@@ -92,13 +102,18 @@ const PriceCalculator = ({
           ))}
           
           <div className="price-calculator-subtotal">
-            <span>Subtotal</span>
-            <span>€{unitPrice.toFixed(2)}</span>
+            <span>Subtotal (excl. VAT)</span>
+            <span>€{priceExcludingVAT.toFixed(2)}</span>
           </div>
           
           <div className="price-calculator-tax">
-            <span>Including VAT</span>
-            <span>€{(unitPrice * 0.21).toFixed(2)}</span>
+            <span>VAT (25%)</span>
+            <span>€{vatAmount.toFixed(2)}</span>
+          </div>
+          
+          <div className="price-calculator-subtotal">
+            <span>Total (incl. VAT)</span>
+            <span>€{unitPrice.toFixed(2)}</span>
           </div>
         </div>
       )}

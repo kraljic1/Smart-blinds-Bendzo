@@ -449,7 +449,8 @@
 }
 
 .checkout-subtotal,
-.checkout-shipping {
+.checkout-shipping,
+.checkout-tax {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -461,6 +462,11 @@
 
 .checkout-subtotal {
   margin-top: 1rem;
+}
+
+.checkout-tax {
+  color: var(--text-tertiary);
+  font-style: italic;
 }
 
 .checkout-total {
