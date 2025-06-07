@@ -111,7 +111,15 @@ const ProductCustomizationForm = ({
         <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">CUSTOMIZE AND ORDER</h3>
         <div className="text-right">
           <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
-            {isAccessoryProduct ? 'From Price' : 'From Price per m²'}
+            {(() => {
+              console.log('ProductConfigurationForm Debug:', { 
+                productId: product.id, 
+                productName: product.name,
+                isAccessoryProduct,
+                priceText: isAccessoryProduct ? 'From Price' : 'From Price per m²'
+              });
+              return isAccessoryProduct ? 'From Price' : 'From Price per m²';
+            })()}
           </div>
           <div className="text-lg sm:text-xl font-bold text-blue-600 dark:text-blue-400">${product.price}</div>
           <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 line-through">${product.originalPrice}</div>
