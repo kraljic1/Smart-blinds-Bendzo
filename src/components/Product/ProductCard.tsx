@@ -107,42 +107,52 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
 
-      <CardContent className="flex-grow flex flex-col min-h-[240px]">
-        <div className="h-14 mb-2">
-          <CardTitle className="line-clamp-2 h-full flex items-center">
+      <CardContent className="flex-grow flex flex-col min-h-[280px]">
+        {/* Product title - Fixed height container */}
+        <div className="h-16 mb-3">
+          <CardTitle className="line-clamp-2 h-full flex items-start">
             {product.name.toUpperCase()}
           </CardTitle>
         </div>
 
-        <div className="flex items-center space-x-2 mb-4">
-          {product.features.map((feature: string, i: number) => (
-            <span
-              key={i}
-              className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm uppercase"
-            >
-              {feature === 'Light filtering' ? (
-                <Sun className="w-4 h-4 mr-1 inline" />
-              ) : (
-                <Moon className="w-4 h-4 mr-1 inline" />
-              )}
-              {feature}
-            </span>
-          ))}
+        {/* Feature badges - Fixed height container */}
+        <div className="h-12 mb-3 flex items-start">
+          <div className="flex items-center space-x-2 flex-wrap gap-1">
+            {product.features.map((feature: string, i: number) => (
+              <span
+                key={i}
+                className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm uppercase"
+              >
+                {feature === 'Light filtering' ? (
+                  <Sun className="w-4 h-4 mr-1 inline" />
+                ) : (
+                  <Moon className="w-4 h-4 mr-1 inline" />
+                )}
+                {feature}
+              </span>
+            ))}
+          </div>
         </div>
 
-        <div className="flex items-center space-x-2 mb-4">
+        {/* Colors info - Fixed height container */}
+        <div className="h-8 mb-4 flex items-start">
           <span className="text-sm text-gray-600 dark:text-gray-400 uppercase">
             +{product.colors} {product.colors === 1 ? 'COLOR' : 'COLORS'}
           </span>
         </div>
 
+        {/* Spacer to push price and buttons to bottom */}
+        <div className="flex-grow"></div>
+
+        {/* Price - Fixed position from bottom */}
         <CardPrice
           price={product.price}
           originalPrice={product.originalPrice}
           className="mb-4"
         />
 
-        <CardActions className="mt-auto">
+        {/* Action buttons - Fixed position at bottom */}
+        <CardActions>
           <button
             onClick={handleConfigureClick}
             className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600"

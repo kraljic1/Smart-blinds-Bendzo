@@ -164,32 +164,38 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
         </div>
         
         {/* Card content */}
-        <div className="flex-grow flex flex-col p-6 pt-8">
-          {/* Product title */}
-          <h3 className="text-xl font-bold text-black dark:text-black mb-4 line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 dark:group-hover:from-blue-600 dark:group-hover:to-purple-600">
-            {product.name.toUpperCase()}
-          </h3>
-          
-          {/* Feature badges */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {product.features.map((feature, i) => (
-              <span
-                key={i}
-                className="modern-badge flex items-center text-black dark:bg-blue-700/40 dark:text-black"
-              >
-                {feature === 'Light filtering' ? (
-                  <Sun className="w-3 h-3 mr-1 inline" />
-                ) : (
-                  <Moon className="w-3 h-3 mr-1 inline" />
-                )}
-                {feature}
-              </span>
-            ))}
+        <div className="flex-grow flex flex-col p-6 pt-8 min-h-[280px]">
+          {/* Product title - Fixed height container */}
+          <div className="h-16 mb-4 flex items-start">
+            <h3 className="text-xl font-bold text-black dark:text-black line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 dark:group-hover:from-blue-600 dark:group-hover:to-purple-600">
+              {product.name.toUpperCase()}
+            </h3>
           </div>
           
+          {/* Feature badges - Fixed height container */}
+          <div className="h-12 mb-4 flex items-start">
+            <div className="flex flex-wrap gap-2">
+              {product.features.map((feature, i) => (
+                <span
+                  key={i}
+                  className="modern-badge flex items-center text-black dark:bg-blue-700/40 dark:text-black"
+                >
+                  {feature === 'Light filtering' ? (
+                    <Sun className="w-3 h-3 mr-1 inline" />
+                  ) : (
+                    <Moon className="w-3 h-3 mr-1 inline" />
+                  )}
+                  {feature}
+                </span>
+              ))}
+            </div>
+          </div>
+          
+          {/* Spacer to push price and buttons to bottom */}
+          <div className="flex-grow"></div>
 
-          {/* Price */}
-          <div className="mb-5 flex items-end">
+          {/* Price - Fixed position from bottom */}
+          <div className="mb-6 flex items-end">
             <span className="text-3xl font-bold text-blue-600 dark:text-blue-300 mr-2">
               ${product.price.toLocaleString()}
             </span>
@@ -200,8 +206,8 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
             )}
           </div>
           
-          {/* Action buttons */}
-          <div className="mt-auto pt-4 space-y-3">
+          {/* Action buttons - Fixed position at bottom */}
+          <div className="space-y-3">
             <button
               onClick={handleConfigureClick}
               className="w-full bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-indigo-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-400 dark:hover:to-indigo-500 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
