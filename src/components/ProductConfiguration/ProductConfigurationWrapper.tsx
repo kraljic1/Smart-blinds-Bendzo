@@ -71,7 +71,6 @@ const ProductConfigurationWrapper = ({
     quantity: number, 
     width: number | '', 
     height: number | '', 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     additionalCosts: { name: string; price: number }[],
     calculatedPrice: number
   ) => {

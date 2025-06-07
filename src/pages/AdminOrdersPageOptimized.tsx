@@ -24,7 +24,7 @@ const AdminOrdersPageOptimized: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
-  const [performanceStats, setPerformanceStats] = useState<any[]>([]);
+  const [performanceStats, setPerformanceStats] = useState<{ avg_time_ms: number }[]>([]);
   
   // Pagination configuration
   const ITEMS_PER_PAGE = 10;
