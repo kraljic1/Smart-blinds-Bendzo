@@ -83,18 +83,27 @@ const ProductCustomizationForm = ({
 
   // Handle calculate price button with enhanced validation
   const handleCalculatePrice = () => {
+    console.log('handleCalculatePrice called with:', { width, height });
     const validation = validateDimensions(width, height);
     if (validation.isValid) {
+      console.log('Dimensions validated successfully, setting isCalculated to true');
       setIsCalculated(true);
     } else {
+      console.log('Dimension validation failed:', validation.errorMessage);
       alert(validation.errorMessage);
     }
   };
 
   // Handle checkout with dimensions, costs, and calculated price
   const handleCheckoutWithDetails = (quantity: number, calculatedPrice: number) => {
+    console.log('handleCheckoutWithDetails called with:', { quantity, calculatedPrice, width, height, additionalCosts });
     onCheckout(quantity, width, height, additionalCosts, calculatedPrice);
   };
+
+  // Debug logging for state changes
+  useEffect(() => {
+    console.log('ProductCustomizationForm state:', { width, height, isCalculated, additionalCosts });
+  }, [width, height, isCalculated, additionalCosts]);
 
   return (
     <div className={`bg-gray-100 dark:bg-gray-700 p-4 sm:p-6 rounded-lg modern-card ${isVisible ? 'reveal-staggered' : 'opacity-0'} ${animationFinished ? 'visible' : ''}`} style={{ animationDelay: '300ms' }}>
@@ -171,8 +180,16 @@ const ProductCustomizationForm = ({
           />
           <PriceCalculator 
             basePrice={product.price}
-            width={isAccessoryProduct ? 0 : (typeof width === 'number' ? width : 0)}
-            height={isAccessoryProduct ? 0 : (typeof height === 'number' ? height : 0)}
+            width={(() => {
+              const calculatedWidth = isAccessoryProduct ? 0 : (typeof width === 'number' ? width : 0);
+              console.log('PriceCalculator width calculation:', { isAccessoryProduct, width, calculatedWidth });
+              return calculatedWidth;
+            })()}
+            height={(() => {
+              const calculatedHeight = isAccessoryProduct ? 0 : (typeof height === 'number' ? height : 0);
+              console.log('PriceCalculator height calculation:', { isAccessoryProduct, height, calculatedHeight });
+              return calculatedHeight;
+            })()}
             additionalCosts={additionalCosts}
             onCheckout={handleCheckoutWithDetails}
             isAccessory={isAccessoryProduct}
