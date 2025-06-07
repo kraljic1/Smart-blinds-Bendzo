@@ -1,6 +1,8 @@
-# SmartBlinds - Smart Window Solutions
+# Smartblinds Croatia - E-commerce Platform
 
-A modern e-commerce platform for smart window coverings powered by Eve MotionBlinds motors. This project showcases a complete solution for browsing, configuring, and purchasing smart blinds.
+<!-- Deployment trigger: 2024-01-20 - Updated pricing display to show "per m²" for area-based products -->
+
+A modern e-commerce platform for smart blinds and home automation products built with React, TypeScript, and Vite.
 
 ![SmartBlinds Preview](https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80)
 
