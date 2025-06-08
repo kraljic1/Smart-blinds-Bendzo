@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { supabase } from '../../utils/supabaseClient';
-import { Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
+import { usePasswordValidation } from '../../hooks/usePasswordValidation';
+import { updateUserPassword } from '../../utils/passwordService';
+import PasswordChangeHeader from './PasswordChangeHeader';
+import PasswordField from './PasswordField';
+import PasswordRequirements from './PasswordRequirements';
 
 interface ForcePasswordChangeProps {
   onPasswordChanged: () => void;
@@ -12,53 +16,24 @@ const ForcePasswordChange: React.FC<ForcePasswordChangeProps> = ({ onPasswordCha
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  
+  const { error, setError, validatePassword } = usePasswordValidation();
 
   const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
 
-    // Validation
-    if (newPassword.length < 8) {
-      setError('Lozinka mora imati najmanje 8 karaktera');
-      setLoading(false);
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      setError('Lozinke se ne poklapaju');
+    const validation = validatePassword(newPassword, confirmPassword);
+    if (!validation.isValid) {
       setLoading(false);
       return;
     }
 
     try {
-      // Update password in Supabase Auth
-      const { error: updateError } = await supabase.auth.updateUser({
-        password: newPassword
-      });
-
-      if (updateError) throw updateError;
-
-      // Update password_hash in admin_users table to indicate password has been changed
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (sessionData.session?.user?.email) {
-        const { error: dbError } = await supabase
-          .from('admin_users')
-          .update({ 
-            password_hash: 'password_set_by_user',
-            updated_at: new Date().toISOString()
-          })
-          .eq('email', sessionData.session.user.email);
-
-        if (dbError) {
-          console.error('Error updating admin user record:', dbError);
-        }
-      }
-
+      await updateUserPassword(newPassword);
       onPasswordChanged();
     } catch (err: unknown) {
-      console.error('Error updating user credentials:', err);
+      console.error('❌ Error updating user credentials:', err);
       setError(err instanceof Error ? err.message : 'Greška pri promjeni lozinke');
     } finally {
       setLoading(false);
@@ -69,17 +44,7 @@ const ForcePasswordChange: React.FC<ForcePasswordChangeProps> = ({ onPasswordCha
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
         <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8">
-          <div className="text-center mb-8">
-            <div className="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900 mb-4">
-              <Lock className="h-10 w-10 text-yellow-600 dark:text-yellow-300" />
-            </div>
-            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">
-              Promjena lozinke obavezna
-            </h1>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-              Morate promijeniti privremenu lozinku prije pristupa admin panelu
-            </p>
-          </div>
+          <PasswordChangeHeader />
 
           {error && (
             <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded" role="alert">
@@ -94,74 +59,25 @@ const ForcePasswordChange: React.FC<ForcePasswordChangeProps> = ({ onPasswordCha
           )}
 
           <form className="space-y-6" onSubmit={handlePasswordChange}>
-            <div>
-              <label htmlFor="new-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Nova lozinka
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="new-password"
-                  name="new-password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="new-password"
-                  required
-                  minLength={8}
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Najmanje 8 karaktera"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <button 
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex={-1}
-                >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-500" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-500" />
-                  )}
-                </button>
-              </div>
-            </div>
+            <PasswordField
+              id="new-password"
+              label="Nova lozinka"
+              placeholder="Najmanje 8 karaktera"
+              value={newPassword}
+              showPassword={showPassword}
+              onChange={setNewPassword}
+              onToggleVisibility={() => setShowPassword(!showPassword)}
+            />
 
-            <div>
-              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Potvrdi lozinku
-              </label>
-              <div className="mt-1 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
-                <input
-                  id="confirm-password"
-                  name="confirm-password"
-                  type={showConfirmPassword ? "text" : "password"}
-                  autoComplete="new-password"
-                  required
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder="Ponovite novu lozinku"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <button 
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  tabIndex={-1}
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-500" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-gray-500" />
-                  )}
-                </button>
-              </div>
-            </div>
+            <PasswordField
+              id="confirm-password"
+              label="Potvrdi lozinku"
+              placeholder="Ponovite novu lozinku"
+              value={confirmPassword}
+              showPassword={showConfirmPassword}
+              onChange={setConfirmPassword}
+              onToggleVisibility={() => setShowConfirmPassword(!showConfirmPassword)}
+            />
 
             <div>
               <button
@@ -184,15 +100,7 @@ const ForcePasswordChange: React.FC<ForcePasswordChangeProps> = ({ onPasswordCha
             </div>
           </form>
 
-          <div className="mt-6 text-center">
-            <div className="text-sm text-gray-600 dark:text-gray-400">
-              <p className="mb-2">Zahtjevi za lozinku:</p>
-              <ul className="text-xs space-y-1">
-                <li>• Najmanje 8 karaktera</li>
-                <li>• Preporučuje se kombinacija slova, brojeva i simbola</li>
-              </ul>
-            </div>
-          </div>
+          <PasswordRequirements />
         </div>
       </div>
     </div>

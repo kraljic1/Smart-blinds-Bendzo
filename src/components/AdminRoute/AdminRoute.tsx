@@ -12,58 +12,69 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
   const [needsPasswordChange, setNeedsPasswordChange] = useState<boolean>(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // Check if user is authenticated
-        const { data: sessionData } = await supabase.auth.getSession();
-        
-        if (!sessionData.session) {
-          setIsAuthenticated(false);
-          return;
-        }
-        
-        // Get the user's email
-        const userEmail = sessionData.session.user.email;
-        
-        if (!userEmail) {
-          setIsAuthenticated(false);
-          return;
-        }
-        
-        // Check if the user is in the admin_users table
-        const { data: adminData, error: adminError } = await supabase
-          .from('admin_users')
-          .select('id, password_hash')
-          .eq('email', userEmail)
-          .single();
-        
-        if (adminError || !adminData) {
-          setIsAuthenticated(false);
-          return;
-        }
-        
-        // Check if user needs to change password
-        // User needs to change password if:
-        // 1. password_hash is 'temp_password_change_required' (old system)
-        // 2. password_hash is a temporary password (new system - contains actual temp password)
-        // 3. password_hash is NOT 'password_set_by_user' (indicates user has set their own password)
-        if (adminData.password_hash === 'temp_password_change_required' || 
-            (adminData.password_hash !== 'password_set_by_user' && adminData.password_hash !== 'supabase_auth')) {
-          setNeedsPasswordChange(true);
-          setIsAuthenticated(true);
-          return;
-        }
-        
-        // User exists in admin_users table and password is set
-        setIsAuthenticated(true);
-        setNeedsPasswordChange(false);
-      } catch (error) {
-        console.error('Auth check error:', error);
+  const checkAuth = async () => {
+    try {
+      console.log('🔍 Starting auth check...');
+      
+      // Check if user is authenticated
+      const { data: sessionData } = await supabase.auth.getSession();
+      
+      if (!sessionData.session) {
+        console.log('❌ No session found');
         setIsAuthenticated(false);
+        return;
       }
-    };
-    
+      
+      // Get the user's email
+      const userEmail = sessionData.session.user.email;
+      
+      if (!userEmail) {
+        console.log('❌ No user email found');
+        setIsAuthenticated(false);
+        return;
+      }
+      
+      console.log('📧 Checking auth for user:', userEmail);
+      
+      // Check if the user is in the admin_users table
+      const { data: adminData, error: adminError } = await supabase
+        .from('admin_users')
+        .select('id, password_hash')
+        .eq('email', userEmail)
+        .single();
+      
+      if (adminError || !adminData) {
+        console.log('❌ User not found in admin_users table:', adminError);
+        setIsAuthenticated(false);
+        return;
+      }
+      
+      console.log('🔐 Current password_hash:', adminData.password_hash);
+      
+      // Check if user needs to change password
+      // User needs to change password if:
+      // 1. password_hash is 'temp_password_change_required' (old system)
+      // 2. password_hash is a temporary password (new system - contains actual temp password)
+      // 3. password_hash is NOT 'password_set_by_user' (indicates user has set their own password)
+      if (adminData.password_hash === 'temp_password_change_required' || 
+          (adminData.password_hash !== 'password_set_by_user' && adminData.password_hash !== 'supabase_auth')) {
+        console.log('🔄 Password change required');
+        setNeedsPasswordChange(true);
+        setIsAuthenticated(true);
+        return;
+      }
+      
+      // User exists in admin_users table and password is set
+      console.log('✅ Auth check passed, user authenticated');
+      setIsAuthenticated(true);
+      setNeedsPasswordChange(false);
+    } catch (error) {
+      console.error('❌ Auth check error:', error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  useEffect(() => {
     checkAuth();
   }, []);
 
@@ -81,9 +92,8 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ children }) => {
     return (
       <ForcePasswordChange 
         onPasswordChanged={() => {
-          setNeedsPasswordChange(false);
-          // Refresh the auth check
-          window.location.reload();
+          // Re-run auth check instead of full page reload
+          checkAuth();
         }} 
       />
     );

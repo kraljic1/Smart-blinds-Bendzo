@@ -59,6 +59,10 @@ export interface ExtendedOrderData {
   notes?: string;
   createdAt: string;
   updatedAt?: string;
+  // Company fields for R1 invoices
+  companyName?: string;
+  companyOib?: string;
+  needsR1Invoice?: boolean;
   items: Array<{
     productId: string;
     productName: string;
