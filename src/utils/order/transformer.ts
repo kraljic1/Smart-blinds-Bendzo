@@ -30,6 +30,10 @@ export const transformOrderData = (order: SupabaseOrderData): TransformedOrderDa
     notes: order.notes,
     createdAt: order.created_at,
     updatedAt: order.updated_at,
+    // Company fields for R1 invoices
+    companyName: order.company_name,
+    companyOib: order.company_oib,
+    needsR1Invoice: order.needs_r1_invoice,
     items: (order.order_items || []).map((item: SupabaseOrderItem) => ({
       productId: item.product_id || `item-${item.id}`,
       productName: item.product_name || 'Proizvod bez naziva',

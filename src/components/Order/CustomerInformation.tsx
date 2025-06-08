@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Mail, Phone, MapPin, Truck, CreditCard } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Truck, CreditCard, Building, FileText } from 'lucide-react';
 import { ExtendedOrderData } from './types';
 
 interface CustomerInformationProps {
@@ -17,6 +17,25 @@ const CustomerInformation: React.FC<CustomerInformationProps> = ({ orderDetails 
             Podaci o kupcu
           </h3>
           <div className="space-y-2 text-gray-600 dark:text-gray-300">
+            {/* Company Information - Show if available */}
+            {orderDetails.companyName && (
+              <>
+                <p className="flex items-center">
+                  <Building className="w-4 h-4 mr-2 text-gray-400" />
+                  <strong>{orderDetails.companyName}</strong>
+                </p>
+                {orderDetails.companyOib && (
+                  <p className="flex items-center">
+                    <FileText className="w-4 h-4 mr-2 text-gray-400" />
+                    <span><strong>OIB:</strong> {orderDetails.companyOib}</span>
+                  </p>
+                )}
+                <div className="border-t border-gray-200 dark:border-gray-600 my-2 pt-2">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Kontakt osoba:</p>
+                </div>
+              </>
+            )}
+            
             <p className="flex items-center">
               <User className="w-4 h-4 mr-2 text-gray-400" />
               <strong>{orderDetails.customerName}</strong>
