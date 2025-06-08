@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Pre-commit hook to enforce code quality standards
+# This hook will prevent commits that violate the 200-line rule
+
+echo "🔍 Running pre-commit checks..."
+
+# Check file lengths
+echo "📏 Checking file lengths (200-line limit)..."
+if ! node scripts/check-file-length.js --pre-commit; then
+    echo ""
+    echo "❌ COMMIT REJECTED: Files exceed 200-line limit"
+    echo "💡 Please refactor large files before committing"
+    echo ""
+    echo "🔧 Quick commands:"
+    echo "   npm run check-file-length  # See all violations"
+    echo "   npm run lint -- --fix      # Auto-fix some issues"
+    echo ""
+    exit 1
+fi
+
+# Run ESLint
+echo "🔍 Running ESLint..."
+if ! npm run lint; then
+    echo ""
+    echo "❌ COMMIT REJECTED: ESLint errors found"
+    echo "💡 Please fix linting errors before committing"
+    echo ""
+    echo "🔧 Quick commands:"
+    echo "   npm run lint -- --fix      # Auto-fix some issues"
+    echo ""
+    exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
+echo "🎉 Proceeding with commit..."
+exit 0 

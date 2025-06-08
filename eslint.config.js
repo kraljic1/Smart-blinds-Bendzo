@@ -23,6 +23,27 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+      // Enforce 200-line limit
+      'max-lines': [
+        'error',
+        {
+          max: 200,
+          skipBlankLines: true,
+          skipComments: true
+        }
+      ],
+      // Additional code quality rules
+      'max-lines-per-function': [
+        'warn',
+        {
+          max: 50,
+          skipBlankLines: true,
+          skipComments: true
+        }
+      ],
+      'complexity': ['warn', 10],
+      'max-depth': ['warn', 4],
+      'max-params': ['warn', 4]
     },
   }
 );
