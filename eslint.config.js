@@ -45,5 +45,17 @@ export default tseslint.config(
       'max-depth': ['warn', 4],
       'max-params': ['warn', 4]
     },
+  },
+  // Override for legacy data files
+  {
+    files: [
+      'src/data/customizationOptions.ts',
+      'src/data/collections/classicCollection.ts',
+      'src/data/collections/essentialCollectionPart1.ts',
+      'src/data/collections/essentialCollectionPart2.ts'
+    ],
+    rules: {
+      'max-lines': 'off'
+    }
   }
 );

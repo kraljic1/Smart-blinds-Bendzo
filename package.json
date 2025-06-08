@@ -24,7 +24,11 @@
     "verify-env": "node scripts/verify-env.js",
     "migrate-console-logs": "node scripts/migrate-console-logs.js",
     "migrate-console-logs:dry": "node scripts/migrate-console-logs.js --dry-run",
-    "clean-production-logs": "npm run build && echo 'Production build completed with console cleanup'"
+    "clean-production-logs": "npm run build && echo 'Production build completed with console cleanup'",
+    "check-file-length": "node scripts/check-file-length.js",
+    "pre-commit": "node scripts/check-file-length.js --pre-commit && npm run lint",
+    "setup-hooks": "chmod +x .githooks/pre-commit && git config core.hooksPath .githooks",
+    "quality-check": "npm run check-file-length && npm run lint && npm run security-scan"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^3.7.0",
