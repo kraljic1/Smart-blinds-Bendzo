@@ -1,5 +1,7 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 import { logSecurityEvent, securityLogger, SecurityIncidentType } from '../utils/securityLogger';
+import { RateLimitManager } from '../utils/security/rateLimitUtils';
+import { SuspiciousActivityDetector } from '../utils/security/suspiciousActivityDetector';
 
 interface SecurityMonitoringOptions {
   enableRateLimitMonitoring?: boolean;
@@ -34,8 +36,8 @@ export const useSecurityMonitoring = (
     rateLimitWindow = 60000 // 1 minute
   } = options;
 
-  const requestCounts = useRef<Map<string, { count: number; firstRequest: number }>>(new Map());
-  const suspiciousPatterns = useRef<Map<string, number>>(new Map());
+  const rateLimitManager = useRef(new RateLimitManager(rateLimitThreshold, rateLimitWindow));
+  const activityDetector = useRef(new SuspiciousActivityDetector());
 
   /**
    * Log suspicious activity
@@ -49,14 +51,7 @@ export const useSecurityMonitoring = (
     if (!enableRateLimitMonitoring) return;
 
     const cleanup = setInterval(() => {
-      const now = Date.now();
-      const entries = Array.from(requestCounts.current.entries());
-      
-      entries.forEach(([key, data]) => {
-        if (now - data.firstRequest > rateLimitWindow) {
-          requestCounts.current.delete(key);
-        }
-      });
+      rateLimitManager.current.cleanup();
     }, rateLimitWindow);
 
     return () => clearInterval(cleanup);
@@ -66,35 +61,10 @@ export const useSecurityMonitoring = (
   useEffect(() => {
     if (!enableSuspiciousActivityDetection) return;
 
-    const monitorPatterns = () => {
-      // Check for rapid consecutive failed attempts
-      const failedLogins = securityLogger.getIncidentsByType(SecurityIncidentType.FAILED_LOGIN);
-      const recentFailures = failedLogins.filter(
-        incident => Date.now() - incident.timestamp.getTime() < 300000 // 5 minutes
-      );
+    const interval = setInterval(() => {
+      activityDetector.current.monitorPatterns(logSuspiciousActivity);
+    }, 30000); // Check every 30 seconds
 
-      if (recentFailures.length >= 5) {
-        logSuspiciousActivity('Multiple failed login attempts detected', {
-          count: recentFailures.length,
-          timeWindow: '5 minutes'
-        });
-      }
-
-      // Check for unusual access patterns
-      const unauthorizedAccess = securityLogger.getIncidentsByType(SecurityIncidentType.UNAUTHORIZED_ACCESS);
-      const recentUnauthorized = unauthorizedAccess.filter(
-        incident => Date.now() - incident.timestamp.getTime() < 600000 // 10 minutes
-      );
-
-      if (recentUnauthorized.length >= 3) {
-        logSuspiciousActivity('Multiple unauthorized access attempts detected', {
-          count: recentUnauthorized.length,
-          timeWindow: '10 minutes'
-        });
-      }
-    };
-
-    const interval = setInterval(monitorPatterns, 30000); // Check every 30 seconds
     return () => clearInterval(interval);
   }, [enableSuspiciousActivityDetection, logSuspiciousActivity]);
 
@@ -106,17 +76,7 @@ export const useSecurityMonitoring = (
 
     // Track suspicious patterns
     if (email && enableSuspiciousActivityDetection) {
-      const key = `failed_auth_${email}`;
-      const current = suspiciousPatterns.current.get(key) || 0;
-      suspiciousPatterns.current.set(key, current + 1);
-
-      // Alert if too many failures for same email
-      if (current + 1 >= 3) {
-        logSuspiciousActivity(`Repeated failed authentication for ${email}`, {
-          email,
-          attempts: current + 1
-        });
-      }
+      activityDetector.current.trackFailedAuth(email, logSuspiciousActivity);
     }
   }, [enableSuspiciousActivityDetection, logSuspiciousActivity]);
 
@@ -128,17 +88,7 @@ export const useSecurityMonitoring = (
 
     // Additional monitoring for unauthorized access patterns
     if (enableUnauthorizedAccessDetection && userId) {
-      const key = `unauthorized_${userId}`;
-      const current = suspiciousPatterns.current.get(key) || 0;
-      suspiciousPatterns.current.set(key, current + 1);
-
-      if (current + 1 >= 2) {
-        logSuspiciousActivity(`User ${userId} attempting multiple unauthorized accesses`, {
-          userId,
-          resource,
-          attempts: current + 1
-        });
-      }
+      activityDetector.current.trackUnauthorizedAccess(userId, resource, logSuspiciousActivity);
     }
   }, [enableUnauthorizedAccessDetection, logSuspiciousActivity]);
 
@@ -154,39 +104,18 @@ export const useSecurityMonitoring = (
    */
   const checkRateLimit = useCallback((endpoint: string): boolean => {
     if (!enableRateLimitMonitoring) return true;
-
-    const now = Date.now();
-    const key = `rate_limit_${endpoint}`;
-    const current = requestCounts.current.get(key);
-
-    if (!current) {
-      requestCounts.current.set(key, { count: 1, firstRequest: now });
-      return true;
-    }
-
-    // Reset if window has passed
-    if (now - current.firstRequest > rateLimitWindow) {
-      requestCounts.current.set(key, { count: 1, firstRequest: now });
-      return true;
-    }
-
-    // Increment count
-    current.count++;
-
-    // Check if limit exceeded
-    if (current.count > rateLimitThreshold) {
-      logSecurityEvent.rateLimitExceeded(endpoint, rateLimitThreshold);
-      return false;
-    }
-
-    return true;
-  }, [enableRateLimitMonitoring, rateLimitThreshold, rateLimitWindow]);
+    return rateLimitManager.current.checkRateLimit(endpoint);
+  }, [enableRateLimitMonitoring]);
 
   /**
    * Get security statistics
    */
   const getSecurityStats = useCallback(() => {
-    return securityLogger.getSecurityStats();
+    return {
+      ...securityLogger.getSecurityStats(),
+      rateLimits: rateLimitManager.current.getStats(),
+      suspiciousPatterns: activityDetector.current.getStats()
+    };
   }, []);
 
   /**
@@ -209,65 +138,6 @@ export const useSecurityMonitoring = (
     getSecurityStats,
     isSecurityIncident
   };
-};
-
-/**
- * Higher-order component for automatic security monitoring
- */
-export function withSecurityMonitoring<P extends object>(
-  WrappedComponent: React.ComponentType<P>,
-  options: SecurityMonitoringOptions = {}
-): React.ComponentType<P> {
-  const SecurityMonitoredComponent = (props: P) => {
-    const security = useSecurityMonitoring(options);
-
-    // Monitor component mount/unmount for suspicious patterns
-    useEffect(() => {
-      const componentName = WrappedComponent.displayName || WrappedComponent.name || 'Unknown';
-      
-      // Log component access for sensitive components
-      if (componentName.includes('Admin') || componentName.includes('Payment')) {
-        security.logSuspiciousActivity(`Sensitive component accessed: ${componentName}`, {
-          component: componentName,
-          timestamp: new Date().toISOString()
-        });
-      }
-
-      return () => {
-        // Component unmount - could be used for session tracking
-      };
-    }, [security]);
-
-    return React.createElement(WrappedComponent, props);
-  };
-
-  SecurityMonitoredComponent.displayName = `withSecurityMonitoring(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
-  
-  return SecurityMonitoredComponent;
-}
-
-/**
- * Security monitoring context for error boundaries
- */
-export const useSecurityErrorHandler = () => {
-  const security = useSecurityMonitoring();
-
-  return useCallback((error: Error, errorInfo: unknown) => {
-    // Check if error might be security-related
-    const securityKeywords = ['unauthorized', 'forbidden', 'token', 'auth', 'permission'];
-    const isSecurityError = securityKeywords.some(keyword => 
-      error.message.toLowerCase().includes(keyword) ||
-      error.stack?.toLowerCase().includes(keyword)
-    );
-
-    if (isSecurityError) {
-      security.logSuspiciousActivity('Security-related error detected', {
-        error: error.message,
-        stack: error.stack,
-        errorInfo
-      });
-    }
-  }, [security]);
 };
 
 export default useSecurityMonitoring; 
