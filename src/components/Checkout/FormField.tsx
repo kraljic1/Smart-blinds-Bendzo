@@ -1,6 +1,7 @@
 import React from 'react';
-import { useFormFieldValidation } from '../../hooks/useFormFieldValidation';
-import FormFieldError from './FormFieldError';
+import { FormFieldContainer } from './components';
+import { useFormFieldState, useFormFieldHandlers, useFormFieldProps } from './hooks';
+import { getFormFieldClassName } from './utils/formFieldStyles';
 
 interface FormFieldProps {
   type: string;
@@ -22,90 +23,43 @@ interface FormFieldProps {
   showValidation?: boolean;
 }
 
-export const FormField: React.FC<FormFieldProps> = ({
-  type,
-  id,
-  name,
-  value,
-  onChange,
-  required = false,
-  placeholder,
-  autoComplete,
-  pattern,
-  title,
-  label,
-  icon,
-  validateOnChange = true,
-  validateOnBlur = true,
-  externalError,
-  externalWarning,
-  showValidation = true
-}) => {
+export const FormField: React.FC<FormFieldProps> = (props) => {
   const {
-    touched,
-    internalError,
-    handleBlur,
-    handleTouch
-  } = useFormFieldValidation(
-    name,
-    value,
-    label,
-    required,
-    validateOnChange,
-    validateOnBlur
-  );
+    type, id, name, value, onChange, required = false, placeholder,
+    autoComplete, pattern, title, label, icon, validateOnChange = true,
+    validateOnBlur = true, externalError, externalWarning, showValidation = true
+  } = props;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e);
-    if (validateOnChange) {
-      handleTouch();
-    }
-  };
+  const fieldState = useFormFieldState({
+    name, value, label, required, validateOnChange, validateOnBlur,
+    externalError, externalWarning, showValidation
+  });
 
-  const handleFieldBlur = () => {
-    handleBlur();
-  };
+  const { handleChange, handleFieldBlur } = useFormFieldHandlers({
+    onChange, validateOnChange, handleTouch: fieldState.handleTouch, handleBlur: fieldState.handleBlur
+  });
 
-  // Determine which error to show (external takes precedence)
-  const displayError = showValidation ? (externalError || (touched ? internalError : '')) : '';
-  const displayWarning = showValidation ? externalWarning : '';
-  const hasError = !!displayError;
-  const hasWarning = !!displayWarning && !hasError;
+  const inputProps = useFormFieldProps({
+    type, id, name, value, handleChange, handleFieldBlur,
+    required, placeholder, autoComplete, pattern, title
+  });
 
-  const fieldClassName = `
-    form-field-input
-    ${hasError ? 'error' : ''}
-    ${hasWarning ? 'warning' : ''}
-  `.trim();
+  const fieldClassName = getFormFieldClassName({ 
+    hasError: fieldState.hasError, 
+    hasWarning: fieldState.hasWarning 
+  });
 
   return (
-    <div className="form-group">
-      <label htmlFor={id}>{label}</label>
-      <div className="input-wrapper">
-        <input
-          type={type}
-          id={id}
-          name={name}
-          value={value}
-          onChange={handleChange}
-          onBlur={handleFieldBlur}
-          required={required}
-          placeholder={placeholder}
-          autoComplete={autoComplete}
-          pattern={pattern}
-          title={title}
-          className={fieldClassName}
-          aria-required={required ? 'true' : 'false'}
-          aria-invalid={hasError ? 'true' : 'false'}
-          aria-describedby={hasError ? `${id}-error` : hasWarning ? `${id}-warning` : undefined}
-        />
-        {icon && <span className="input-icon">{icon}</span>}
-      </div>
-      <FormFieldError
-        id={id}
-        error={hasError ? displayError : undefined}
-        warning={hasWarning ? displayWarning : undefined}
-      />
-    </div>
+    <FormFieldContainer
+      id={id}
+      label={label}
+      icon={icon}
+      fieldClassName={fieldClassName}
+      hasError={fieldState.hasError}
+      hasWarning={fieldState.hasWarning}
+      displayError={fieldState.displayError || undefined}
+      displayWarning={fieldState.displayWarning || undefined}
+      inputProps={inputProps}
+    />
   );
 }; 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import { StripeCardElementChangeEvent } from '@stripe/stripe-js';
+import { StripeCardElementChangeEvent, Stripe, StripeElements, StripeCardElement } from '@stripe/stripe-js';
 
 interface UseStripePaymentProps {
   clientSecret: string;
@@ -17,6 +17,87 @@ interface UseStripePaymentReturn {
   handleSubmit: (event: React.FormEvent) => Promise<void>;
   canSubmit: boolean;
 }
+
+// Helper functions for payment processing
+const validatePaymentPrerequisites = (
+  stripe: Stripe | null,
+  elements: StripeElements | null,
+  isProcessing: boolean,
+  disabled: boolean
+): { isValid: boolean; errorMessage?: string } => {
+  if (!stripe || !elements) {
+    console.log('[STRIPE] Stripe or elements not available');
+    return { isValid: false, errorMessage: 'Payment system not available' };
+  }
+
+  if (isProcessing || disabled) {
+    console.log('[STRIPE] Already processing or disabled');
+    return { isValid: false };
+  }
+
+  return { isValid: true };
+};
+
+const getCardElement = (elements: StripeElements): { cardElement: StripeCardElement | null; error?: string } => {
+  const cardElement = elements.getElement(CardElement);
+  
+  if (!cardElement) {
+    console.log('[STRIPE] Card element not found');
+    return { cardElement: null, error: 'Card element not found' };
+  }
+
+  return { cardElement };
+};
+
+const processStripePayment = async (
+  stripe: Stripe,
+  clientSecret: string,
+  cardElement: StripeCardElement
+) => {
+  console.log('[STRIPE] Confirming card payment with client configuration');
+  
+  return await stripe.confirmCardPayment(clientSecret, {
+    payment_method: {
+      card: cardElement,
+    }
+  });
+};
+
+const handlePaymentResult = (
+  error: unknown,
+  paymentIntent: unknown,
+  onPaymentSuccess: (id: string) => void,
+  onPaymentError: (error: string) => void
+): string | null => {
+  if (error) {
+    console.error('[STRIPE] Payment confirmation error:', error);
+    const errorMessage = (error as { message?: string }).message || 'Payment confirmation failed';
+    onPaymentError(errorMessage);
+    return errorMessage;
+  }
+
+  if (paymentIntent && (paymentIntent as { status?: string }).status === 'succeeded') {
+    console.log('[STRIPE] Payment completed successfully');
+    onPaymentSuccess((paymentIntent as { id: string }).id);
+    return null;
+  }
+
+  console.log('[STRIPE] Payment intent status:', (paymentIntent as { status?: string })?.status);
+  const errorMessage = 'Payment was not completed successfully';
+  onPaymentError(errorMessage);
+  return errorMessage;
+};
+
+const handlePaymentError = (
+  error: unknown,
+  setCardError: (error: string) => void,
+  onPaymentError: (error: string) => void
+): void => {
+  console.error('[STRIPE] Payment processing failed:', error);
+  const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+  setCardError(errorMessage);
+  onPaymentError(errorMessage);
+};
 
 export function useStripePayment({
   clientSecret,
@@ -39,54 +120,37 @@ export function useStripePayment({
     console.log('[STRIPE] Payment form submitted');
     event.preventDefault();
 
-    if (!stripe || !elements) {
-      console.log('[STRIPE] Stripe or elements not available');
+    // Validate prerequisites
+    const validation = validatePaymentPrerequisites(stripe, elements, isProcessing, disabled);
+    if (!validation.isValid) {
+      if (validation.errorMessage) setCardError(validation.errorMessage);
       return;
     }
 
-    if (isProcessing || disabled) {
-      console.log('[STRIPE] Already processing or disabled');
+    // At this point we know stripe and elements are not null
+    if (!stripe || !elements) return;
+
+    // Get card element
+    const { cardElement, error: cardElementError } = getCardElement(elements);
+    if (cardElementError || !cardElement) {
+      setCardError(cardElementError || 'Card element not available');
       return;
     }
 
+    // Start processing
     console.log('[STRIPE] Starting payment processing...');
     setIsProcessing(true);
     setCardError(null);
 
-    const cardElement = elements.getElement(CardElement);
-
-    if (!cardElement) {
-      console.log('[STRIPE] Card element not found');
-      setCardError('Card element not found');
-      setIsProcessing(false);
-      return;
-    }
-
     try {
-      console.log('[STRIPE] Confirming card payment with client configuration');
-      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-        }
-      });
-
-      if (error) {
-        console.error('[STRIPE] Payment confirmation error:', error);
-        setCardError(error.message || 'An error occurred');
-        onPaymentError(error.message || 'Payment confirmation failed');
-      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        console.log('[STRIPE] Payment completed successfully');
-        onPaymentSuccess(paymentIntent.id);
-      } else {
-        console.log('[STRIPE] Payment intent status:', paymentIntent?.status);
-        setCardError('Payment was not completed successfully');
-        onPaymentError('Payment was not completed successfully');
-      }
+      // Process payment
+      const { error, paymentIntent } = await processStripePayment(stripe, clientSecret, cardElement);
+      
+      // Handle result
+      const resultError = handlePaymentResult(error, paymentIntent, onPaymentSuccess, onPaymentError);
+      if (resultError) setCardError(resultError);
     } catch (error) {
-      console.error('[STRIPE] Payment processing failed:', error);
-      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-      setCardError(errorMessage);
-      onPaymentError(errorMessage);
+      handlePaymentError(error, setCardError, onPaymentError);
     } finally {
       console.log('[STRIPE] Setting processing to false');
       setIsProcessing(false);
