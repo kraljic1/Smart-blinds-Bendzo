@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import CroatianSEO from '../components/SEO/CroatianSEO';
 import ProductPageLayout from '../components/Product/ProductPageLayout';
-import SEO from '../components/SEO/SEO';
 import { usePageAnimations } from '../hooks/usePageAnimations';
 import { useProductGrouping } from '../hooks/useProductGrouping';
 import { rollerBlinds } from '../data/rollerblinds';
@@ -16,12 +15,6 @@ const PAGE_DATA = {
     { label: 'Products', path: '/products' },
     { label: 'Roller Blinds', path: '/products/roller-blinds' },
   ],
-  seo: {
-    title: "Smart Roller Blinds - Premium Window Automation | Smartblinds Croatia",
-    description: "Discover our collection of premium smart roller blinds designed for modern homes. Control your blinds with voice, app, or the smart hub. Free shipping on all orders.",
-    keywords: "smart roller blinds, automated blinds, window automation, smart home, motorized blinds",
-    product: { price: "89.99", currency: "EUR", availability: "instock" as const, condition: "new" as const, brand: "Smartblinds Croatia", category: "Smart Blinds" }
-  },
   content: {
     heroTitle: "Smart Roller Blinds",
     heroDescription: "Enhance your windows with our premium smart roller blinds collection. Elegant, functional, and designed to fit seamlessly into your home.",
@@ -61,9 +54,23 @@ const RollerBlindsPage = () => {
 
   return (
     <>
-      <Helmet>
-        <SEO {...PAGE_DATA.seo} ogType="product" ogImage={rollerBlindsHero} />
-      </Helmet>
+      <CroatianSEO
+        title="Smart Roller Blinds - Premium Window Automation | Smartblinds Croatia"
+        description="Discover our collection of premium smart roller blinds designed for modern homes. Control your blinds with voice, app, or the smart hub. Free shipping on all orders."
+        keywords="smart roller blinds, automated blinds, window automation, smart home, motorized blinds"
+        pageType="category"
+        ogType="product"
+        ogImage={rollerBlindsHero}
+        productData={{
+          name: "Smart Roller Blinds",
+          price: "89.99",
+          currency: "EUR",
+          availability: "InStock",
+          condition: "NewCondition",
+          brand: "Smartblinds Croatia",
+          category: "Smart Blinds"
+        }}
+      />
       <ProductPageLayout
         {...PAGE_DATA.content}
         heroImage={rollerBlindsHero}
