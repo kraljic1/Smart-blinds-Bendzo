@@ -4,11 +4,10 @@ import { generateStructuredData } from './utils/structuredDataHelpers';
 import { generateCroatianKeywords } from './utils/croatianSeoHelpers';
 import { resolveMetaUrl, resolveOgImage } from './utils/metaTagHelpers';
 import { generateRobotsContent, generateCopyrightText } from './utils/metaTagHelpers';
-import { StructuredDataScript } from './components/StructuredDataScript';
 
 /**
  * Croatian SEO component that provides localized SEO optimization for Croatian market
- * Fixed to avoid Helmet nesting issues
+ * Fixed to avoid Helmet nesting issues - all meta tags are directly inside Helmet
  */
 export default function CroatianSEO({
   title,
@@ -126,7 +125,9 @@ export default function CroatianSEO({
       <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
       {/* Structured Data */}
-      <StructuredDataScript data={structuredData} />
+      <script type="application/ld+json">
+        {JSON.stringify(structuredData, null, 2)}
+      </script>
     </Helmet>
   );
 } 
