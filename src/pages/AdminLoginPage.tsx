@@ -1,6 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import SEO from '../components/SEO/SEO';
+import CroatianSEO from '../components/SEO/CroatianSEO';
 import { LoginForm, ErrorAlert, LoginHeader } from './AdminLoginPage/components';
 import { useAdminAuth } from './AdminLoginPage/hooks/useAdminAuth';
 
@@ -9,14 +8,13 @@ const AdminLoginPage: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <SEO
-          title="Admin Login | Smartblinds"
-          description="Admin login page for Smartblinds management system"
-          noindex={true}
-          nofollow={true}
-        />
-      </Helmet>
+      <CroatianSEO
+        title="Admin Login | Smartblinds"
+        description="Admin login page for Smartblinds management system"
+        keywords="admin, login, smartblinds"
+        pageType="info"
+        noindex={true}
+      />
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md">
           <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8">

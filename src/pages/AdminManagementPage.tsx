@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
-import { Helmet } from 'react-helmet-async';
-import SEO from '../components/SEO/SEO';
+import CroatianSEO from '../components/SEO/CroatianSEO';
 import AdminHeader from '../components/AdminRoute/AdminHeader';
 import AlertMessage from '../components/AdminRoute/AlertMessage';
 import AddAdminForm from '../components/AdminRoute/AddAdminForm';
@@ -47,14 +46,13 @@ const AdminManagementPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Helmet>
-        <SEO
-          title="Admin Management | Smartblinds"
-          description="Admin management dashboard for Smartblinds"
-          noindex={true}
-          nofollow={true}
-        />
-      </Helmet>
+      <CroatianSEO
+        title="Admin Management | Smartblinds"
+        description="Admin management dashboard for Smartblinds"
+        keywords="admin, management, smartblinds"
+        pageType="info"
+        noindex={true}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         <AdminHeader 

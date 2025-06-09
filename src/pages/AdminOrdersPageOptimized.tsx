@@ -1,6 +1,5 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import SEO from '../components/SEO/SEO';
+import CroatianSEO from '../components/SEO/CroatianSEO';
 import AdminHeader from '../components/Admin/AdminHeader';
 import OrderSearch from '../components/Admin/OrderSearch';
 import OrderEmptyState from '../components/Admin/OrderEmptyState';
@@ -33,14 +32,13 @@ const AdminOrdersPageOptimized: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Helmet>
-        <SEO
-          title="Admin Orders | Smartblinds"
-          description="Manage customer orders"
-          noindex={true}
-          nofollow={true}
-        />
-      </Helmet>
+      <CroatianSEO
+        title="Admin Orders | Smartblinds"
+        description="Manage customer orders"
+        keywords="admin, orders, smartblinds"
+        pageType="info"
+        noindex={true}
+      />
       
       <AdminHeader 
         title="Narudžbe (Optimizirano)"

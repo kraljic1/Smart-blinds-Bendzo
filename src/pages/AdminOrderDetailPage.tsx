@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import SEO from '../components/SEO/SEO';
+import CroatianSEO from '../components/SEO/CroatianSEO';
 
 // Import extracted components
 import AdminOrderHeader from '../components/AdminRoute/AdminOrderHeader';
@@ -43,14 +42,13 @@ const AdminOrderDetailPage: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Helmet>
-        <SEO
-          title={`Order #${orderId} | Admin - Smartblinds`}
-          description="View order details"
-          noindex={true}
-          nofollow={true}
-        />
-      </Helmet>
+      <CroatianSEO
+        title={`Order #${orderId} | Admin - Smartblinds`}
+        description="View order details"
+        keywords="admin, order, details, smartblinds"
+        pageType="info"
+        noindex={true}
+      />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         <AdminOrderHeader onLogout={handleLogout} />
