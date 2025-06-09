@@ -1,76 +1,29 @@
-import { useEffect, useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+// React import not needed with new JSX transform
 import ProductHero from '../components/Products/ProductHero';
 import CategoryGrid from '../components/Products/CategoryGrid';
-import ProductGrid from '../components/Products/ProductGrid';
-import { CollapsibleFilterSidebar } from '../components/Filters';
-import { getProductsByCategory } from '../hooks/useProductFilter';
+import { ProductsPageContent } from './components/ProductsPageContent';
+import { useProductsPageData } from './hooks/useProductsPageData';
+import { usePageAnimations } from './hooks/usePageAnimations';
 import { Category } from '../data/categoryData';
-import { Product } from '../types/product';
 
-const ProductsPage: React.FC = () => {
-  const location = useLocation();
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+/**
+ * Main products page component with category filtering and product display
+ */
+const ProductsPage = () => {
   
-  // Add useEffect to scroll to top when component mounts
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    
-    // Add animation class to show content after a short delay
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, [location.pathname]);
+  // Get products data and filtering logic
+  const {
+    currentCategoryId,
+    categoryProducts,
+    filteredProducts,
+    setFilteredProducts,
+    pathname
+  } = useProductsPageData();
 
-  // Add intersection observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    // Observe all elements with reveal-staggered class
-    document.querySelectorAll('.reveal-staggered').forEach(el => {
-      observer.observe(el);
-    });
-    
-    return () => {
-      document.querySelectorAll('.reveal-staggered').forEach(el => {
-        observer.unobserve(el);
-      });
-    };
-  }, [filteredProducts]);
+  // Get animation state
+  const { isLoaded } = usePageAnimations(pathname, filteredProducts);
 
-  // Determine current category from URL
-  const getCurrentCategoryId = (): string => {
-    const path = location.pathname;
-    if (path === '/products') return 'all';
-    if (path.includes('roller-blinds')) return 'roller';
-    if (path.includes('zebra-blinds')) return 'zebra';
-    if (path.includes('curtain-blinds')) return 'curtain';
-    if (path.includes('accessories')) return 'accessories';
-    return 'all';
-  };
-
-  const currentCategoryId = getCurrentCategoryId();
-  // Get products directly by category
-  const categoryProducts = getProductsByCategory(currentCategoryId);
-
-  // Initialize filtered products on category change
-  useEffect(() => {
-    setFilteredProducts(categoryProducts);
-  }, [currentCategoryId, categoryProducts]);
-
+  // Handle category change (for extensibility)
   const handleCategoryChange = (category: Category) => {
     // This is handled by the navigate in CategoryGrid, just here for extensibility
     void category; // Acknowledge the parameter to satisfy ESLint
@@ -95,46 +48,14 @@ const ProductsPage: React.FC = () => {
           <CategoryGrid onCategoryChange={handleCategoryChange} />
         </div>
 
-        {/* Content Grid with Sidebar - Updated for tablet */}
-        <div className="mt-8 relative">
-          <div className="flex flex-col lg:grid lg:grid-cols-4 gap-6 md:gap-8">
-            {/* Sidebar with Filters - Hidden on mobile, toggleable on tablet, shown on desktop */}
-            <div className={`lg:col-span-1 fade-in-scale delay-100 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-              <CollapsibleFilterSidebar
-                categoryId={currentCategoryId}
-                products={categoryProducts}
-                onFilteredProductsChange={setFilteredProducts}
-                className="modern-card bg-white/80 dark:bg-gray-800/80 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700 backdrop-blur-lg filter-sidebar"
-              />
-            </div>
-
-            {/* Products Section - Full width on mobile, 2/3 on tablet and desktop */}
-            <div className="lg:col-span-3">
-              <h2 
-                ref={headingRef}
-                className={`text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 fade-in-scale delay-150 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-              >
-                {currentCategoryId === 'all' ? 'All Products' : 
-                currentCategoryId === 'roller' ? 'Roller Blinds' :
-                currentCategoryId === 'zebra' ? 'Zebra Blinds' :
-                currentCategoryId === 'curtain' ? 'Curtain Blinds' : 
-                currentCategoryId === 'accessories' ? 'Accessories' : ''}
-              </h2>
-              
-              {filteredProducts.length === 0 ? (
-                <div className="text-center py-8 md:py-12 border-glow p-6 md:p-8 rounded-lg">
-                  <p className="text-gray-500 dark:text-gray-400">
-                    No products match your selected filters. Please try different filter options.
-                  </p>
-                </div>
-              ) : (
-                <div className={`slide-in-up delay-200 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-                  <ProductGrid products={filteredProducts} />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        {/* Products Content */}
+        <ProductsPageContent
+          currentCategoryId={currentCategoryId}
+          categoryProducts={categoryProducts}
+          filteredProducts={filteredProducts}
+          setFilteredProducts={setFilteredProducts}
+          isLoaded={isLoaded}
+        />
       </div>
     </div>
   );
