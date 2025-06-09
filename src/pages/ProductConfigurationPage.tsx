@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import { Product } from '../types/product';
-import SEO from '../components/SEO/SEO';
+import CroatianSEO from '../components/SEO/CroatianSEO';
 import { getProductsByCategory } from '../hooks/useProductFilter';
 import { CustomizationOption } from '../components/Product/ProductCustomization';
 import { getCustomizationOptions } from '../data/customizationOptionsByProduct';
@@ -98,15 +97,22 @@ const ProductConfigurationPage = () => {
   return (
     <div className="pt-20 pb-24 sm:pt-24 sm:pb-32">
       {product && (
-        <Helmet>
-          <SEO
-            title={`${product.name} - Configure Your Smart Blind | Smartblinds Croatia`}
-            description={`Customize and order your ${product.name}. Choose colors, dimensions, and features. Free shipping on all orders.`}
-            ogImage={product.image}
-            ogType="product"
-            keywords={`smart blinds, ${product.name.toLowerCase()}, window automation, smart home`}
-          />
-        </Helmet>
+        <CroatianSEO
+          title={`${product.name} - Configure Your Smart Blind | Smartblinds Croatia`}
+          description={`Customize and order your ${product.name}. Choose colors, dimensions, and features. Free shipping on all orders.`}
+          ogImage={product.image}
+          pageType="product"
+          keywords={`smart blinds, ${product.name.toLowerCase()}, window automation, smart home`}
+          productData={{
+            name: product.name,
+            price: product.price.toString(),
+            currency: "EUR",
+            availability: "InStock",
+            condition: "NewCondition",
+            brand: "Smartblinds Croatia",
+            category: "Smart Blinds"
+          }}
+        />
       )}
       
       <ProductLoader

@@ -47,6 +47,10 @@ const loadStripeStandard = async (): Promise<Stripe | null> => {
   try {
     return await loadStripe(stripePublishableKey || '', {
       locale: 'auto',
+      // Disable Payment Request API in development to avoid permissions policy warnings
+      ...(window.location.hostname === 'localhost' && {
+        disableAdvancedFraudDetection: true,
+      }),
     });
   } catch (error) {
     console.warn('Standard Stripe loading failed:', error);
@@ -61,6 +65,10 @@ const loadStripePrivacyMode = async (): Promise<Stripe | null> => {
     return await loadStripe(stripePublishableKey || '', {
       locale: 'auto',
       // Minimal configuration for privacy browsers
+      // Disable Payment Request API in development
+      ...(window.location.hostname === 'localhost' && {
+        disableAdvancedFraudDetection: true,
+      }),
     });
   } catch (error) {
     console.warn('Privacy-mode loading failed:', error);
@@ -76,6 +84,10 @@ const loadStripeWithRetry = async (maxRetries: number = 3): Promise<Stripe | nul
       
       const stripe = await loadStripe(stripePublishableKey || '', {
         locale: 'auto',
+        // Disable Payment Request API in development
+        ...(window.location.hostname === 'localhost' && {
+          disableAdvancedFraudDetection: true,
+        }),
       });
       
       if (stripe) {
