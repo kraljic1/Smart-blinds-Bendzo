@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 
 // Types for structured data objects
 type WebsiteData = {
@@ -44,6 +43,7 @@ interface StructuredDataProps {
 
 /**
  * Component for adding structured data (JSON-LD) to pages for improved SEO
+ * Note: This component should be used within a Helmet component, not as a standalone wrapper
  */
 const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
   // Prepare the JSON-LD structured data based on the type
@@ -97,9 +97,7 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
   };
 
   return (
-    <Helmet>
-      <script type="application/ld+json">{JSON.stringify(getStructuredData())}</script>
-    </Helmet>
+    <script type="application/ld+json">{JSON.stringify(getStructuredData())}</script>
   );
 };
 

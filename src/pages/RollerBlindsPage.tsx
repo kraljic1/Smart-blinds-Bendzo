@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import ProductPageLayout from '../components/Product/ProductPageLayout';
+import SEO from '../components/SEO/SEO';
 import { usePageAnimations } from '../hooks/usePageAnimations';
 import { useProductGrouping } from '../hooks/useProductGrouping';
 // Import roller blinds data directly
@@ -59,23 +60,41 @@ const RollerBlindsPage = () => {
   };
 
   return (
-    <ProductPageLayout
-      heroTitle="Smart Roller Blinds"
-      heroDescription="Enhance your windows with our premium smart roller blinds collection. Elegant, functional, and designed to fit seamlessly into your home."
-      heroImage={rollerBlindsHero}
-      heroImageAlt="Smart roller blinds showcase"
-      pageTitle="Smart Roller Blinds"
-      pageDescription="Discover our collection of premium smart roller blinds designed for modern homes. Control your blinds with voice, app, or the smart hub."
-      breadcrumbItems={breadcrumbItems}
-      categoryId="roller"
-      allProducts={rollerBlinds}
-      filteredProducts={filteredProducts}
-      groupedProducts={groupedProducts}
-      isLoaded={isLoaded}
-      onFilteredProductsChange={setFilteredProducts}
-      onExploreClick={scrollToProducts}
-      structuredData={structuredData}
-    />
+    <>
+      <SEO
+        title="Smart Roller Blinds - Premium Window Automation | Smartblinds Croatia"
+        description="Discover our collection of premium smart roller blinds designed for modern homes. Control your blinds with voice, app, or the smart hub. Free shipping on all orders."
+        keywords="smart roller blinds, automated blinds, window automation, smart home, motorized blinds"
+        ogType="product"
+        ogImage={rollerBlindsHero}
+        product={{
+          price: "89.99",
+          currency: "EUR",
+          availability: "instock",
+          condition: "new",
+          brand: "Smartblinds Croatia",
+          category: "Smart Blinds"
+        }}
+      />
+      
+      <ProductPageLayout
+        heroTitle="Smart Roller Blinds"
+        heroDescription="Enhance your windows with our premium smart roller blinds collection. Elegant, functional, and designed to fit seamlessly into your home."
+        heroImage={rollerBlindsHero}
+        heroImageAlt="Smart roller blinds showcase"
+        pageTitle="Smart Roller Blinds"
+        pageDescription="Discover our collection of premium smart roller blinds designed for modern homes. Control your blinds with voice, app, or the smart hub."
+        breadcrumbItems={breadcrumbItems}
+        categoryId="roller"
+        allProducts={rollerBlinds}
+        filteredProducts={filteredProducts}
+        groupedProducts={groupedProducts}
+        isLoaded={isLoaded}
+        onFilteredProductsChange={setFilteredProducts}
+        onExploreClick={scrollToProducts}
+        structuredData={structuredData}
+      />
+    </>
   );
 };
 

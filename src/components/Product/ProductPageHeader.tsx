@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import Breadcrumb from '../Navigation/Breadcrumb';
-import StructuredData from '../SEO/StructuredData';
 
 interface BreadcrumbItem {
   label: string;
@@ -28,14 +27,13 @@ interface ProductPageHeaderProps {
 
 /**
  * Header component for product pages
- * Includes breadcrumb navigation, title, description, and structured data
+ * Includes breadcrumb navigation, title, and description
  */
 const ProductPageHeader: React.FC<ProductPageHeaderProps> = ({
   title,
   description,
   breadcrumbItems,
-  isLoaded,
-  structuredData
+  isLoaded
 }) => {
   const headingRef = useRef<HTMLHeadingElement>(null);
 
@@ -60,14 +58,6 @@ const ProductPageHeader: React.FC<ProductPageHeaderProps> = ({
       <p className={`text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
         {description}
       </p>
-      
-      {/* Structured data for better product representation in search results */}
-      {isLoaded && structuredData && (
-        <StructuredData
-          type="product"
-          data={structuredData}
-        />
-      )}
     </div>
   );
 };
