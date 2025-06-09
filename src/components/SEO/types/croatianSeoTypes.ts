@@ -12,6 +12,11 @@ export interface CroatianSEOProps {
   pageType?: PageType;
   productData?: ProductData;
   breadcrumbs?: Breadcrumb[];
+  ogImage?: string;
+  ogUrl?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
 }
 
 // Re-export types for convenience
