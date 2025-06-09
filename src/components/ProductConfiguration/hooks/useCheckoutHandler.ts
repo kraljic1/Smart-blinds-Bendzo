@@ -4,6 +4,7 @@ interface UseCheckoutHandlerProps {
   width: number | '';
   height: number | '';
   additionalCosts: { name: string; price: number }[];
+  // eslint-disable-next-line max-params
   onCheckout: (
     quantity: number, 
     width: number | '', 
@@ -28,6 +29,7 @@ export function useCheckoutHandler({
         height, 
         additionalCosts 
       });
+      
       onCheckout(quantity, width, height, additionalCosts, calculatedPrice);
     },
     [width, height, additionalCosts, onCheckout]
