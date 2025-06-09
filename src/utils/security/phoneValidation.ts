@@ -12,23 +12,26 @@ const containsSecurityThreats = (input: string): boolean => {
   return DANGEROUS_PATTERNS.some(pattern => lowerInput.includes(pattern.toLowerCase()));
 };
 
-// Phone number validation (enhanced)
-export const validatePhoneSecure = (phoneNumber: string, countryCode: string): ValidationResult => {
+// Basic input validation
+const validateBasicInput = (phoneNumber: string): string[] => {
   const errors: string[] = [];
   
   if (!phoneNumber || typeof phoneNumber !== 'string') {
-    return { isValid: false, errors: ['Phone number is required'] };
+    errors.push('Phone number is required');
+    return errors;
   }
   
-  // Length check
   if (phoneNumber.length > MAX_PHONE_LENGTH) {
     errors.push(`Phone number must be less than ${MAX_PHONE_LENGTH} characters`);
   }
   
-  // Sanitize input
-  const sanitizedPhone = DOMPurify.sanitize(phoneNumber.trim());
+  return errors;
+};
+
+// Security validation
+const validateSecurity = (sanitizedPhone: string): string[] => {
+  const errors: string[] = [];
   
-  // Security checks
   if (containsSecurityThreats(sanitizedPhone)) {
     errors.push('Phone number contains potentially malicious content');
   }
@@ -39,11 +42,13 @@ export const validatePhoneSecure = (phoneNumber: string, countryCode: string): V
     errors.push('Phone number contains invalid characters');
   }
   
-  // Basic phone validation (since phoneValidators module may not exist)
-  // Remove all non-digit characters for length check
-  const digitsOnly = sanitizedPhone.replace(/\D/g, '');
+  return errors;
+};
+
+// Length validation for digits
+const validateDigitLength = (digitsOnly: string): string[] => {
+  const errors: string[] = [];
   
-  // Check minimum and maximum length
   if (digitsOnly.length < 8) {
     errors.push('Phone number must have at least 8 digits');
   }
@@ -52,25 +57,55 @@ export const validatePhoneSecure = (phoneNumber: string, countryCode: string): V
     errors.push('Phone number must have at most 15 digits');
   }
   
-  // Croatian phone number specific validation
-  if (countryCode === 'HR' || countryCode === '+385') {
-    if (!digitsOnly.startsWith('385') && digitsOnly.length === 8) {
-      // Local Croatian number (8 digits)
-      if (!digitsOnly.match(/^[1-9]/)) {
-        errors.push('Invalid Croatian phone number format');
-      }
-    } else if (digitsOnly.startsWith('385') && digitsOnly.length === 11) {
-      // International Croatian number
-      const localPart = digitsOnly.substring(3);
-      if (!localPart.match(/^[1-9]/)) {
-        errors.push('Invalid Croatian phone number format');
-      }
+  return errors;
+};
+
+// Croatian phone number validation
+const validateCroatianPhone = (digitsOnly: string, countryCode: string): string[] => {
+  const errors: string[] = [];
+  
+  if (countryCode !== 'HR' && countryCode !== '+385') {
+    return errors;
+  }
+  
+  const isLocalNumber = !digitsOnly.startsWith('385') && digitsOnly.length === 8;
+  const isInternationalNumber = digitsOnly.startsWith('385') && digitsOnly.length === 11;
+  
+  if (isLocalNumber) {
+    if (!digitsOnly.match(/^[1-9]/)) {
+      errors.push('Invalid Croatian phone number format');
+    }
+  } else if (isInternationalNumber) {
+    const localPart = digitsOnly.substring(3);
+    if (!localPart.match(/^[1-9]/)) {
+      errors.push('Invalid Croatian phone number format');
     }
   }
   
+  return errors;
+};
+
+// Phone number validation (enhanced)
+export const validatePhoneSecure = (phoneNumber: string, countryCode: string): ValidationResult => {
+  // Basic input validation
+  const basicErrors = validateBasicInput(phoneNumber);
+  if (basicErrors.length > 0) {
+    return { isValid: false, errors: basicErrors };
+  }
+  
+  // Sanitize input
+  const sanitizedPhone = DOMPurify.sanitize(phoneNumber.trim());
+  
+  // Collect all validation errors
+  const allErrors = [
+    ...validateSecurity(sanitizedPhone),
+    ...validateDigitLength(sanitizedPhone.replace(/\D/g, '')),
+    ...validateCroatianPhone(sanitizedPhone.replace(/\D/g, ''), countryCode)
+  ];
+  
   return {
-    isValid: errors.length === 0,
+    isValid: allErrors.length === 0,
     sanitizedValue: sanitizedPhone,
-    errors
+    errors: allErrors
   };
 }; 
