@@ -51,8 +51,12 @@ export const usePaymentHandling = (
         getTotalPrice
       });
 
-      safeLog.info('Setting order details');
-      setPaymentState(prev => ({ ...prev, orderDetails }));
+      safeLog.info('Setting order details and marking order as complete');
+      setPaymentState(prev => ({ 
+        ...prev, 
+        orderDetails,
+        orderComplete: true 
+      }));
       
       // Set order in context for Thank You page
       console.log('[CHECKOUT] Setting order in context for Thank You page');
@@ -71,14 +75,22 @@ export const usePaymentHandling = (
       // Clear basket
       clearBasket();
       
-      // Navigate to Thank You page
-      console.log('[CHECKOUT] Navigating to Thank You page');
-      safeLog.info('Navigating to Thank You page');
-      navigate('/thank-you');
+      // Use setTimeout to ensure state updates are processed before navigation
+      setTimeout(() => {
+        console.log('[CHECKOUT] Navigating to Thank You page');
+        safeLog.info('Navigating to Thank You page');
+        navigate('/thank-you');
+      }, 100);
 
     } catch (error) {
       safeLog.error('Error in payment success handling', error);
       safeLog.warn('Payment succeeded but order save failed - this needs manual intervention');
+      
+      // Even if order saving fails, we should still navigate to thank you page
+      // since the payment was successful
+      console.log('[CHECKOUT] Order save failed but payment succeeded, still navigating to thank you page');
+      setError('Payment successful, but there was an issue saving your order. Please contact support with your payment confirmation.');
+      navigate('/thank-you');
     }
   };
 
