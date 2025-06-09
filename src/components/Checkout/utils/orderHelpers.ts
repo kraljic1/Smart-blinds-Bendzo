@@ -1,38 +1,73 @@
 import { safeLog } from '../../../utils/errorHandler';
 import { FormData } from '../CheckoutFormTypes';
 import { BasketItem } from '../../../hooks/useBasket';
-import { CustomerData, MappedItem, ConfirmPaymentData } from './orderTypes';
+import { CustomerData, MappedItem, ConfirmPaymentData, SupabaseOrderData } from './orderTypes';
 
 /**
- * Logs order preparation details for debugging
+ * Validates required form data fields
  */
-export const logOrderPreparation = (items: BasketItem[]): void => {
-  console.log('[CHECKOUT] Preparing confirmation data');
-  console.log('[CHECKOUT] Items being saved:', items);
-  console.log('[CHECKOUT] Items details:', items.map(item => ({
-    id: item.product.id,
-    name: item.product.name,
-    price: item.product.price,
-    quantity: item.quantity
-  })));
-  safeLog.info('Payment successful');
+const validateRequiredFields = (formData: FormData): void => {
+  const requiredFields = [
+    { field: 'fullName', name: 'Full Name' },
+    { field: 'email', name: 'Email' },
+    { field: 'phoneCode', name: 'Phone Code' },
+    { field: 'phoneNumber', name: 'Phone Number' },
+    { field: 'address', name: 'Address' },
+    { field: 'shippingMethod', name: 'Shipping Method' }
+  ];
+
+  const missingFields = requiredFields.filter(({ field }) => {
+    const value = formData[field];
+    return !value || (typeof value === 'string' && value.trim() === '');
+  });
+
+  if (missingFields.length > 0) {
+    const fieldNames = missingFields.map(({ name }) => name).join(', ');
+    throw new Error(`Missing required fields: ${fieldNames}`);
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.email)) {
+    throw new Error('Invalid email format');
+  }
+
+  // Validate R1 invoice requirements
+  if (formData.needsR1Invoice) {
+    if (!formData.companyName || formData.companyName.trim() === '') {
+      throw new Error('Company name is required for R1 invoice');
+    }
+    if (!formData.companyOib || formData.companyOib.trim() === '') {
+      throw new Error('Company OIB is required for R1 invoice');
+    }
+  }
+};
+
+/**
+ * Logs payment success for audit purposes
+ */
+export const logPaymentSuccess = (): void => {
+  safeLog.info('Payment completed successfully');
 };
 
 /**
  * Creates customer data object from form data
  */
 export const createCustomerData = (formData: FormData): CustomerData => {
+  // Validate required fields before creating customer data
+  validateRequiredFields(formData);
+
   return {
-    fullName: formData.fullName,
-    email: formData.email,
+    fullName: formData.fullName.trim(),
+    email: formData.email.trim().toLowerCase(),
     phone: `${formData.phoneCode}${formData.phoneNumber}`,
-    address: formData.address,
-    shippingAddress: formData.shippingAddress || formData.address,
+    address: formData.address.trim(),
+    shippingAddress: formData.shippingAddress?.trim() || formData.address.trim(),
     paymentMethod: 'Credit/Debit Card',
     shippingMethod: formData.shippingMethod,
     needsR1Invoice: formData.needsR1Invoice,
-    companyName: formData.companyName,
-    companyOib: formData.companyOib
+    companyName: formData.companyName?.trim() || undefined,
+    companyOib: formData.companyOib?.trim() || undefined
   };
 };
 
@@ -40,31 +75,33 @@ export const createCustomerData = (formData: FormData): CustomerData => {
  * Maps basket items to API format
  */
 export const mapItemsForAPI = (items: BasketItem[]): MappedItem[] => {
-  return items.map(item => {
-    console.log('[CHECKOUT] Mapping item for API:', item);
-    const mappedItem = {
-      productId: item.product.id,
-      productName: item.product.name,
-      quantity: item.quantity,
-      price: item.product.price,
-      options: item.options
-    };
-    console.log('[CHECKOUT] Mapped item:', mappedItem);
-    return mappedItem;
-  });
+  return items.map(item => ({
+    productId: item.product.id,
+    productName: item.product.name,
+    quantity: item.quantity,
+    price: item.product.price,
+    options: item.options
+  }));
 };
+
+/**
+ * Parameters for creating confirmation payment data
+ */
+interface ConfirmPaymentParams {
+  paymentIntentId: string;
+  formData: FormData;
+  items: BasketItem[];
+  getTotalPrice: () => number;
+  getShippingCost: () => number;
+}
 
 /**
  * Creates confirmation payment data structure
  */
-export const createConfirmPaymentData = (
-  paymentIntentId: string,
-  formData: FormData,
-  items: BasketItem[],
-  getTotalPrice: () => number,
-  getShippingCost: () => number
-): ConfirmPaymentData => {
-  const confirmPaymentData = {
+export const createConfirmPaymentData = (params: ConfirmPaymentParams): ConfirmPaymentData => {
+  const { paymentIntentId, formData, items, getTotalPrice, getShippingCost } = params;
+  
+  return {
     paymentIntentId,
     customer: createCustomerData(formData),
     items: mapItemsForAPI(items),
@@ -73,11 +110,6 @@ export const createConfirmPaymentData = (
     taxAmount: 0,
     shippingCost: getShippingCost()
   };
-
-  console.log('[CHECKOUT] Confirm payment data:', confirmPaymentData);
-  console.log('[CHECKOUT] Confirm payment data items:', confirmPaymentData.items);
-  
-  return confirmPaymentData;
 };
 
 /**
@@ -88,15 +120,22 @@ export const generateOrderId = (): string => {
 };
 
 /**
+ * Parameters for creating order data
+ */
+interface OrderDataParams {
+  orderId: string;
+  formData: FormData;
+  paymentIntentId: string;
+  getTotalPrice: () => number;
+  getShippingCost: () => number;
+}
+
+/**
  * Creates order data for Supabase
  */
-export const createOrderData = (
-  orderId: string,
-  formData: FormData,
-  paymentIntentId: string,
-  getTotalPrice: () => number,
-  getShippingCost: () => number
-) => {
+export const createOrderData = (params: OrderDataParams): SupabaseOrderData => {
+  const { orderId, formData, paymentIntentId, getTotalPrice, getShippingCost } = params;
+  
   return {
     order_id: orderId,
     customer_name: formData.fullName,
@@ -125,19 +164,14 @@ export const createOrderData = (
  * Maps items for Supabase format
  */
 export const mapItemsForSupabase = (items: BasketItem[], orderId: number) => {
-  return items.map(item => {
-    console.log('[CHECKOUT-SUPABASE] Mapping item for Supabase:', item);
-    const mappedItem = {
-      order_id: orderId,
-      product_id: item.product.id,
-      product_name: item.product.name,
-      product_image: item.product.image,
-      quantity: item.quantity,
-      unit_price: item.product.price,
-      subtotal: item.product.price * item.quantity,
-      options: item.options
-    };
-    console.log('[CHECKOUT-SUPABASE] Mapped item for Supabase:', mappedItem);
-    return mappedItem;
-  });
+  return items.map(item => ({
+    order_id: orderId,
+    product_id: item.product.id,
+    product_name: item.product.name,
+    product_image: item.product.image,
+    quantity: item.quantity,
+    unit_price: item.product.price,
+    subtotal: item.product.price * item.quantity,
+    options: item.options
+  }));
 }; 

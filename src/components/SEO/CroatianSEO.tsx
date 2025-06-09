@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import SEO from './SEO';
 import { CroatianSEOProps } from './types/croatianSeoTypes';
 import { generateStructuredData } from './utils/structuredDataHelpers';
@@ -34,19 +33,15 @@ export default function CroatianSEO({
   const seoProductData = transformProductDataForSEO(productData);
 
   return (
-    <>
-      <SEO
-        title={title}
-        description={description}
-        keywords={croatianKeywords}
-        ogType={ogType}
-        product={seoProductData}
-      />
-      
-      <Helmet>
-        <CroatianMetaTags />
-        <StructuredDataScript data={structuredData} />
-      </Helmet>
-    </>
+    <SEO
+      title={title}
+      description={description}
+      keywords={croatianKeywords}
+      ogType={ogType}
+      product={seoProductData}
+    >
+      <CroatianMetaTags />
+      <StructuredDataScript data={structuredData} />
+    </SEO>
   );
 } 

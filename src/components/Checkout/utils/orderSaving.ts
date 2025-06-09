@@ -1,6 +1,6 @@
 import { safeLog } from '../../../utils/errorHandler';
 import { OrderSaveData } from './orderTypes';
-import { logOrderPreparation, createConfirmPaymentData, generateOrderId } from './orderHelpers';
+import { createConfirmPaymentData, generateOrderId } from './orderHelpers';
 import { testNetlifyFunction, saveOrderViaNetlify, saveOrderToSupabase } from './orderServices';
 
 /**
@@ -14,48 +14,65 @@ export const saveOrderToDatabase = async ({
   getTotalPrice,
   getShippingCost
 }: OrderSaveData): Promise<string> => {
-  logOrderPreparation(items);
+  safeLog.info('Starting order save process', { 
+    itemCount: items.length, 
+    paymentIntentId,
+    totalAmount: getTotalPrice()
+  });
   
-  const confirmPaymentData = createConfirmPaymentData(
+  const confirmPaymentData = createConfirmPaymentData({
     paymentIntentId,
     formData,
     items,
     getTotalPrice,
     getShippingCost
-  );
+  });
 
   let orderId = '';
-  let orderSaved = false;
 
   try {
     // Try to use Netlify function first
     const isNetlifyAvailable = await testNetlifyFunction();
     
     if (isNetlifyAvailable) {
+      safeLog.info('Netlify function available, attempting to save order via Netlify');
       orderId = await saveOrderViaNetlify(confirmPaymentData);
-      orderSaved = true;
+      safeLog.info('Order saved successfully via Netlify', { orderId });
+      return orderId;
     } else {
-      throw new Error('Function not available');
+      throw new Error('Netlify function not available');
     }
-  } catch {
-    safeLog.warn('Netlify function check failed, falling back to direct Supabase save');
+  } catch (netlifyError) {
+    safeLog.warn('Netlify function save failed, falling back to direct Supabase save', { 
+      error: netlifyError instanceof Error ? netlifyError.message : 'Unknown error',
+      paymentIntentId 
+    });
     
     // Fallback to direct Supabase save
     try {
       orderId = generateOrderId();
-      await saveOrderToSupabase(orderId, formData, items, paymentIntentId, getTotalPrice, getShippingCost);
-      orderSaved = true;
+      safeLog.info('Attempting direct Supabase save', { orderId });
+      await saveOrderToSupabase({
+        orderId,
+        formData,
+        items,
+        paymentIntentId,
+        getTotalPrice,
+        getShippingCost
+      });
+      safeLog.info('Order saved successfully via Supabase fallback', { orderId });
+      return orderId;
     } catch (supabaseError) {
-      safeLog.error('Failed to save order via Supabase fallback', supabaseError);
+      safeLog.error('Failed to save order via Supabase fallback', { 
+        error: supabaseError instanceof Error ? supabaseError.message : 'Unknown error',
+        paymentIntentId,
+        orderId 
+      });
+      safeLog.warn('Payment succeeded but order save failed - this needs manual intervention', {
+        paymentIntentId,
+        customerEmail: formData.email
+      });
       throw supabaseError;
     }
   }
-
-  if (!orderSaved) {
-    safeLog.error('Failed to save order to database via both methods');
-    safeLog.warn('Payment succeeded but order save failed - this needs manual intervention');
-    throw new Error('Order save failed');
-  }
-
-  return orderId;
 }; 

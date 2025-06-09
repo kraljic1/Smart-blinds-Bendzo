@@ -33,9 +33,26 @@ interface StripeCheckoutContentProps extends PaymentFormProps {
 export const StripeCheckoutContent = (props: StripeCheckoutContentProps) => {
   const { amount, currency, clientSecret, onPaymentSuccess, onPaymentError, disabled, stripePromise } = props;
 
-  // Check for special states first
-  const specialState = <StripeStateRenderer {...props} />;
-  if (specialState) return specialState;
+  // Check for special states first - these conditions match StripeStateRenderer logic
+  if (props.cookieConsent === 'pending' && props.browserInfo?.isPrivacyMode) {
+    return <StripeStateRenderer {...props} />;
+  }
+  
+  if (props.showTroubleshooting) {
+    return <StripeStateRenderer {...props} />;
+  }
+  
+  if (props.cookieConsent === 'declined') {
+    return <StripeStateRenderer {...props} />;
+  }
+  
+  if (!props.stripeLoaded) {
+    return <StripeStateRenderer {...props} />;
+  }
+  
+  if (!props.stripeAvailable || !props.stripePromise) {
+    return <StripeStateRenderer {...props} />;
+  }
 
   // Normal flow: render Stripe payment form
   const options = createStripeOptions({ amount, currency });
