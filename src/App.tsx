@@ -1,23 +1,28 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { BasketProvider } from './context/BasketProvider';
-import { LikedProvider } from './context/LikedProvider';
-import { OrderProvider } from './context/OrderProvider';
 import { ToastProvider } from './context/ToastProvider';
-import { lazy } from 'react';
+import { BasketProvider } from './context/BasketContext';
+import { LikedProvider } from './context/LikedContext';
+import { OrderProvider } from './context/OrderContext';
+import TouchFriendly from './components/UI/TouchFriendly';
 import Layout from './components/Layout/Layout';
 import Header from './components/Layout/Header';
 import Footer from './components/Layout/Footer';
-import { TouchFriendly } from './components/UI/TouchFriendly';
+import ScrollToTop from './utils/ScrollToTop';
 import SEOAnalyzer from './components/SEO/SEOAnalyzer';
 import AdminRoute from './components/AdminRoute/AdminRoute';
 import { preventOverscroll } from './utils/preventOverscroll';
-import ScrollToTop from './utils/ScrollToTop';
-import { PageLoader } from './components/UI';
 
 // Import React warning handler for development
 import './utils/reactWarningHandler';
+
+// Simple loading component for Suspense fallback
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+  </div>
+);
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage'));
