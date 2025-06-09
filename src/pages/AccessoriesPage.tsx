@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO/SEO';
 import '../styles/AccessoriesPage.css';
 import { accessories } from '../data/accessories';
@@ -18,11 +19,13 @@ const AccessoriesPage: React.FC = () => {
 
   return (
     <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <SEO
-        title="Smart Home Accessories | Smartblinds"
-        description="Discover our range of smart home accessories including remote controls, WiFi bridges, and more."
-        keywords="smart accessories, remote control, wifi bridge, smart home"
-      />
+      <Helmet>
+        <SEO
+          title="Smart Home Accessories | Smartblinds"
+          description="Discover our range of smart home accessories including remote controls, WiFi bridges, and more."
+          keywords="smart accessories, remote control, wifi bridge, smart home"
+        />
+      </Helmet>
       
       {/* Hero Section */}
       <div className={`relative h-[30vh] sm:h-[35vh] md:h-[40vh] mb-12 md:mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>

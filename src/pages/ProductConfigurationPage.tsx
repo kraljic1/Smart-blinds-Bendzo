@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Product } from '../types/product';
 import SEO from '../components/SEO/SEO';
 import { getProductsByCategory } from '../hooks/useProductFilter';
@@ -97,13 +98,15 @@ const ProductConfigurationPage = () => {
   return (
     <div className="pt-20 pb-24 sm:pt-24 sm:pb-32">
       {product && (
-        <SEO
-          title={`${product.name} - Configure Your Smart Blind | Smartblinds Croatia`}
-          description={`Customize and order your ${product.name}. Choose colors, dimensions, and features. Free shipping on all orders.`}
-          ogImage={product.image}
-          ogType="product"
-          keywords={`smart blinds, ${product.name.toLowerCase()}, window automation, smart home`}
-        />
+        <Helmet>
+          <SEO
+            title={`${product.name} - Configure Your Smart Blind | Smartblinds Croatia`}
+            description={`Customize and order your ${product.name}. Choose colors, dimensions, and features. Free shipping on all orders.`}
+            ogImage={product.image}
+            ogType="product"
+            keywords={`smart blinds, ${product.name.toLowerCase()}, window automation, smart home`}
+          />
+        </Helmet>
       )}
       
       <ProductLoader
