@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO/SEO';
 import { useBasketContext } from '../hooks/useBasketContext';
 import { useOrderContext } from '../context/useOrderContext';
@@ -50,10 +51,12 @@ const ThankYouPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
-      <SEO 
-        title="Hvala vam na narudžbi | Smartblinds Croatia"
-        description="Vaša narudžba je uspješno poslana."
-      />
+      <Helmet>
+        <SEO 
+          title="Hvala vam na narudžbi | Smartblinds Croatia"
+          description="Vaša narudžba je uspješno poslana."
+        />
+      </Helmet>
       
       <div className="max-w-4xl mx-auto">
         <OrderSuccessHeader />

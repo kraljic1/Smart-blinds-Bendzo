@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import ProductPageLayout from '../components/Product/ProductPageLayout';
 import SEO from '../components/SEO/SEO';
 import { usePageAnimations } from '../hooks/usePageAnimations';
@@ -60,7 +61,9 @@ const RollerBlindsPage = () => {
 
   return (
     <>
-      <SEO {...PAGE_DATA.seo} ogType="product" ogImage={rollerBlindsHero} />
+      <Helmet>
+        <SEO {...PAGE_DATA.seo} ogType="product" ogImage={rollerBlindsHero} />
+      </Helmet>
       <ProductPageLayout
         {...PAGE_DATA.content}
         heroImage={rollerBlindsHero}

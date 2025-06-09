@@ -1,5 +1,4 @@
 // React import not needed with new JSX transform
-import { Helmet } from 'react-helmet-async';
 import { SEOProps } from './types/seoTypes';
 import { resolveMetaUrl, resolveOgImage } from './utils/metaTagHelpers';
 import { BasicMetaTags } from './components/BasicMetaTags';
@@ -9,6 +8,8 @@ import { AdditionalTags } from './components/AdditionalTags';
 
 /**
  * Main SEO component that orchestrates all meta tags for optimal search engine optimization
+ * Note: This component no longer wraps content in Helmet to prevent nesting issues.
+ * Pages should wrap this component in their own Helmet.
  */
 export default function SEO({
   title,
@@ -31,7 +32,7 @@ export default function SEO({
   const metaOgImage = resolveOgImage(ogImage);
 
   return (
-    <Helmet>
+    <>
       <BasicMetaTags
         title={title}
         description={description}
@@ -61,6 +62,6 @@ export default function SEO({
       
       {/* Additional Meta Tags */}
       {children}
-    </Helmet>
+    </>
   );
 } 

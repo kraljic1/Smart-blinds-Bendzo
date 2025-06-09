@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { EnhancedCheckoutForm } from '../components/Checkout/EnhancedCheckoutForm';
 import SEO from '../components/SEO/SEO';
 import Breadcrumb from '../components/Navigation/Breadcrumb';
@@ -15,10 +16,12 @@ export default function CheckoutPage() {
   
   return (
     <>
-      <SEO 
-        title="Narudžba | Smartblinds Croatia"
-        description="Dovršite vašu narudžbu unosom podataka za dostavu i kontakt."
-      />
+      <Helmet>
+        <SEO 
+          title="Narudžba | Smartblinds Croatia"
+          description="Dovršite vašu narudžbu unosom podataka za dostavu i kontakt."
+        />
+      </Helmet>
       <div className="container mx-auto px-4 pt-24 pb-8">
         <div className="mb-6">
           <Breadcrumb
