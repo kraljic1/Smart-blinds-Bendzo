@@ -1,15 +1,8 @@
-import { useEffect, useRef, useMemo } from 'react';
-import { Sun, Moon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import { Product } from '../../types/product';
-import {
-  CardRoot,
-  CardImage,
-  CardContent,
-  CardTitle,
-  CardPrice,
-  CardActions,
-} from '../Card';
+import { CardRoot, CardContent, CardPrice } from '../Card';
+import { ProductCardImage, ProductCardContent, ProductCardActions } from './components';
+import { useProductCardHandlers } from './hooks';
 
 interface ProductCardProps {
   product: Product;
@@ -24,125 +17,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onRequestSample,
   configureButtonText = "Configure & Buy" 
 }) => {
-  const navigate = useNavigate();
-  const colorSwatchRef = useRef<HTMLDivElement>(null);
-
-  const handleConfigure = () => {
-    if (onConfigure) {
-      onConfigure(product);
-    } else {
-      navigate(`/products/configure/${product.id}`);
-    }
-  };
-
-  const handleRequestSample = () => {
-    if (onRequestSample) {
-      onRequestSample(product);
-    }
-  };
-
-  // Handle card click - same as configure action
-  const handleCardClick = () => {
-    handleConfigure();
-  };
-
-  // Handle button clicks with event propagation prevention
-  const handleConfigureClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    handleConfigure();
-  };
-
-  const handleRequestSampleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    handleRequestSample();
-  };
-
-  // Check if product has an image with "4.webp" or "4.jpg" (fabric detail image)
-  const hasFabricImage = useMemo((): boolean => {
-    // Always use the last image if images array exists and has items
-    return !!(product.images && product.images.length > 0);
-  }, [product.images]);
-
-  // Get the fabric image (last image in the array, except for glider-track which uses index 2)
-  const getFabricImage = (): string | null => {
-    if (!product.images || product.images.length === 0) return null;
-    
-    // Special case for glider-track: use the third image (index 2) which shows colors
-    if (product.id === 'glider-track' && product.images.length > 2) {
-      return product.images[2];
-    }
-    
-    // For all other products: return the last image (typically the fabric detail image)
-    return product.images[product.images.length - 1];
-  };
-
-  // Set background color for products without fabric image
-  useEffect(() => {
-    if (!hasFabricImage && colorSwatchRef.current && product.fabricColor) {
-      colorSwatchRef.current.style.backgroundColor = product.fabricColor;
-    }
-  }, [product.fabricColor, hasFabricImage]);
+  // Custom hook for handling card interactions
+  const { handleConfigure, handleRequestSample, handleCardClick } = useProductCardHandlers({
+    product,
+    onConfigure,
+    onRequestSample
+  });
 
   return (
     <CardRoot 
       className="h-full flex flex-col cursor-pointer" 
       onClick={handleCardClick}
     >
-      <div className="relative">
-        <CardImage src={product.image} alt={product.name} />
-        <div className="absolute bottom-4 right-4">
-          {hasFabricImage ? (
-            <img
-              src={getFabricImage()!}
-              alt={`${product.name} fabric`}
-              className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch object-cover"
-            />
-          ) : (
-            <div
-              ref={colorSwatchRef}
-              className="w-12 h-12 rounded-full border-4 border-white dark:border-gray-800 shadow-md product-color-swatch"
-              data-color={product.fabricColor}
-            />
-          )}
-        </div>
-      </div>
+      {/* Product Image with Color Swatch */}
+      <ProductCardImage product={product} />
 
       <CardContent className="flex-grow flex flex-col min-h-[280px]">
-        {/* Product title - Fixed height container */}
-        <div className="h-16 mb-3">
-          <CardTitle className="line-clamp-2 h-full flex items-start">
-            {product.name.toUpperCase()}
-          </CardTitle>
-        </div>
-
-        {/* Feature badges - Fixed height container */}
-        <div className="h-12 mb-3 flex items-start">
-          <div className="flex items-center space-x-2 flex-wrap gap-1">
-            {product.features.map((feature: string, i: number) => (
-              <span
-                key={i}
-                className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-3 py-1 rounded-full text-sm uppercase"
-              >
-                {feature === 'Light filtering' ? (
-                  <Sun className="w-4 h-4 mr-1 inline" />
-                ) : (
-                  <Moon className="w-4 h-4 mr-1 inline" />
-                )}
-                {feature}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Colors info - Fixed height container */}
-        <div className="h-8 mb-4 flex items-start">
-          <span className="text-sm text-gray-600 dark:text-gray-400 uppercase">
-            +{product.colors} {product.colors === 1 ? 'COLOR' : 'COLORS'}
-          </span>
-        </div>
-
-        {/* Spacer to push price and buttons to bottom */}
-        <div className="flex-grow"></div>
+        {/* Product Content (Title, Features, Colors) */}
+        <ProductCardContent product={product} />
 
         {/* Price - Fixed position from bottom */}
         <CardPrice
@@ -151,24 +43,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
           className="mb-4"
         />
 
-        {/* Action buttons - Fixed position at bottom */}
-        <CardActions>
-          <button
-            onClick={handleConfigureClick}
-            className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600"
-          >
-            {configureButtonText}
-          </button>
-          
-          {onRequestSample && (
-            <button
-              onClick={handleRequestSampleClick}
-              className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
-            >
-              Request Sample
-            </button>
-          )}
-        </CardActions>
+        {/* Action Buttons - Fixed position at bottom */}
+        <ProductCardActions
+          product={product}
+          onConfigure={handleConfigure}
+          onRequestSample={onRequestSample ? handleRequestSample : undefined}
+          configureButtonText={configureButtonText}
+        />
       </CardContent>
     </CardRoot>
   );
