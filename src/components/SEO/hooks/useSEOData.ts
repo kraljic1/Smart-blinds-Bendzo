@@ -4,7 +4,7 @@ import { generateCroatianKeywords } from '../utils/croatianSeoHelpers';
 import { resolveMetaUrl, resolveOgImage, generateRobotsContent, generateCopyrightText } from '../utils/metaTagHelpers';
 
 interface UseSEODataReturn {
-  structuredData: any;
+  structuredData: Record<string, unknown> | Record<string, unknown>[];
   croatianKeywords: string;
   metaOgUrl: string;
   metaCanonicalUrl: string;

@@ -10,42 +10,17 @@ import {
 
 /**
  * Croatian SEO component that provides localized SEO optimization for Croatian market
- * Fixed to avoid Helmet nesting issues - all meta tags are directly inside Helmet
  */
-export default function CroatianSEO({
-  title,
-  description,
-  keywords,
-  ogType = 'website',
-  pageType = 'info',
-  productData,
-  breadcrumbs,
-  ogImage,
-  ogUrl,
-  canonicalUrl,
-  noindex = false,
-  nofollow = false
-}: CroatianSEOProps) {
-  
+export default function CroatianSEO(props: CroatianSEOProps) {
   const {
-    structuredData,
-    croatianKeywords,
-    metaOgUrl,
-    metaCanonicalUrl,
-    metaOgImage,
-    robotsContent,
-    copyrightText
-  } = useSEOData({
-    keywords,
-    pageType,
-    description,
-    productData,
-    breadcrumbs,
-    ogUrl,
-    canonicalUrl,
-    ogImage,
-    noindex,
-    nofollow
+    title, description, keywords, ogType = 'website', pageType = 'info',
+    productData, breadcrumbs, ogImage, ogUrl, canonicalUrl,
+    noindex = false, nofollow = false
+  } = props;
+  
+  const seoData = useSEOData({
+    keywords, pageType, description, productData, breadcrumbs,
+    ogUrl, canonicalUrl, ogImage, noindex, nofollow
   });
 
   return (
@@ -53,24 +28,21 @@ export default function CroatianSEO({
       <CroatianBasicMetaTags
         title={title}
         description={description}
-        croatianKeywords={croatianKeywords}
-        robotsContent={robotsContent}
-        copyrightText={copyrightText}
+        croatianKeywords={seoData.croatianKeywords}
+        robotsContent={seoData.robotsContent}
+        copyrightText={seoData.copyrightText}
       />
-      
       <CroatianSocialMetaTags
         title={title}
         description={description}
         ogType={ogType}
-        metaOgUrl={metaOgUrl}
-        metaOgImage={metaOgImage}
+        metaOgUrl={seoData.metaOgUrl}
+        metaOgImage={seoData.metaOgImage}
       />
-      
       <CroatianLocalBusinessMetaTags />
-      
       <CroatianLinksAndStructuredData
-        metaCanonicalUrl={metaCanonicalUrl}
-        structuredData={structuredData}
+        metaCanonicalUrl={seoData.metaCanonicalUrl}
+        structuredData={seoData.structuredData}
       />
     </Helmet>
   );

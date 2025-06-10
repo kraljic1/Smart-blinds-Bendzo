@@ -1,6 +1,6 @@
 interface CroatianLinksAndStructuredDataProps {
   metaCanonicalUrl: string;
-  structuredData: any;
+  structuredData: Record<string, unknown> | Record<string, unknown>[];
 }
 
 export const CroatianLinksAndStructuredData: React.FC<CroatianLinksAndStructuredDataProps> = ({
