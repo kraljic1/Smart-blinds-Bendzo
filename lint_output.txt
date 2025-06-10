@@ -1,0 +1,372 @@
+
+> vite-react-typescript-starter@0.0.0 lint
+> eslint .
+
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/App.tsx
+  55:1  warning  Function 'App' has too many lines (81). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/AdminHeader.tsx
+  13:49  warning  Arrow function has too many lines (56). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/DeleteOrderDialog.tsx
+  13:61  warning  Arrow function has too many lines (60). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/NotificationToast.tsx
+  13:61  warning  Arrow function has too many lines (59). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/OrderTable.tsx
+  21:47  warning  Arrow function has too many lines (54). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/OrdersPageLayout.tsx
+  30:59  warning  Arrow function has too many lines (57). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/OrdersTable.tsx
+  8:49  warning  Arrow function has too many lines (88). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/SecurityFilters.tsx
+  14:57  warning  Arrow function has too many lines (66). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Admin/hooks/useOrderDeletion.ts
+  22:33  warning  Arrow function has too many lines (54). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/AdminList.tsx
+  20:45  warning  Arrow function has too many lines (108). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/AdminRoute.tsx
+  10:47  warning  Arrow function has too many lines (71). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/CustomerInfo.tsx
+  14:51  warning  Arrow function has too many lines (113). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/ForcePasswordChange.tsx
+  13:65  warning  Arrow function has too many lines (86). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/OrderItems.tsx
+  24:47  warning  Arrow function has too many lines (81). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/OrderStatusUpdate.tsx
+  13:61  warning  Arrow function has too many lines (122). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/components/TemporaryPasswordDisplay.tsx
+  8:75  warning  Arrow function has too many lines (52). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/AdminRoute/hooks/useAdminActions.ts
+  19:32  warning  Arrow function has too many lines (63). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Basket/Basket.tsx
+  7:8  warning  Function 'Basket' has too many lines (51). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Basket/BasketItem.tsx
+  11:8  warning  Function 'BasketItem' has too many lines (104). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/BillingAddressSection.tsx
+  6:95  warning  Arrow function has too many lines (78). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/BraveBrowserGuide.tsx
+  7:8  warning  Function 'BraveBrowserGuide' has too many lines (108). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/CheckoutForm.tsx
+  8:8  warning  Function 'CheckoutForm' has too many lines (93). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/CheckoutFormFields.tsx
+  18:63  warning  Arrow function has too many lines (90). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/CompanyInfoSection.tsx
+  6:92  warning  Arrow function has too many lines (67). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/CookieConsentNotice.tsx
+  9:8  warning  Function 'CookieConsentNotice' has too many lines (105). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/CustomerInfoSection.tsx
+  5:93  warning  Arrow function has too many lines (52). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/EnhancedCheckoutForm.tsx
+  14:8  warning  Function 'EnhancedCheckoutForm' has too many lines (117). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/OrderSummarySection.tsx
+  9:65  warning  Arrow function has too many lines (53). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/PaymentSuccessMessage.tsx
+  7:69  warning  Arrow function has too many lines (51). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/ShippingAddressSection.tsx
+  5:96  warning  Arrow function has too many lines (72). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/components/BillingAddressForm.tsx
+  17:63  warning  Arrow function has too many lines (75). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/components/BillingAddressSection.tsx
+  21:69  warning  Arrow function has too many lines (75). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/components/CheckoutFormFields.tsx
+  22:63  warning  Arrow function has too many lines (52). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/hooks/useCheckoutState.ts
+  12:33  warning  Arrow function has too many lines (57). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/hooks/useFormSubmission.ts
+  12:3  warning  Arrow function has too many parameters (5). Maximum allowed is 4  max-params
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/hooks/usePaymentHandling.ts
+  16:35  warning  Arrow function has too many lines (87). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/hooks/useStripePayment.ts
+  102:8  warning  Function 'useStripePayment' has too many lines (53). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/useCheckoutForm.ts
+  44:32  warning  Arrow function has too many lines (59). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/utils/orderDetails.ts
+  56:35  warning  Arrow function has too many lines (59). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Checkout/utils/orderSaving.ts
+  10:36  warning  Async arrow function has too many lines (62). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Features/InfoSection.tsx
+  18:49  warning  Arrow function has too many lines (53). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Features/index.tsx
+  5:18  warning  Arrow function has too many lines (117). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Filters/FilterPanel.tsx
+  13:43  warning  Arrow function has too many lines (71). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Hero/HeroBackground.tsx
+  4:55  warning  Arrow function has too many lines (78). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Hero/HeroContent.tsx
+  6:49  warning  Arrow function has too many lines (77). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Hero/index.tsx
+  13:35  warning  Arrow function has too many lines (78). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Layout/Navbar.tsx
+  5:16  warning  Arrow function has too many lines (81). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Liked/LikedIcon.tsx
+  8:36  warning  Arrow function has too many lines (76). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Navigation/MobileMenu.tsx
+  13:47  warning  Arrow function has too many lines (60). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Navigation/MobileMenuWrapper.tsx
+  11:61  warning  Arrow function has too many lines (54). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Notification/Toast.tsx
+  15:44  warning  Arrow function has too many lines (69). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Order/CustomerInformation.tsx
+  9:65  warning  Arrow function has too many lines (82). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Order/OrderItemsTable.tsx
+  9:57  warning  Arrow function has too many lines (62). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/PriceCalculator.tsx
+  14:25  warning  Arrow function has too many lines (78). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/PrivacyPolicy/CookiesAndPaymentSection.tsx
+  3:44  warning  Arrow function has too many lines (65). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/PrivacyPolicy/DataCollectionSection.tsx
+  3:41  warning  Arrow function has too many lines (51). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/PrivacyPolicy/RightsAndContactSection.tsx
+  3:43  warning  Arrow function has too many lines (79). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Product/ModernProductCard.tsx
+  16:61  warning  Arrow function has too many lines (58). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Product/PriceCalculator.tsx
+  14:25  warning  Arrow function has too many lines (108). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Product/PriceDemo.tsx
+  7:19  warning  Arrow function has too many lines (110). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Product/ProductCardContent.tsx
+  15:63  warning  Arrow function has too many lines (82). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Product/ProductOptionsModal.tsx
+  19:65  warning  Arrow function has too many lines (59). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Product/ProductShowcase.tsx
+  4:25  warning  Arrow function has too many lines (51). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/ProductConfiguration/DimensionInputs.tsx
+  18:25  warning  Arrow function has too many lines (63). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/ProductConfiguration/ProductConfigurationUtils.ts
+  16:3   warning  Arrow function has too many parameters (7). Maximum allowed is 4  max-params
+  60:53  warning  Arrow function has too many parameters (5). Maximum allowed is 4  max-params
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/ProductConfiguration/ProductConfigurationWrapper.tsx
+  25:37  warning  Arrow function has too many lines (122). Maximum allowed is 50    max-lines-per-function
+  76:5   warning  Arrow function has too many parameters (5). Maximum allowed is 4  max-params
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/ProductConfiguration/ProductImageGallery.tsx
+  13:29  warning  Arrow function has too many lines (106). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/ProductConfiguration/hooks/useFormState.ts
+  16:29  warning  Arrow function has too many lines (72). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/ProductConfiguration/types.ts
+  14:15  warning  Function has too many parameters (5). Maximum allowed is 4  max-params
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/ProductCustomization/components/OptionItem.tsx
+  5:8  warning  Function 'OptionItem' has too many lines (75). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Products/ModernAccessoryCard.tsx
+  12:65  warning  Arrow function has too many lines (133). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/Reviews/index.tsx
+  6:17  warning  Arrow function has too many lines (129). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/SEO/CroatianSEO.tsx
+  12:16  warning  Function 'CroatianSEO' has too many lines (101). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/ImageZoomModal.tsx
+  24:55  warning  Arrow function has too many lines (70). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/InputField.tsx
+  23:54  warning  Arrow function has too many lines (58). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/ModernDropdown.tsx
+  19:55  warning  Arrow function has too many lines (53). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/Pagination.tsx
+  13:47  warning  Arrow function has too many lines (114). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/Price.tsx
+  17:15  warning  Arrow function has too many lines (65). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/ToggleSwitch.tsx
+  15:51  warning  Arrow function has too many lines (56). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/ToggleSwitchDemo.tsx
+  5:36  warning  Arrow function has too many lines (101). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/ValidatedInput.tsx
+  38:62  warning  Arrow function has too many lines (55). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/components/UI/components/ZoomControls.tsx
+  15:51  warning  Arrow function has too many lines (52). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/context/OrderContext.tsx
+  19:8  warning  Function 'OrderProvider' has too many lines (74). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/data/accessoryCustomization.ts
+  4:49  warning  Arrow function has too many lines (72). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useAdminOrders.ts
+  13:31  warning  Arrow function has too many lines (87). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useBasket.tsx
+  11:8  warning  Function 'useBasket' has too many lines (75). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useCheckoutForm.ts
+  20:32  warning  Arrow function has too many lines (72). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useFormFieldValidation.ts
+  11:3  warning  Arrow function has too many parameters (6). Maximum allowed is 4  max-params
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useFormSubmission.ts
+  14:34  warning  Arrow function has too many lines (58). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useOrderDetails.ts
+  13:32  warning  Arrow function has too many lines (57). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/usePaymentTests.ts
+  10:32  warning  Arrow function has too many lines (111). Maximum allowed is 50       max-lines-per-function
+  27:23  warning  Async arrow function has too many lines (90). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useProductCard.ts
+  13:31  warning  Arrow function has too many lines (78). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useProductFilters.ts
+  12:34  warning  Arrow function has too many lines (80). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useRealTimeValidation.ts
+  19:38  warning  Arrow function has too many lines (115). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useSecureValidation.ts
+  14:36  warning  Arrow function has too many lines (63). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useSecurityMonitoring.ts
+  28:38  warning  Arrow function has too many lines (72). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/hooks/useStripeInitialization.ts
+  8:40  warning  Arrow function has too many lines (56). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/AccessibilityPage.tsx
+  4:37  warning  Arrow function has too many lines (54). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/AccessoriesPage.tsx
+  8:35  warning  Arrow function has too many lines (62). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/AdminLoginPage/components/LoginForm.tsx
+  10:45  warning  Arrow function has too many lines (74). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/AdminLoginPage/hooks/useAdminAuth.ts
+  5:29  warning  Arrow function has too many lines (54). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/AdminManagementPage.tsx
+  10:39  warning  Arrow function has too many lines (77). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/AdminOrderDetailPage.tsx
+  19:40  warning  Arrow function has too many lines (73). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/AdminOrdersPageOptimized.tsx
+  15:44  warning  Arrow function has too many lines (71). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/ConnectivityGuidePage.tsx
+  4:31  warning  Arrow function has too many lines (78). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/CurtainTracksPage.tsx
+  15:27  warning  Arrow function has too many lines (90). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/HowItWorksPage.tsx
+  9:34  warning  Arrow function has too many lines (57). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/InstallationGuidePage.tsx
+  4:31  warning  Arrow function has too many lines (88). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/ProductConfigurationPage.tsx
+  15:34  warning  Arrow function has too many lines (98). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/ProductOptionDemoPage.tsx
+  13:41  warning  Arrow function has too many lines (62). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/SmartControlGuidePage.tsx
+  4:31  warning  Arrow function has too many lines (73). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/SupportPage.tsx
+  1:21  warning  Arrow function has too many lines (85). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/TermsOfServicePage.tsx
+  4:38  warning  Arrow function has too many lines (76). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/pages/ThankYouPage.tsx
+  18:32  warning  Arrow function has too many lines (54). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/tests/businessLogic.test.ts
+  4:43  warning  Arrow function has too many lines (53). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/tests/security.test.ts
+  6:28  warning  Arrow function has too many lines (143). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/utils/imageImport.ts
+  26:12  warning  Arrow function has too many parameters (7). Maximum allowed is 4  max-params
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/utils/productDebugUtils.ts
+  7:42  warning  Arrow function has too many lines (61). Maximum allowed is 50  max-lines-per-function
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/utils/security/businessValidators.ts
+  154:21  warning  Arrow function has too many parameters (5). Maximum allowed is 4  max-params
+  207:34  warning  Arrow function has a complexity of 15. Maximum allowed is 10      complexity
+
+/Users/vidkraljic/Desktop/FIRMA/Code and Sail/BENDZO/project/src/utils/security/inputValidation.ts
+  17:8  warning  Function 'validateInput' has too many lines (80). Maximum allowed is 50  max-lines-per-function
+  17:8  warning  Function 'validateInput' has a complexity of 14. Maximum allowed is 10   complexity
+
+✖ 125 problems (0 errors, 125 warnings)
+
