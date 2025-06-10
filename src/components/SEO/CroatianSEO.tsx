@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import { CroatianSEOProps } from './types/croatianSeoTypes';
 import { useSEOData } from './hooks';
 import {
@@ -10,6 +9,7 @@ import {
 
 /**
  * Croatian SEO component that provides localized SEO optimization for Croatian market
+ * Uses React 19's native document metadata support
  */
 export default function CroatianSEO(props: CroatianSEOProps) {
   const {
@@ -24,7 +24,7 @@ export default function CroatianSEO(props: CroatianSEOProps) {
   });
 
   return (
-    <Helmet>
+    <>
       <CroatianBasicMetaTags
         title={title}
         description={description}
@@ -44,6 +44,6 @@ export default function CroatianSEO(props: CroatianSEOProps) {
         metaCanonicalUrl={seoData.metaCanonicalUrl}
         structuredData={seoData.structuredData}
       />
-    </Helmet>
+    </>
   );
 } 

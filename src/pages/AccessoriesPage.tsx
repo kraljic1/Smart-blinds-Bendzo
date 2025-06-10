@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO/SEO';
 import '../styles/AccessoriesPage.css';
 import { accessories } from '../data/accessories';
@@ -19,13 +18,11 @@ const AccessoriesPage: React.FC = () => {
 
   return (
     <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <Helmet>
-        <SEO
-          title="Smart Home Accessories | Smartblinds"
-          description="Discover our range of smart home accessories including remote controls, WiFi bridges, and more."
-          keywords="smart accessories, remote control, wifi bridge, smart home"
-        />
-      </Helmet>
+      <SEO
+        title="Smart Home Accessories | Smartblinds"
+        description="Discover our range of smart home accessories including remote controls, WiFi bridges, and more."
+        keywords="smart accessories, remote control, wifi bridge, smart home"
+      />
       
       {/* Hero Section */}
       <div className={`relative h-[30vh] sm:h-[35vh] md:h-[40vh] mb-12 md:mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
@@ -50,23 +47,10 @@ const AccessoriesPage: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8 md:mb-12">
-          <h2 className={`text-2xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6 ${isLoaded ? 'fade-in-delay-1' : 'opacity-0'}`}>
-            Smart Accessories Collection
-          </h2>
-          <p className={`text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl ${isLoaded ? 'fade-in-delay-2' : 'opacity-0'}`}>
-            Enhance your smart blinds experience with our collection of innovative accessories designed to add convenience and flexibility to your home.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 accessories-grid">
-          {accessories.map((product, index) => (
-            <ModernAccessoryCard 
-              key={product.id} 
-              product={product} 
-              delay={index * 100}
-            />
+      <div className="max-w-7xl mx-auto px-4">
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
+          {accessories.map((accessory) => (
+            <ModernAccessoryCard key={accessory.id} product={accessory} />
           ))}
         </div>
       </div>

@@ -56,7 +56,7 @@ export default defineConfig({
         manualChunks: {
           // Vendor libraries
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['lucide-react', 'react-helmet-async'],
+          'vendor-ui': ['lucide-react'],
           'vendor-payment': ['@stripe/stripe-js', '@stripe/react-stripe-js'],
           'vendor-supabase': ['@supabase/supabase-js'],
           'vendor-utils': ['libphonenumber-js', 'dompurify'],

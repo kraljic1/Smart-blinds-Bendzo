@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { LikedItemsGrid } from '../components/Liked/LikedItemsGrid';
 import SEO from '../components/SEO/SEO';
 import Breadcrumb from '../components/Navigation/Breadcrumb';
@@ -7,12 +6,10 @@ import Breadcrumb from '../components/Navigation/Breadcrumb';
 const LikedPage: React.FC = () => {
   return (
     <>
-      <Helmet>
-        <SEO
-          title="Moji omiljeni | Smartblinds"
-          description="Pregledajte i upravljajte svojim omiljenim proizvodima."
-        />
-      </Helmet>
+      <SEO
+        title="Moji omiljeni | Smartblinds"
+        description="Pregledajte i upravljajte svojim omiljenim proizvodima."
+      />
       <div className="container mx-auto px-4 py-8">
         <Breadcrumb
           items={[
