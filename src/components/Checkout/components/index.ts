@@ -11,4 +11,6 @@ export { default as FormSections } from './FormSections';
 export { default as FormActions } from './FormActions';
 export { default as FormErrorDisplay } from './FormErrorDisplay';
 export { default as SubmitButton } from './SubmitButton';
-export { default as CheckoutSubmitButton } from './CheckoutSubmitButton'; 
+export { default as CheckoutSubmitButton } from './CheckoutSubmitButton';
+export { default as CheckoutFormFields } from './CheckoutFormFields';
+export { default as PaymentProcessingSection } from './PaymentProcessingSection'; 
