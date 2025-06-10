@@ -1,3 +1,77 @@
+@import 'tailwindcss';
+
+@theme {
+  --breakpoint-xs: 480px;
+  --breakpoint-tablet: 768px;
+  
+  --animate-text-reveal: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-sequential-reveal: sequentialReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scroll-down: scrollDown 1.5s ease-in-out infinite;
+  --animate-slide-in-right: slideInRight 0.3s ease-out forwards;
+  --animate-fade-in: fadeIn 0.2s ease-out forwards;
+  
+  @keyframes textReveal {
+    0% {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+      transform: translateX(-10px);
+      opacity: 0;
+    }
+    100% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes sequentialReveal {
+    0% {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    100% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scrollDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    30% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+  }
+  
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0.6;
+    }
+  }
+}
+
 @import './styles/PriceCalculator.css';
 @import './styles/FilterPanel.css';
 @import './styles/animations.css';
@@ -8,10 +82,6 @@
 @import './styles/ProductConfiguration.css';
 @import './styles/ProductOptions/index.css';
 @import './styles/CommonAnimations.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /* Custom styles */
 :root {
