@@ -1,65 +1,68 @@
-import { useCallback } from 'react';
-import type { ValidationResult } from '../../utils/securityValidation';
-import type { FormData } from '../../types/validation';
+import { useCallback, useRef } from 'react';
 import { validateFormField } from '../../utils/fieldValidators';
+import type { FormData } from '../../components/Checkout/CheckoutFormTypes';
+import type { FieldValidationState } from './types';
 
 interface UseFieldValidationProps {
-  updateFieldValidation: (fieldName: string, result: ValidationResult, touched?: boolean) => void;
-  debounceValidation: (fieldName: string, validator: () => void) => void;
-  validateOnChange: boolean;
-  validateOnBlur: boolean;
+  formData: FormData;
+  debounceMs: number;
+  setFieldStates: React.Dispatch<React.SetStateAction<Record<string, FieldValidationState>>>;
 }
 
 export const useFieldValidation = ({
-  updateFieldValidation,
-  debounceValidation,
-  validateOnChange,
-  validateOnBlur
+  formData,
+  debounceMs,
+  setFieldStates
 }: UseFieldValidationProps) => {
+  const timeoutRefs = useRef<Record<string, NodeJS.Timeout>>({});
+
+  // Clear timeout for a field
+  const clearFieldTimeout = useCallback((fieldName: string) => {
+    if (timeoutRefs.current[fieldName]) {
+      clearTimeout(timeoutRefs.current[fieldName]);
+      delete timeoutRefs.current[fieldName];
+    }
+  }, []);
+
   // Validate a single field
-  const validateSingleField = useCallback((
-    fieldName: string, 
-    value: unknown, 
-    formData: FormData = {},
-    immediate: boolean = false
-  ) => {
-    const validator = () => {
+  const validateField = useCallback((fieldName: string, value: unknown, immediate = false) => {
+    const performValidation = () => {
+      setFieldStates(prev => ({
+        ...prev,
+        [fieldName]: { ...prev[fieldName], isValidating: true }
+      }));
+
       const result = validateFormField(fieldName, value, formData);
-      updateFieldValidation(fieldName, result, true);
+      
+      setFieldStates(prev => ({
+        ...prev,
+        [fieldName]: {
+          isValid: result.isValid,
+          error: result.errors.length > 0 ? result.errors[0] : null,
+          warning: result.warnings && result.warnings.length > 0 ? result.warnings[0] : null,
+          isValidating: false,
+          touched: prev[fieldName]?.touched || false
+        }
+      }));
     };
 
-    if (immediate || !validateOnChange) {
-      validator();
+    if (immediate) {
+      clearFieldTimeout(fieldName);
+      performValidation();
     } else {
-      debounceValidation(fieldName, validator);
+      clearFieldTimeout(fieldName);
+      timeoutRefs.current[fieldName] = setTimeout(performValidation, debounceMs);
     }
-  }, [updateFieldValidation, debounceValidation, validateOnChange]);
+  }, [formData, debounceMs, clearFieldTimeout, setFieldStates]);
 
-  // Handle field change
-  const handleFieldChange = useCallback((
-    fieldName: string, 
-    value: unknown, 
-    formData: FormData = {}
-  ) => {
-    if (validateOnChange) {
-      validateSingleField(fieldName, value, formData);
-    }
-  }, [validateSingleField, validateOnChange]);
-
-  // Handle field blur
-  const handleFieldBlur = useCallback((
-    fieldName: string, 
-    value: unknown, 
-    formData: FormData = {}
-  ) => {
-    if (validateOnBlur) {
-      validateSingleField(fieldName, value, formData, true);
-    }
-  }, [validateSingleField, validateOnBlur]);
+  // Cleanup timeouts on unmount
+  const cleanup = useCallback(() => {
+    Object.values(timeoutRefs.current).forEach(clearTimeout);
+    timeoutRefs.current = {};
+  }, []);
 
   return {
-    validateSingleField,
-    handleFieldChange,
-    handleFieldBlur
+    validateField,
+    cleanup
   };
 }; 

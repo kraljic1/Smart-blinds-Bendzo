@@ -31,4 +31,7 @@ export { useDebouncedValidation } from './useDebouncedValidation';
 export { useFieldValidation } from './useFieldValidation';
 export { useValidationGetters } from './useValidationGetters';
 export { useFormValidation } from './useFormValidation';
-export { useValidationStateManager } from './useValidationStateManager'; 
+export { useValidationStateManager } from './useValidationStateManager';
+export { useFieldEventHandlers } from './useFieldEventHandlers';
+export { useFieldStateGetters } from './useFieldStateGetters';
+export type { FieldValidationState, UseRealTimeValidationOptions } from './types'; 

@@ -1,46 +1,34 @@
 import { useCallback } from 'react';
-import type { FormValidationState, FormData, ValidationCheckResult } from '../../types/validation';
-import { validateFormField, getAllValidationFields } from '../../utils/fieldValidators';
+import type { FormData } from '../../components/Checkout/CheckoutFormTypes';
+import type { FieldValidationState } from './types';
 
 interface UseFormValidationProps {
-  setValidationState: (state: FormValidationState | ((prev: FormValidationState) => FormValidationState)) => void;
+  formData: FormData;
+  getFieldState: (fieldName: string) => FieldValidationState;
 }
 
-export const useFormValidation = ({ setValidationState }: UseFormValidationProps) => {
-  // Validate all fields
-  const validateAllFields = useCallback((formData: FormData): ValidationCheckResult => {
-    const newValidationState: FormValidationState = {};
-    let isFormValid = true;
-
-    const allFields = getAllValidationFields(formData);
+export const useFormValidation = ({ formData, getFieldState }: UseFormValidationProps) => {
+  
+  // Check if form is valid
+  const isFormValid = useCallback(() => {
+    const requiredFields = ['fullName', 'email', 'phoneNumber', 'address', 'city', 'postalCode'];
     
-    for (const fieldName of allFields) {
-      const value = formData[fieldName];
-      const result = validateFormField(fieldName, value, formData);
-      
-      newValidationState[fieldName] = {
-        isValid: result.isValid,
-        errors: result.errors,
-        warnings: result.warnings,
-        touched: true
-      };
-      
-      if (!result.isValid) {
-        isFormValid = false;
-      }
+    // Add conditional fields
+    const fieldsToCheck = [...requiredFields];
+    if (!formData.sameAsBilling) {
+      fieldsToCheck.push('shippingAddress', 'shippingCity', 'shippingPostalCode');
+    }
+    if (formData.needsR1Invoice) {
+      fieldsToCheck.push('companyName', 'companyOib');
     }
 
-    setValidationState(newValidationState);
-    return { isValid: isFormValid, validationState: newValidationState };
-  }, [setValidationState]);
-
-  // Reset validation state
-  const resetValidationState = useCallback(() => {
-    setValidationState({});
-  }, [setValidationState]);
+    return fieldsToCheck.every(field => {
+      const state = getFieldState(field);
+      return state.isValid;
+    });
+  }, [formData, getFieldState]);
 
   return {
-    validateAllFields,
-    resetValidationState
+    isFormValid
   };
 }; 
