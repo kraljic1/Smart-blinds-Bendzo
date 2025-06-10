@@ -1,78 +1,14 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
-import ModernProductCard from '../components/Product/ModernProductCard';
-import Breadcrumb from '../components/Navigation/Breadcrumb';
-import { CollapsibleFilterSidebar } from '../components/Filters';
-import { zebraBlinds } from '../data/zebrablinds';
-import { Product } from '../types/product';
+import { useRef } from 'react';
+import { ZebraHeroSection, ZebraPageHeader, ZebraProductsGrid } from './components';
+import { useZebraPageAnimations, useZebraProducts } from './hooks';
 import React from 'react';
 
-// Import zebra blinds image for hero section
-import zebraBlindHero from '../img/zebra/PURE/PURE - WHITE/0.webp';
-
 const ZebraBlindsPage = () => {
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(zebraBlinds);
-  const [isLoaded, setIsLoaded] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   
-  // Reset filters when component mounts
-  useEffect(() => {
-    setFilteredProducts(zebraBlinds);
-    
-    // Add animation class to show content after a short delay
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100);
-    
-    return () => clearTimeout(timer);
-  }, []);
-  
-  // Group products by name (to keep different variants of the same product together)
-  const groupedProducts = useMemo(() => {
-    // Create a map of products grouped by name
-    const groupedMap = filteredProducts.reduce((groups, product) => {
-      const name = product.name.toLowerCase(); // Convert to lowercase for case-insensitive grouping
-      if (!groups[name]) {
-        groups[name] = [];
-      }
-      groups[name].push(product);
-      return groups;
-    }, {} as Record<string, Product[]>);
-
-    // Flatten the grouped products back into an array
-    // This ensures products with the same name appear next to each other
-    return Object.values(groupedMap).flat();
-  }, [filteredProducts]);
-  
-  // Add intersection observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    
-    // Observe all elements with reveal-staggered class
-    document.querySelectorAll('.reveal-staggered').forEach(el => {
-      observer.observe(el);
-    });
-    
-    return () => {
-      document.querySelectorAll('.reveal-staggered').forEach(el => {
-        observer.unobserve(el);
-      });
-    };
-  }, [filteredProducts]);
-  
-  const breadcrumbItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Products', path: '/products' },
-    { label: 'Zebra Blinds', path: '/products/zebra-blinds' }
-  ];
+  // Custom hooks for state management
+  const { filteredProducts, groupedProducts, setFilteredProducts } = useZebraProducts();
+  const { isLoaded } = useZebraPageAnimations(filteredProducts);
 
   const scrollToProducts = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -87,92 +23,26 @@ const ZebraBlindsPage = () => {
 
   return (
     <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      {/* Static Hero section */}
-      <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
-        <div className="absolute inset-0">
-          <img 
-            src={zebraBlindHero} 
-            alt="Smart zebra blinds showcase"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
-          <div className="max-w-3xl">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-              Smart Zebra Blinds
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-200 mb-8">
-              Elegant dual-layer fabric blinds with alternating sheer and solid patterns for precise light control and privacy.
-            </p>
-            <a 
-              href="#products" 
-              onClick={scrollToProducts}
-              className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition inline-block"
-            >
-              Explore Collection
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* Hero Section */}
+      <ZebraHeroSection 
+        isLoaded={isLoaded}
+        onScrollToProducts={scrollToProducts}
+      />
 
       <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className={`mb-8 slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-          <Breadcrumb items={breadcrumbItems} />
-        </div>
-        
-        <div className="relative">
-          <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-200 dark:bg-purple-900 rounded-full filter blur-3xl opacity-20 -z-10"></div>
-          <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-200 dark:bg-indigo-900 rounded-full filter blur-3xl opacity-20 -z-10"></div>
-        </div>
-        
-        <h1 
-          ref={headingRef}
-          className={`text-5xl font-bold text-gray-900 dark:text-white mb-4 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-        >
-          Smart Zebra Blinds
-        </h1>
-        
-        <p className={`text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl slide-in-up delay-50 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-          Discover our premium collection of zebra blinds with alternating opaque and sheer fabric strips.
-          Control light and privacy with our smart zebra blinds.
-        </p>
+        {/* Page Header with Breadcrumb and Title */}
+        <ZebraPageHeader 
+          isLoaded={isLoaded}
+          headingRef={headingRef}
+        />
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Sidebar with Filters */}
-          <div className={`lg:col-span-1 fade-in-scale delay-100 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-            <CollapsibleFilterSidebar
-              categoryId="zebra"
-              products={zebraBlinds}
-              onFilteredProductsChange={setFilteredProducts}
-              className="modern-card bg-white/80 dark:bg-gray-800/80 p-4 rounded-lg shadow border border-gray-200 dark:border-gray-700 backdrop-blur-lg"
-            />
-          </div>
-
-          {/* Products Grid */}
-          <div id="products" className="lg:col-span-4">
-            {filteredProducts.length === 0 ? (
-              <div className="text-center py-12 border-glow p-8 rounded-lg">
-                <p className="text-gray-500 dark:text-gray-400">
-                  No zebra blinds match your selected filters. Please try different filter options.
-                </p>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-8">
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {groupedProducts.map((product, index) => (
-                    <ModernProductCard
-                      key={product.id}
-                      product={product}
-                      onConfigure={() => window.location.href = `/products/configure/${product.id}`}
-                      delay={index * 100}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        {/* Products Grid with Filters */}
+        <ZebraProductsGrid
+          filteredProducts={filteredProducts}
+          groupedProducts={groupedProducts}
+          isLoaded={isLoaded}
+          onFilteredProductsChange={setFilteredProducts}
+        />
       </div>
     </div>
   );
