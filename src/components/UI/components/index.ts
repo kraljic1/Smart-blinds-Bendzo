@@ -1,0 +1,9 @@
+export { default as ModalInfo } from './ModalInfo';
+export { default as ZoomableImage } from './ZoomableImage';
+export { default as NavigationControls } from './NavigationControls';
+export { default as ZoomControls } from './ZoomControls';
+export { default as PaginationInfo } from './PaginationInfo';
+export { default as MobilePagination } from './MobilePagination';
+export { default as PaginationButton } from './PaginationButton';
+export { default as PaginationNavigation } from './PaginationNavigation';
+export { default as DesktopPagination } from './DesktopPagination'; 

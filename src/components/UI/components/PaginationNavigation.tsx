@@ -5,12 +5,14 @@ interface PaginationNavigationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  children?: React.ReactNode;
 }
 
 const PaginationNavigation: React.FC<PaginationNavigationProps> = ({
   currentPage,
   totalPages,
-  onPageChange
+  onPageChange,
+  children
 }) => {
   return (
     <>
@@ -23,6 +25,9 @@ const PaginationNavigation: React.FC<PaginationNavigationProps> = ({
         <span className="sr-only">Prethodna</span>
         <ChevronLeft className="h-5 w-5" aria-hidden="true" />
       </button>
+      
+      {/* Page numbers */}
+      {children}
       
       {/* Next button */}
       <button
