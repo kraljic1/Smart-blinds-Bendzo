@@ -186,4 +186,81 @@ export const validateText = (
   };
 };
 
+// Order data validation for security tests
+interface OrderItem {
+  name?: string;
+  price?: number;
+  quantity?: number;
+}
+
+interface OrderCustomer {
+  email?: string;
+  fullName?: string;
+}
+
+interface OrderData {
+  customer?: OrderCustomer;
+  items?: OrderItem[];
+  totalAmount?: number;
+}
+
+export const validateOrderData = (orderData: unknown): ValidationResult => {
+  const errors: string[] = [];
+  
+  if (!orderData || typeof orderData !== 'object') {
+    return { isValid: false, errors: ['Order data is required'] };
+  }
+  
+  const order = orderData as OrderData;
+  
+  // Validate customer
+  if (!order.customer) {
+    errors.push('Customer information is required');
+  } else {
+    if (!order.customer.email) {
+      errors.push('Customer email is required');
+    }
+    if (!order.customer.fullName) {
+      errors.push('Customer name is required');
+    }
+  }
+  
+  // Validate items
+  if (!order.items || !Array.isArray(order.items)) {
+    errors.push('Order items are required');
+  } else if (order.items.length === 0) {
+    errors.push('At least one item is required');
+  } else {
+    // Check for negative prices
+    const hasNegativePrice = order.items.some((item: OrderItem) => 
+      item.price && item.price < 0
+    );
+    if (hasNegativePrice) {
+      errors.push('Item prices cannot be negative');
+    }
+  }
+  
+  // Validate total amount
+  if (typeof order.totalAmount !== 'number' || order.totalAmount < 0) {
+    errors.push('Valid total amount is required');
+  }
+  
+  // Price manipulation check
+  if (order.items && order.totalAmount) {
+    const calculatedTotal = order.items.reduce((sum: number, item: OrderItem) => {
+      return sum + ((item.price || 0) * (item.quantity || 1));
+    }, 0);
+    
+    if (Math.abs(calculatedTotal - order.totalAmount) > 0.01) {
+      errors.push('Total amount does not match calculated sum');
+    }
+  }
+  
+  return {
+    isValid: errors.length === 0,
+    sanitizedValue: JSON.stringify(orderData),
+    errors
+  };
+};
+
  

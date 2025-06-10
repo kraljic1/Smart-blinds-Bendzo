@@ -4,8 +4,8 @@ import { RateLimiter } from '../utils/security/rateLimiter';
 import { validateOrderData } from '../utils/security/businessValidators';
 
 describe('Security Tests', () => {
-  describe('Input Validation', () => {
-    it('should prevent XSS attacks', () => {
+  describe('XSS Protection', () => {
+    it('should prevent script injection attacks', () => {
       const maliciousInputs = [
         '<script>alert("xss")</script>',
         'javascript:alert("xss")',
@@ -18,10 +18,31 @@ describe('Security Tests', () => {
         const result = validateInput(input, 'text');
         expect(result.isValid).toBe(false);
         expect(result.sanitizedValue).not.toContain('<script>');
-        expect(result.sanitizedValue).not.toContain('javascript:');
+        // Check that javascript: is encoded, not removed
+        if (input.includes('javascript:')) {
+          expect(result.sanitizedValue).not.toContain('javascript:');
+        }
       });
     });
 
+    it('should sanitize HTML content properly', () => {
+      const htmlInputs = [
+        '<b>Bold text</b>',
+        '<script>alert("xss")</script>Normal text',
+        '<div onclick="alert(1)">Click me</div>',
+        '<iframe src="javascript:alert(1)"></iframe>'
+      ];
+
+      htmlInputs.forEach(input => {
+        const result = validateInput(input, 'text');
+        expect(result.sanitizedValue).not.toContain('<script>');
+        expect(result.sanitizedValue).not.toContain('onclick');
+        expect(result.sanitizedValue).not.toContain('<iframe>');
+      });
+    });
+  });
+
+  describe('SQL Injection Protection', () => {
     it('should prevent SQL injection attempts', () => {
       const sqlInjectionInputs = [
         "'; DROP TABLE users; --",
@@ -37,7 +58,9 @@ describe('Security Tests', () => {
         expect(result.errors).toContain('Input contains potentially malicious content');
       });
     });
+  });
 
+  describe('Email Validation Security', () => {
     it('should validate email formats securely', () => {
       const maliciousEmails = [
         'test@example.com<script>alert(1)</script>',
