@@ -20,7 +20,7 @@ const AccessoryCardContent: React.FC<AccessoryCardContentProps> = ({ product }) 
  <>
  {/* Product title - Fixed height container */}
  <div className="h-16 mb-4 flex items-start">
- <h3 className="text-xl font-bold text-black line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 dark:group-hover:from-blue-600 dark:group-hover:to-purple-600">
+ <h3 className="text-xl font-bold text-black line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 :from-blue-600 :to-purple-600">
  {product.name.toUpperCase()}
  </h3>
  </div>
@@ -31,7 +31,7 @@ const AccessoryCardContent: React.FC<AccessoryCardContentProps> = ({ product }) 
  {product.features.map((feature, i) => (
  <span
  key={i}
- className="modern-badge flex items-center text-black dark:bg-blue-700/40"
+ className="modern-badge flex items-center text-black "
  >
  {renderFeatureIcon(feature)}
  {feature}

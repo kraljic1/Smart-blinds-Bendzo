@@ -53,7 +53,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
  <div className="text-center mt-8">
  <button
  onClick={handleLoadMore}
- className="px-6 py-3 sm:px-8 bg-blue-600 dark:bg-blue-500 text-white rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 transition shimmer-button"
+ className="px-6 py-3 sm:px-8 bg-blue-600 text-white rounded-full hover:bg-blue-700 :bg-blue-600 transition shimmer-button"
  >
  Load More Products
  </button>

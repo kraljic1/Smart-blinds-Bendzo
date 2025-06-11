@@ -18,7 +18,7 @@ const ModalInfo: React.FC<ModalInfoProps> = ({
  scale
 }) => {
  return (
- <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 px-4 py-2 rounded-full text-sm text-gray-600 shadow-lg">
+ <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-2 rounded-full text-sm text-gray-600 shadow-lg">
  {hasMultipleImages && (
  <span className="mr-3">Image {currentIndex + 1} of {totalImages}</span>
  )}

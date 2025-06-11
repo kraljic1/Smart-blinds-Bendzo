@@ -19,8 +19,8 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
  cursor-pointer select-none relative py-2.5 pl-3 pr-9 text-sm
  transition-colors duration-150 ease-in-out
  ${isSelected
- ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-900 '
- : 'text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-600'
+ ? 'bg-blue-50 text-blue-900 '
+ : 'text-gray-900 hover:bg-gray-50 :bg-gray-600'
  }
  `}
  onClick={() => onClick(option.value)}

@@ -21,8 +21,8 @@ const PaginationDots = ({
  onClick={() => onGoToTestimonial(index * testimonialsPerView)}
  className={`h-1.5 rounded-full transition-all duration-300 ${
  isActive 
- ? 'bg-blue-600 dark:bg-blue-500 w-12' 
- : 'bg-gray-300 dark:bg-gray-600 w-6 hover:bg-gray-400 dark:hover:bg-gray-500'
+ ? 'bg-blue-600 w-12' 
+ : 'bg-gray-300 w-6 hover:bg-gray-400 :bg-gray-500'
  }`}
  aria-label={`Go to testimonial group ${index + 1}`}
  />

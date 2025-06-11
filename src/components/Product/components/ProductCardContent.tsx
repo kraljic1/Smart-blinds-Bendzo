@@ -23,7 +23,7 @@ const ProductCardContent: React.FC<ProductCardContentProps> = ({ product }) => {
  {product.features.map((feature: string, i: number) => (
  <span
  key={i}
- className="bg-gray-100 dark:bg-gray-800 text-gray-800 px-3 py-1 rounded-full text-sm uppercase"
+ className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm uppercase"
  >
  {feature === 'Light filtering' ? (
  <Sun className="w-4 h-4 mr-1 inline"/>

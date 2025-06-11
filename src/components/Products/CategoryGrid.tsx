@@ -29,8 +29,8 @@ const CategoryGrid: React.FC<CategoryGridProps> = ({ onCategoryChange }) => {
  className={`
  p-6 rounded-xl text-left transition-all
  ${isActive(category.path)
- ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
- : 'bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20'
+ ? 'bg-blue-50 border-blue-500'
+ : 'bg-white hover:bg-blue-50 :bg-blue-900/20'
  }
  shadow-sm hover:shadow-md
  `}

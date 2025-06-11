@@ -50,7 +50,7 @@ const ProductConfigurationWrapper = ({
  });
 
  return (
- <div className="bg-white dark:bg-[#0c1222]"ref={containerRef}>
+ <div className="bg-white [#0c1222]"ref={containerRef}>
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <ProductConfigurationHeader 
  isVisible={state.isVisible}

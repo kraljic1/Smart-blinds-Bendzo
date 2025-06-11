@@ -21,7 +21,7 @@ const ModernAccessoryCard: React.FC<ModernAccessoryCardProps> = ({
  {/* Card with modern effects */}
  <div 
  ref={cardRef} 
- className="relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 transition-all duration-500 group-hover:shadow-xl cursor-pointer"
+ className="relative h-full flex flex-col light-card backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 transition-all duration-500 group-hover:shadow-xl cursor-pointer"
  style={{ opacity: 0, transform: 'translateY(20px)', transition: 'opacity 0.5s ease, transform 0.5s ease' }}
  onClick={handleCardClick}
  >

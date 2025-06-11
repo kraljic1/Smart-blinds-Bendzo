@@ -36,7 +36,7 @@ const AdminHeader: React.FC<AdminHeaderProps> = ({
  {backLink && (
  <Link
  to={backLink}
- className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md bg-white dark:bg-gray-800 text-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+ className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md bg-white text-gray-700 hover:bg-gray-50 :bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
  >
  <ChevronLeft className="w-4 h-4 mr-2"/>
  {backText}

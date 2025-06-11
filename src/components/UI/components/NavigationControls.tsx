@@ -24,7 +24,7 @@ const NavigationControls: React.FC<NavigationControlsProps> = ({
  <>
  <button 
  onClick={onPrevImage}
- className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition focus:outline-none"
+ className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 :bg-gray-700 transition focus:outline-none"
  aria-label="Previous image"
  title="Previous image"
  >
@@ -33,7 +33,7 @@ const NavigationControls: React.FC<NavigationControlsProps> = ({
  
  <button 
  onClick={onNextImage}
- className="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition focus:outline-none"
+ className="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 :bg-gray-700 transition focus:outline-none"
  aria-label="Next image"
  title="Next image"
  >

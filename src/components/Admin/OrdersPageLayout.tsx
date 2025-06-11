@@ -45,7 +45,7 @@ const OrdersPageLayout: React.FC<OrdersPageLayoutProps> = ({
  onPageChange
 }) => {
  return (
- <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+ <div className="min-h-screen bg-gray-50 ">
  <SEO 
  title="Administracija Narudžbi | Smartblinds Croatia"
  description="Administratorska stranica za upravljanje narudžbama"
@@ -59,7 +59,7 @@ const OrdersPageLayout: React.FC<OrdersPageLayoutProps> = ({
  onRefresh={onRefresh}
  />
  
- <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+ <div className="bg-white shadow overflow-hidden sm:rounded-lg">
  <OrderSearch 
  searchTerm={searchTerm}
  setSearchTerm={onSearchTermChange}

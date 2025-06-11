@@ -19,7 +19,7 @@ const PrivacyPolicyPage: React.FC = () => {
  <h1 className="text-3xl font-bold text-gray-900 mb-8">Politika Privatnosti</h1>
  <p className="text-gray-600 mb-8">Zadnje ažurirano: {new Date().toLocaleDateString('hr-HR')}</p>
  
- <div className="prose prose-blue max-w-none dark:prose-invert text-gray-800">
+ <div className="prose prose-blue max-w-none text-gray-800">
  <DataCollectionSection />
  <DataUsageSection />
  <CookiesAndPaymentSection />

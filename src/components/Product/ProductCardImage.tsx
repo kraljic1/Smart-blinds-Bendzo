@@ -33,7 +33,7 @@ const ProductCardImage: React.FC<ProductCardImageProps> = ({
  <div className="absolute -bottom-6 right-6 transition-transform duration-300 group-hover:transform group-hover:translate-y-0 z-20">
  <div className="relative">
  {hasFabricImage ? (
- <div className="p-1 rounded-full bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm border border-white/40 shadow-lg">
+ <div className="p-1 rounded-full bg-white/60 backdrop-blur-sm border border-white/40 shadow-lg">
  <img
  src={getFabricImage()!}
  alt={`${product.name} fabric`}
@@ -41,7 +41,7 @@ const ProductCardImage: React.FC<ProductCardImageProps> = ({
  />
  </div>
  ) : (
- <div className="p-1 rounded-full bg-white/60 dark:bg-gray-700/80 backdrop-blur-sm border border-white/40 shadow-lg">
+ <div className="p-1 rounded-full bg-white/60 backdrop-blur-sm border border-white/40 shadow-lg">
  <div
  className={`${styles.colorSwatch} product-color-swatch`}
  style={colorSwatchStyle}
@@ -51,7 +51,7 @@ const ProductCardImage: React.FC<ProductCardImageProps> = ({
  )}
  
  {/* Mini floating badge */}
- <div className="absolute -bottom-1 -right-1 bg-white dark:bg-blue-600 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center shadow-md border border-gray-100">
+ <div className="absolute -bottom-1 -right-1 bg-white text-blue-600 rounded-full w-6 h-6 flex items-center justify-center shadow-md border border-gray-100">
  <Check size={12} strokeWidth={3} />
  </div>
  </div>

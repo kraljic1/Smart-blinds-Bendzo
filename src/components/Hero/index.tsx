@@ -79,7 +79,7 @@ const Hero: React.FC<HeroProps> = ({
  return (
  <div 
  ref={heroRef}
- className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden bg-gray-900 dark:bg-gray-900"
+ className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen overflow-hidden bg-gray-100"
  >
  <HeroBackground 
  images={images} 

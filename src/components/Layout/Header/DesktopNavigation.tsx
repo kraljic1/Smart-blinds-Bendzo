@@ -13,7 +13,7 @@ const DesktopNavigation: React.FC<DesktopNavigationProps> = ({ scrolled }) => {
 
  return (
  <nav className="hidden lg:flex items-center">
- <div className="relative px-2 py-1 rounded-full backdrop-blur-sm bg-white/10 dark:bg-gray-800/20 border border-white/20 /30 flex items-center space-x-1">
+ <div className="relative px-2 py-1 rounded-full backdrop-blur-sm bg-white/10 border border-white/20 /30 flex items-center space-x-1">
  {navItems.map((item, index) => (
  <NavItem
  key={index}

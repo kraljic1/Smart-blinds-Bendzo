@@ -24,7 +24,7 @@ const ProductInfo = ({
  <span className="text-gray-600 hidden sm:inline">-</span>
  <span className="text-gray-600">With smart engine</span>
  <button 
- className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+ className="text-gray-400 hover:text-gray-600 :text-gray-200"
  onClick={onInfoClick}
  >
  <Info size={16} />

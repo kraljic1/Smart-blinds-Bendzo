@@ -41,7 +41,7 @@ const HeaderActions: React.FC<HeaderActionsProps> = ({
  ref={menuBtnRef}
  type="button"
  onClick={toggleMenu}
- className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-800"
+ className="p-2 rounded-full bg-gray-100 text-gray-800"
  aria-expanded={isMenuOpen}
  >
  {isMenuOpen ? <X className="h-5 w-5"/> : <Menu className="h-5 w-5"/>}

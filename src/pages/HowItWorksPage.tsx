@@ -13,8 +13,8 @@ const HowItWorksPage: React.FC = () => {
  <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
  {/* Background elements */}
  <div className="absolute inset-0 pointer-events-none overflow-hidden">
- <div className="absolute -left-32 top-32 w-96 h-96 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl"></div>
- <div className="absolute right-0 top-[60%] w-96 h-96 rounded-full bg-purple-500/5 dark:bg-purple-500/10 blur-3xl"></div>
+ <div className="absolute -left-32 top-32 w-96 h-96 rounded-full bg-blue-500/5 blur-3xl"></div>
+ <div className="absolute right-0 top-[60%] w-96 h-96 rounded-full bg-purple-500/5 blur-3xl"></div>
  </div>
 
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">

@@ -32,7 +32,7 @@ const AdminEmailInput: React.FC<AdminEmailInputProps> = ({
  <input
  type="email"
  id={id}
- className={`block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white dark:bg-gray-700 text-gray-900 placeholder-gray-500 focus:outline-none ${focusClasses} sm:text-sm`}
+ className={`block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-500 focus:outline-none ${focusClasses} sm:text-sm`}
  placeholder={placeholder}
  value={value}
  onChange={(e) => onChange(e.target.value)}

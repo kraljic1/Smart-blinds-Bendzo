@@ -93,18 +93,3 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
-
-/* Dark mode scrollbar */
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-track {
-    background: #2d3748;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #4a5568;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #718096;
-  }
-}

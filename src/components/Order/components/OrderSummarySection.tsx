@@ -7,7 +7,7 @@ interface OrderSummarySectionProps {
 
 const OrderSummarySection: React.FC<OrderSummarySectionProps> = ({ orderDetails }) => {
  return (
- <div className="p-6 bg-gray-50 dark:bg-gray-700">
+ <div className="p-6 bg-gray-50 ">
  <div className="max-w-md ml-auto">
  <div className="space-y-3">
  <div className="flex justify-between text-gray-600">

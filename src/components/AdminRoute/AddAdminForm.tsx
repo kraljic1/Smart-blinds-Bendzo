@@ -32,7 +32,7 @@ const AddAdminForm: React.FC<AddAdminFormProps> = ({
  });
 
  return (
- <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg mb-8">
+ <div className="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
  <AdminFormHeader />
  
  <AddAdminSection

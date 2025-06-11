@@ -21,13 +21,13 @@ const OrderTableActions: React.FC<OrderTableActionsProps> = ({
  <div className="action-buttons flex items-center justify-center space-x-3">
  <Link 
  to={`/admin/orders/${orderId}`}
- className="action-button view text-blue-600 hover:text-blue-900 dark:hover:text-blue-300 font-medium"
+ className="action-button view text-blue-600 hover:text-blue-900 :text-blue-300 font-medium"
  >
  Pregledaj Detalje
  </Link>
  <button
  onClick={() => onDeleteClick(orderId, customerName)}
- className="action-button delete text-red-600 hover:text-red-900 dark:hover:text-red-300 font-medium inline-flex items-center"
+ className="action-button delete text-red-600 hover:text-red-900 :text-red-300 font-medium inline-flex items-center"
  title="Obriši narudžbu"
  >
  <Trash2 className="w-4 h-4 mr-1"/>

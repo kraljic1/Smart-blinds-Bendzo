@@ -42,19 +42,19 @@ const ProductImageGallery = ({
  return (
  <div className={`space-y-4 delay-75 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}>
  {/* Main product image with navigation arrows */}
- <div className="relative aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden border border-gray-200 mx-auto depth-effect">
+ <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden border border-gray-200 mx-auto depth-effect">
  {images.length > 1 && (
  <>
  <button 
  onClick={handlePrevImage}
- className={`absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-r-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition delay-150 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+ className={`absolute left-0 sm:left-2 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-r-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 :bg-gray-700 transition delay-150 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
  aria-label="Previous image"
  >
  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700"/>
  </button>
  <button 
  onClick={handleNextImage}
- className={`absolute right-0 sm:right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-l-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+ className={`absolute right-0 sm:right-2 top-1/2 transform -translate-y-1/2 z-10 bg-white rounded-l-full sm:rounded-full p-2 sm:p-3 shadow-md hover:bg-gray-100 :bg-gray-700 transition ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
  style={{ animationDelay: '175ms' }}
  aria-label="Next image"
  >
@@ -69,8 +69,8 @@ const ProductImageGallery = ({
  onClick={() => handleThumbnailClick(index)}
  className={`w-2 h-2 rounded-full ${
  selectedImageIndex === index 
- ? 'bg-blue-600 dark:bg-blue-400' 
- : 'bg-gray-300 dark:bg-gray-600'
+ ? 'bg-blue-600 ' 
+ : 'bg-gray-300 '
  } ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
  style={{ animationDelay: `${200 + index * 25}ms` }}
  aria-label={`Go to image ${index + 1}`}
@@ -83,7 +83,7 @@ const ProductImageGallery = ({
  {/* Zoom button */}
  <button 
  onClick={handleZoomButtonClick}
- className={`absolute right-2 bottom-2 z-10 bg-white dark:bg-gray-800 rounded-full p-2 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition hidden sm:block ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+ className={`absolute right-2 bottom-2 z-10 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 :bg-gray-700 transition hidden sm:block ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
  style={{ animationDelay: '200ms' }}
  aria-label="Zoom image"
  >

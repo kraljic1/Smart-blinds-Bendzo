@@ -45,10 +45,10 @@ const ConnectivityGuidePage = () => {
 
  <div className="space-y-12 mb-16">
  {steps.map((step, index) => (
- <div key={index} className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
+ <div key={index} className="bg-white rounded-xl p-8 shadow-lg">
  <div className="flex items-start">
  <div className="flex-shrink-0 mr-6">
- <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+ <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
  {step.icon}
  </div>
  </div>
@@ -73,7 +73,7 @@ const ConnectivityGuidePage = () => {
  <p className="text-gray-600 mb-6">Ready to start controlling your smart blinds?</p>
  <Link
  to="/smart-control-guide"
- className="inline-flex items-center px-8 py-3 bg-blue-600 dark:bg-blue-500 text-white rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 transition"
+ className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 :bg-blue-600 transition"
  >
  Next: Smart Control Guide
  </Link>

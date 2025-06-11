@@ -33,7 +33,7 @@ const ProductGridSection: React.FC<ProductGridSectionProps> = ({
  categoryId={categoryId}
  products={allProducts}
  onFilteredProductsChange={onFilteredProductsChange}
- className="modern-card bg-white/80 dark:bg-gray-800/80 p-4 rounded-lg shadow border border-gray-200 backdrop-blur-lg"
+ className="modern-card bg-white/80 p-4 rounded-lg shadow border border-gray-200 backdrop-blur-lg"
  />
  </div>
 

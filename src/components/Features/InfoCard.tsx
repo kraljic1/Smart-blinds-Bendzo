@@ -15,7 +15,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ sectionRef }) => {
  }}
  >
  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 rounded-2xl blur-xl"></div>
- <div className="relative backdrop-blur-sm bg-white/80 dark:bg-gray-800/70 rounded-2xl p-8 border border-white/20 /30 shadow-xl overflow-hidden">
+ <div className="relative backdrop-blur-sm bg-white/80 rounded-2xl p-8 border border-white/20 /30 shadow-xl overflow-hidden">
  <h2 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
  Smartblinds powered by Eve MotionBlinds
  </h2>

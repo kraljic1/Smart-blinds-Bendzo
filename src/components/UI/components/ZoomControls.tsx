@@ -22,7 +22,7 @@ const ZoomControls: React.FC<ZoomControlsProps> = ({
  <div className="absolute top-4 right-4 flex space-x-2 z-50">
  <button
  onClick={onZoomIn}
- className="p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+ className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 :bg-gray-700 transition"
  title="Zoom in"
  >
  <svg xmlns="http://www.w3.org/2000/svg"width="24"height="24"viewBox="0 0 24 24"fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round"className="text-gray-700">
@@ -34,7 +34,7 @@ const ZoomControls: React.FC<ZoomControlsProps> = ({
  </button>
  <button
  onClick={onZoomOut}
- className="p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+ className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 :bg-gray-700 transition"
  title="Zoom out"
  >
  <svg xmlns="http://www.w3.org/2000/svg"width="24"height="24"viewBox="0 0 24 24"fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round"className="text-gray-700">
@@ -45,7 +45,7 @@ const ZoomControls: React.FC<ZoomControlsProps> = ({
  </button>
  <button
  onClick={onReset}
- className="p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+ className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 :bg-gray-700 transition"
  title="Reset zoom"
  >
  <svg xmlns="http://www.w3.org/2000/svg"width="24"height="24"viewBox="0 0 24 24"fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round"className="text-gray-700">
@@ -55,7 +55,7 @@ const ZoomControls: React.FC<ZoomControlsProps> = ({
  </button>
  <button
  onClick={onClose}
- className="p-2 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+ className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 :bg-gray-700 transition"
  title="Close zoom view"
  aria-label="Close zoom view"
  >

@@ -14,7 +14,7 @@ interface OrderTableRowProps {
  */
 const OrderTableRow: React.FC<OrderTableRowProps> = ({ order, onDeleteClick }) => {
  return (
- <tr key={order.order_id} className="hover:bg-gray-50 dark:hover:bg-gray-750">
+ <tr key={order.order_id} className="hover:bg-gray-50 :bg-gray-750">
  <td className="px-6 py-4 text-sm font-medium text-gray-900 text-wrap">
  {order.order_id}
  </td>

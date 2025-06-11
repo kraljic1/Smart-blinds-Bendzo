@@ -46,9 +46,9 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders, onOrderDeleted }) => {
  return (
  <>
  <div className="overflow-x-auto">
- <table className="admin-order-table min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+ <table className="admin-order-table min-w-full divide-y divide-gray-200 ">
  <OrderTableHeader />
- <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+ <tbody className="bg-white divide-y divide-gray-200 ">
  {orders.map((order) => (
  <OrderTableRow
  key={order.order_id}

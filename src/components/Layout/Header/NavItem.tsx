@@ -27,8 +27,8 @@ const NavItem: React.FC<NavItemProps> = ({
  isActive
  ? 'text-blue-600 '
  : scrolled
- ? 'text-gray-700 hover:text-blue-600 dark:hover:text-blue-400'
- : 'text-gray-700 hover:text-blue-600 dark:hover:text-white'
+ ? 'text-gray-700 hover:text-blue-600 :text-blue-400'
+ : 'text-gray-700 hover:text-blue-600 :text-white'
  }`}
  onMouseEnter={onMouseEnter}
  onMouseLeave={onMouseLeave}
@@ -36,7 +36,7 @@ const NavItem: React.FC<NavItemProps> = ({
  <span className="relative z-10">{item.label}</span>
  {(isActive || hoverIndex === index) && (
  <span className={`absolute inset-0 rounded-full transition-all duration-300 ${
- isActive ? 'bg-white/90 dark:bg-gray-800/90 shadow-md' : 'bg-white/20 dark:bg-gray-700/20'
+ isActive ? 'bg-white/90 shadow-md' : 'bg-white/20 '
  }`}></span>
  )}
  {isActive && (

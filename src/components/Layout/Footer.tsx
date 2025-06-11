@@ -5,16 +5,16 @@ import { Mail, Phone, MapPin, ArrowRight, Facebook, Instagram, Twitter, Linkedin
 // Social media links component
 const SocialMediaLinks: React.FC = () => (
  <div className="flex space-x-4 mt-4">
- <a href="https://facebook.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-500 transition-all duration-300"aria-label="Facebook stranica">
+ <a href="https://facebook.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-500 transition-all duration-300"aria-label="Facebook stranica">
  <Facebook className="h-5 w-5 text-gray-600 group-hover:text-white transition-colors"aria-hidden="true"/>
  </a>
- <a href="https://instagram.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 transition-all duration-300"aria-label="Instagram profil">
+ <a href="https://instagram.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-pink-500 hover:to-purple-500 transition-all duration-300"aria-label="Instagram profil">
  <Instagram className="h-5 w-5 text-gray-600 group-hover:text-white transition-colors"aria-hidden="true"/>
  </a>
- <a href="https://twitter.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 transition-all duration-300"aria-label="Twitter profil">
+ <a href="https://twitter.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 transition-all duration-300"aria-label="Twitter profil">
  <Twitter className="h-5 w-5 text-gray-600 group-hover:text-white transition-colors"aria-hidden="true"/>
  </a>
- <a href="https://linkedin.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-500 transition-all duration-300"aria-label="LinkedIn stranica">
+ <a href="https://linkedin.com"target="_blank"rel="noopener noreferrer"className="group relative p-2 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-blue-700 hover:to-blue-500 transition-all duration-300"aria-label="LinkedIn stranica">
  <Linkedin className="h-5 w-5 text-gray-600 group-hover:text-white transition-colors"aria-hidden="true"/>
  </a>
  </div>
@@ -49,7 +49,7 @@ const ProductsSection: React.FC = () => {
  <li key={index}>
  <Link 
  to={`/products/${item.toLowerCase().replace(' ', '-')}`} 
- className="group flex items-center text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+ className="group flex items-center text-gray-600 hover:text-blue-600 :text-blue-400 transition-colors text-sm"
  >
  <ArrowRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"/>
  {item}
@@ -80,7 +80,7 @@ const SupportSection: React.FC = () => {
  <li key={index}>
  <Link 
  to={item.path} 
- className="group flex items-center text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+ className="group flex items-center text-gray-600 hover:text-blue-600 :text-blue-400 transition-colors text-sm"
  >
  <ArrowRight className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"/>
  {item.name}
@@ -103,7 +103,7 @@ const ContactSection: React.FC = () => (
  <Mail className="h-5 w-5 mr-3 text-blue-500 flex-shrink-0 mt-0.5"/>
  <div>
  <p className="text-sm font-medium text-gray-900">Email Us</p>
- <a href="mailto:info@smartblinds-croatia.com"className="text-sm text-gray-600 hover:text-blue-600 dark:hover:text-blue-400">
+ <a href="mailto:info@smartblinds-croatia.com"className="text-sm text-gray-600 hover:text-blue-600 :text-blue-400">
  info@smartblinds-croatia.com
  </a>
  </div>
@@ -113,7 +113,7 @@ const ContactSection: React.FC = () => (
  <Phone className="h-5 w-5 mr-3 text-blue-500 flex-shrink-0 mt-0.5"/>
  <div>
  <p className="text-sm font-medium text-gray-900">Call Us</p>
- <a href="tel:+1234567890"className="text-sm text-gray-600 hover:text-blue-600 dark:hover:text-blue-400">
+ <a href="tel:+1234567890"className="text-sm text-gray-600 hover:text-blue-600 :text-blue-400">
  +1 (234) 567-890
  </a>
  </div>
@@ -138,13 +138,13 @@ const CopyrightSection: React.FC<{ currentYear: number }> = ({ currentYear }) =>
  <div className="flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-500">
  <p>&copy; {currentYear} Smartblinds Croatia. All rights reserved.</p>
  <div className="flex space-x-6 mt-4 md:mt-0">
- <Link to="/privacy-policy"className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+ <Link to="/privacy-policy"className="hover:text-blue-600 :text-blue-400 transition-colors">
  Privacy Policy
  </Link>
- <Link to="/terms-of-service"className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+ <Link to="/terms-of-service"className="hover:text-blue-600 :text-blue-400 transition-colors">
  Terms of Service
  </Link>
- <Link to="/accessibility"className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+ <Link to="/accessibility"className="hover:text-blue-600 :text-blue-400 transition-colors">
  Accessibility
  </Link>
  </div>
@@ -160,8 +160,8 @@ const Footer: React.FC = () => {
  <footer id="footer-animate"className="relative z-10 bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
  {/* Background elements */}
  <div className="absolute inset-0 overflow-hidden pointer-events-none">
- <div className="absolute -left-32 -bottom-32 w-96 h-96 rounded-full bg-blue-500/5 dark:bg-blue-500/10 blur-3xl"></div>
- <div className="absolute right-0 top-0 w-96 h-96 rounded-full bg-purple-500/5 dark:bg-purple-500/10 blur-3xl"></div>
+ <div className="absolute -left-32 -bottom-32 w-96 h-96 rounded-full bg-blue-500/5 blur-3xl"></div>
+ <div className="absolute right-0 top-0 w-96 h-96 rounded-full bg-purple-500/5 blur-3xl"></div>
  </div>
  
  {/* Main footer content */}

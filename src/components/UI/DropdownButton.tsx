@@ -30,13 +30,13 @@ const DropdownButton: React.FC<DropdownButtonProps> = ({
  type="button"
  id={id}
  className={`
- relative w-full bg-white dark:bg-gray-700 border border-gray-300 
+ relative w-full bg-white border border-gray-300 
  rounded-lg shadow-sm pl-3 pr-10 py-2.5 text-left cursor-pointer
  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
  transition-all duration-200 ease-in-out
  ${disabled 
- ? 'opacity-50 cursor-not-allowed bg-gray-50 dark:bg-gray-800' 
- : 'hover:border-gray-400 dark:hover:border-gray-500'
+ ? 'opacity-50 cursor-not-allowed bg-gray-50 ' 
+ : 'hover:border-gray-400 :border-gray-500'
  }
  ${isOpen ? 'ring-2 ring-blue-500 border-blue-500' : ''}
  `}

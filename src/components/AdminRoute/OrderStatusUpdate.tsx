@@ -85,11 +85,11 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
  };
 
  return (
- <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 p-4">
+ <div className="bg-white rounded-lg border border-gray-200 p-4">
  <h3 className="text-lg font-medium text-gray-900 mb-4">Ažuriraj Status Narudžbe</h3>
  
  {/* Current status display */}
- <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-md">
+ <div className="mb-4 p-3 bg-gray-50 rounded-md">
  <span className="text-sm text-gray-600">Trenutni Status: </span>
  <span className="font-semibold text-gray-900 capitalize">
  {getStatusTranslation(currentStatus)}
@@ -132,8 +132,8 @@ const OrderStatusUpdate: React.FC<OrderStatusUpdateProps> = ({
  {result.message && (
  <div className={`mt-4 rounded-md p-3 ${
  result.success 
- ? 'bg-green-50 dark:bg-green-900/20 text-green-800 '
- : 'bg-red-50 dark:bg-red-900/20 text-red-800 '
+ ? 'bg-green-50 text-green-800 '
+ : 'bg-red-50 text-red-800 '
  }`}>
  <div className="flex">
  <div className="flex-shrink-0">

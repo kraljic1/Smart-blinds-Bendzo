@@ -45,9 +45,9 @@ const InstallationGuidePage = () => {
 
  <div className="grid md:grid-cols-3 gap-8 mb-16">
  {steps.map((section, index) => (
- <div key={index} className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
+ <div key={index} className="bg-white rounded-xl p-8 shadow-lg">
  <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
- <span className="w-8 h-8 bg-blue-600 dark:bg-blue-500 text-white rounded-full flex items-center justify-center mr-3 text-sm">
+ <span className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center mr-3 text-sm">
  {index + 1}
  </span>
  {section.title}
@@ -64,7 +64,7 @@ const InstallationGuidePage = () => {
  ))}
  </div>
 
- <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-xl p-8 mb-16">
+ <div className="bg-yellow-50 rounded-xl p-8 mb-16">
  <div className="flex items-start">
  <AlertTriangle className="w-6 h-6 text-yellow-600 mr-4 flex-shrink-0 mt-1"/>
  <div>
@@ -72,7 +72,7 @@ const InstallationGuidePage = () => {
  <ul className="space-y-3">
  {tips.map((tip, index) => (
  <li key={index} className="text-gray-600 flex items-center">
- <span className="w-2 h-2 bg-yellow-600 dark:bg-yellow-500 rounded-full mr-3"></span>
+ <span className="w-2 h-2 bg-yellow-600 rounded-full mr-3"></span>
  {tip}
  </li>
  ))}
@@ -85,7 +85,7 @@ const InstallationGuidePage = () => {
  <p className="text-gray-600 mb-6">Ready to connect your blinds to your smart home?</p>
  <Link
  to="/connectivity-guide"
- className="inline-flex items-center px-8 py-3 bg-blue-600 dark:bg-blue-500 text-white rounded-full hover:bg-blue-700 dark:hover:bg-blue-600 transition"
+ className="inline-flex items-center px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 :bg-blue-600 transition"
  >
  Next: Connect to Home
  </Link>

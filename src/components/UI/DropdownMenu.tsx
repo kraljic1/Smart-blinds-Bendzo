@@ -18,7 +18,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
 }) => {
  return (
  <div 
- className="fixed z-[9999] bg-white dark:bg-gray-700 shadow-lg max-h-60 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none border border-gray-200"
+ className="fixed z-[9999] bg-white shadow-lg max-h-60 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none border border-gray-200"
  style={{
  top: position.top,
  left: position.left,

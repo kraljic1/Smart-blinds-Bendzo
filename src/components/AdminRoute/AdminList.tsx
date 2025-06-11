@@ -62,7 +62,7 @@ const AdminList: React.FC<AdminListProps> = ({
  };
 
  return (
- <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
+ <div className="bg-white shadow overflow-hidden sm:rounded-lg">
  <div className="px-4 py-5 sm:px-6 border-b border-gray-200">
  <h2 className="text-lg font-medium text-gray-900">Trenutni Administratori</h2>
  <p className="mt-1 text-sm text-gray-500">
@@ -83,8 +83,8 @@ const AdminList: React.FC<AdminListProps> = ({
  </div>
  ) : (
  <div className="overflow-x-auto">
- <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
- <thead className="bg-gray-50 dark:bg-gray-900">
+ <table className="min-w-full divide-y divide-gray-200 ">
+ <thead className="bg-gray-50 ">
  <tr>
  <th scope="col"className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
  E-mail
@@ -97,13 +97,13 @@ const AdminList: React.FC<AdminListProps> = ({
  </th>
  </tr>
  </thead>
- <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+ <tbody className="bg-white divide-y divide-gray-200 ">
  {admins.map((admin) => (
- <tr key={admin.id} className="hover:bg-gray-50 dark:hover:bg-gray-750">
+ <tr key={admin.id} className="hover:bg-gray-50 :bg-gray-750">
  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
  {admin.email}
  {admin.email === currentUserEmail && (
- <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900">
+ <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 ">
  Vi
  </span>
  )}
@@ -115,7 +115,7 @@ const AdminList: React.FC<AdminListProps> = ({
  <button
  onClick={() => handleRemoveAdmin(admin.email)}
  disabled={admin.email === currentUserEmail || actionLoading}
- className={`text-red-600 hover:text-red-900 dark:hover:text-red-300 inline-flex items-center ${
+ className={`text-red-600 hover:text-red-900 :text-red-300 inline-flex items-center ${
  admin.email === currentUserEmail ? 'opacity-50 cursor-not-allowed' : ''
  }`}
  >

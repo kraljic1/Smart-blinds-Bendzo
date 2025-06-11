@@ -45,8 +45,8 @@ const SmartControlGuidePage = () => {
 
  <div className="grid md:grid-cols-3 gap-8 mb-16">
  {features.map((feature, index) => (
- <div key={index} className="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
- <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-6">
+ <div key={index} className="bg-white rounded-xl p-8 shadow-lg">
+ <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
  {feature.icon}
  </div>
  <h2 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h2>
@@ -54,7 +54,7 @@ const SmartControlGuidePage = () => {
  <ul className="space-y-3">
  {feature.tips.map((tip, i) => (
  <li key={i} className="flex items-center text-gray-600">
- <span className="w-2 h-2 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
+ <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
  {tip}
  </li>
  ))}

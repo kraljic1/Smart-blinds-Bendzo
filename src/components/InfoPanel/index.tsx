@@ -20,7 +20,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ isOpen, onClose }) => {
  
  <div 
  className={`
- fixed right-0 top-0 h-full w-full md:w-[400px] bg-white dark:bg-gray-800 z-50
+ fixed right-0 top-0 h-full w-full md:w-[400px] bg-white z-50
  transform transition-transform duration-300 ease-in-out overflow-y-auto
  ${isOpen ? 'translate-x-0' : 'translate-x-full'}
  `}

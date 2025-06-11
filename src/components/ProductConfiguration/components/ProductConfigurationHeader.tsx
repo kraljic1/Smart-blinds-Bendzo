@@ -13,7 +13,7 @@ const ProductConfigurationHeader: React.FC<ProductConfigurationHeaderProps> = ({
  return (
  <button 
  onClick={onGoBack}
- className={`flex items-center text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 mb-6 sm:mb-8 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
+ className={`flex items-center text-gray-600 hover:text-blue-600 :text-blue-400 mb-6 sm:mb-8 ${isVisible ? 'fade-in-scale' : 'opacity-0'}`}
  >
  <ArrowLeft className="mr-2"size={16} />
  Back to Products

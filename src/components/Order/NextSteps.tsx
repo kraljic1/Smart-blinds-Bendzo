@@ -3,7 +3,7 @@ import { CheckCircle, Clock, Phone } from 'lucide-react';
 
 const NextSteps: React.FC = () => {
  return (
- <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 print-hide">
+ <div className="mt-8 bg-blue-50 rounded-lg p-6 print-hide">
  <h3 className="text-lg font-semibold text-blue-900 mb-4">Što slijedi?</h3>
  <ul className="space-y-2 text-blue-800">
  <li className="flex items-start">

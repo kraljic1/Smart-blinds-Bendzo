@@ -16,7 +16,7 @@ const TestimonialCard = ({ testimonial, index }: TestimonialCardProps) => {
  return (
  <div 
  key={index} 
- className={`testimonial-card reveal-staggered ${heightClass} group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col`}
+ className={`testimonial-card reveal-staggered ${heightClass} group relative bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col`}
  >
  <div className="absolute -top-3 -left-1 text-blue-500/20 /20">
  <Quote size={60} strokeWidth={0.5} />
@@ -31,7 +31,7 @@ const TestimonialCard = ({ testimonial, index }: TestimonialCardProps) => {
  />
  ))}
  </div>
- <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700"></div>
+ <div className="w-8 h-8 rounded-full bg-gray-100 "></div>
  </div>
  
  <p className="text-gray-600 mb-6 flex-grow italic relative z-10">"{testimonial.content}"</p>

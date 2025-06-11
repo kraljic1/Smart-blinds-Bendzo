@@ -3,7 +3,7 @@ import { ArrowUpDown } from 'lucide-react';
 
 const OrderTableHeader: React.FC = () => {
  return (
- <thead className="bg-gray-50 dark:bg-gray-900">
+ <thead className="bg-gray-50 ">
  <tr>
  <th scope="col"className="col-order-id px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
  <div className="flex items-center">

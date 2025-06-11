@@ -28,7 +28,7 @@ const OrderSearch: React.FC<OrderSearchProps> = ({
  return `Prikazano ${filteredOrdersCount} od ${totalOrders} narudžbi`;
  };
  return (
- <div className="border-b border-gray-200 p-4 bg-gray-50 dark:bg-gray-900 sm:rounded-t-lg">
+ <div className="border-b border-gray-200 p-4 bg-gray-50 sm:rounded-t-lg">
  <div className="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between">
  <div className="relative rounded-md shadow-sm max-w-xs">
  <label htmlFor="order-search"className="sr-only">Pretraži narudžbe</label>
@@ -39,7 +39,7 @@ const OrderSearch: React.FC<OrderSearchProps> = ({
  type="text"
  id="order-search"
  name="orderSearch"
- className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white dark:bg-gray-700 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+ className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
  placeholder="Pretraži narudžbe..."
  value={searchTerm}
  onChange={(e) => setSearchTerm(e.target.value)}

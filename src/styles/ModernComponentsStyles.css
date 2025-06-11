@@ -9,12 +9,6 @@
   background: linear-gradient(to bottom right, white, rgb(239 246 255), rgb(238 242 255));
 }
 
-@media (prefers-color-scheme: dark) {
-  .modern-page-container {
-    background: linear-gradient(to bottom right, rgb(17 24 39), rgb(3 7 18));
-  }
-}
-
 /* Modern page title */
 .modern-page-title {
   font-size: 3rem; /* text-5xl */
@@ -26,25 +20,11 @@
   margin-bottom: 0.75rem; /* mb-3 */
 }
 
-@media (prefers-color-scheme: dark) {
-  .modern-page-title {
-    background: linear-gradient(to right, rgb(96 165 250), rgb(196 181 253));
-    background-clip: text;
-    -webkit-background-clip: text;
-  }
-}
-
 /* Modern page subtitle */
 .modern-page-subtitle {
   font-size: 1.125rem; /* text-lg */
   color: rgb(75 85 99); /* text-gray-600 */
   margin-bottom: 2.5rem; /* mb-10 */
-}
-
-@media (prefers-color-scheme: dark) {
-  .modern-page-subtitle {
-    color: rgb(156 163 175); /* dark:text-gray-400 */
-  }
 }
 
 /* Modern card container */
@@ -63,13 +43,6 @@
   box-shadow: 0 25px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); /* hover:shadow-xl */
 }
 
-@media (prefers-color-scheme: dark) {
-  .modern-card-container {
-    background-color: rgb(31 41 55 / 0.5); /* dark:bg-gray-800/50 */
-    border-color: rgb(55 65 81 / 0.3); /* dark:border-gray-700/30 */
-  }
-}
-
 /* Modern card decorative background */
 .modern-card-bg {
   position: absolute;
@@ -77,12 +50,6 @@
   background: linear-gradient(to bottom right, rgb(219 234 254 / 0.3), rgb(221 214 254 / 0.3));
   border-radius: 1rem; /* rounded-2xl */
   z-index: -10;
-}
-
-@media (prefers-color-scheme: dark) {
-  .modern-card-bg {
-    background: linear-gradient(to bottom right, rgb(30 58 138 / 0.1), rgb(88 28 135 / 0.1));
-  }
 }
 
 /* Modern card title */
@@ -94,14 +61,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-}
-
-@media (prefers-color-scheme: dark) {
-  .modern-card-title {
-    background: linear-gradient(to right, rgb(96 165 250), rgb(196 181 253));
-    background-clip: text;
-    -webkit-background-clip: text;
-  }
 }
 
 /* Modern input field */
@@ -122,18 +81,6 @@
   border-color: rgb(59 130 246); /* focus:border-blue-500 */
   outline: 2px solid rgb(147 197 253 / 0.5); /* focus:ring-blue-200 */
   outline-offset: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .modern-input {
-    background-color: rgb(31 41 55 / 0.7); /* dark:bg-gray-800/70 */
-    border-color: rgb(55 65 81); /* dark:border-gray-700 */
-    color: rgb(243 244 246); /* dark:text-gray-100 */
-  }
-  
-  .modern-input:focus {
-    outline-color: rgb(30 58 138 / 0.5); /* dark:focus:ring-blue-800/50 */
-  }
 }
 
 /* Modern button */
@@ -190,17 +137,6 @@
   background-color: rgb(249 250 251); /* hover:bg-gray-50 */
 }
 
-@media (prefers-color-scheme: dark) {
-  .modern-item-card {
-    background-color: rgb(31 41 55 / 0.5); /* dark:bg-gray-800/50 */
-    border-color: rgb(55 65 81 / 0.3); /* dark:border-gray-700/30 */
-  }
-  
-  .modern-item-card:hover {
-    background-color: rgb(31 41 55 / 0.7); /* dark:hover:bg-gray-800/70 */
-  }
-}
-
 /* Modern grid layout */
 .modern-grid {
   display: grid;
@@ -244,12 +180,6 @@
   transform: scale(1.1); /* group-hover:scale-110 */
 }
 
-@media (prefers-color-scheme: dark) {
-  .modern-icon-container {
-    background: linear-gradient(to bottom right, rgb(30 58 138 / 0.4), rgb(30 64 175 / 0.4));
-  }
-}
-
 /* Modern highlight text */
 .modern-highlight-text {
   font-weight: 600; /* font-semibold */
@@ -259,23 +189,9 @@
   color: transparent;
 }
 
-@media (prefers-color-scheme: dark) {
-  .modern-highlight-text {
-    background: linear-gradient(to right, rgb(96 165 250), rgb(196 181 253));
-    background-clip: text;
-    -webkit-background-clip: text;
-  }
-}
-
 /* Modern info text */
 .modern-info-text {
   color: rgb(75 85 99); /* text-gray-600 */
-}
-
-@media (prefers-color-scheme: dark) {
-  .modern-info-text {
-    color: rgb(209 213 219); /* dark:text-gray-300 */
-  }
 }
 
 /* Modern rounded image */
@@ -296,12 +212,6 @@
   border-top: 1px solid rgb(229 231 235); /* border-gray-200 */
 }
 
-@media (prefers-color-scheme: dark) {
-  .modern-divider {
-    border-color: rgb(31 41 55); /* dark:border-gray-800 */
-  }
-}
-
 /* Modern tag/badge */
 .modern-badge {
   display: inline-block;
@@ -311,13 +221,6 @@
   color: rgb(29 78 216); /* text-blue-700 */
   font-size: 0.75rem; /* text-xs */
   font-weight: 500; /* font-medium */
-}
-
-@media (prefers-color-scheme: dark) {
-  .modern-badge {
-    background-color: rgb(37 99 235 / 0.2); /* dark:bg-blue-600/20 */
-    color: rgb(147 197 253); /* dark:text-blue-300 */
-  }
 }
 
 /* Modern list item */

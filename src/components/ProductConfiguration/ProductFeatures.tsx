@@ -22,7 +22,7 @@ const ProductFeatures: React.FC<ProductFeaturesProps> = ({
 
  return (
  <div className={containerClasses} style={containerStyle}>
- <div className="divide-y divide-gray-200 dark:divide-gray-700">
+ <div className="divide-y divide-gray-200 ">
  <FeaturesList
  features={features}
  isVisible={isVisible}

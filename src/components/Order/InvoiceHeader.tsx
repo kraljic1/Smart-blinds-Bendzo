@@ -24,7 +24,7 @@ const InvoiceHeader: React.FC<InvoiceHeaderProps> = ({ orderId, orderDetails }) 
  };
 
  return (
- <div className="bg-blue-600 dark:bg-blue-700 text-white p-6">
+ <div className="bg-blue-600 text-white p-6">
  <div className="flex justify-between items-start">
  <div>
  <h2 className="text-2xl font-bold mb-2">Smartblinds Croatia</h2>

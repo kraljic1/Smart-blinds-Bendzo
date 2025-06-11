@@ -21,8 +21,8 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  shippingMethod
 }) => {
  return (
- <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden border border-gray-200">
- <div className="px-4 py-5 sm:px-6 border-b border-gray-200 bg-gray-100 dark:bg-gray-800">
+ <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+ <div className="px-4 py-5 sm:px-6 border-b border-gray-200 bg-gray-100 ">
  <div className="flex items-center">
  <User className="h-5 w-5 text-gray-500 mr-2"/>
  <h2 className="text-lg font-medium text-gray-900">Informacije o Kupcu</h2>
@@ -32,7 +32,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  <div className="px-4 py-5 sm:p-6 grid grid-cols-1 gap-5">
  <div>
  <div className="flex items-center">
- <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800">
+ <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 ">
  <User className="w-4 h-4"/>
  </div>
  <div className="ml-3">
@@ -44,7 +44,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  
  <div>
  <div className="flex items-center">
- <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800">
+ <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 ">
  <Mail className="w-4 h-4"/>
  </div>
  <div className="ml-3">
@@ -56,7 +56,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  
  <div>
  <div className="flex items-center">
- <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800">
+ <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 ">
  <Phone className="w-4 h-4"/>
  </div>
  <div className="ml-3">
@@ -68,7 +68,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  
  <div>
  <div className="flex items-start">
- <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 mt-0.5">
+ <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mt-0.5">
  <MapPin className="w-4 h-4"/>
  </div>
  <div className="ml-3">
@@ -81,7 +81,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  {shippingAddress && shippingAddress !== billingAddress && (
  <div>
  <div className="flex items-start">
- <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 mt-0.5">
+ <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mt-0.5">
  <Truck className="w-4 h-4"/>
  </div>
  <div className="ml-3">
@@ -95,7 +95,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  {paymentMethod && (
  <div>
  <div className="flex items-start">
- <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 mt-0.5">
+ <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mt-0.5">
  <svg xmlns="http://www.w3.org/2000/svg"className="w-4 h-4"viewBox="0 0 24 24"fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round">
  <rect x="1"y="4"width="22"height="16"rx="2"ry="2"></rect>
  <line x1="1"y1="10"x2="23"y2="10"></line>
@@ -112,7 +112,7 @@ const CustomerInfo: React.FC<CustomerInfoProps> = ({
  {shippingMethod && (
  <div>
  <div className="flex items-start">
- <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 dark:bg-blue-800 mt-0.5">
+ <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 mt-0.5">
  <svg xmlns="http://www.w3.org/2000/svg"className="w-4 h-4"viewBox="0 0 24 24"fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round">
  <rect x="1"y="3"width="15"height="13"></rect>
  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>

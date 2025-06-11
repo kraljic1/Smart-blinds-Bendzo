@@ -15,7 +15,7 @@ const TemporaryPasswordDisplay: React.FC<TemporaryPasswordDisplayProps> = ({
  };
 
  return (
- <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 rounded-lg">
+ <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
  <div className="flex items-start">
  <div className="flex-shrink-0">
  <svg className="h-5 w-5 text-yellow-400"viewBox="0 0 20 20"fill="currentColor">
@@ -32,7 +32,7 @@ const TemporaryPasswordDisplay: React.FC<TemporaryPasswordDisplayProps> = ({
  </h3>
  <div className="mt-2 text-sm text-yellow-700">
  <p>Privremena lozinka za novog administratora:</p>
- <div className="mt-2 p-2 bg-white dark:bg-gray-800 border border-yellow-300 rounded font-mono text-lg">
+ <div className="mt-2 p-2 bg-white border border-yellow-300 rounded font-mono text-lg">
  {password}
  </div>
  <p className="mt-2 text-xs">
@@ -43,13 +43,13 @@ const TemporaryPasswordDisplay: React.FC<TemporaryPasswordDisplayProps> = ({
  <div className="mt-3">
  <button
  onClick={handleCopyPassword}
- className="text-sm bg-yellow-100 dark:bg-yellow-800 text-yellow-800 px-3 py-1 rounded hover:bg-yellow-200 dark:hover:bg-yellow-700"
+ className="text-sm bg-yellow-100 text-yellow-800 px-3 py-1 rounded hover:bg-yellow-200 :bg-yellow-700"
  >
  📋 Kopiraj lozinku
  </button>
  <button
  onClick={onClose}
- className="ml-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-800 px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
+ className="ml-2 text-sm bg-gray-100 text-gray-800 px-3 py-1 rounded hover:bg-gray-200 :bg-gray-600"
  >
  ✕ Zatvori
  </button>

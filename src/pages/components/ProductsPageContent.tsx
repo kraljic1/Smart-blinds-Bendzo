@@ -30,7 +30,7 @@ export const ProductsPageContent = ({
  categoryId={currentCategoryId}
  products={categoryProducts}
  onFilteredProductsChange={setFilteredProducts}
- className="modern-card bg-white/80 dark:bg-gray-800/80 p-4 rounded-lg shadow border border-gray-200 backdrop-blur-lg filter-sidebar"
+ className="modern-card bg-white/80 p-4 rounded-lg shadow border border-gray-200 backdrop-blur-lg filter-sidebar"
  />
  </div>
 

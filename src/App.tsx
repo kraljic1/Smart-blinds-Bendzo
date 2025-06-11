@@ -72,25 +72,25 @@ function App() {
  <main className="flex-grow overflow-x-hidden bg-white">
  <Suspense fallback={<PageLoader />}>
  <Routes>
-                      <Route path="/" element={<HomePage />} />
-                     <Route path="/products" element={<ProductsPage />} />
-                     <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
-                     <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
-                     <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
-                     <Route path="/products/accessories" element={<AccessoriesPage />} />
-                     <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
-                     <Route path="/pricing-demo" element={<PricingDemoPage />} />
-                     <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
-                     <Route path="/how-it-works" element={<HowItWorksPage />} />
-                     <Route path="/support" element={<SupportPage />} />
-                     <Route path="/installation-guide" element={<InstallationGuidePage />} />
-                     <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
-                     <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
-                     <Route path="/basket" element={<BasketPage />} />
-                     <Route path="/liked" element={<LikedPage />} />
-                     <Route path="/checkout" element={<CheckoutPage />} />
-                     <Route path="/thank-you" element={<ThankYouPage />} />
-                     <Route path="/admin/login" element={<AdminLoginPage />} />
+ <Route path="/" element={<HomePage />} />
+ <Route path="/products" element={<ProductsPage />} />
+ <Route path="/products/roller-blinds" element={<RollerBlindsPage />} />
+ <Route path="/products/zebra-blinds" element={<ZebraBlindsPage />} />
+ <Route path="/products/curtain-blinds" element={<CurtainTracksPage />} />
+ <Route path="/products/accessories" element={<AccessoriesPage />} />
+ <Route path="/products/configure/:productId" element={<ProductConfigurationPage />} />
+ <Route path="/pricing-demo" element={<PricingDemoPage />} />
+ <Route path="/product-options-demo" element={<ProductOptionDemoPage />} />
+ <Route path="/how-it-works" element={<HowItWorksPage />} />
+ <Route path="/support" element={<SupportPage />} />
+ <Route path="/installation-guide" element={<InstallationGuidePage />} />
+ <Route path="/connectivity-guide" element={<ConnectivityGuidePage />} />
+ <Route path="/smart-control-guide" element={<SmartControlGuidePage />} />
+ <Route path="/basket" element={<BasketPage />} />
+ <Route path="/liked" element={<LikedPage />} />
+ <Route path="/checkout" element={<CheckoutPage />} />
+ <Route path="/thank-you" element={<ThankYouPage />} />
+ <Route path="/admin/login" element={<AdminLoginPage />} />
  <Route 
  path="/admin/orders"
  element={
@@ -115,10 +115,10 @@ function App() {
  </AdminRoute>
  } 
  />
-                      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
-                     <Route path="/terms-of-service" element={<TermsOfServicePage />} />
-                     <Route path="/accessibility" element={<AccessibilityPage />} />
-                     <Route path="/test-payment" element={<TestPayment />} />
+ <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+ <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+ <Route path="/accessibility" element={<AccessibilityPage />} />
+ <Route path="/test-payment" element={<TestPayment />} />
  </Routes>
  </Suspense>
  </main>

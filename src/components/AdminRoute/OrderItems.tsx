@@ -23,8 +23,8 @@ interface OrderItemsProps {
 
 const OrderItems: React.FC<OrderItemsProps> = ({ items, subtotal, shippingCost = 0, totalAmount }) => {
  return (
- <div className="bg-gray-50 dark:bg-gray-900 rounded-lg overflow-hidden border border-gray-200">
- <div className="px-4 py-5 sm:px-6 border-b border-gray-200 bg-gray-100 dark:bg-gray-800">
+ <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+ <div className="px-4 py-5 sm:px-6 border-b border-gray-200 bg-gray-100 ">
  <div className="flex items-center">
  <ShoppingCart className="h-5 w-5 text-gray-500 mr-2"/>
  <h2 className="text-lg font-medium text-gray-900">Stavke Narudžbe</h2>
@@ -33,7 +33,7 @@ const OrderItems: React.FC<OrderItemsProps> = ({ items, subtotal, shippingCost =
  
  <div className="px-4 py-5 sm:p-6">
  {items.length > 0 ? (
- <div className="divide-y divide-gray-200 dark:divide-gray-700">
+ <div className="divide-y divide-gray-200 ">
  {items.map((item, index) => {
  const formattedOptions = item.options ? formatProductOptions(item.options) : [];
  const dimensionText = formatDimensions(item.width, item.height);
@@ -65,7 +65,7 @@ const OrderItems: React.FC<OrderItemsProps> = ({ items, subtotal, shippingCost =
  <span className="text-sm font-medium text-gray-600">
  {option.label}
  </span>
- <span className="text-sm font-semibold text-gray-900 ml-2 bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded-full">
+ <span className="text-sm font-semibold text-gray-900 ml-2 bg-blue-50 px-2 py-1 rounded-full">
  {option.value}
  </span>
  </div>

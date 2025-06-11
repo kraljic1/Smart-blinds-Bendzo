@@ -31,7 +31,7 @@ const ProductCardActions: React.FC<ProductCardActionsProps> = ({
  <CardActions>
  <button
  onClick={handleConfigureClick}
- className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase dark:bg-blue-500 dark:hover:bg-blue-600"
+ className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition uppercase :bg-blue-600"
  >
  {configureButtonText}
  </button>
@@ -39,7 +39,7 @@ const ProductCardActions: React.FC<ProductCardActionsProps> = ({
  {onRequestSample && (
  <button
  onClick={handleRequestSampleClick}
- className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase dark:bg-gray-700 dark:hover:bg-gray-600"
+ className="w-full mt-2 bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition uppercase :bg-gray-600"
  >
  Request Sample
  </button>

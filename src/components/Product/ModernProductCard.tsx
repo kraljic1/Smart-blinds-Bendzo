@@ -45,7 +45,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
  {/* Card with modern effects */}
  <div 
  ref={cardRef} 
- className={`relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 transition-all duration-500 group-hover:shadow-xl cursor-pointer ${styles.productCard} ${isVisible ? styles.productCardVisible : ''} ${styles[getDelayClass()]}`}
+ className={`relative h-full flex flex-col light-card backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 transition-all duration-500 group-hover:shadow-xl cursor-pointer ${styles.productCard} ${isVisible ? styles.productCardVisible : ''} ${styles[getDelayClass()]}`}
  onClick={handleCardClick}
  >
  {/* Subtle card background gradient */}

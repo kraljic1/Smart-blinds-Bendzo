@@ -75,7 +75,7 @@ const HeroBackground: React.FC<HeroBackgroundProps> = ({
  ref={(el) => {
  if (el) imageRefs.current.set(index, el);
  }}
- className={`absolute top-0 w-full h-full bg-center bg-cover transition-opacity duration-1000 ease-in-out bg-gray-900 dark:bg-gray-900 ${
+ className={`absolute top-0 w-full h-full bg-center bg-cover transition-opacity duration-1000 ease-in-out bg-gray-100 ${
  currentImageIndex === index ? 'opacity-100' : 'opacity-0'
  }`}
  data-bg-image={img}
@@ -86,7 +86,7 @@ const HeroBackground: React.FC<HeroBackgroundProps> = ({
  <div 
  className="absolute top-0 w-full h-full z-[1]"
  style={{
- background: 'linear-gradient(125deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 40%, rgba(45,10,80,0.6) 100%)'
+ background: 'linear-gradient(125deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.2) 40%, rgba(59,130,246,0.4) 100%)'
  }}
  ></div>
  </>

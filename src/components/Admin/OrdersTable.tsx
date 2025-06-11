@@ -7,10 +7,10 @@ interface OrdersTableProps {
 
 const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
  return (
- <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
+ <div className="bg-white shadow-sm rounded-lg overflow-hidden">
  <div className="overflow-x-auto">
- <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
- <thead className="bg-gray-50 dark:bg-gray-700">
+ <table className="min-w-full divide-y divide-gray-200 ">
+ <thead className="bg-gray-50 ">
  <tr>
  <th scope="col"className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
  ID Narudžbe
@@ -38,9 +38,9 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
  </th>
  </tr>
  </thead>
- <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+ <tbody className="bg-white divide-y divide-gray-200 ">
  {orders.map((order) => (
- <tr key={order.order_id} className="hover:bg-gray-50 dark:hover:bg-gray-750">
+ <tr key={order.order_id} className="hover:bg-gray-50 :bg-gray-750">
  <td className="px-6 py-4 text-sm font-medium text-gray-900">
  {order.order_id}
  </td>
@@ -62,12 +62,12 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
  <td className="px-6 py-4 whitespace-nowrap text-center">
  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
  order.status === 'completed' 
- ? 'bg-green-100 text-green-800 dark:bg-green-900 '
+ ? 'bg-green-100 text-green-800 '
  : order.status === 'processing'
- ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 '
+ ? 'bg-blue-100 text-blue-800 '
  : order.status === 'cancelled'
- ? 'bg-red-100 text-red-800 dark:bg-red-900 '
- : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 '
+ ? 'bg-red-100 text-red-800 '
+ : 'bg-yellow-100 text-yellow-800 '
  }`}>
  {order.status === 'completed' ? 'Završeno' :
  order.status === 'processing' ? 'U obradi' :
@@ -79,7 +79,7 @@ const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
  <div className="flex items-center justify-center space-x-2">
  <a
  href={`/admin/orders/${order.order_id}`}
- className="text-blue-600 hover:text-blue-900 dark:hover:text-blue-300"
+ className="text-blue-600 hover:text-blue-900 :text-blue-300"
  >
  Prikaži
  </a>

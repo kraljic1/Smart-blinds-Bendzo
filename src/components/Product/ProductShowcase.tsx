@@ -42,7 +42,7 @@ const ProductShowcase = () => {
  alt="Smart blinds showcase"
  className="rounded-lg shadow-xl"
  />
- <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+ <div className="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg">
  <p className="text-sm font-semibold text-gray-900">Starting from</p>
  <p className="text-3xl font-bold text-blue-600">$199</p>
  </div>

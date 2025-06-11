@@ -16,7 +16,7 @@ const NavigationButton = ({ direction, onClick }: NavigationButtonProps) => {
  return (
  <button 
  onClick={onClick}
- className={`absolute ${positionClass} top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-800 rounded-full p-3 shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition border border-gray-200 `}
+ className={`absolute ${positionClass} top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-lg hover:bg-gray-100 :bg-gray-700 transition border border-gray-200 `}
  aria-label={ariaLabel}
  >
  <Icon className="w-6 h-6 text-gray-500"/>

@@ -30,7 +30,7 @@ const ProductOptionDemoPage: React.FC = () => {
  
  return (
  <div className="container mx-auto px-4 py-12">
- <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden mb-12">
+ <div className="bg-white rounded-lg shadow-sm overflow-hidden mb-12">
  <div className="p-6">
  <h1 className="text-2xl font-bold text-gray-900 mb-6">
  Product Options - Modern Style
@@ -66,7 +66,7 @@ const ProductOptionDemoPage: React.FC = () => {
  
  {isModalOpen && (
  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
- <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+ <div className="bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
  <ProductOptionsModal 
  title="Solar Black"
  imageUrl="https://images.unsplash.com/photo-1513694203232-719a280e022f?w=300&h=200&q=80&fit=crop&auto=format"

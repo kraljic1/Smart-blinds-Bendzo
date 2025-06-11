@@ -41,7 +41,7 @@ export const CardRoot: React.FC<CardRootProps> = ({
  return (
  <div 
  onClick={onClick}
- className={`bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer ${className}`}
+ className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer ${className}`}
  >
  {children}
  </div>

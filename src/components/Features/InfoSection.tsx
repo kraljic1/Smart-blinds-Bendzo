@@ -41,7 +41,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
  }}
  >
  <div className="flex-1 text-center lg:text-left">
- <div className="mb-6 p-4 inline-block bg-blue-50/50 dark:bg-blue-900/20 rounded-2xl">
+ <div className="mb-6 p-4 inline-block bg-blue-50/50 rounded-2xl">
  <Icon className="w-12 h-12 text-blue-600"/>
  </div>
  <h3 className="text-2xl font-bold mb-4 text-gray-900">
@@ -52,7 +52,7 @@ const InfoSection: React.FC<InfoSectionProps> = ({
  </p>
  <Link
  to={linkTo}
- className="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 dark:hover:text-blue-500 transition-colors"
+ className="inline-flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 :text-blue-500 transition-colors"
  >
  <span>Saznajte više o {title} →</span>
  </Link>

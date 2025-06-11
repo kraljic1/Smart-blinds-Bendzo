@@ -6,7 +6,7 @@ export const AdminIcon: React.FC = () => {
  return (
  <Link 
  to="/admin/login"
- className="relative flex items-center justify-center w-10 h-10 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+ className="relative flex items-center justify-center w-10 h-10 p-2 rounded-full hover:bg-gray-100 :bg-gray-800 transition-colors"
  aria-label="Admin Login"
  title="Admin Login"
  >

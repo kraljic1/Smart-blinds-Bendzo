@@ -49,7 +49,7 @@ const ThankYouPage: React.FC = () => {
  };
 
  return (
- <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
+ <div className="min-h-screen bg-gray-50 py-8 px-4">
  <CroatianSEO
  title="Hvala vam na narudžbi | Smartblinds Croatia"
  description="Vaša narudžba je uspješno poslana."
@@ -64,7 +64,7 @@ const ThankYouPage: React.FC = () => {
  <PrintButton onClick={handlePrint} />
 
  {/* Order Receipt */}
- <div className="print-invoice bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+ <div className="print-invoice bg-white rounded-lg shadow-lg overflow-hidden">
  <InvoiceHeader 
  orderId={lastOrder.orderId || ''} 
  orderDetails={null} 

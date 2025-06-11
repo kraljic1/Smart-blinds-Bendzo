@@ -23,8 +23,8 @@ const ZebraPageHeader: React.FC<ZebraPageHeaderProps> = ({
  </div>
  
  <div className="relative">
- <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-200 dark:bg-purple-900 rounded-full filter blur-3xl opacity-20 -z-10"></div>
- <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-200 dark:bg-indigo-900 rounded-full filter blur-3xl opacity-20 -z-10"></div>
+ <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-200 rounded-full filter blur-3xl opacity-20 -z-10"></div>
+ <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-200 rounded-full filter blur-3xl opacity-20 -z-10"></div>
  </div>
  
  <h1 
