@@ -1,18 +1,17 @@
 /* Accessory Page Animations */
 .fade-in {
-  animation: fadeIn 0.8s ease-in-out forwards;
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
 }
 
 .fade-in-delay-1 {
+  animation: fadeIn 0.6s ease-out 0.2s forwards;
   opacity: 0;
-  animation: fadeIn 0.8s ease-in-out forwards;
-  animation-delay: 0.3s;
 }
 
 .fade-in-delay-2 {
+  animation: fadeIn 0.6s ease-out 0.4s forwards;
   opacity: 0;
-  animation: fadeIn 0.8s ease-in-out forwards;
-  animation-delay: 0.5s;
 }
 
 @keyframes fadeIn {
@@ -28,29 +27,40 @@
 
 /* Product color swatch styling */
 .product-color-swatch {
-  transition: transform 0.3s ease;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .product-color-swatch:hover {
   transform: scale(1.1);
+  border-color: #3b82f6;
 }
 
 /* Card hover effects */
 .accessories-card {
   transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .accessories-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* Additional responsive adjustments */
 @media (max-width: 640px) {
   .accessories-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    line-height: 1.2;
   }
   
   .accessories-hero p {
     font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
-} 
+}
