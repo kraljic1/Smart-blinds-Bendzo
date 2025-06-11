@@ -71,14 +71,14 @@ const CurtainTracksPage = () => {
  alt="Smart curtain tracks showcase"
  className="w-full h-full object-cover"
  />
- <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40 backdrop-blur-sm"/>
+ <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-800/40 backdrop-blur-sm"/>
  </div>
  <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
  <div className="max-w-3xl">
  <h2 className="text-5xl font-bold text-white mb-6 animate-text-reveal">
  Smart Curtain Tracks
  </h2>
- <p className="text-xl text-gray-200 mb-8">
+ <p className="text-xl text-blue-50 mb-8">
  Transform your curtains with our premium electric curtain track system. Elegant, quiet, and seamlessly integrated with your smart home.
  </p>
  <a 

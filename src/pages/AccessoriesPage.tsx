@@ -16,6 +16,10 @@ const AccessoriesPage: React.FC = () => {
  return () => clearTimeout(timer);
  }, []);
 
+ const scrollToProducts = () => {
+   // Implement the scrollToProducts function
+ };
+
  return (
  <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white">
  <SEO
@@ -25,23 +29,30 @@ const AccessoriesPage: React.FC = () => {
  />
  
  {/* Hero Section */}
- <div className={`relative h-[30vh] sm:h-[35vh] md:h-[40vh] mb-12 md:mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
+ <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
  <div className="absolute inset-0">
  <img 
- src={accessories[0].images[2]} 
- alt="Smart accessories showcase"
+ src={accessories[0].images[0]} 
+ alt="Smart home accessories showcase"
  className="w-full h-full object-cover"
  />
- <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"/>
+ <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-800/40"/>
  </div>
  <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
  <div className="max-w-3xl">
- <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">
+ <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
  Smart Home Accessories
- </h1>
- <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 md:mb-8">
- Complete your smart home setup with our range of accessories
+ </h2>
+ <p className="text-lg sm:text-xl text-blue-50 mb-8">
+ Complete your smart home setup with our range of premium accessories and control devices.
  </p>
+ <a 
+ href="#products"
+ onClick={scrollToProducts}
+ className="bg-white text-blue-900 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition inline-block shadow-lg"
+ >
+ Explore Collection
+ </a>
  </div>
  </div>
  </div>

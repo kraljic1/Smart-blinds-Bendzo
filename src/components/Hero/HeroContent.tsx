@@ -44,7 +44,7 @@ const HeroContent: React.FC<HeroContentProps> = ({
  <div className="relative inline-block">
  <span className="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-600/30 to-blue-600/30 blur-xl"></span>
  <p 
- className={`relative mt-4 text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto leading-relaxed ${
+ className={`relative mt-4 text-lg md:text-xl text-blue-50 mb-8 max-w-xl mx-auto leading-relaxed ${
  headingVisible ? 'animate-sequential-reveal delay-300' : 'opacity-0'
  }`}
  >

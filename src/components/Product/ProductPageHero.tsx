@@ -29,21 +29,21 @@ const ProductPageHero: React.FC<ProductPageHeroProps> = ({
  alt={imageAlt}
  className="w-full h-full object-cover"
  />
- <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"/>
+ <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-800/40"/>
  </div>
  <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
  <div className="max-w-3xl">
  <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
  {title}
  </h2>
- <p className="text-lg sm:text-xl text-gray-200 mb-8">
+ <p className="text-lg sm:text-xl text-blue-50 mb-8">
  {description}
  </p>
  {onExploreClick && (
  <a 
  href="#products"
  onClick={onExploreClick}
- className="bg-white text-gray-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition inline-block"
+ className="bg-white text-blue-900 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition inline-block shadow-lg"
  >
  Explore Collection
  </a>

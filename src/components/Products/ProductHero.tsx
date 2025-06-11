@@ -10,19 +10,19 @@ const ProductHero: React.FC = () => {
  alt="Smart blinds showcase"
  className="w-full h-full object-cover"
  />
- <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"/>
+ <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-800/40"/>
  </div>
  <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
  <div className="max-w-3xl">
  <h1 className="text-5xl font-bold text-white mb-6">
  Smart Solutions for Modern Living
  </h1>
- <p className="text-xl text-gray-200 mb-8">
+ <p className="text-xl text-blue-50 mb-8">
  Discover our range of innovative smart blinds designed to transform your home
  </p>
  <Link
  to="/how-it-works"
- className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-gray-900 transition"
+ className="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-blue-900 transition shadow-lg"
  >
  How It Works
  </Link>
