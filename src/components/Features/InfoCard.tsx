@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface InfoCardProps {
-  sectionRef: (node: HTMLDivElement | null) => void;
+ sectionRef: (node: HTMLDivElement | null) => void;
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({ sectionRef }) => {

@@ -1,36 +1,15 @@
 import { CustomizationOption } from '../components/ProductCustomization';
-import { defaultCustomizationOptions } from './customizationOptions';
-import { curtainTracksCustomization } from './curtainTracksCustomization';
-import { getAccessoryCustomizationOptions } from './accessoryCustomization';
-import { getDynamicCustomizationOptions } from '../utils/customizationUtils';
-import { allProducts } from './collections';
+import { CustomizationOptionService } from './customizationOptionsByProduct/services/CustomizationOptionService';
 
+/**
+ * Gets customization options for a given product ID
+ * 
+ * This function serves as the main entry point for retrieving customization options.
+ * It delegates to the CustomizationOptionService which handles the logic for different product types.
+ * 
+ * @param productId - The unique identifier for the product
+ * @returns Array of customization options for the product
+ */
 export const getCustomizationOptions = (productId: string): CustomizationOption[] => {
-  // Check if this is an accessory product
-  if (
-    productId === 'matter-bridge-cm55' ||
-    productId === 'remote-5-channel' ||
-    productId === 'remote-15-channel' ||
-    productId === 'wifi-bridge-cm20' ||
-    productId === 'eve-smart-plug' ||
-    productId === 'usb-c-cable'
-  ) {
-    return getAccessoryCustomizationOptions(productId);
-  }
-  
-  // Special case for curtain tracks
-  if (productId === 'glider-track') {
-    return curtainTracksCustomization;
-  }
-  
-  // Check if this is a roller blind product
-  const product = allProducts.find(p => p.id === productId);
-  
-  // For roller blinds and zebra blinds, use dynamic color options
-  if (product && (product.collection || '').toLowerCase() !== 'curtain') {
-    return getDynamicCustomizationOptions(productId);
-  }
-  
-  // Default fallback to standard options
-  return defaultCustomizationOptions;
+ return CustomizationOptionService.getOptionsForProduct(productId);
 }; 

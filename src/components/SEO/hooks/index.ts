@@ -1,0 +1,1 @@
+export { useSEOData } from './useSEOData'; 

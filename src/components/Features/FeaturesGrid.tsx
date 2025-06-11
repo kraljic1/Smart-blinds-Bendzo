@@ -3,7 +3,7 @@ import { Sun, Smartphone, Battery, Shield } from 'lucide-react';
 import FeatureCard from './FeatureCard';
 
 interface FeaturesGridProps {
-  sectionRef: (node: HTMLDivElement | null) => void;
+ sectionRef: (node: HTMLDivElement | null) => void;
 }
 
 const FeaturesGrid: React.FC<FeaturesGridProps> = ({ sectionRef }) => {

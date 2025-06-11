@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface AnimatedHeaderProps {
-  headerRef: React.RefObject<HTMLDivElement>;
+ headerRef: React.RefObject<HTMLDivElement>;
 }
 
 const AnimatedHeader: React.FC<AnimatedHeaderProps> = ({ headerRef }) => {

@@ -10,25 +10,25 @@ export { getOrderByIdFallback } from './orderFallback';
 
 // Order utilities
 export { 
-  getOrderStatus, 
-  updateOrderStatus, 
-  updatePaymentStatus, 
-  getOrderCount, 
-  deleteOrder 
+ getOrderStatus, 
+ updateOrderStatus, 
+ updatePaymentStatus, 
+ getOrderCount, 
+ deleteOrder 
 } from './orderUtilities';
 
 // Order queries and search
 export { 
-  getRecentOrders, 
-  searchOrders, 
-  getOrdersByDateRange 
+ getRecentOrders, 
+ searchOrders, 
+ getOrdersByDateRange 
 } from './orderQueries';
 
 // Optimized order functions
 export {
-  getOrdersOptimized,
-  getOrderCountOptimized,
-  getOrderByIdOptimized
+ getOrdersOptimized,
+ getOrderCountOptimized,
+ getOrderByIdOptimized
 } from './orderOptimized';
 
 // Order history and email queries
@@ -36,9 +36,9 @@ export { getOrderHistory } from './service';
 
 // Types
 export type { 
-  TransformedOrderData, 
-  SupabaseOrderData, 
-  SupabaseOrderItem,
-  OrderItemResponse,
-  OptimizedOrderSummary 
+ TransformedOrderData, 
+ SupabaseOrderData, 
+ SupabaseOrderItem,
+ OrderItemResponse,
+ OptimizedOrderSummary 
 } from './types'; 

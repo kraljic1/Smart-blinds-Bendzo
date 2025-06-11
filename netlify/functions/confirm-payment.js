@@ -170,6 +170,20 @@ export const handler = async function(event, context) {
       };
     }
     
+    // Handle test requests
+    if (requestData.test === true) {
+      console.log('[CONFIRM-PAYMENT] Test request received');
+      return {
+        statusCode: 200,
+        headers: corsHeaders,
+        body: JSON.stringify({ 
+          success: true, 
+          message: 'Function is available',
+          test: true
+        })
+      };
+    }
+
     const { 
       paymentIntentId, 
       customer, 

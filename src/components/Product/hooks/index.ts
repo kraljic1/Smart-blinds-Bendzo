@@ -1,0 +1,1 @@
+export { useProductCardHandlers } from './useProductCardHandlers'; 

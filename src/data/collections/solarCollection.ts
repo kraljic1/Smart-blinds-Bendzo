@@ -28,108 +28,108 @@ import solarWhiteOff3 from '../../img/rollerblinds/SOLAR/SOLAR WHITE-OFF/3.webp'
 
 // Solar Collection
 export const solarCollection: Product[] = [
-  {
-    id: "solar-white-blackout",
-    name: "SOLAR - WHITE",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: solarWhite0,
-    images: [
-      solarWhite0,
-      solarWhite1,
-      solarWhite2,
-      solarWhite3,
-      solarWhite4
-    ],
-    features: ["Blackout"],
-    colors: 1,
-    fabricColor: "#FFFFFF",
-    collection: "Solar"
-  },
-  {
-    id: "solar-white-off-blackout",
-    name: "SOLAR - DARK WHITE-OFF",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: solarWhiteOff0,
-    images: [
-      solarWhiteOff0,
-      solarWhiteOff1,
-      solarWhiteOff2,
-      solarWhiteOff3
-    ],
-    features: ["Blackout"],
-    colors: 1,
-    fabricColor: "#F5F5F5",
-    collection: "Solar"
-  },
-  {
-    id: "solar-black",
-    name: "Solar - black",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: solarBlackMain,
-    images: [
-      solarBlackMain,
-      solarBlack1,
-      solarBlack2,
-      solarBlack3
-    ],
-    features: ["Blackout"],
-    colors: 2,
-    fabricColor: "#000000",
-    collection: "Solar"
-  },
-  {
-    id: "solar-beige-blackout",
-    name: "SOLAR - BEIGE",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: solarBeige0,
-    images: [
-      solarBeige0,
-      solarBeige1,
-      solarBeige2,
-      solarBeige3,
-      solarBeige4
-    ],
-    features: ["Blackout"],
-    colors: 1,
-    fabricColor: "#E2C9A6",
-    collection: "Solar"
-  },
-  {
-    id: "solar-grey-blackout",
-    name: "SOLAR - GREY",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: solarGrey0,
-    images: [
-      solarGrey0,
-      solarGrey1,
-      solarGrey2,
-      solarGrey3
-    ],
-    features: ["Blackout"],
-    colors: 1,
-    fabricColor: "#A9A9A9",
-    collection: "Solar"
-  },
-  {
-    id: "solar-dark-grey-blackout",
-    name: "SOLAR - DARK GREY",
-    price: 299.99,
-    originalPrice: 329.99,
-    image: solarDarkGrey0,
-    images: [
-      solarDarkGrey0,
-      solarDarkGrey1,
-      solarDarkGrey2,
-      solarDarkGrey3
-    ],
-    features: ["Blackout"],
-    colors: 1,
-    fabricColor: "#4A4A4A",
-    collection: "Solar"
-  }
+ {
+ id:"solar-white-blackout",
+ name:"SOLAR - WHITE",
+ price: 299.99,
+ originalPrice: 329.99,
+ image: solarWhite0,
+ images: [
+ solarWhite0,
+ solarWhite1,
+ solarWhite2,
+ solarWhite3,
+ solarWhite4
+ ],
+ features: ["Blackout"],
+ colors: 1,
+ fabricColor:"#FFFFFF",
+ collection:"Solar"
+ },
+ {
+ id:"solar-white-off-blackout",
+ name:"SOLAR - DARK WHITE-OFF",
+ price: 299.99,
+ originalPrice: 329.99,
+ image: solarWhiteOff0,
+ images: [
+ solarWhiteOff0,
+ solarWhiteOff1,
+ solarWhiteOff2,
+ solarWhiteOff3
+ ],
+ features: ["Blackout"],
+ colors: 1,
+ fabricColor:"#F5F5F5",
+ collection:"Solar"
+ },
+ {
+ id:"solar-black",
+ name:"Solar - black",
+ price: 299.99,
+ originalPrice: 329.99,
+ image: solarBlackMain,
+ images: [
+ solarBlackMain,
+ solarBlack1,
+ solarBlack2,
+ solarBlack3
+ ],
+ features: ["Blackout"],
+ colors: 2,
+ fabricColor:"#000000",
+ collection:"Solar"
+ },
+ {
+ id:"solar-beige-blackout",
+ name:"SOLAR - BEIGE",
+ price: 299.99,
+ originalPrice: 329.99,
+ image: solarBeige0,
+ images: [
+ solarBeige0,
+ solarBeige1,
+ solarBeige2,
+ solarBeige3,
+ solarBeige4
+ ],
+ features: ["Blackout"],
+ colors: 1,
+ fabricColor:"#E2C9A6",
+ collection:"Solar"
+ },
+ {
+ id:"solar-grey-blackout",
+ name:"SOLAR - GREY",
+ price: 299.99,
+ originalPrice: 329.99,
+ image: solarGrey0,
+ images: [
+ solarGrey0,
+ solarGrey1,
+ solarGrey2,
+ solarGrey3
+ ],
+ features: ["Blackout"],
+ colors: 1,
+ fabricColor:"#A9A9A9",
+ collection:"Solar"
+ },
+ {
+ id:"solar-dark-grey-blackout",
+ name:"SOLAR - DARK GREY",
+ price: 299.99,
+ originalPrice: 329.99,
+ image: solarDarkGrey0,
+ images: [
+ solarDarkGrey0,
+ solarDarkGrey1,
+ solarDarkGrey2,
+ solarDarkGrey3
+ ],
+ features: ["Blackout"],
+ colors: 1,
+ fabricColor:"#4A4A4A",
+ collection:"Solar"
+ }
 ]; 

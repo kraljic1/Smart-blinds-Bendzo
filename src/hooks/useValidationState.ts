@@ -3,192 +3,147 @@
  * Handles individual field validation and state updates
  */
 
-import { useState, useCallback, useMemo } from 'react';
-import type { ValidationResult } from '../utils/securityValidation';
-import type { 
-  FormValidationState, 
-  FormData, 
-  ValidationCheckResult,
-  UseSecureValidationOptions 
-} from '../types/validation';
-import { validateFormField, getAllValidationFields } from '../utils/fieldValidators';
+import { useState, useCallback } from 'react';
+import type { UseSecureValidationOptions } from '../types/validation';
+import { validateFormField } from '../utils/fieldValidators';
+import type { FieldValidationState } from './validation/types';
+
+interface ValidationState {
+ [fieldName: string]: FieldValidationState;
+}
+
+interface FormData {
+ [key: string]: unknown;
+}
 
 export const useValidationState = (options: UseSecureValidationOptions = {}) => {
-  const {
-    validateOnChange = true,
-    validateOnBlur = true,
-    debounceMs = 300
-  } = options;
+ const {
+ validateOnChange = true,
+ validateOnBlur = true
+ } = options;
 
-  const [validationState, setValidationState] = useState<FormValidationState>({});
+ const [validationState, setValidationState] = useState<ValidationState>({});
 
-  // Debounced validation function
-  const debounceValidation = useMemo(() => {
-    const timeouts: Record<string, NodeJS.Timeout> = {};
-    
-    return (fieldName: string, validator: () => void) => {
-      if (timeouts[fieldName]) {
-        clearTimeout(timeouts[fieldName]);
-      }
-      
-      timeouts[fieldName] = setTimeout(validator, debounceMs);
-    };
-  }, [debounceMs]);
+ // Update field validation
+ const updateFieldValidation = useCallback((fieldName: string, state: FieldValidationState) => {
+ setValidationState(prev => ({
+ ...prev,
+ [fieldName]: state
+ }));
+ }, []);
 
-  // Update validation state for a field
-  const updateFieldValidation = useCallback((
-    fieldName: string, 
-    result: ValidationResult, 
-    touched: boolean = false
-  ) => {
-    setValidationState(prev => ({
-      ...prev,
-      [fieldName]: {
-        isValid: result.isValid,
-        errors: result.errors,
-        warnings: result.warnings,
-        touched: touched || prev[fieldName]?.touched || false
-      }
-    }));
-  }, []);
+ // Validate a single field
+ const validateSingleField = useCallback((fieldName: string, value: unknown, formData: FormData = {}) => {
+ const result = validateFormField(fieldName, value, formData);
+ 
+ const fieldState: FieldValidationState = {
+ isValid: result.isValid,
+ error: result.errors.length > 0 ? result.errors[0] : null,
+ warning: result.warnings && result.warnings.length > 0 ? result.warnings[0] : null,
+ isValidating: false,
+ touched: true
+ };
 
-  // Validate a single field
-  const validateSingleField = useCallback((
-    fieldName: string, 
-    value: unknown, 
-    formData: FormData = {},
-    immediate: boolean = false
-  ) => {
-    const validator = () => {
-      const result = validateFormField(fieldName, value, formData);
-      updateFieldValidation(fieldName, result, true);
-    };
+ updateFieldValidation(fieldName, fieldState);
+ return result;
+ }, [updateFieldValidation]);
 
-    if (immediate || !validateOnChange) {
-      validator();
-    } else {
-      debounceValidation(fieldName, validator);
-    }
-  }, [updateFieldValidation, debounceValidation, validateOnChange]);
+ // Handle field change
+ const handleFieldChange = useCallback((fieldName: string, value: unknown, formData: FormData = {}) => {
+ if (validateOnChange) {
+ validateSingleField(fieldName, value, formData);
+ }
+ }, [validateOnChange, validateSingleField]);
 
-  // Validate all fields
-  const validateAllFields = useCallback((formData: FormData): ValidationCheckResult => {
-    const newValidationState: FormValidationState = {};
-    let isFormValid = true;
+ // Handle field blur
+ const handleFieldBlur = useCallback((fieldName: string, value: unknown, formData: FormData = {}) => {
+ if (validateOnBlur) {
+ validateSingleField(fieldName, value, formData);
+ }
+ 
+ // Mark field as touched
+ setValidationState(prev => ({
+ ...prev,
+ [fieldName]: {
+ ...prev[fieldName],
+ touched: true
+ }
+ }));
+ }, [validateOnBlur, validateSingleField]);
 
-    const allFields = getAllValidationFields(formData);
-    
-    for (const fieldName of allFields) {
-      const value = formData[fieldName];
-      const result = validateFormField(fieldName, value, formData);
-      
-      newValidationState[fieldName] = {
-        isValid: result.isValid,
-        errors: result.errors,
-        warnings: result.warnings,
-        touched: true
-      };
-      
-      if (!result.isValid) {
-        isFormValid = false;
-      }
-    }
+ // Validate all fields
+ const validateAllFields = useCallback((formData: FormData) => {
+ const fields = Object.keys(formData);
+ let isValid = true;
 
-    setValidationState(newValidationState);
-    return { isValid: isFormValid, validationState: newValidationState };
-  }, []);
+ fields.forEach(fieldName => {
+ const result = validateSingleField(fieldName, formData[fieldName], formData);
+ if (!result.isValid) {
+ isValid = false;
+ }
+ });
 
-  // Handle field change
-  const handleFieldChange = useCallback((
-    fieldName: string, 
-    value: unknown, 
-    formData: FormData = {}
-  ) => {
-    if (validateOnChange) {
-      validateSingleField(fieldName, value, formData);
-    }
-  }, [validateSingleField, validateOnChange]);
+ return isValid;
+ }, [validateSingleField]);
 
-  // Handle field blur
-  const handleFieldBlur = useCallback((
-    fieldName: string, 
-    value: unknown, 
-    formData: FormData = {}
-  ) => {
-    if (validateOnBlur) {
-      validateSingleField(fieldName, value, formData, true);
-    }
-  }, [validateSingleField, validateOnBlur]);
+ // Reset validation state
+ const resetValidationState = useCallback(() => {
+ setValidationState({});
+ }, []);
 
-  // Get field validation state
-  const getFieldValidation = useCallback((fieldName: string) => {
-    return validationState[fieldName] || {
-      isValid: true,
-      errors: [],
-      warnings: [],
-      touched: false
-    };
-  }, [validationState]);
+ // Get field validation
+ const getFieldValidation = useCallback((fieldName: string) => {
+ return validationState[fieldName] || {
+ isValid: true,
+ error: null,
+ warning: null,
+ isValidating: false,
+ touched: false
+ };
+ }, [validationState]);
 
-  // Check if field has errors
-  const hasFieldError = useCallback((fieldName: string) => {
-    const field = validationState[fieldName];
-    return field && field.touched && !field.isValid;
-  }, [validationState]);
+ // Check if field has error
+ const hasFieldError = useCallback((fieldName: string) => {
+ const field = validationState[fieldName];
+ return field ? !field.isValid && field.touched : false;
+ }, [validationState]);
 
-  // Get field error message
-  const getFieldError = useCallback((fieldName: string) => {
-    const field = validationState[fieldName];
-    if (field && field.touched && !field.isValid && field.errors.length > 0) {
-      return field.errors[0];
-    }
-    return null;
-  }, [validationState]);
+ // Get field error
+ const getFieldError = useCallback((fieldName: string) => {
+ const field = validationState[fieldName];
+ return field?.error || null;
+ }, [validationState]);
 
-  // Get field warning message
-  const getFieldWarning = useCallback((fieldName: string) => {
-    const field = validationState[fieldName];
-    if (field && field.warnings && field.warnings.length > 0) {
-      return field.warnings[0];
-    }
-    return null;
-  }, [validationState]);
+ // Get field warning
+ const getFieldWarning = useCallback((fieldName: string) => {
+ const field = validationState[fieldName];
+ return field?.warning || null;
+ }, [validationState]);
 
-  // Check if form is valid
-  const isFormValid = useMemo(() => {
-    return Object.values(validationState).every(field => field.isValid);
-  }, [validationState]);
+ // Check if form is valid
+ const isFormValid = useCallback(() => {
+ return Object.values(validationState).every(field => field.isValid);
+ }, [validationState]);
 
-  // Get form errors summary
-  const getFormErrors = useCallback(() => {
-    const errors: Record<string, string[]> = {};
-    
-    Object.entries(validationState).forEach(([fieldName, field]) => {
-      if (field.touched && !field.isValid) {
-        errors[fieldName] = field.errors;
-      }
-    });
-    
-    return errors;
-  }, [validationState]);
+ // Get form errors
+ const getFormErrors = useCallback(() => {
+ return Object.entries(validationState)
+ .filter(([, field]) => !field.isValid && field.touched)
+ .map(([fieldName, field]) => ({ field: fieldName, error: field.error }));
+ }, [validationState]);
 
-  // Reset validation state
-  const resetValidationState = useCallback(() => {
-    setValidationState({});
-  }, []);
-
-  return {
-    validationState,
-    isFormValid,
-    validateSingleField,
-    validateAllFields,
-    handleFieldChange,
-    handleFieldBlur,
-    getFieldValidation,
-    hasFieldError,
-    getFieldError,
-    getFieldWarning,
-    getFormErrors,
-    resetValidationState
-  };
+ return {
+ validationState,
+ isFormValid: isFormValid(),
+ validateSingleField,
+ validateAllFields,
+ handleFieldChange,
+ handleFieldBlur,
+ getFieldValidation,
+ hasFieldError,
+ getFieldError,
+ getFieldWarning,
+ getFormErrors,
+ resetValidationState
+ };
 }; 

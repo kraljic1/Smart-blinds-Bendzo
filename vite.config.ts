@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import removeConsole from './vite-plugins/remove-console';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     react(),
     removeConsole({
       remove: ['log', 'debug', 'info'],
@@ -54,7 +56,7 @@ export default defineConfig({
         manualChunks: {
           // Vendor libraries
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['lucide-react', 'react-helmet-async'],
+          'vendor-ui': ['lucide-react'],
           'vendor-payment': ['@stripe/stripe-js', '@stripe/react-stripe-js'],
           'vendor-supabase': ['@supabase/supabase-js'],
           'vendor-utils': ['libphonenumber-js', 'dompurify'],

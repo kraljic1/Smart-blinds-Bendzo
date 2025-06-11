@@ -7,8 +7,8 @@
  * @returns true if running on localhost, false otherwise
  */
 export const isDevelopmentMode = (): boolean => {
-  return typeof window !== 'undefined' && 
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+ return typeof window !== 'undefined' && 
+ (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 };
 
 /**
@@ -17,8 +17,8 @@ export const isDevelopmentMode = (): boolean => {
  * @returns Full URL for the endpoint
  */
 export const getApiEndpoint = (endpoint: string): string => {
-  if (isDevelopmentMode()) {
-    return endpoint; // Direct Supabase calls in development
-  }
-  return `/.netlify/functions/${endpoint}`;
+ if (isDevelopmentMode()) {
+ return endpoint; // Direct Supabase calls in development
+ }
+ return `/.netlify/functions/${endpoint}`;
 }; 

@@ -5,7 +5,7 @@ import { restOfWorldPhoneCodes } from './restOfWorld';
 
 // Combined country phone codes array (Croatia first, then Europe, then rest of world)
 export const countryPhoneCodes: CountryCode[] = [
-  croatiaPhoneCode,
-  ...europeanPhoneCodes,
-  ...restOfWorldPhoneCodes,
+ croatiaPhoneCode,
+ ...europeanPhoneCodes,
+ ...restOfWorldPhoneCodes,
 ]; 

@@ -47,166 +47,166 @@ import essentialDarkGrey4 from '../../img/rollerblinds/ESSENTIAL/ESSENTIAL - DAR
 
 // Essential Collection Part 1
 export const essentialCollectionPart1: Product[] = [
-  {
-    id: "essential-anthracite",
-    name: "Essential - anthracite",
-    price: 239.57,
-    originalPrice: 266.19,
-    image: essentialAntracitMain,
-    images: [
-      essentialAntracitMain,
-      essentialAntracit1,
-      essentialAntracit2,
-      essentialAntracit3,
-      essentialAntracit4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#2C3539",
-    collection: "Essential"
-  },
-  {
-    id: "essential-sand",
-    name: "Essential - sand",
-    price: 239.57,
-    originalPrice: 266.18,
-    image: essentialSandMain,
-    images: [
-      essentialSandMain,
-      essentialSand1,
-      essentialSand2,
-      essentialSand3,
-      essentialSand4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#C2B280",
-    collection: "Essential"
-  },
-  {
-    id: "essential-sand-blackout",
-    name: "Essential - Sand",
-    price: 249.99,
-    originalPrice: 279.99,
-    image: essentialSandBLMain,
-    images: [
-      essentialSandBLMain,
-      essentialSandBL1,
-      essentialSandBL2,
-      essentialSandBL3,
-      essentialSandBL4
-    ],
-    features: ["Blackout"],
-    colors: 5,
-    fabricColor: "#D2B48C",
-    collection: "Essential"
-  },
-  {
-    id: "essential-ocean",
-    name: "Essential - ocean",
-    price: 239.57,
-    originalPrice: 266.18,
-    image: essentialOceanMain,
-    images: [
-      essentialOceanMain,
-      essentialOcean1,
-      essentialOcean2,
-      essentialOcean3,
-      essentialOcean4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#1CA3EC",
-    collection: "Essential"
-  },
-  {
-    id: "essential-white",
-    name: "Essential - white",
-    price: 239.57,
-    originalPrice: 266.18,
-    image: essentialWhiteMain,
-    images: [
-      essentialWhiteMain,
-      essentialWhite1,
-      essentialWhite2,
-      essentialWhite3,
-      essentialWhite4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#FFFFFF",
-    collection: "Essential"
-  },
-  {
-    id: "essential-white-blackout",
-    name: "Essential - White",
-    price: 249.99,
-    originalPrice: 279.99,
-    image: essentialWhiteBLMain,
-    images: [
-      essentialWhiteBLMain,
-      essentialWhiteBL1,
-      essentialWhiteBL2,
-      essentialWhiteBL3,
-      essentialWhiteBL4
-    ],
-    features: ["Blackout"],
-    colors: 5,
-    fabricColor: "#FFFFFF",
-    collection: "Essential"
-  },
-  {
-    id: "essential-beige",
-    name: "Essential - Beige",
-    price: 239.57,
-    originalPrice: 266.19,
-    image: essentialBeigeMain,
-    images: [
-      essentialBeigeMain,
-      essentialBeige1,
-      essentialBeige2,
-      essentialBeige3,
-      essentialBeige4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#E8D6B3",
-    collection: "Essential"
-  },
-  {
-    id: "essential-blue-grey",
-    name: "Essential - blue grey",
-    price: 239.57,
-    originalPrice: 266.19,
-    image: essentialBlueGreyMain,
-    images: [
-      essentialBlueGreyMain,
-      essentialBlueGrey1,
-      essentialBlueGrey2,
-      essentialBlueGrey3,
-      essentialBlueGrey4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#6699CC",
-    collection: "Essential"
-  },
-  {
-    id: "essential-dark-grey",
-    name: "Essential - Dark Grey",
-    price: 239.57,
-    originalPrice: 266.19,
-    image: essentialDarkGreyMain,
-    images: [
-      essentialDarkGreyMain,
-      essentialDarkGrey1,
-      essentialDarkGrey2,
-      essentialDarkGrey3,
-      essentialDarkGrey4
-    ],
-    features: ["Light filtering"],
-    colors: 5,
-    fabricColor: "#4A4A4A",
-    collection: "Essential"
-  }
+ {
+ id:"essential-anthracite",
+ name:"Essential - anthracite",
+ price: 239.57,
+ originalPrice: 266.19,
+ image: essentialAntracitMain,
+ images: [
+ essentialAntracitMain,
+ essentialAntracit1,
+ essentialAntracit2,
+ essentialAntracit3,
+ essentialAntracit4
+ ],
+ features: ["Light filtering"],
+ colors: 5,
+ fabricColor:"#2C3539",
+ collection:"Essential"
+ },
+ {
+ id:"essential-sand",
+ name:"Essential - sand",
+ price: 239.57,
+ originalPrice: 266.18,
+ image: essentialSandMain,
+ images: [
+ essentialSandMain,
+ essentialSand1,
+ essentialSand2,
+ essentialSand3,
+ essentialSand4
+ ],
+ features: ["Light filtering"],
+ colors: 5,
+ fabricColor:"#C2B280",
+ collection:"Essential"
+ },
+ {
+ id:"essential-sand-blackout",
+ name:"Essential - Sand",
+ price: 249.99,
+ originalPrice: 279.99,
+ image: essentialSandBLMain,
+ images: [
+ essentialSandBLMain,
+ essentialSandBL1,
+ essentialSandBL2,
+ essentialSandBL3,
+ essentialSandBL4
+ ],
+ features: ["Blackout"],
+ colors: 5,
+ fabricColor:"#D2B48C",
+ collection:"Essential"
+ },
+ {
+ id:"essential-ocean",
+ name:"Essential - ocean",
+ price: 239.57,
+ originalPrice: 266.18,
+ image: essentialOceanMain,
+ images: [
+ essentialOceanMain,
+ essentialOcean1,
+ essentialOcean2,
+ essentialOcean3,
+ essentialOcean4
+ ],
+ features: ["Light filtering"],
+ colors: 5,
+ fabricColor:"#1CA3EC",
+ collection:"Essential"
+ },
+ {
+ id:"essential-white",
+ name:"Essential - white",
+ price: 239.57,
+ originalPrice: 266.18,
+ image: essentialWhiteMain,
+ images: [
+ essentialWhiteMain,
+ essentialWhite1,
+ essentialWhite2,
+ essentialWhite3,
+ essentialWhite4
+ ],
+ features: ["Light filtering"],
+ colors: 5,
+ fabricColor:"#FFFFFF",
+ collection:"Essential"
+ },
+ {
+ id:"essential-white-blackout",
+ name:"Essential - White",
+ price: 249.99,
+ originalPrice: 279.99,
+ image: essentialWhiteBLMain,
+ images: [
+ essentialWhiteBLMain,
+ essentialWhiteBL1,
+ essentialWhiteBL2,
+ essentialWhiteBL3,
+ essentialWhiteBL4
+ ],
+ features: ["Blackout"],
+ colors: 5,
+ fabricColor:"#FFFFFF",
+ collection:"Essential"
+ },
+ {
+ id:"essential-beige",
+ name:"Essential - Beige",
+ price: 239.57,
+ originalPrice: 266.19,
+ image: essentialBeigeMain,
+ images: [
+ essentialBeigeMain,
+ essentialBeige1,
+ essentialBeige2,
+ essentialBeige3,
+ essentialBeige4
+ ],
+ features: ["Light filtering"],
+ colors: 5,
+ fabricColor:"#E8D6B3",
+ collection:"Essential"
+ },
+ {
+ id:"essential-blue-grey",
+ name:"Essential - blue grey",
+ price: 239.57,
+ originalPrice: 266.19,
+ image: essentialBlueGreyMain,
+ images: [
+ essentialBlueGreyMain,
+ essentialBlueGrey1,
+ essentialBlueGrey2,
+ essentialBlueGrey3,
+ essentialBlueGrey4
+ ],
+ features: ["Light filtering"],
+ colors: 5,
+ fabricColor:"#6699CC",
+ collection:"Essential"
+ },
+ {
+ id:"essential-dark-grey",
+ name:"Essential - Dark Grey",
+ price: 239.57,
+ originalPrice: 266.19,
+ image: essentialDarkGreyMain,
+ images: [
+ essentialDarkGreyMain,
+ essentialDarkGrey1,
+ essentialDarkGrey2,
+ essentialDarkGrey3,
+ essentialDarkGrey4
+ ],
+ features: ["Light filtering"],
+ colors: 5,
+ fabricColor:"#4A4A4A",
+ collection:"Essential"
+ }
 ]; 
