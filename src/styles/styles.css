@@ -1,13 +1,1 @@
-/* Styles for elements with data attributes */
-
-/* Product card color swatch */
-.product-color-swatch[data-color] {
-
-/* Color swatches in other components */
-.color-swatch[data-color],
-.product-option-color-swatch[data-color] {
-
-/* Hero carousel image */
-.carousel-image {
-
-.carousel-image.active {
+/* Placeholder styles for styles.css */

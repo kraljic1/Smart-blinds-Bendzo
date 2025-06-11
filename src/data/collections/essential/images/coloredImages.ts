@@ -1,9 +1,9 @@
 // Essential Colored Collection Images
-import essentialOceanBLMain from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OCEANBL/0.webp';
-import essentialOceanBL1 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OCEANBL/1.webp';
-import essentialOceanBL2 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OCEANBL/2.webp';
-import essentialOceanBL3 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OCEANBL/3.webp';
-import essentialOceanBL4 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OCEANBL/4.webp';
+import essentialOceanBLMain from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/0.webp';
+import essentialOceanBL1 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/1.webp';
+import essentialOceanBL2 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/2.webp';
+import essentialOceanBL3 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/3.webp';
+import essentialOceanBL4 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL  - OCEANBL/4.webp';
 import essentialBeigeBL0 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGEBL/0.webp';
 import essentialBeigeBL1 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGEBL/1.webp';
 import essentialBeigeBL2 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BEIGEBL/2.webp';

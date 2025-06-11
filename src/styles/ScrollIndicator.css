@@ -1,15 +1,1 @@
-/* Scroll Indicator Styles */
-
-.scroll-indicator-container {
-
-.scroll-indicator-bar {
-  /* Use CSS custom property for dynamic height */
-
-/* Reduced opacity in light mode for subtlety */
-.scroll-indicator-bar {
-
-/* Higher contrast in dark mode */
-
-/* Hide on small screens (optional) */
-@media (max-width: 640px) {
-  .scroll-indicator-container {
+/* Placeholder styles for ScrollIndicator.css */
