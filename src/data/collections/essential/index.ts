@@ -5,9 +5,9 @@ import { coloredProducts } from './products/coloredProducts';
 
 // Combine all Essential Collection Part 2 products
 export const essentialCollectionPart2 = [
-  ...greyProducts,
-  ...offWhiteProducts,
-  ...coloredProducts
+ ...greyProducts,
+ ...offWhiteProducts,
+ ...coloredProducts
 ];
 
 // Export individual product groups for flexibility

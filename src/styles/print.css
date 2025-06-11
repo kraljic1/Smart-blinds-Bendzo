@@ -2,27 +2,13 @@
 @media print {
   /* Hide all page elements except the main content */
   body * {
-    visibility: hidden;
-  }
   
   /* Show only the invoice content */
   .print-invoice,
   .print-invoice * {
-    visibility: visible;
-  }
   
   /* Position the invoice to fill the page */
   .print-invoice {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: white !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    margin: 0 !important;
-    padding: 20px !important;
-  }
   
   /* Hide navigation, header, footer, and other page elements */
   nav,
@@ -40,159 +26,75 @@
   .success-message-section,
   .next-steps,
   .action-buttons,
-  button:not(.print-show),
   .btn:not(.print-show) {
-    display: none !important;
-  }
   
   /* Hide the success header and non-essential elements */
   .print-invoice .text-center:first-child,
   .print-invoice h1,
   .print-invoice p:first-of-type {
-    display: none !important;
-  }
   
   /* Optimize colors for printing */
   .print-invoice {
-    color: black !important;
-    background: white !important;
-  }
   
   .print-invoice .bg-blue-600,
   .print-invoice .bg-blue-700 {
-    background: #1e40af !important;
-    color: white !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
   
   .print-invoice .text-white {
-    color: white !important;
-  }
   
   .print-invoice .text-blue-100 {
-    color: #dbeafe !important;
-  }
   
   /* Ensure proper spacing and layout */
   .print-invoice .p-6 {
-    padding: 1rem !important;
-  }
   
   .print-invoice .py-8 {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
   
   .print-invoice .mb-8 {
-    margin-bottom: 0 !important;
-  }
   
   /* Table styling for better printing */
   .print-invoice table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-    margin: 1rem 0 !important;
-  }
   
   .print-invoice th,
   .print-invoice td {
-    border: 1px solid #ccc !important;
-    padding: 8px !important;
-    text-align: left !important;
-  }
   
   .print-invoice th {
-    background: #f5f5f5 !important;
-    font-weight: bold !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
   
   /* Remove shadows and rounded corners */
   .print-invoice * {
-    box-shadow: none !important;
-    border-radius: 0 !important;
-  }
   
   /* Ensure text is readable */
   .print-invoice .text-gray-600,
   .print-invoice .text-gray-300,
   .print-invoice .text-gray-400 {
-    color: #4a5568 !important;
-  }
   
   .print-invoice .text-gray-900 {
-    color: black !important;
-  }
   
   /* Page breaks */
   .print-invoice {
-    page-break-inside: avoid;
-  }
   
   .print-invoice .page-break-before {
-    page-break-before: always;
-  }
   
   .print-invoice .page-break-after {
-    page-break-after: always;
-  }
   
   /* Remove margins from page and hide browser headers/footers */
   @page {
-    margin: 0.5in;
-    size: A4;
     /* Hide browser's default headers and footers */
-    margin-top: 0.5in;
-    margin-bottom: 0.5in;
-  }
   
   /* Hide browser's default print headers and footers */
   html {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
   
   /* Hide icons that don't print well */
   .print-invoice svg {
-    display: none !important;
-  }
   
   /* Show only essential icons */
   .print-invoice .print-show-icon {
-    display: inline !important;
-  }
-}
 
 /* Print button styling */
 .print-button {
-  background: #3b82f6;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: 16px 0;
-}
 
 .print-button:hover {
-  background: #2563eb;
-}
 
 .print-button svg {
-  width: 20px;
-  height: 20px;
-}
 
 /* Hide print button when printing */
 @media print {
   .print-button {
-    display: none !important;
-  }
-} 

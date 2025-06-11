@@ -15,23 +15,23 @@ import { SupabaseOrderService } from './services/SupabaseOrderService';
  * @returns Promise<ExtendedOrderData | null>
  */
 export const getOrderByIdFallback = async (orderId: string): Promise<ExtendedOrderData | null> => {
-  try {
-    // Try Netlify function first
-    const netlifyResult = await NetlifyOrderService.fetchOrder(orderId);
-    if (netlifyResult) {
-      return ApiOrderTransformer.transform(netlifyResult);
-    }
-    
-    // Fallback to direct Supabase client
-    const supabaseResult = await SupabaseOrderService.fetchOrder(orderId);
-    if (supabaseResult) {
-      return SupabaseOrderTransformer.transform(supabaseResult);
-    }
-    
-    return null;
-    
-  } catch (error) {
-    console.error(`Failed to fetch order ${orderId}:`, error);
-    return null;
-  }
+ try {
+ // Try Netlify function first
+ const netlifyResult = await NetlifyOrderService.fetchOrder(orderId);
+ if (netlifyResult) {
+ return ApiOrderTransformer.transform(netlifyResult);
+ }
+ 
+ // Fallback to direct Supabase client
+ const supabaseResult = await SupabaseOrderService.fetchOrder(orderId);
+ if (supabaseResult) {
+ return SupabaseOrderTransformer.transform(supabaseResult);
+ }
+ 
+ return null;
+ 
+ } catch (error) {
+ console.error(`Failed to fetch order ${orderId}:`, error);
+ return null;
+ }
 }; 

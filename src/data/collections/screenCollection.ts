@@ -17,58 +17,58 @@ import screenSand4 from '../../img/rollerblinds/SCREEN/SCREEN SAND/4.webp';
 
 // Screen Collection
 export const screenCollection: Product[] = [
-  {
-    id: "screen-black-light-filtering",
-    name: "SCREEN - BLACK",
-    price: 249.99,
-    originalPrice: 279.99,
-    image: screenBlack0,
-    images: [
-      screenBlack0,
-      screenBlack1,
-      screenBlack2,
-      screenBlack3,
-      screenBlack4
-    ],
-    features: ["Light filtering"],
-    colors: 1,
-    fabricColor: "#000000",
-    collection: "Screen"
-  },
-  {
-    id: "screen-light-grey-light-filtering",
-    name: "SCREEN - LIGHT GREY",
-    price: 249.99,
-    originalPrice: 279.99,
-    image: screenLightGrey0,
-    images: [
-      screenLightGrey0,
-      screenLightGrey1,
-      screenLightGrey2,
-      screenLightGrey3,
-      screenLightGrey4
-    ],
-    features: ["Light filtering"],
-    colors: 1,
-    fabricColor: "#D3D3D3",
-    collection: "Screen"
-  },
-  {
-    id: "screen-sand-light-filtering",
-    name: "SCREEN - SAND",
-    price: 249.99,
-    originalPrice: 279.99,
-    image: screenSand0,
-    images: [
-      screenSand0,
-      screenSand1,
-      screenSand2,
-      screenSand3,
-      screenSand4
-    ],
-    features: ["Light filtering"],
-    colors: 1,
-    fabricColor: "#E8D6B3",
-    collection: "Screen"
-  }
+ {
+ id:"screen-black-light-filtering",
+ name:"SCREEN - BLACK",
+ price: 249.99,
+ originalPrice: 279.99,
+ image: screenBlack0,
+ images: [
+ screenBlack0,
+ screenBlack1,
+ screenBlack2,
+ screenBlack3,
+ screenBlack4
+ ],
+ features: ["Light filtering"],
+ colors: 1,
+ fabricColor:"#000000",
+ collection:"Screen"
+ },
+ {
+ id:"screen-light-grey-light-filtering",
+ name:"SCREEN - LIGHT GREY",
+ price: 249.99,
+ originalPrice: 279.99,
+ image: screenLightGrey0,
+ images: [
+ screenLightGrey0,
+ screenLightGrey1,
+ screenLightGrey2,
+ screenLightGrey3,
+ screenLightGrey4
+ ],
+ features: ["Light filtering"],
+ colors: 1,
+ fabricColor:"#D3D3D3",
+ collection:"Screen"
+ },
+ {
+ id:"screen-sand-light-filtering",
+ name:"SCREEN - SAND",
+ price: 249.99,
+ originalPrice: 279.99,
+ image: screenSand0,
+ images: [
+ screenSand0,
+ screenSand1,
+ screenSand2,
+ screenSand3,
+ screenSand4
+ ],
+ features: ["Light filtering"],
+ colors: 1,
+ fabricColor:"#E8D6B3",
+ collection:"Screen"
+ }
 ]; 

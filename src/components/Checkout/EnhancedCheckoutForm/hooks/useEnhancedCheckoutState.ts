@@ -8,49 +8,49 @@ import { useFormSubmission } from '../../hooks/useFormSubmission';
 import { useRealTimeValidation } from '../../../../hooks/useRealTimeValidation';
 
 export const useEnhancedCheckoutState = () => {
-  console.log('[CHECKOUT] EnhancedCheckoutForm component mounted');
-  
-  const { getTotalPrice } = useBasketContext();
-  
-  const checkoutFormHooks = useCheckoutForm();
-  const { formData, formStatus, phoneValidation, handleChange, setError, setSubmitting } = checkoutFormHooks;
-  
-  const calculateTotalWithShipping = () => {
-    const subtotal = getTotalPrice();
-    const shippingCost = getShippingCost(formData.shippingMethod || 'Standard delivery');
-    return subtotal + shippingCost;
-  };
+ console.log('[CHECKOUT] EnhancedCheckoutForm component mounted');
+ 
+ const { getTotalPrice } = useBasketContext();
+ 
+ const checkoutFormHooks = useCheckoutForm();
+ const { formData, formStatus, phoneValidation, handleChange, setError, setSubmitting } = checkoutFormHooks;
+ 
+ const calculateTotalWithShipping = () => {
+ const subtotal = getTotalPrice();
+ const shippingCost = getShippingCost(formData.shippingMethod || 'Standard delivery');
+ return subtotal + shippingCost;
+ };
 
-  const validationHooks = useRealTimeValidation(formData, {
-    debounceMs: 500,
-    validateOnChange: true,
-    validateOnBlur: true
-  });
+ const validationHooks = useRealTimeValidation(formData, {
+ debounceMs: 500,
+ validateOnChange: true,
+ validateOnBlur: true
+ });
 
-  useEffect(() => {
-    return validationHooks.cleanup;
-  }, [validationHooks.cleanup]);
+ useEffect(() => {
+ return validationHooks.cleanup;
+ }, [validationHooks.cleanup]);
 
-  const paymentStateHooks = usePaymentState();
-  const paymentHandlingHooks = usePaymentHandling(formData, setError, setSubmitting);
-  const formSubmissionHooks = useFormSubmission(
-    formData,
-    phoneValidation,
-    setError,
-    setSubmitting,
-    paymentStateHooks.updatePaymentState
-  );
+ const paymentStateHooks = usePaymentState();
+ const paymentHandlingHooks = usePaymentHandling(formData, setError, setSubmitting);
+ const formSubmissionHooks = useFormSubmission(
+ formData,
+ phoneValidation,
+ setError,
+ setSubmitting,
+ paymentStateHooks.updatePaymentState
+ );
 
-  return {
-    formData,
-    formStatus,
-    phoneValidation,
-    handleChange,
-    setError,
-    calculateTotalWithShipping,
-    validationHooks,
-    paymentStateHooks,
-    paymentHandlingHooks,
-    formSubmissionHooks
-  };
+ return {
+ formData,
+ formStatus,
+ phoneValidation,
+ handleChange,
+ setError,
+ calculateTotalWithShipping,
+ validationHooks,
+ paymentStateHooks,
+ paymentHandlingHooks,
+ formSubmissionHooks
+ };
 }; 

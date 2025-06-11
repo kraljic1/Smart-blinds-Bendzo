@@ -3,18 +3,18 @@ import { ScrollIndicator } from '../UI';
 import { BackToTop } from '../Navigation';
 
 interface LayoutProps {
-  children: ReactNode;
+ children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-  return (
-          <div className="min-h-screen bg-linear-to-br from-white via-blue-50 to-indigo-50 dark:bg-[#0c1222] flex flex-col overflow-x-hidden">
-      <div className="w-full h-full absolute top-0 left-0 z-[-1] bg-white dark:bg-[#0c1222]"></div>
-      {children}
-      <ScrollIndicator />
-      <BackToTop />
-    </div>
-  );
+ return (
+ <div className="min-h-screen bg-linear-to-br from-white via-blue-50 to-indigo-50 dark:bg-[#0c1222] flex flex-col overflow-x-hidden">
+ <div className="w-full h-full absolute top-0 left-0 z-[-1] bg-white dark:bg-[#0c1222]"></div>
+ {children}
+ <ScrollIndicator />
+ <BackToTop />
+ </div>
+ );
 };
 
 export default Layout; 

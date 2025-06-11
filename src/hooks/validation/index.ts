@@ -12,19 +12,19 @@ export { useFormSubmission } from '../useFormSubmission';
 
 // Utilities
 export { 
-  validateFormField, 
-  getRequiredFields, 
-  getAllValidationFields 
+ validateFormField, 
+ getRequiredFields, 
+ getAllValidationFields 
 } from '../../utils/fieldValidators';
 
 // Types
 export type {
-  FormValidationState,
-  UseSecureValidationOptions,
-  FormData,
-  SubmitCheckResult,
-  ValidationCheckResult,
-  FieldValidationResult
+ FormValidationState,
+ UseSecureValidationOptions,
+ FormData,
+ SubmitCheckResult,
+ ValidationCheckResult,
+ FieldValidationResult
 } from '../../types/validation';
 
 export { useDebouncedValidation } from './useDebouncedValidation';

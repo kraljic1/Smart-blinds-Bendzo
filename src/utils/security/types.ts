@@ -14,66 +14,66 @@ export const MAX_COMPANY_NAME_LENGTH = 150;
 
 // Validation result interface
 export interface ValidationResult {
-  isValid: boolean;
-  sanitizedValue?: string;
-  errors: string[];
-  warnings?: string[];
+ isValid: boolean;
+ sanitizedValue?: string;
+ errors: string[];
+ warnings?: string[];
 }
 
 // Form data interface for comprehensive validation
 export interface FormDataForValidation {
-  fullName?: string;
-  email?: string;
-  phoneNumber?: string;
-  phoneCode?: string;
-  address?: string;
-  shippingAddress?: string;
-  city?: string;
-  shippingCity?: string;
-  postalCode?: string;
-  shippingPostalCode?: string;
-  companyName?: string;
-  companyOib?: string;
-  additionalNotes?: string;
-  sameAsBilling?: boolean;
-  needsR1Invoice?: boolean;
-  [key: string]: unknown;
+ fullName?: string;
+ email?: string;
+ phoneNumber?: string;
+ phoneCode?: string;
+ address?: string;
+ shippingAddress?: string;
+ city?: string;
+ shippingCity?: string;
+ postalCode?: string;
+ shippingPostalCode?: string;
+ companyName?: string;
+ companyOib?: string;
+ additionalNotes?: string;
+ sameAsBilling?: boolean;
+ needsR1Invoice?: boolean;
+ [key: string]: unknown;
 }
 
 // Comprehensive validation result interface
 export interface ComprehensiveValidationResult {
-  isValid: boolean;
-  errors: Record<string, string[]>;
-  sanitizedData: FormDataForValidation;
+ isValid: boolean;
+ errors: Record<string, string[]>;
+ sanitizedData: FormDataForValidation;
 }
 
 // Security threat detection patterns
 export const DANGEROUS_PATTERNS = [
-  '<script',
-  'javascript:',
-  'data:text/html',
-  'vbscript:',
-  'onload=',
-  'onerror=',
-  'onclick=',
-  'onmouseover=',
-  '<iframe',
-  '<object',
-  '<embed',
-  'SELECT ',
-  'INSERT ',
-  'UPDATE ',
-  'DELETE ',
-  'DROP ',
-  'CREATE ',
-  'ALTER ',
-  'EXEC ',
-  'UNION ',
-  'SCRIPT',
-  '../',
-  '..\\',
-  '/etc/passwd',
-  '/bin/',
-  'cmd.exe',
-  'powershell'
+ '<script',
+ 'javascript:',
+ 'data:text/html',
+ 'vbscript:',
+ 'onload=',
+ 'onerror=',
+ 'onclick=',
+ 'onmouseover=',
+ '<iframe',
+ '<object',
+ '<embed',
+ 'SELECT ',
+ 'INSERT ',
+ 'UPDATE ',
+ 'DELETE ',
+ 'DROP ',
+ 'CREATE ',
+ 'ALTER ',
+ 'EXEC ',
+ 'UNION ',
+ 'SCRIPT',
+ '../',
+ '..\\',
+ '/etc/passwd',
+ '/bin/',
+ 'cmd.exe',
+ 'powershell'
 ]; 

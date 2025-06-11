@@ -4,7 +4,6 @@ html {
   overflow-x: hidden;
   position: relative;
   width: 100%;
-}
 
 body {
   overflow-x: hidden;
@@ -15,16 +14,13 @@ body {
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   margin: 0;
   padding: 0;
-}
 
 /* Touch-friendly styles - moved from TouchFriendly component for CSP compliance */
 * {
   touch-action: manipulation;
-}
 
 a, button, [role="button"], input, select, textarea {
   touch-action: auto;
-}
 
 /* Fix for iOS momentum scrolling */
 @supports (-webkit-overflow-scrolling: touch) {
@@ -32,8 +28,6 @@ a, button, [role="button"], input, select, textarea {
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
     overflow-y: auto;
-  }
-}
 
 /* Container for the entire application */
 #root {
@@ -41,7 +35,6 @@ a, button, [role="button"], input, select, textarea {
   position: relative;
   width: 100%;
   min-height: 100vh;
-}
 
 /* Fix for modal and overlay styling */
 #mobile-menu-panel, 
@@ -51,16 +44,6 @@ a, button, [role="button"], input, select, textarea {
   backface-visibility: hidden !important;
   perspective: 1000 !important;
   will-change: transform, opacity !important;
-}
-
-/* Fix white flash issue on scroll */
-html.dark #mobile-menu-panel {
-  background-color: #111827 !important;
-}
-
-html.dark #pure-black-overlay {
-  background-color: rgba(0, 0, 0, 0.5) !important;
-}
 
 /* Force hardware acceleration to prevent visual glitches */
 body::after {
@@ -72,4 +55,3 @@ body::after {
   left: 0;
   z-index: -1;
   will-change: transform;
-} 

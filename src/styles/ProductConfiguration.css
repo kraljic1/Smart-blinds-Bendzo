@@ -11,13 +11,5 @@ input[type="search"],
 input[type="date"],
 textarea,
 select {
-  background-color: #ffffff;
-  color: #1f2937;
-  border-color: #d1d5db;
-}
 
 .product-configuration-input {
-  background-color: #ffffff;
-  color: #1f2937;
-  border-color: #d1d5db;
-} 

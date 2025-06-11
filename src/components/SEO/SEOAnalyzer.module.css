@@ -1,38 +1,17 @@
 /* SEOAnalyzer Component Styles */
 
 .scoreBar {
-  height: 100%;
-  transition: width 0.3s ease;
-  width: var(--score-width, 0%);
-}
 
 .scoreBarGreen {
-  background-color: #10b981; /* green-500 */
-}
 
 .scoreBarYellow {
-  background-color: #f59e0b; /* yellow-500 */
-}
 
 .scoreBarRed {
-  background-color: #ef4444; /* red-500 */
-}
 
 .issueItem {
-  border-left-width: 4px;
-  padding-left: 0.5rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-}
 
 .issueError {
-  border-left-color: #ef4444; /* red */
-}
 
 .issueWarning {
-  border-left-color: #f97316; /* orange */
-}
 
 .issueInfo {
-  border-left-color: #3b82f6; /* blue */
-} 

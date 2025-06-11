@@ -3,31 +3,31 @@
  */
 
 export interface ShippingMethod {
-  id: string;
-  name: string;
-  cost: number;
-  description?: string;
+ id: string;
+ name: string;
+ cost: number;
+ description?: string;
 }
 
 export const SHIPPING_METHODS: ShippingMethod[] = [
-  {
-    id: 'standard',
-    name: 'Standard delivery',
-    cost: 0,
-    description: 'Standardna dostava'
-  },
-  {
-    id: 'express',
-    name: 'Express delivery',
-    cost: 10,
-    description: 'Brza dostava (+€10)'
-  },
-  {
-    id: 'same-day',
-    name: 'Same day delivery',
-    cost: 20,
-    description: 'Dostava isti dan (+€20)'
-  }
+ {
+ id: 'standard',
+ name: 'Standard delivery',
+ cost: 0,
+ description: 'Standardna dostava'
+ },
+ {
+ id: 'express',
+ name: 'Express delivery',
+ cost: 10,
+ description: 'Brza dostava (+€10)'
+ },
+ {
+ id: 'same-day',
+ name: 'Same day delivery',
+ cost: 20,
+ description: 'Dostava isti dan (+€20)'
+ }
 ];
 
 /**
@@ -35,12 +35,12 @@ export const SHIPPING_METHODS: ShippingMethod[] = [
  * Centralized to avoid duplication and ensure consistency
  */
 const SHIPPING_METHOD_NAME_MAP: Record<string, string> = {
-  'Standard delivery': 'standard',
-  'Standardna dostava': 'standard',
-  'Express delivery': 'express',
-  'Brza dostava (+€10)': 'express',
-  'Same day delivery': 'same-day',
-  'Dostava isti dan (+€20)': 'same-day'
+ 'Standard delivery': 'standard',
+ 'Standardna dostava': 'standard',
+ 'Express delivery': 'express',
+ 'Brza dostava (+€10)': 'express',
+ 'Same day delivery': 'same-day',
+ 'Dostava isti dan (+€20)': 'same-day'
 };
 
 /**
@@ -49,8 +49,8 @@ const SHIPPING_METHOD_NAME_MAP: Record<string, string> = {
  * @returns The shipping method object or null if not found
  */
 const findShippingMethod = (shippingMethod: string): ShippingMethod | null => {
-  const methodId = SHIPPING_METHOD_NAME_MAP[shippingMethod] || shippingMethod || 'standard';
-  return SHIPPING_METHODS.find(m => m.id === methodId) || null;
+ const methodId = SHIPPING_METHOD_NAME_MAP[shippingMethod] || shippingMethod || 'standard';
+ return SHIPPING_METHODS.find(m => m.id === methodId) || null;
 };
 
 /**
@@ -59,8 +59,8 @@ const findShippingMethod = (shippingMethod: string): ShippingMethod | null => {
  * @returns The shipping cost in euros
  */
 export const getShippingCost = (shippingMethod: string): number => {
-  const method = findShippingMethod(shippingMethod);
-  return method ? method.cost : 0;
+ const method = findShippingMethod(shippingMethod);
+ return method ? method.cost : 0;
 };
 
 /**
@@ -69,5 +69,5 @@ export const getShippingCost = (shippingMethod: string): number => {
  * @returns The shipping method object or null if not found
  */
 export const getShippingMethodDetails = (shippingMethod: string): ShippingMethod | null => {
-  return findShippingMethod(shippingMethod);
+ return findShippingMethod(shippingMethod);
 }; 

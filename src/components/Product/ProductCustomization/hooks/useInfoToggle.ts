@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 export const useInfoToggle = () => {
-  const [activeInfoId, setActiveInfoId] = useState<string | null>(null);
+ const [activeInfoId, setActiveInfoId] = useState<string | null>(null);
 
-  const toggleInfo = (optionId: string) => {
-    setActiveInfoId(activeInfoId === optionId ? null : optionId);
-  };
+ const toggleInfo = (optionId: string) => {
+ setActiveInfoId(activeInfoId === optionId ? null : optionId);
+ };
 
-  return {
-    activeInfoId,
-    toggleInfo
-  };
+ return {
+ activeInfoId,
+ toggleInfo
+ };
 }; 

@@ -1,41 +1,19 @@
 /* Styles for color swatches using data-color attribute */
 .product-color-swatch {
-  background-color: var(--swatch-color);
-  object-fit: cover;
-  overflow: hidden;
-}
 
 .product-color-swatch[data-color] {
-  background-color: var(--color);
-}
 
 .color-swatch {
-  background-color: var(--swatch-color);
-}
 
 .color-swatch[data-color] {
-  background-color: transparent;
-}
 
 .product-option-color-swatch {
-  background-color: var(--swatch-color);
-}
 
 .product-option-color-swatch[data-color] {
-  background-color: transparent;
-}
 
 /* Hero carousel image styles */
 .carousel-image {
-  background-image: url(var(--bg-image));
-  opacity: 0;
-  z-index: 0;
-}
 
 .carousel-image[data-bg-image] {
-  --bg-image: attr(data-bg-image url);
-}
 
 .carousel-image.active {
-  opacity: 1;
-} 

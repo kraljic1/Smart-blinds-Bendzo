@@ -2,21 +2,12 @@
 
 /* Product card color swatch */
 .product-color-swatch[data-color] {
-  background-color: #cccccc;
-}
 
 /* Color swatches in other components */
 .color-swatch[data-color],
 .product-option-color-swatch[data-color] {
-  background-color: #cccccc;
-}
 
 /* Hero carousel image */
 .carousel-image {
-  opacity: 0;
-  z-index: 0;
-}
 
 .carousel-image.active {
-  opacity: 1;
-} 

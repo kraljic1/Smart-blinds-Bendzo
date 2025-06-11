@@ -1,56 +1,26 @@
 /* Accessory Page Animations */
 .fade-in {
-  animation: fadeIn 0.8s ease-in-out forwards;
-}
 
 .fade-in-delay-1 {
-  opacity: 0;
-  animation: fadeIn 0.8s ease-in-out forwards;
-  animation-delay: 0.3s;
-}
 
 .fade-in-delay-2 {
-  opacity: 0;
-  animation: fadeIn 0.8s ease-in-out forwards;
-  animation-delay: 0.5s;
-}
 
 @keyframes fadeIn {
   from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
   to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* Product color swatch styling */
 .product-color-swatch {
-  transition: transform 0.3s ease;
-}
 
 .product-color-swatch:hover {
-  transform: scale(1.1);
-}
 
 /* Card hover effects */
 .accessories-card {
-  transition: all 0.3s ease;
-}
 
 .accessories-card:hover {
-  transform: translateY(-5px);
-}
 
 /* Additional responsive adjustments */
 @media (max-width: 640px) {
   .accessories-hero h1 {
-    font-size: 2.5rem;
-  }
   
   .accessories-hero p {
-    font-size: 1rem;
-  }
-} 

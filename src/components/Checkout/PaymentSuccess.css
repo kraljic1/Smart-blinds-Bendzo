@@ -1,506 +1,176 @@
 .payment-success-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  padding: 20px;
-  animation: fadeIn 0.3s ease-out;
-}
 
 @keyframes fadeIn {
   from {
-    opacity: 0;
-  }
   to {
-    opacity: 1;
-  }
-}
 
 .payment-success-container {
-  max-width: 800px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-}
 
 .payment-success-content {
-  background: white;
-  border-radius: 8px;
-  padding: 40px;
-  width: 100%;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-  animation: slideUp 0.4s ease-out;
-  font-family: 'Arial', sans-serif;
-  line-height: 1.4;
-}
 
 @keyframes slideUp {
   from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
   to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* Invoice Header */
 .invoice-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 40px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #e5e7eb;
-}
 
 .company-info h1 {
-  color: #1f2937;
-  font-size: 2rem;
-  margin: 0 0 10px 0;
-  font-weight: 700;
-}
 
 .company-details p {
-  margin: 2px 0;
-  color: #6b7280;
-  font-size: 0.9rem;
-}
 
 .invoice-meta {
-  text-align: right;
-}
 
 .invoice-meta h2 {
-  color: #1f2937;
-  font-size: 1.8rem;
-  margin: 0 0 15px 0;
-  font-weight: 700;
-}
 
 .invoice-details p {
-  margin: 4px 0;
-  color: #374151;
-  font-size: 0.9rem;
-}
 
 /* Customer Section */
 .customer-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
-  padding: 20px;
-  background: #f9fafb;
-  border-radius: 8px;
-}
 
 .bill-to h3,
 .ship-to h3 {
-  color: #1f2937;
-  font-size: 1.1rem;
-  margin: 0 0 15px 0;
-  font-weight: 600;
-  border-bottom: 1px solid #d1d5db;
-  padding-bottom: 5px;
-}
 
 .company-billing p,
 .personal-billing p,
 .shipping-info p {
-  margin: 3px 0;
-  color: #374151;
-  font-size: 0.9rem;
-}
 
 /* Items Table */
 .items-section {
-  margin-bottom: 30px;
-}
 
 .items-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
 
 .items-table th {
-  background: #f3f4f6;
-  color: #1f2937;
-  font-weight: 600;
-  padding: 12px;
-  text-align: left;
-  border-bottom: 2px solid #e5e7eb;
-  font-size: 0.9rem;
-}
 
 .items-table td {
-  padding: 12px;
-  border-bottom: 1px solid #e5e7eb;
-  color: #374151;
-  font-size: 0.9rem;
-}
 
 .items-table tr:hover {
-  background: #f9fafb;
-}
 
 .item-info strong {
-  color: #1f2937;
-  font-weight: 600;
-}
 
 .item-description {
-  color: #6b7280;
-  font-size: 0.8rem;
-  margin: 2px 0 0 0;
-  font-style: italic;
-}
 
 .items-table td:nth-child(2),
 .items-table td:nth-child(3),
 .items-table td:nth-child(4) {
-  text-align: right;
-}
 
 .items-table th:nth-child(2),
 .items-table th:nth-child(3),
 .items-table th:nth-child(4) {
-  text-align: right;
-}
 
 /* Totals Section */
 .totals-section {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 30px;
-}
 
 .totals-table {
-  min-width: 300px;
-  background: #f9fafb;
-  border-radius: 8px;
-  padding: 20px;
-}
 
 .total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  color: #374151;
-  font-size: 0.95rem;
-}
 
 .total-row:not(:last-child) {
-  border-bottom: 1px solid #e5e7eb;
-}
 
 .total-final {
-  border-top: 2px solid #1f2937;
-  margin-top: 10px;
-  padding-top: 15px;
-  font-size: 1.1rem;
-  color: #1f2937;
-}
 
 /* Notes Section */
 .notes-section {
-  margin-bottom: 30px;
-  padding: 20px;
-  background: #eff6ff;
-  border-radius: 8px;
-  border-left: 4px solid #3b82f6;
-}
 
 .notes-section h3 {
-  color: #1e40af;
-  font-size: 1.1rem;
-  margin: 0 0 10px 0;
-  font-weight: 600;
-}
 
 .notes-section p {
-  color: #1e40af;
-  margin: 0;
-  font-size: 0.9rem;
-}
 
 /* Success Message Section */
 .success-message-section {
-  text-align: center;
-  margin: 40px 0 30px 0;
-  padding: 30px;
-  background: linear-gradient(135deg, #10b981, #059669);
-  border-radius: 12px;
-  color: white;
-}
 
 .success-icon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto 20px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: checkmark 0.8s ease-out 0.3s both;
-}
 
 @keyframes checkmark {
   0% {
-    transform: scale(0);
-    opacity: 0;
-  }
   50% {
-    transform: scale(1.2);
-  }
   100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
 
 .success-icon svg {
-  width: 30px;
-  height: 30px;
-  color: white;
-  stroke-width: 3;
-}
 
 .success-message-section h2 {
-  font-size: 1.8rem;
-  margin: 0 0 10px 0;
-  font-weight: 700;
-}
 
 .success-message-section p {
-  font-size: 1.1rem;
-  margin: 0;
-  opacity: 0.9;
-}
 
 /* Next Steps */
 .next-steps {
-  background: #eff6ff;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 32px;
-  text-align: left;
-}
 
 .next-steps h3 {
-  font-size: 1.3rem;
-  color: #1e40af;
-  margin-bottom: 16px;
-  font-weight: 600;
-}
 
 .next-steps ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 
 .next-steps li {
-  padding: 8px 0;
-  color: #1e40af;
-  position: relative;
-  padding-left: 24px;
-}
 
 .next-steps li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #10b981;
-  font-weight: bold;
-}
 
 /* Action Buttons */
 .action-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
 
 .continue-shopping-btn,
 .print-receipt-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.15s ease;
-  cursor: pointer;
-  border: none;
-  font-size: 0.95rem;
-  min-height: 40px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-}
 
 .continue-shopping-btn {
-  background: #3b82f6;
-  color: white;
-}
 
 .continue-shopping-btn:hover {
-  background: #2563eb;
-  box-shadow: 0 2px 6px 0 rgba(59, 130, 246, 0.3);
-}
 
 .continue-shopping-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-}
 
 .print-receipt-btn {
-  background: #f9fafb;
-  color: #374151;
-  border: 1px solid #d1d5db;
-}
 
 .print-receipt-btn:hover {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-}
 
 .print-receipt-btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-}
 
 .continue-shopping-btn svg,
 .print-receipt-btn svg {
-  width: 16px;
-  height: 16px;
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .payment-success-content {
-    padding: 24px;
-    margin: 10px;
-  }
   
   .invoice-header {
-    flex-direction: column;
-    gap: 20px;
-  }
   
   .invoice-meta {
-    text-align: left;
-  }
   
   .customer-section {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
   
   .items-table {
-    font-size: 0.8rem;
-  }
   
   .items-table th,
   .items-table td {
-    padding: 8px 4px;
-  }
   
   .totals-section {
-    justify-content: stretch;
-  }
   
   .totals-table {
-    min-width: auto;
-    width: 100%;
-  }
   
   .action-buttons {
-    flex-direction: column;
-  }
   
   .continue-shopping-btn,
   .print-receipt-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
 
 /* Print Styles */
 @media print {
   .payment-success-overlay {
-    position: static;
-    background: white;
-    padding: 0;
-  }
   
   .payment-success-container {
-    max-width: none;
-    max-height: none;
-    overflow: visible;
-  }
   
   .payment-success-content {
-    box-shadow: none;
-    padding: 20px;
-    border-radius: 0;
-    animation: none;
-  }
   
   .success-message-section {
-    background: #f3f4f6 !important;
-    color: #1f2937 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
   
   .success-icon {
-    background: #e5e7eb !important;
-  }
   
   .success-icon svg {
-    color: #10b981 !important;
-  }
   
   .action-buttons,
   .success-message-section,
   .next-steps {
-    display: none !important;
-  }
   
   .customer-section {
-    background: #f9fafb !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
   
   .totals-table {
-    background: #f9fafb !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
   
   .items-table th {
-    background: #f3f4f6 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
   
   /* Hide notes section if it contains non-essential information */
   .notes-section {
-    display: none !important;
-  }
-} 

@@ -72,16 +72,9 @@
   }
 }
 
-@import './styles/PriceCalculator.css';
-@import './styles/FilterPanel.css';
 @import './styles/animations.css';
-@import './styles/lightModeEffects.css';
 @import './styles/ModernComponentsStyles.css';
 @import './styles/OverscrollFix.css';
-@import './styles/TabletResponsive.css';
-@import './styles/ProductConfiguration.css';
-@import './styles/ProductOptions/index.css';
-@import './styles/CommonAnimations.css';
 
 /* Custom styles */
 :root {
@@ -89,22 +82,13 @@
   line-height: 1.5;
   font-weight: 400;
   
-  color-scheme: light dark;
+  color-scheme: light;
   
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
-
-/* Fix dark mode background colors */
-html.dark {
-  background-color: #0c1222 !important;
-}
-
-html.dark body {
-  background-color: #0c1222 !important;
 }
 
 body {
@@ -130,11 +114,4 @@ body {
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
-}
-
-/* Dark mode transitions */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
 }

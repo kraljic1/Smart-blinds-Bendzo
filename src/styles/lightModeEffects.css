@@ -2,81 +2,43 @@
 
 /* Subtle background gradient for light mode containers */
 .light-gradient-bg {
-  background: linear-gradient(120deg, #ffffff 0%, #f5f7ff 50%, #f0f4ff 100%);
-}
 
 /* Soft card effect with enhanced depth for light mode */
 .light-card {
-  background: linear-gradient(145deg, #ffffff, #f5f7fa);
-  border: 1px solid rgba(240, 246, 255, 0.7);
-  box-shadow: 
     0 4px 6px -1px rgba(0, 0, 0, 0.05),
     0 2px 4px -1px rgba(0, 0, 0, 0.03),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
-  transition: all 0.3s ease;
-}
 
 .light-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 
     0 10px 25px -5px rgba(0, 0, 0, 0.08),
     0 8px 10px -6px rgba(0, 0, 0, 0.03),
     inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
-}
 
 /* Frosted glass effect for light mode */
 .light-glass {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(231, 240, 255, 0.7);
-  box-shadow: 0 8px 32px rgba(200, 211, 246, 0.15);
-}
 
 /* Light mode input fields with subtle gradient and enhanced focus */
 .light-input {
-  background: linear-gradient(180deg, #fafbff 0%, #ffffff 100%);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  transition: all 0.2s ease;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
-}
 
 .light-input:focus {
-  background: #ffffff;
-  border-color: rgba(99, 102, 241, 0.5);
-  box-shadow: 
     0 0 0 4px rgba(99, 102, 241, 0.15),
     inset 0 2px 4px rgba(0, 0, 0, 0.01);
-}
 
 /* Soft highlighting for active elements */
 .light-active {
-  background: linear-gradient(135deg, rgba(224, 231, 255, 0.6) 0%, rgba(232, 240, 255, 0.8) 100%);
-  border-color: rgba(99, 102, 241, 0.3);
-  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2);
-}
 
 /* Subtle border highlighter for sections */
 .light-border {
-  border: 1px solid rgba(231, 240, 255, 0.7);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7) inset;
-}
 
 /* Light mode shadow variants */
 .light-shadow-sm {
-  box-shadow: 0 2px 4px rgba(148, 163, 184, 0.1);
-}
 
 .light-shadow-md {
-  box-shadow: 0 4px 6px -1px rgba(148, 163, 184, 0.12), 0 2px 4px -1px rgba(148, 163, 184, 0.07);
-}
 
 .light-shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(148, 163, 184, 0.15), 0 4px 6px -2px rgba(148, 163, 184, 0.05);
-}
 
 /* Shimmering text highlight effect */
 .light-text-shimmer {
-  background: linear-gradient(
     90deg,
     #4338ca 0%,
     #6366f1 25%,
@@ -84,67 +46,28 @@
     #6366f1 75%,
     #4338ca 100%
   );
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: textShimmer 4s linear infinite;
-}
 
 @keyframes textShimmer {
   to {
-    background-position: 200% center;
-  }
-}
 
 /* Subtle hover lift effect for interactive elements */
 .light-hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
 
 .light-hover-lift:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
-}
 
 /* Refined focus ring for interactive elements */
 .light-focus-ring:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
-}
 
 /* Soft gradient backgrounds */
 .light-gradient-blue {
-  background: linear-gradient(135deg, #e0f2fe 0%, #bfdbfe 100%);
-}
 
 .light-gradient-purple {
-  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
-}
 
 .light-gradient-indigo {
-  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-}
 
 /* Diffused glow effect */
 .light-glow {
-  position: relative;
-}
 
 .light-glow::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  opacity: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 25px 5px rgba(99, 102, 241, 0.15);
-  transition: opacity 0.3s ease;
-}
 
 .light-glow:hover::after {
-  opacity: 1;
-} 

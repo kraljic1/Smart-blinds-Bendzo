@@ -12,9 +12,9 @@ export { countryPhoneCodes } from './data';
 
 // Export utility functions
 export {
-  getCountryCodeFromDialCode,
-  getExamplePhoneNumber,
-  getCountryByCode,
-  getCountryByDialCode,
-  searchCountriesByName,
+ getCountryCodeFromDialCode,
+ getExamplePhoneNumber,
+ getCountryByCode,
+ getCountryByDialCode,
+ searchCountriesByName,
 } from './utils'; 

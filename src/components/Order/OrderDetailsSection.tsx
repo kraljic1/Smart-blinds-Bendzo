@@ -7,40 +7,40 @@ import OrderDetailsContent from './components/OrderDetailsContent';
 import OrderErrorState from './components/OrderErrorState';
 
 interface OrderDetailsSectionProps {
-  orderId: string;
+ orderId: string;
 }
 
 const OrderDetailsSection: React.FC<OrderDetailsSectionProps> = ({ orderId }) => {
-  const { orderDetails, isLoading, fetchError, refetchOrder } = useOrderDetails(orderId);
+ const { orderDetails, isLoading, fetchError, refetchOrder } = useOrderDetails(orderId);
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+ if (isLoading) {
+ return <LoadingSpinner />;
+ }
 
-  if (orderDetails) {
-    // Get items from the order details
-    const orderItems: OrderItemDisplay[] = orderDetails.items || [];
-    
-    // Calculate order totals
-    const calculations = calculateOrderTotals(orderItems, orderDetails);
+ if (orderDetails) {
+ // Get items from the order details
+ const orderItems: OrderItemDisplay[] = orderDetails.items || [];
+ 
+ // Calculate order totals
+ const calculations = calculateOrderTotals(orderItems, orderDetails);
 
-    return (
-      <OrderDetailsContent
-        orderDetails={orderDetails}
-        orderItems={orderItems}
-        calculations={calculations}
-      />
-    );
-  }
+ return (
+ <OrderDetailsContent
+ orderDetails={orderDetails}
+ orderItems={orderItems}
+ calculations={calculations}
+ />
+ );
+ }
 
-  // Error state
-  return (
-    <OrderErrorState
-      orderId={orderId}
-      fetchError={fetchError}
-      onRetry={refetchOrder}
-    />
-  );
+ // Error state
+ return (
+ <OrderErrorState
+ orderId={orderId}
+ fetchError={fetchError}
+ onRetry={refetchOrder}
+ />
+ );
 };
 
 export default OrderDetailsSection; 

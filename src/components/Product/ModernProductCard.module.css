@@ -1,47 +1,23 @@
 /* ModernProductCard Component Styles */
 
 .productCard {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
 
 .productCardVisible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 /* Animation delay variations for staggered loading */
 .delayShort {
-  animation-delay: 100ms;
-}
 
 .delayMedium {
-  animation-delay: 200ms;
-}
 
 .delayLong {
-  animation-delay: 300ms;
-}
 
 /* Dynamic color swatch for products without fabric images */
 .colorSwatch {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-}
 
 /* Responsive animations - disable on mobile for performance */
 @media (max-width: 768px) {
   .productCard {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
   
   .delayShort,
   .delayMedium,
   .delayLong {
-    animation-delay: 0ms;
-  }
-} 
