@@ -8,12 +8,11 @@ A modern e-commerce platform for smart blinds and home automation products built
 
 ## Features
 
-- 🎨 Modern, responsive design with dark mode support
+- 🎨 Modern, responsive design
 - 🛍️ Comprehensive product catalog with multiple categories
 - ⚡ Real-time product configuration
 - 🔍 Detailed product views with specifications
 - 📱 Mobile-friendly interface
-- 🌙 Dark mode support
 - 🔄 Interactive product filtering
 - 💳 Product customization system
 - 📖 Detailed installation and setup guides

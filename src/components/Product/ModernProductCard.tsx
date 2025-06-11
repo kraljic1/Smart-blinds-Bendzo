@@ -6,75 +6,75 @@ import ProductCardContent from './ProductCardContent';
 import styles from './ModernProductCard.module.css';
 
 interface ModernProductCardProps {
-  product: Product;
-  onConfigure?: (product: Product) => void;
-  onRequestSample?: (product: Product) => void;
-  configureButtonText?: string;
-  delay?: number;
+ product: Product;
+ onConfigure?: (product: Product) => void;
+ onRequestSample?: (product: Product) => void;
+ configureButtonText?: string;
+ delay?: number;
 }
 
 const ModernProductCard: React.FC<ModernProductCardProps> = ({ 
-  product, 
-  onConfigure, 
-  onRequestSample,
-  configureButtonText = "Configure & Buy",
-  delay = 0
+ product, 
+ onConfigure, 
+ onRequestSample,
+ configureButtonText ="Configure & Buy",
+ delay = 0
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  
-  const {
-    isVisible,
-    productIsLiked,
-    hasFabricImage,
-    getFabricImage,
-    colorSwatchStyle,
-    getDelayClass,
-    handleCardClick,
-    handleConfigureClick,
-    handleRequestSampleClick,
-    handleToggleLike
-  } = useProductCard({
-    product,
-    onConfigure,
-    onRequestSample,
-    delay
-  });
+ const cardRef = useRef<HTMLDivElement>(null);
+ 
+ const {
+ isVisible,
+ productIsLiked,
+ hasFabricImage,
+ getFabricImage,
+ colorSwatchStyle,
+ getDelayClass,
+ handleCardClick,
+ handleConfigureClick,
+ handleRequestSampleClick,
+ handleToggleLike
+ } = useProductCard({
+ product,
+ onConfigure,
+ onRequestSample,
+ delay
+ });
 
-  return (
-    <div className="group h-full overflow-hidden">
-      {/* Card with modern effects */}
-      <div 
-        ref={cardRef} 
-        className={`relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-600 transition-all duration-500 group-hover:shadow-xl cursor-pointer ${styles.productCard} ${isVisible ? styles.productCardVisible : ''} ${styles[getDelayClass()]}`}
-        onClick={handleCardClick}
-      >
-        {/* Subtle card background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 dark:from-blue-900/10 dark:to-purple-900/20 -z-10"></div>
-        
-        {/* Special highlight effect top-right corner */}
-        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-bl-[100px] -translate-y-12 translate-x-12 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500"></div>
-        
-        {/* Image container with overlay effect */}
-        <ProductCardImage
-          product={product}
-          hasFabricImage={hasFabricImage}
-          getFabricImage={getFabricImage}
-          colorSwatchStyle={colorSwatchStyle}
-        />
-        
-        {/* Card content */}
-        <ProductCardContent
-          product={product}
-          configureButtonText={configureButtonText}
-          productIsLiked={productIsLiked}
-          onConfigureClick={handleConfigureClick}
-          onRequestSampleClick={onRequestSample ? handleRequestSampleClick : undefined}
-          onToggleLike={handleToggleLike}
-          onRequestSample={onRequestSample}
-        />
-      </div>
-    </div>
-  );
+ return (
+ <div className="group h-full overflow-hidden">
+ {/* Card with modern effects */}
+ <div 
+ ref={cardRef} 
+ className={`relative h-full flex flex-col light-card dark:bg-gray-800 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 transition-all duration-500 group-hover:shadow-xl cursor-pointer ${styles.productCard} ${isVisible ? styles.productCardVisible : ''} ${styles[getDelayClass()]}`}
+ onClick={handleCardClick}
+ >
+ {/* Subtle card background gradient */}
+ <div className="absolute inset-0 bg-gradient-to-br from-blue-100/5 to-purple-100/10 /10 /20 -z-10"></div>
+ 
+ {/* Special highlight effect top-right corner */}
+ <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 /20 /20 rounded-bl-[100px] -translate-y-12 translate-x-12 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-500"></div>
+ 
+ {/* Image container with overlay effect */}
+ <ProductCardImage
+ product={product}
+ hasFabricImage={hasFabricImage}
+ getFabricImage={getFabricImage}
+ colorSwatchStyle={colorSwatchStyle}
+ />
+ 
+ {/* Card content */}
+ <ProductCardContent
+ product={product}
+ configureButtonText={configureButtonText}
+ productIsLiked={productIsLiked}
+ onConfigureClick={handleConfigureClick}
+ onRequestSampleClick={onRequestSample ? handleRequestSampleClick : undefined}
+ onToggleLike={handleToggleLike}
+ onRequestSample={onRequestSample}
+ />
+ </div>
+ </div>
+ );
 };
 
 export default ModernProductCard; 

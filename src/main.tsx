@@ -10,15 +10,15 @@ import disableReactDevLogs from './utils/disableReactDevLogs' // Import our log 
 disableReactDevLogs();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <BrowserRouter
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true,
-      }}
-    >
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+ <React.StrictMode>
+ <BrowserRouter
+ future={{
+ v7_startTransition: true,
+ v7_relativeSplatPath: true,
+ }}
+ >
+ <App />
+ </BrowserRouter>
+ </React.StrictMode>,
 )
-// Force rebuild Wed Jun  4 00:28:09 CEST 2025
+// Force rebuild Wed Jun 4 00:28:09 CEST 2025

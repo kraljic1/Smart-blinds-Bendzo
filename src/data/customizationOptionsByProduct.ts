@@ -11,5 +11,5 @@ import { CustomizationOptionService } from './customizationOptionsByProduct/serv
  * @returns Array of customization options for the product
  */
 export const getCustomizationOptions = (productId: string): CustomizationOption[] => {
-  return CustomizationOptionService.getOptionsForProduct(productId);
+ return CustomizationOptionService.getOptionsForProduct(productId);
 }; 

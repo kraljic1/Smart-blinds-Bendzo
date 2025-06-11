@@ -10,9 +10,9 @@ import AdditionalNotesSection from '../AdditionalNotesSection';
 import { FormData, PhoneValidation } from '../CheckoutFormTypes';
 
 interface CheckoutFormFieldsProps {
-  formData: FormData;
-  phoneValidation: PhoneValidation;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+ formData: FormData;
+ phoneValidation: PhoneValidation;
+ handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 }
 
 /**
@@ -20,63 +20,63 @@ interface CheckoutFormFieldsProps {
  * for the checkout process in a structured layout
  */
 const CheckoutFormFields: React.FC<CheckoutFormFieldsProps> = ({
-  formData,
-  phoneValidation,
-  handleChange
+ formData,
+ phoneValidation,
+ handleChange
 }) => {
-  return (
-    <>
-      <div className="form-section">
-        <CustomerInfoSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-      </div>
-      
-      <div className="form-section">
-        <PhoneNumberSection 
-          formData={formData} 
-          phoneValidation={phoneValidation}
-          handleChange={handleChange} 
-        />
-      </div>
-      
-      <BillingAddressSection 
-        formData={formData} 
-        handleChange={handleChange} 
-      />
-      
-      <div className="form-section">
-        <CompanyInfoSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-      </div>
-      
-      <ShippingAddressSection 
-        formData={formData} 
-        handleChange={handleChange} 
-      />
-      
-      <div className="form-section">
-        <PaymentMethodSection />
-      </div>
-      
-      <div className="form-section">
-        <ShippingMethodSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-      </div>
-      
-      <div className="form-section">
-        <AdditionalNotesSection 
-          formData={formData} 
-          handleChange={handleChange} 
-        />
-      </div>
-    </>
-  );
+ return (
+ <>
+ <div className="form-section">
+ <CustomerInfoSection 
+ formData={formData} 
+ handleChange={handleChange} 
+ />
+ </div>
+ 
+ <div className="form-section">
+ <PhoneNumberSection 
+ formData={formData} 
+ phoneValidation={phoneValidation}
+ handleChange={handleChange} 
+ />
+ </div>
+ 
+ <BillingAddressSection 
+ formData={formData} 
+ handleChange={handleChange} 
+ />
+ 
+ <div className="form-section">
+ <CompanyInfoSection 
+ formData={formData} 
+ handleChange={handleChange} 
+ />
+ </div>
+ 
+ <ShippingAddressSection 
+ formData={formData} 
+ handleChange={handleChange} 
+ />
+ 
+ <div className="form-section">
+ <PaymentMethodSection />
+ </div>
+ 
+ <div className="form-section">
+ <ShippingMethodSection 
+ formData={formData} 
+ handleChange={handleChange} 
+ />
+ </div>
+ 
+ <div className="form-section">
+ <AdditionalNotesSection 
+ formData={formData} 
+ handleChange={handleChange} 
+ />
+ </div>
+ </>
+ );
 };
 
 export default CheckoutFormFields; 

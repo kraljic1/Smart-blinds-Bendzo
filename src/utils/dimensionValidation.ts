@@ -3,18 +3,18 @@
  */
 
 export interface DimensionConstraints {
-  min: number;
-  max: number;
+ min: number;
+ max: number;
 }
 
 export const DEFAULT_DIMENSION_CONSTRAINTS: DimensionConstraints = {
-  min: 30,
-  max: 350
+ min: 30,
+ max: 350
 };
 
 export const DEMO_DIMENSION_CONSTRAINTS: DimensionConstraints = {
-  min: 20,
-  max: 300
+ min: 20,
+ max: 300
 };
 
 /**
@@ -24,19 +24,19 @@ export const DEMO_DIMENSION_CONSTRAINTS: DimensionConstraints = {
  * @returns The numeric value or empty string if input was empty/invalid
  */
 export const validateDimensionInput = (
-  value: string | number
+ value: string | number
 ): number | '' => {
-  if (value === '' || value === null || value === undefined) {
-    return '';
-  }
+ if (value === '' || value === null || value === undefined) {
+ return '';
+ }
 
-  const numValue = typeof value === 'string' ? Number(value) : value;
+ const numValue = typeof value === 'string' ? Number(value) : value;
 
-  if (isNaN(numValue)) {
-    return '';
-  }
+ if (isNaN(numValue)) {
+ return '';
+ }
 
-  return numValue;
+ return numValue;
 };
 
 /**
@@ -47,27 +47,27 @@ export const validateDimensionInput = (
  * @returns The constrained value or empty string if input was empty
  */
 export const validateDimension = (
-  value: string | number,
-  constraints: DimensionConstraints = DEFAULT_DIMENSION_CONSTRAINTS
+ value: string | number,
+ constraints: DimensionConstraints = DEFAULT_DIMENSION_CONSTRAINTS
 ): number | '' => {
-  if (value === '' || value === null || value === undefined) {
-    return '';
-  }
+ if (value === '' || value === null || value === undefined) {
+ return '';
+ }
 
-  const numValue = typeof value === 'string' ? Number(value) : value;
+ const numValue = typeof value === 'string' ? Number(value) : value;
 
-  if (isNaN(numValue)) {
-    return '';
-  }
+ if (isNaN(numValue)) {
+ return '';
+ }
 
-  // Enforce min/max constraints
-  if (numValue < constraints.min) {
-    return constraints.min;
-  } else if (numValue > constraints.max) {
-    return constraints.max;
-  }
+ // Enforce min/max constraints
+ if (numValue < constraints.min) {
+ return constraints.min;
+ } else if (numValue > constraints.max) {
+ return constraints.max;
+ }
 
-  return numValue;
+ return numValue;
 };
 
 /**
@@ -77,30 +77,30 @@ export const validateDimension = (
  * @returns Object with validation status and suggested value if out of range
  */
 export const checkDimensionRange = (
-  value: number | '',
-  constraints: DimensionConstraints = DEFAULT_DIMENSION_CONSTRAINTS
+ value: number | '',
+ constraints: DimensionConstraints = DEFAULT_DIMENSION_CONSTRAINTS
 ): { isValid: boolean; suggestedValue?: number; message?: string } => {
-  if (value === '' || typeof value !== 'number') {
-    return { isValid: false, message: 'Please enter a valid number' };
-  }
+ if (value === '' || typeof value !== 'number') {
+ return { isValid: false, message: 'Please enter a valid number' };
+ }
 
-  if (value < constraints.min) {
-    return { 
-      isValid: false, 
-      suggestedValue: constraints.min,
-      message: `Minimum value is ${constraints.min} cm`
-    };
-  }
+ if (value < constraints.min) {
+ return { 
+ isValid: false, 
+ suggestedValue: constraints.min,
+ message: `Minimum value is ${constraints.min} cm`
+ };
+ }
 
-  if (value > constraints.max) {
-    return { 
-      isValid: false, 
-      suggestedValue: constraints.max,
-      message: `Maximum value is ${constraints.max} cm`
-    };
-  }
+ if (value > constraints.max) {
+ return { 
+ isValid: false, 
+ suggestedValue: constraints.max,
+ message: `Maximum value is ${constraints.max} cm`
+ };
+ }
 
-  return { isValid: true };
+ return { isValid: true };
 };
 
 /**
@@ -111,33 +111,33 @@ export const checkDimensionRange = (
  * @returns Object with validation result and error message if any
  */
 export const validateDimensions = (
-  width: number | '',
-  height: number | '',
-  constraints: DimensionConstraints = DEFAULT_DIMENSION_CONSTRAINTS
+ width: number | '',
+ height: number | '',
+ constraints: DimensionConstraints = DEFAULT_DIMENSION_CONSTRAINTS
 ): { isValid: boolean; errorMessage?: string } => {
-  if (typeof width !== 'number' || typeof height !== 'number') {
-    return {
-      isValid: false,
-      errorMessage: 'Please enter valid width and height values'
-    };
-  }
+ if (typeof width !== 'number' || typeof height !== 'number') {
+ return {
+ isValid: false,
+ errorMessage: 'Please enter valid width and height values'
+ };
+ }
 
-  if (width < constraints.min || width > constraints.max || 
-      height < constraints.min || height > constraints.max) {
-    return {
-      isValid: false,
-      errorMessage: `Please enter valid width and height values between ${constraints.min}-${constraints.max} cm`
-    };
-  }
+ if (width < constraints.min || width > constraints.max || 
+ height < constraints.min || height > constraints.max) {
+ return {
+ isValid: false,
+ errorMessage: `Please enter valid width and height values between ${constraints.min}-${constraints.max} cm`
+ };
+ }
 
-  return { isValid: true };
+ return { isValid: true };
 };
 
 /**
  * Formats dimension constraints for display
  * @param constraints - The constraints to format
- * @returns Formatted string like "30 - 350 cm"
+ * @returns Formatted string like"30 - 350 cm"
  */
 export const formatDimensionRange = (constraints: DimensionConstraints): string => {
-  return `${constraints.min} - ${constraints.max} cm`;
+ return `${constraints.min} - ${constraints.max} cm`;
 }; 

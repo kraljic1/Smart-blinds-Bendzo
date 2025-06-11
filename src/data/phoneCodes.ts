@@ -8,14 +8,14 @@
 // Re-export everything from the new modular structure
 export type { CountryCode, CountryCodeMap } from './phoneCodes/types';
 export {
-  countryPhoneCodes,
-  croatiaPhoneCode,
-  europeanPhoneCodes,
-  restOfWorldPhoneCodes,
-  examplePhoneNumbers,
-  getCountryCodeFromDialCode,
-  getExamplePhoneNumber,
-  getCountryByCode,
-  getCountryByDialCode,
-  searchCountriesByName,
+ countryPhoneCodes,
+ croatiaPhoneCode,
+ europeanPhoneCodes,
+ restOfWorldPhoneCodes,
+ examplePhoneNumbers,
+ getCountryCodeFromDialCode,
+ getExamplePhoneNumber,
+ getCountryByCode,
+ getCountryByDialCode,
+ searchCountriesByName,
 } from './phoneCodes/index'; 

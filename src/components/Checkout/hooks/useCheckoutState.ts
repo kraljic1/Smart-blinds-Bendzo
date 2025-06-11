@@ -10,72 +10,72 @@ import { useFormSubmission } from './useFormSubmission';
  * Combines form state, payment state, and submission handling
  */
 export const useCheckoutState = () => {
-  const {
-    formData,
-    formStatus,
-    phoneValidation,
-    handleChange,
-    setError,
-    setSubmitting
-  } = useCheckoutForm();
+ const {
+ formData,
+ formStatus,
+ phoneValidation,
+ handleChange,
+ setError,
+ setSubmitting
+ } = useCheckoutForm();
 
-  const { getTotalPrice } = useBasketContext();
-  
-  // Calculate total including shipping
-  const calculateTotalWithShipping = () => {
-    const subtotal = getTotalPrice();
-    const shippingCost = getShippingCost(formData.shippingMethod || 'Standard delivery');
-    return subtotal + shippingCost;
-  };
+ const { getTotalPrice } = useBasketContext();
+ 
+ // Calculate total including shipping
+ const calculateTotalWithShipping = () => {
+ const subtotal = getTotalPrice();
+ const shippingCost = getShippingCost(formData.shippingMethod || 'Standard delivery');
+ return subtotal + shippingCost;
+ };
 
-  const {
-    paymentState: stripePaymentState,
-    setBrowserInfo,
-    handleClosePayment,
-    updatePaymentState
-  } = usePaymentState();
+ const {
+ paymentState: stripePaymentState,
+ setBrowserInfo,
+ handleClosePayment,
+ updatePaymentState
+ } = usePaymentState();
 
-  const {
-    paymentState: handlingState,
-    handlePaymentSuccess,
-    handlePaymentError,
-    handleContinueShopping
-  } = usePaymentHandling(formData, setError, setSubmitting);
+ const {
+ paymentState: handlingState,
+ handlePaymentSuccess,
+ handlePaymentError,
+ handleContinueShopping
+ } = usePaymentHandling(formData, setError, setSubmitting);
 
-  const {
-    handleSubmit,
-    handlePaymentButtonClick
-  } = useFormSubmission(
-    formData,
-    phoneValidation,
-    setError,
-    setSubmitting,
-    updatePaymentState
-  );
+ const {
+ handleSubmit,
+ handlePaymentButtonClick
+ } = useFormSubmission(
+ formData,
+ phoneValidation,
+ setError,
+ setSubmitting,
+ updatePaymentState
+ );
 
-  const handlePaymentButtonClickWrapper = () => {
-    handlePaymentButtonClick(stripePaymentState);
-  };
+ const handlePaymentButtonClickWrapper = () => {
+ handlePaymentButtonClick(stripePaymentState);
+ };
 
-  return {
-    // Form state
-    formData,
-    formStatus,
-    phoneValidation,
-    handleChange,
-    handleSubmit,
-    
-    // Payment state
-    stripePaymentState,
-    handlingState,
-    calculateTotalWithShipping,
-    
-    // Event handlers
-    handlePaymentButtonClickWrapper,
-    handlePaymentSuccess,
-    handlePaymentError,
-    handleClosePayment,
-    setBrowserInfo,
-    handleContinueShopping
-  };
+ return {
+ // Form state
+ formData,
+ formStatus,
+ phoneValidation,
+ handleChange,
+ handleSubmit,
+ 
+ // Payment state
+ stripePaymentState,
+ handlingState,
+ calculateTotalWithShipping,
+ 
+ // Event handlers
+ handlePaymentButtonClickWrapper,
+ handlePaymentSuccess,
+ handlePaymentError,
+ handleClosePayment,
+ setBrowserInfo,
+ handleContinueShopping
+ };
 }; 

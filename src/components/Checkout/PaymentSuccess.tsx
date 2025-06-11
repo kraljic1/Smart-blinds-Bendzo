@@ -8,50 +8,50 @@ import PaymentSuccessMessage from './PaymentSuccessMessage';
 import './PaymentSuccess.css';
 
 export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ 
-  orderDetails, 
-  onContinueShopping 
+ orderDetails, 
+ onContinueShopping 
 }) => {
-  return (
-    <div className="payment-success-overlay">
-      <div className="payment-success-container">
-        <div className="payment-success-content">
-          <InvoiceHeader
-            orderNumber={orderDetails.orderNumber}
-            date={orderDetails.date}
-            time={orderDetails.time}
-            paymentIntentId={orderDetails.paymentIntentId}
-          />
+ return (
+ <div className="payment-success-overlay">
+ <div className="payment-success-container">
+ <div className="payment-success-content">
+ <InvoiceHeader
+ orderNumber={orderDetails.orderNumber}
+ date={orderDetails.date}
+ time={orderDetails.time}
+ paymentIntentId={orderDetails.paymentIntentId}
+ />
 
-          <CustomerSection
-            customer={orderDetails.customer}
-            company={orderDetails.company}
-            shipping={orderDetails.shipping}
-          />
+ <CustomerSection
+ customer={orderDetails.customer}
+ company={orderDetails.company}
+ shipping={orderDetails.shipping}
+ />
 
-          <ItemsTable
-            items={orderDetails.items}
-            currency={orderDetails.currency}
-          />
+ <ItemsTable
+ items={orderDetails.items}
+ currency={orderDetails.currency}
+ />
 
-          <TotalsSection
-            subtotal={orderDetails.subtotal}
-            shippingCost={orderDetails.shippingCost}
-            tax={orderDetails.tax}
-            total={orderDetails.total}
-            currency={orderDetails.currency}
-          />
+ <TotalsSection
+ subtotal={orderDetails.subtotal}
+ shippingCost={orderDetails.shippingCost}
+ tax={orderDetails.tax}
+ total={orderDetails.total}
+ currency={orderDetails.currency}
+ />
 
-          {/* Notes */}
-          {orderDetails.notes && (
-            <div className="notes-section">
-              <h3>Napomene:</h3>
-              <p>{orderDetails.notes}</p>
-            </div>
-          )}
+ {/* Notes */}
+ {orderDetails.notes && (
+ <div className="notes-section">
+ <h3>Napomene:</h3>
+ <p>{orderDetails.notes}</p>
+ </div>
+ )}
 
-          <PaymentSuccessMessage onContinueShopping={onContinueShopping} />
-        </div>
-      </div>
-    </div>
-  );
+ <PaymentSuccessMessage onContinueShopping={onContinueShopping} />
+ </div>
+ </div>
+ </div>
+ );
 }; 

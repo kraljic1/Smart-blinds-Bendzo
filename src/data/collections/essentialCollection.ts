@@ -4,6 +4,6 @@ import { essentialCollectionPart2 } from './essentialCollectionPart2';
 
 // Essential Collection
 export const essentialCollection: Product[] = [
-  ...essentialCollectionPart1,
-  ...essentialCollectionPart2
+ ...essentialCollectionPart1,
+ ...essentialCollectionPart2
 ]; 

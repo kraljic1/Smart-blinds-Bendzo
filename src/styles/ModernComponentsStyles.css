@@ -93,4 +93,4 @@
 /* Modern list item */
 .modern-list-item {
   @apply flex items-center space-x-3 mb-3;
-} 
+}

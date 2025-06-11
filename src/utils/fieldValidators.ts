@@ -12,19 +12,19 @@ import { createGenericValidator } from './fieldValidators/validators/genericVali
  * Validates a single form field based on its name and value
  */
 export const validateFormField = (
-  fieldName: string, 
-  value: unknown, 
-  formData: FormData = {}
+ fieldName: string, 
+ value: unknown, 
+ formData: FormData = {}
 ): ValidationResult => {
-  const validator = fieldValidatorConfig[fieldName];
-  
-  if (validator) {
-    return validator(value, formData);
-  }
-  
-  // Use generic validator for unknown fields
-  const genericValidator = createGenericValidator(fieldName);
-  return genericValidator(value, formData);
+ const validator = fieldValidatorConfig[fieldName];
+ 
+ if (validator) {
+ return validator(value, formData);
+ }
+ 
+ // Use generic validator for unknown fields
+ const genericValidator = createGenericValidator(fieldName);
+ return genericValidator(value, formData);
 };
 
 // Re-export utility functions

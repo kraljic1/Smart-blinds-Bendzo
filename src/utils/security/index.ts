@@ -17,8 +17,8 @@ export * from './securityUtils';
 // Types and enums
 export { SecurityIncidentType, SecuritySeverity } from '../../types/security';
 export type {
-  SecurityIncident,
-  SecurityStats,
-  AlertThresholds,
-  SecurityLoggerConfig
+ SecurityIncident,
+ SecurityStats,
+ AlertThresholds,
+ SecurityLoggerConfig
 } from '../../types/security'; 

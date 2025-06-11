@@ -5,10 +5,10 @@
 
 // Type definitions
 export type {
-  CreatePaymentIntentRequest,
-  CreatePaymentIntentResponse,
-  ConfirmPaymentRequest,
-  ConfirmPaymentResponse
+ CreatePaymentIntentRequest,
+ CreatePaymentIntentResponse,
+ ConfirmPaymentRequest,
+ ConfirmPaymentResponse
 } from './types';
 
 // Configuration utilities

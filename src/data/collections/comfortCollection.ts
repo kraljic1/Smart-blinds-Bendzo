@@ -42,148 +42,148 @@ import comfortWhiteBL4 from '../../img/rollerblinds/COMFORT/COMFORT - WHITEbl/4.
 
 // Comfort Collection
 export const comfortCollection: Product[] = [
-  {
-    id: "comfort-sand-brown",
-    name: "Comfort - sand brown",
-    price: 259.99,
-    originalPrice: 289.99,
-    image: comfortSandBrownBL0,
-    images: [
-      comfortSandBrownBL0,
-      comfortSandBrownBL1,
-      comfortSandBrownBL2,
-      comfortSandBrownBL3,
-      comfortSandBrownBL4
-    ],
-    features: ["Blackout"],
-    colors: 3,
-    fabricColor: "#8B6942",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-sand-brown-light-filtering",
-    name: "Comfort - sand brown",
-    price: 239.99,
-    originalPrice: 269.99,
-    image: comfortSandBrownLF0,
-    images: [
-      comfortSandBrownLF0,
-      comfortSandBrownLF1,
-      comfortSandBrownLF2,
-      comfortSandBrownLF3,
-      comfortSandBrownLF4
-    ],
-    features: ["Light filtering"],
-    colors: 3,
-    fabricColor: "#A87D4D",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-brown-grey",
-    name: "Comfort - Brown grey",
-    price: 239.99,
-    originalPrice: 269.99,
-    image: comfortBrownGreyMain,
-    images: [
-      comfortBrownGreyMain,
-      comfortBrownGrey1,
-      comfortBrownGrey2,
-      comfortBrownGrey3,
-      comfortBrownGrey4
-    ],
-    features: ["Light filtering"],
-    colors: 3,
-    fabricColor: "#6B6359",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-white",
-    name: "Comfort - White",
-    price: 239.99,
-    originalPrice: 269.99,
-    image: comfortWhiteMain,
-    images: [
-      comfortWhiteMain,
-      comfortWhite1,
-      comfortWhite2,
-      comfortWhite3,
-      comfortWhite4
-    ],
-    features: ["Light filtering"],
-    colors: 3,
-    fabricColor: "#F9F9F9",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-white-blackout",
-    name: "Comfort - White",
-    price: 259.99,
-    originalPrice: 289.99,
-    image: comfortWhiteBL0,
-    images: [
-      comfortWhiteBL0,
-      comfortWhiteBL1,
-      comfortWhiteBL2,
-      comfortWhiteBL3,
-      comfortWhiteBL4
-    ],
-    features: ["Blackout"],
-    colors: 3,
-    fabricColor: "#FFFFFF",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-anthracite",
-    name: "Comfort - Anthracite",
-    price: 259.99,
-    originalPrice: 289.99,
-    image: comfortAnthraciteMain,
-    images: [
-      comfortAnthraciteMain,
-      comfortAnthracite1,
-      comfortAnthracite2,
-      comfortAnthracite3,
-      comfortAnthracite4
-    ],
-    features: ["Light filtering"],
-    colors: 3,
-    fabricColor: "#2C3539",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-anthracite-blackout",
-    name: "Comfort - Anthracite",
-    price: 259.99,
-    originalPrice: 289.99,
-    image: comfortAnthraciteBLMain,
-    images: [
-      comfortAnthraciteBLMain,
-      comfortAnthraciteBL1,
-      comfortAnthraciteBL2,
-      comfortAnthraciteBL3,
-      comfortAnthraciteBL4
-    ],
-    features: ["Blackout"],
-    colors: 3,
-    fabricColor: "#2C3539",
-    collection: "Comfort"
-  },
-  {
-    id: "comfort-brown-grey-blackout",
-    name: "Comfort - Brown grey",
-    price: 259.99,
-    originalPrice: 289.99,
-    image: comfortBrownGreyBLMain,
-    images: [
-      comfortBrownGreyBLMain,
-      comfortBrownGreyBL1,
-      comfortBrownGreyBL2,
-      comfortBrownGreyBL3,
-      comfortBrownGreyBL4
-    ],
-    features: ["Blackout"],
-    colors: 3,
-    fabricColor: "#6E6259",
-    collection: "Comfort"
-  }
+ {
+ id:"comfort-sand-brown",
+ name:"Comfort - sand brown",
+ price: 259.99,
+ originalPrice: 289.99,
+ image: comfortSandBrownBL0,
+ images: [
+ comfortSandBrownBL0,
+ comfortSandBrownBL1,
+ comfortSandBrownBL2,
+ comfortSandBrownBL3,
+ comfortSandBrownBL4
+ ],
+ features: ["Blackout"],
+ colors: 3,
+ fabricColor:"#8B6942",
+ collection:"Comfort"
+ },
+ {
+ id:"comfort-sand-brown-light-filtering",
+ name:"Comfort - sand brown",
+ price: 239.99,
+ originalPrice: 269.99,
+ image: comfortSandBrownLF0,
+ images: [
+ comfortSandBrownLF0,
+ comfortSandBrownLF1,
+ comfortSandBrownLF2,
+ comfortSandBrownLF3,
+ comfortSandBrownLF4
+ ],
+ features: ["Light filtering"],
+ colors: 3,
+ fabricColor:"#A87D4D",
+ collection:"Comfort"
+ },
+ {
+ id:"comfort-brown-grey",
+ name:"Comfort - Brown grey",
+ price: 239.99,
+ originalPrice: 269.99,
+ image: comfortBrownGreyMain,
+ images: [
+ comfortBrownGreyMain,
+ comfortBrownGrey1,
+ comfortBrownGrey2,
+ comfortBrownGrey3,
+ comfortBrownGrey4
+ ],
+ features: ["Light filtering"],
+ colors: 3,
+ fabricColor:"#6B6359",
+ collection:"Comfort"
+ },
+ {
+ id:"comfort-white",
+ name:"Comfort - White",
+ price: 239.99,
+ originalPrice: 269.99,
+ image: comfortWhiteMain,
+ images: [
+ comfortWhiteMain,
+ comfortWhite1,
+ comfortWhite2,
+ comfortWhite3,
+ comfortWhite4
+ ],
+ features: ["Light filtering"],
+ colors: 3,
+ fabricColor:"#F9F9F9",
+ collection:"Comfort"
+ },
+ {
+ id:"comfort-white-blackout",
+ name:"Comfort - White",
+ price: 259.99,
+ originalPrice: 289.99,
+ image: comfortWhiteBL0,
+ images: [
+ comfortWhiteBL0,
+ comfortWhiteBL1,
+ comfortWhiteBL2,
+ comfortWhiteBL3,
+ comfortWhiteBL4
+ ],
+ features: ["Blackout"],
+ colors: 3,
+ fabricColor:"#FFFFFF",
+ collection:"Comfort"
+ },
+ {
+ id:"comfort-anthracite",
+ name:"Comfort - Anthracite",
+ price: 259.99,
+ originalPrice: 289.99,
+ image: comfortAnthraciteMain,
+ images: [
+ comfortAnthraciteMain,
+ comfortAnthracite1,
+ comfortAnthracite2,
+ comfortAnthracite3,
+ comfortAnthracite4
+ ],
+ features: ["Light filtering"],
+ colors: 3,
+ fabricColor:"#2C3539",
+ collection:"Comfort"
+ },
+ {
+ id:"comfort-anthracite-blackout",
+ name:"Comfort - Anthracite",
+ price: 259.99,
+ originalPrice: 289.99,
+ image: comfortAnthraciteBLMain,
+ images: [
+ comfortAnthraciteBLMain,
+ comfortAnthraciteBL1,
+ comfortAnthraciteBL2,
+ comfortAnthraciteBL3,
+ comfortAnthraciteBL4
+ ],
+ features: ["Blackout"],
+ colors: 3,
+ fabricColor:"#2C3539",
+ collection:"Comfort"
+ },
+ {
+ id:"comfort-brown-grey-blackout",
+ name:"Comfort - Brown grey",
+ price: 259.99,
+ originalPrice: 289.99,
+ image: comfortBrownGreyBLMain,
+ images: [
+ comfortBrownGreyBLMain,
+ comfortBrownGreyBL1,
+ comfortBrownGreyBL2,
+ comfortBrownGreyBL3,
+ comfortBrownGreyBL4
+ ],
+ features: ["Blackout"],
+ colors: 3,
+ fabricColor:"#6E6259",
+ collection:"Comfort"
+ }
 ]; 

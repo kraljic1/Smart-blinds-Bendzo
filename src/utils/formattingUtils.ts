@@ -5,16 +5,16 @@
  * @returns The formatted option value
  */
 export const formatOptionValue = (value: string | number | boolean): string => {
-  // Handle non-string values
-  if (typeof value !== 'string') {
-    return String(value);
-  }
-  
-  // Replace underscores with spaces
-  return value
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
+ // Handle non-string values
+ if (typeof value !== 'string') {
+ return String(value);
+ }
+ 
+ // Replace underscores with spaces
+ return value
+ .split('_')
+ .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+ .join(' ');
 };
 
 /**
@@ -24,12 +24,12 @@ export const formatOptionValue = (value: string | number | boolean): string => {
  * @returns The formatted option label
  */
 export const formatOptionLabel = (key: string): string => {
-  // Replace underscores with spaces and capitalize each word
-  return key
-    .replace(/_/g, ' ')
-    .replace(/([A-Z])/g, ' $1')
-    .trim()
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
+ // Replace underscores with spaces and capitalize each word
+ return key
+ .replace(/_/g, ' ')
+ .replace(/([A-Z])/g, ' $1')
+ .trim()
+ .split(' ')
+ .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+ .join(' ');
 }; 

@@ -7,49 +7,49 @@ import SecurityFilters from './SecurityFilters';
 import SecurityIncidentList from './SecurityIncidentList';
 
 interface SecurityDashboardProps {
-  className?: string;
+ className?: string;
 }
 
 const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ className = '' }) => {
-  const {
-    incidents,
-    stats,
-    selectedSeverity,
-    selectedType,
-    showResolved,
-    filteredIncidents,
-    setSelectedSeverity,
-    setSelectedType,
-    setShowResolved,
-    refreshData,
-    resolveIncident
-  } = useSecurityDashboard();
+ const {
+ incidents,
+ stats,
+ selectedSeverity,
+ selectedType,
+ showResolved,
+ filteredIncidents,
+ setSelectedSeverity,
+ setSelectedType,
+ setShowResolved,
+ refreshData,
+ resolveIncident
+ } = useSecurityDashboard();
 
-  if (!stats) {
-    return <SecurityDashboardLoading className={className} />;
-  }
+ if (!stats) {
+ return <SecurityDashboardLoading className={className} />;
+ }
 
-  return (
-    <div className={`bg-white rounded-lg shadow-md ${className}`}>
-      <SecurityDashboardHeader onRefresh={refreshData} />
-      
-      <SecurityStats stats={stats} incidents={incidents} />
+ return (
+ <div className={`bg-white rounded-lg shadow-md ${className}`}>
+ <SecurityDashboardHeader onRefresh={refreshData} />
+ 
+ <SecurityStats stats={stats} incidents={incidents} />
 
-      <SecurityFilters
-        selectedSeverity={selectedSeverity}
-        selectedType={selectedType}
-        showResolved={showResolved}
-        onSeverityChange={setSelectedSeverity}
-        onTypeChange={setSelectedType}
-        onShowResolvedChange={setShowResolved}
-      />
+ <SecurityFilters
+ selectedSeverity={selectedSeverity}
+ selectedType={selectedType}
+ showResolved={showResolved}
+ onSeverityChange={setSelectedSeverity}
+ onTypeChange={setSelectedType}
+ onShowResolvedChange={setShowResolved}
+ />
 
-      <SecurityIncidentList
-        incidents={filteredIncidents}
-        onResolveIncident={resolveIncident}
-      />
-    </div>
-  );
+ <SecurityIncidentList
+ incidents={filteredIncidents}
+ onResolveIncident={resolveIncident}
+ />
+ </div>
+ );
 };
 
 export default SecurityDashboard; 

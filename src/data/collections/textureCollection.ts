@@ -27,94 +27,94 @@ import textureBrownGrey4 from '../../img/rollerblinds/TEXTURE/TEXTURE - BROWN GR
 
 // Texture Collection
 export const textureCollection: Product[] = [
-  {
-    id: "texture-grey-sheer",
-    name: "Texture - grey",
-    price: 229.99,
-    originalPrice: 259.99,
-    image: textureGrey0,
-    images: [
-      textureGrey0,
-      textureGrey1,
-      textureGrey2,
-      textureGrey3,
-      textureGrey4
-    ],
-    features: ["Sheer"],
-    colors: 1,
-    fabricColor: "#808080",
-    collection: "Texture"
-  },
-  {
-    id: "texture-off-white-sheer",
-    name: "Texture - off-white",
-    price: 229.99,
-    originalPrice: 259.99,
-    image: textureOffWhite0,
-    images: [
-      textureOffWhite0,
-      textureOffWhite1,
-      textureOffWhite2,
-      textureOffWhite3,
-      textureOffWhite4
-    ],
-    features: ["Sheer"],
-    colors: 1,
-    fabricColor: "#F8F8F0",
-    collection: "Texture"
-  },
-  {
-    id: "texture-white-sheer",
-    name: "Texture - white",
-    price: 229.99,
-    originalPrice: 259.99,
-    image: textureWhite0,
-    images: [
-      textureWhite0,
-      textureWhite1,
-      textureWhite2,
-      textureWhite3,
-      textureWhite4
-    ],
-    features: ["Sheer"],
-    colors: 1,
-    fabricColor: "#FFFFFF",
-    collection: "Texture"
-  },
-  {
-    id: "texture-anthracite-sheer",
-    name: "Texture - anthracite",
-    price: 229.99,
-    originalPrice: 259.99,
-    image: textureAnthracite0,
-    images: [
-      textureAnthracite0,
-      textureAnthracite1,
-      textureAnthracite2,
-      textureAnthracite3,
-      textureAnthracite4
-    ],
-    features: ["Sheer"],
-    colors: 1,
-    fabricColor: "#2C3539",
-    collection: "Texture"
-  },
-  {
-    id: "texture-brown-grey-sheer",
-    name: "Texture - brown grey",
-    price: 229.99,
-    originalPrice: 259.99,
-    image: textureBrownGrey0,
-    images: [
-      textureBrownGrey0,
-      textureBrownGrey1,
-      textureBrownGrey2,
-      textureBrownGrey3,
-      textureBrownGrey4
-    ],
-    features: ["Sheer"],
-    colors: 1,
-    fabricColor: "#6B6359",
-    collection: "Texture"
-  }
+ {
+ id:"texture-grey-sheer",
+ name:"Texture - grey",
+ price: 229.99,
+ originalPrice: 259.99,
+ image: textureGrey0,
+ images: [
+ textureGrey0,
+ textureGrey1,
+ textureGrey2,
+ textureGrey3,
+ textureGrey4
+ ],
+ features: ["Sheer"],
+ colors: 1,
+ fabricColor:"#808080",
+ collection:"Texture"
+ },
+ {
+ id:"texture-off-white-sheer",
+ name:"Texture - off-white",
+ price: 229.99,
+ originalPrice: 259.99,
+ image: textureOffWhite0,
+ images: [
+ textureOffWhite0,
+ textureOffWhite1,
+ textureOffWhite2,
+ textureOffWhite3,
+ textureOffWhite4
+ ],
+ features: ["Sheer"],
+ colors: 1,
+ fabricColor:"#F8F8F0",
+ collection:"Texture"
+ },
+ {
+ id:"texture-white-sheer",
+ name:"Texture - white",
+ price: 229.99,
+ originalPrice: 259.99,
+ image: textureWhite0,
+ images: [
+ textureWhite0,
+ textureWhite1,
+ textureWhite2,
+ textureWhite3,
+ textureWhite4
+ ],
+ features: ["Sheer"],
+ colors: 1,
+ fabricColor:"#FFFFFF",
+ collection:"Texture"
+ },
+ {
+ id:"texture-anthracite-sheer",
+ name:"Texture - anthracite",
+ price: 229.99,
+ originalPrice: 259.99,
+ image: textureAnthracite0,
+ images: [
+ textureAnthracite0,
+ textureAnthracite1,
+ textureAnthracite2,
+ textureAnthracite3,
+ textureAnthracite4
+ ],
+ features: ["Sheer"],
+ colors: 1,
+ fabricColor:"#2C3539",
+ collection:"Texture"
+ },
+ {
+ id:"texture-brown-grey-sheer",
+ name:"Texture - brown grey",
+ price: 229.99,
+ originalPrice: 259.99,
+ image: textureBrownGrey0,
+ images: [
+ textureBrownGrey0,
+ textureBrownGrey1,
+ textureBrownGrey2,
+ textureBrownGrey3,
+ textureBrownGrey4
+ ],
+ features: ["Sheer"],
+ colors: 1,
+ fabricColor:"#6B6359",
+ collection:"Texture"
+ }
 ]; 
