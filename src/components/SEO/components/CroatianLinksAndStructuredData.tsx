@@ -3,28 +3,12 @@ interface CroatianLinksAndStructuredDataProps {
  structuredData: Record<string, unknown> | Record<string, unknown>[];
 }
 
-export const CroatianLinksAndStructuredData: React.FC<CroatianLinksAndStructuredDataProps> = ({
- metaCanonicalUrl,
- structuredData
-}) => {
- return (
- <>
- {/* Canonical URL */}
- <link rel="canonical"href={metaCanonicalUrl} />
- 
- {/* Preconnect to external domains */}
- <link rel="preconnect"href="https://fonts.googleapis.com"/>
- <link rel="preconnect"href="https://fonts.gstatic.com"crossOrigin=""/>
- <link rel="preconnect"href="https://images.unsplash.com"/>
- 
- {/* DNS Prefetch */}
- <link rel="dns-prefetch"href="https://fonts.googleapis.com"/>
- <link rel="dns-prefetch"href="https://fonts.gstatic.com"/>
-
- {/* Structured Data */}
- <script type="application/ld+json">
- {JSON.stringify(structuredData, null, 2)}
- </script>
- </>
- );
+/**
+ * Component for rendering Croatian links and structured data
+ * Note: This component is now a placeholder since link and script tags should be managed in the document head
+ */
+export const CroatianLinksAndStructuredData: React.FC<CroatianLinksAndStructuredDataProps> = () => {
+ // Link and script tags should be managed in the document head, not rendered as React components
+ // This component is kept for compatibility but doesn't render anything
+ return null;
 }; 

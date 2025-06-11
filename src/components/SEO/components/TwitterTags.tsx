@@ -9,23 +9,10 @@ interface TwitterTagsProps {
 
 /**
  * Component for rendering Twitter Card meta tags
+ * Note: This component is now a placeholder since meta tags should be managed in the document head
  */
-export const TwitterTags: React.FC<TwitterTagsProps> = ({
- title,
- description,
- twitterCard,
- ogImage
-}) => {
- return (
- <>
- {/* Twitter Card Meta Tags */}
- <meta name="twitter:card"content={twitterCard} />
- <meta name="twitter:title"content={title} />
- <meta name="twitter:description"content={description} />
- <meta name="twitter:image"content={ogImage} />
- <meta name="twitter:image:alt"content={title} />
- <meta name="twitter:site"content="@smartblinds_hr"/>
- <meta name="twitter:creator"content="@smartblinds_hr"/>
- </>
- );
+export const TwitterTags: React.FC<TwitterTagsProps> = () => {
+ // Meta tags should be managed in the document head, not rendered as React components
+ // This component is kept for compatibility but doesn't render anything
+ return null;
 }; 

@@ -1,5 +1,4 @@
 // React import not needed with new JSX transform
-import { generateRobotsContent, generateCopyrightText } from '../utils/metaTagHelpers';
 
 interface BasicMetaTagsProps {
  title: string;
@@ -11,35 +10,10 @@ interface BasicMetaTagsProps {
 
 /**
  * Component for rendering basic meta tags including title, description, and robots
+ * Note: This component is now a placeholder since meta tags should be managed in the document head
  */
-export const BasicMetaTags: React.FC<BasicMetaTagsProps> = ({
- title,
- description,
- keywords,
- noindex,
- nofollow
-}) => {
- const robotsContent = generateRobotsContent(noindex, nofollow);
- const copyrightText = generateCopyrightText();
-
- return (
- <>
- {/* Basic Meta Tags */}
- <title>{title}</title>
- <meta name="description"content={description} />
- {keywords && <meta name="keywords"content={keywords} />}
- <meta name="robots"content={robotsContent} />
- 
- {/* Language and Location */}
- <html lang="hr"/>
- <meta name="language"content="Croatian"/>
- <meta name="geo.region"content="HR"/>
- <meta name="geo.country"content="Croatia"/>
- <meta name="geo.placename"content="Zagreb"/>
- 
- {/* Author and Copyright */}
- <meta name="author"content="Smartblinds Hrvatska"/>
- <meta name="copyright"content={copyrightText} />
- </>
- );
+export const BasicMetaTags: React.FC<BasicMetaTagsProps> = () => {
+ // Meta tags should be managed in the document head, not rendered as React components
+ // This component is kept for compatibility but doesn't render anything
+ return null;
 }; 
