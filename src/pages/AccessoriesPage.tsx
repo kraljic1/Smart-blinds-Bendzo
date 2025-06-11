@@ -21,7 +21,7 @@ const AccessoriesPage: React.FC = () => {
  };
 
  return (
- <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white">
+ <div className="pt-24 pb-32 bg-white">
  <SEO
  title="Smart Home Accessories | Smartblinds"
  description="Discover our range of smart home accessories including remote controls, WiFi bridges, and more."

@@ -30,7 +30,7 @@ const ProductsPage = () => {
  };
 
  return (
- <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white">
+ <div className="pt-24 pb-32 bg-white">
  {/* Hero Section */}
  <div className={`fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
  <ProductHero />

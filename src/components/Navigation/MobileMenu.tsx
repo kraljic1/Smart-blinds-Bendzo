@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { X, ChevronRight, Home, ShoppingBag, HelpCircle, Settings, Heart } from 'lucide-react';
 
 import ModalBackground from '../UI/ModalBackground';
+import '../../styles/MobileNavigation.css';
 
 interface MobileMenuProps {
  isOpen: boolean;
@@ -35,12 +36,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
  <ModalBackground onClick={onClose} />
  
  {/* Menu panel */}
- <div className="mobile-menu-panel light"onClick={(e) => e.stopPropagation()}>
+ <div className="mobile-menu-panel" onClick={(e) => e.stopPropagation()}>
  <div className="mobile-menu-content">
  {/* Close button */}
  <button
  onClick={onClose}
- className="mobile-menu-close light"
+ className="mobile-menu-close"
  aria-label="Close menu"
  >
  <X size={20} />
@@ -55,10 +56,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
  <Link
  key={index}
  to={item.path}
- className={`mobile-menu-item ${isActive ? 'active' : 'inactive'} light`}
+ className={`mobile-menu-item ${isActive ? 'active' : 'inactive'}`}
  onClick={onClose}
  >
- <div className={`mobile-menu-item-icon ${isActive ? 'active' : 'inactive'} light`}>
+ <div className={`mobile-menu-item-icon ${isActive ? 'active' : 'inactive'}`}>
  {item.icon}
  </div>
  <span>{item.label}</span>
@@ -69,8 +70,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
  </div>
  
  {/* Footer */}
- <div className="mobile-menu-footer light">
- <div className="mobile-menu-footer-content light">
+ <div className="mobile-menu-footer">
+ <div className="mobile-menu-footer-content">
  <span>© {new Date().getFullYear()} Smartblinds</span>
  </div>
  </div>

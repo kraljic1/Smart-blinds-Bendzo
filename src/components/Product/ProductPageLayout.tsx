@@ -69,7 +69,7 @@ const ProductPageLayout: React.FC<ProductPageLayoutProps> = ({
  structuredData
 }) => {
  return (
- <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white">
+ <div className="pt-24 pb-32 bg-white">
  <ProductPageHero
  title={heroTitle}
  description={heroDescription}

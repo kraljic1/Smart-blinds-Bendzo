@@ -10,7 +10,7 @@ const HowItWorksPage: React.FC = () => {
  const { scrollY, sectionsRef, headerRef } = useScrollAnimation();
 
  return (
- <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+ <div className="pt-24 pb-32 bg-white overflow-hidden">
  {/* Background elements */}
  <div className="absolute inset-0 pointer-events-none overflow-hidden">
  <div className="absolute -left-32 top-32 w-96 h-96 rounded-full bg-blue-500/5 blur-3xl"></div>

@@ -22,7 +22,7 @@ const ZebraBlindsPage = () => {
  };
 
  return (
- <div className="pt-24 pb-32 bg-gradient-to-b from-gray-50 to-white">
+ <div className="pt-24 pb-32 bg-white">
  {/* Hero Section */}
  <ZebraHeroSection 
  isLoaded={isLoaded}
