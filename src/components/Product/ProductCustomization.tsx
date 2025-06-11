@@ -2,7 +2,7 @@ import React from 'react';
 import { OptionGroup } from './ProductCustomization/components';
 import { useColorSwatches, useInfoToggle } from './ProductCustomization/hooks';
 import { CustomizationOption } from './ProductCustomization/types';
-import '../../styles/ProductOptions.css';
+import '../../styles/ProductCustomization.css';
 
 interface ProductCustomizationProps {
  options: CustomizationOption[];
