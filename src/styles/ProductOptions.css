@@ -1,1 +1,151 @@
-/* DEPRECATED - This file has been modularized */
+/**
+ * DEPRECATED - This file has been modularized
+ * Please use the individual files in the ProductOptions/ directory instead
+ * This file can be safely removed after verifying that all imports have been updated
+ */
+
+/* This file is deprecated and replaced by modular CSS files in ProductOptions/ directory */
+
+/* Modern Product Options Styling */
+:root {
+  
+}
+
+/* Product header styles */
+.product-modal-header {
+}
+
+.product-modal-image {
+}
+
+.product-modal-image img {
+}
+
+.product-modal-title {
+}
+
+.product-modal-close {
+}
+
+.product-modal-close:hover {
+}
+
+/* Product options grid */
+.product-options-grid {
+}
+
+/* Individual option tag */
+.option-item {
+}
+
+.option-item:hover {
+}
+
+.option-label {
+}
+
+.option-value {
+}
+
+.color-option .option-value {
+}
+
+.color-swatch {
+}
+
+/* Special styling for color options */
+.product-option-tag.color {
+}
+
+.product-option-color-swatch {
+}
+
+/* Price display */
+.product-price {
+}
+
+/* Modal specific styles */
+.product-options-modal {
+}
+
+.modal-header {
+}
+
+.modal-product-image {
+}
+
+.modal-title {
+}
+
+.modal-close {
+}
+
+.modal-close:hover {
+}
+
+.modal-options-grid {
+}
+
+.modal-footer {
+}
+
+.modal-price {
+}
+
+  
+  .option-label {
+  }
+  
+  .option-value {
+  }
+  
+  .color-swatch {
+  }
+  
+  .modal-title {
+  }
+  
+  .modal-close {
+  }
+  
+  .modal-close:hover {
+  }
+  
+  .modal-footer {
+  }
+  
+  .modal-price {
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .product-options-grid {
+  }
+  
+  .modal-header {
+  }
+  
+  .modal-product-image {
+  }
+  
+  .modal-title {
+  }
+  
+  .modal-price {
+  }
+}
+
+@media (max-width: 480px) {
+  .product-options-grid {
+  }
+  
+  .product-options-modal {
+  }
+  
+  .modal-product-image {
+  }
+  
+  .modal-footer {
+  }
+} 
