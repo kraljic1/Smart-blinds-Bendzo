@@ -1,88 +1,64 @@
-/* Placeholder styles for BackToTop.css */
-
 /* Back to Top Button Styles */
+
 .back-to-top-button {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 50;
-  
-  /* Button styling */
-  width: 3rem;
-  height: 3rem;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-  border: none;
-  cursor: pointer;
-  
-  /* Shadow and effects */
-  box-shadow: 
-    0 4px 12px rgba(59, 130, 246, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  
-  /* Smooth transitions */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(0);
-  
-  /* Flex for centering icon */
+  background: #fff;
+  color: #3b82f6;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInButton 0.3s ease forwards;
+  transition: all 0.2s ease;
 }
 
-/* Hover effects */
+.back-to-top-icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+/* Button hover effects */
 .back-to-top-button:hover {
-  background: linear-gradient(135deg, #2563eb, #1e40af);
-  box-shadow: 
-    0 8px 20px rgba(59, 130, 246, 0.4),
-    0 4px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px) scale(1.05);
+  background: #f9fafb;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+.back-to-top-button:hover .back-to-top-icon {
+  transform: translateY(-2px);
 }
 
 /* Active state */
 .back-to-top-button:active {
-  transform: translateY(0) scale(0.95);
-  transition-duration: 0.1s;
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Focus state for accessibility */
-.back-to-top-button:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
+/* Dark mode */
+.dark .back-to-top-button {
+  background: #1e293b;
+  color: #60a5fa;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Icon styling */
-.back-to-top-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: white;
-  stroke-width: 2.5;
-  transition: transform 0.2s ease;
-}
-
-/* Icon animation on hover */
-.back-to-top-button:hover .back-to-top-icon {
-  transform: translateY(-1px);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .back-to-top-button {
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 2.75rem;
-    height: 2.75rem;
-  }
-  
-  .back-to-top-icon {
-    width: 1.125rem;
-    height: 1.125rem;
-  }
+.dark .back-to-top-button:hover {
+  background: #0f172a;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
 }
 
 /* Animation for button appearance */
-@keyframes fadeInUp {
+@keyframes fadeInButton {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -93,57 +69,17 @@
   }
 }
 
-.back-to-top-button {
-  animation: fadeInUp 0.3s ease-out;
-}
-
-/* Pulse animation for attention */
-@keyframes pulse {
-  0%, 100% {
-    box-shadow: 
-      0 4px 12px rgba(59, 130, 246, 0.3),
-      0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  50% {
-    box-shadow: 
-      0 4px 12px rgba(59, 130, 246, 0.5),
-      0 2px 4px rgba(0, 0, 0, 0.15);
-  }
-}
-
-/* Optional pulse effect (can be toggled) */
-.back-to-top-button.pulse {
-  animation: pulse 2s infinite;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
+/* Mobile adjustments */
+@media (max-width: 640px) {
   .back-to-top-button {
-    background: #000;
-    border: 2px solid #fff;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
   }
-  
-  .back-to-top-button:hover {
-    background: #333;
-  }
-}
 
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-  .back-to-top-button {
-    transition: none;
-    animation: none;
-  }
-  
-  .back-to-top-button:hover {
-    transform: none;
-  }
-  
   .back-to-top-icon {
-    transition: none;
+    width: 18px;
+    height: 18px;
   }
-  
-  .back-to-top-button:hover .back-to-top-icon {
-    transform: none;
-  }
-}
+} 

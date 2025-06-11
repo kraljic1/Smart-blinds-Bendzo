@@ -1,7 +1,7 @@
 import React from 'react';
 import { Check } from 'lucide-react';
 import { Product } from '../../types/product';
-import styles from './ModernProductCard.module.css';
+
 
 interface ProductCardImageProps {
  product: Product;
@@ -43,7 +43,7 @@ const ProductCardImage: React.FC<ProductCardImageProps> = ({
  ) : (
  <div className="p-1 rounded-full bg-white/60 backdrop-blur-sm border border-white/40 shadow-lg">
  <div
- className={`${styles.colorSwatch} product-color-swatch`}
+ className="w-14 h-14 rounded-full product-color-swatch"
  style={colorSwatchStyle}
  data-color={product.fabricColor}
  />

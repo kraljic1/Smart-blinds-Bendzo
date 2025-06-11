@@ -3,7 +3,6 @@ import { ValidationIcon } from './ValidationIcon';
 import { ValidationMessage } from './ValidationMessage';
 import { InputField } from './InputField';
 import { useValidationState } from './hooks/useValidationState';
-import './ValidatedInput.css';
 
 export interface ValidationState {
  showError?: boolean;

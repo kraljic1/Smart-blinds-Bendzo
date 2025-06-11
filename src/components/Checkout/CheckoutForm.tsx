@@ -2,7 +2,6 @@ import React from 'react';
 import { useCheckoutFormSubmission } from './CheckoutForm/hooks';
 import { CheckoutFormWrapper, CheckoutFormContent } from './CheckoutForm/components';
 import CheckoutSuccess from './CheckoutSuccess';
-import './CheckoutForm.css';
 
 export function CheckoutForm() {
  const {

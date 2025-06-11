@@ -1,7 +1,7 @@
 import React from 'react';
 import { MobilePagination, DesktopPagination } from './components';
 import { usePaginationLogic } from './hooks';
-import '../../styles/Pagination.css';
+
 
 interface PaginationProps {
  currentPage: number;

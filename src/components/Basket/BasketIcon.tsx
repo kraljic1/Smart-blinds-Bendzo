@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useBasketContext } from '../../hooks/useBasketContext';
-import './BasketIcon.css';
 
 export function BasketIcon() {
  const { getItemCount } = useBasketContext();

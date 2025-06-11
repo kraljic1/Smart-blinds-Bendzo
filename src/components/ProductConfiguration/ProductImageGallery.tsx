@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
-import '../../styles/ProductConfiguration.css';
+
 
 interface ProductImageGalleryProps {
  images: string[];

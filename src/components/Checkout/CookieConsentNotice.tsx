@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import './CookieConsentNotice.css';
 
 interface CookieConsentNoticeProps {
  onAccept: () => void;

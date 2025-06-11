@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 // Import CSS
-import './Hero.css';
 
 // Import sub-components
 import HeroBackground from './HeroBackground';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilterGroup as FilterGroupType, FilterOption } from '../../types/filter';
-import '../../styles/FilterPanel.css';
+
 
 interface FilterGroupProps {
  group: FilterGroupType;

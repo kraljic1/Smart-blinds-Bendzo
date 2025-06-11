@@ -3,7 +3,7 @@ import { Product } from '../../types/product';
 import { useProductCard } from '../../hooks/useProductCard';
 import ProductCardImage from './ProductCardImage';
 import ProductCardContent from './ProductCardContent';
-import styles from './ModernProductCard.module.css';
+
 
 interface ModernProductCardProps {
  product: Product;
@@ -28,7 +28,6 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
  hasFabricImage,
  getFabricImage,
  colorSwatchStyle,
- getDelayClass,
  handleCardClick,
  handleConfigureClick,
  handleRequestSampleClick,
@@ -45,7 +44,7 @@ const ModernProductCard: React.FC<ModernProductCardProps> = ({
  {/* Card with modern effects */}
  <div 
  ref={cardRef} 
- className={`relative h-full flex flex-col light-card backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 transition-all duration-500 group-hover:shadow-xl cursor-pointer ${styles.productCard} ${isVisible ? styles.productCardVisible : ''} ${styles[getDelayClass()]}`}
+ className={`relative h-full flex flex-col light-card backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-100 transition-all duration-500 group-hover:shadow-xl cursor-pointer ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
  onClick={handleCardClick}
  >
  {/* Subtle card background gradient */}

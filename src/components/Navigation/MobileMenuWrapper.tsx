@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { X, Layers, Maximize, Package, HelpCircle, Settings } from 'lucide-react';
-import './MobileMenu.css';
 
 interface MobileMenuWrapperProps {
  isOpen: boolean;

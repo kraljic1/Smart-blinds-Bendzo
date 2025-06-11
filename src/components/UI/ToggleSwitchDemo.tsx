@@ -6,7 +6,6 @@ import {
  DisabledStateSection,
  CurrentStatesDisplay
 } from './ToggleSwitchDemo/components';
-import './ToggleSwitch.css';
 
 const ToggleSwitchDemo: React.FC = () => {
  const { toggleStates, handleToggleChange } = useToggleStates();

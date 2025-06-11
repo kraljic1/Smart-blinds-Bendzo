@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Price from '../UI/Price';
 import pricingData from '../../data/pricingData';
 import { validateDimensionInput, validateDimension, DEMO_DIMENSION_CONSTRAINTS } from '../../utils/dimensionValidation';
-import '../../styles/PriceDemo.css';
+
 
 const PriceDemo = () => {
  const [productType, setProductType] = useState<string>('roller-blinds');

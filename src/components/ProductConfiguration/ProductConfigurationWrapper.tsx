@@ -3,7 +3,7 @@ import { Product } from '../../types/product';
 import { CustomizationOption } from '../Product/ProductCustomization';
 import { ProductConfigurationLayout, ProductConfigurationHeader, ProductConfigurationModals } from './components';
 import { useProductConfigurationState, useProductConfigurationHandlers } from './hooks';
-import '../../styles/ProductConfiguration.css';
+
 
 interface ProductConfigurationWrapperProps {
  product: Product;

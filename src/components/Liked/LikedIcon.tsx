@@ -3,7 +3,6 @@ import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLikedContext } from '../../hooks/useLikedContext';
 
-import './LikedIcon.css';
 
 export const LikedIcon: React.FC = () => {
  const { likedItems, getLikedItemsCount } = useLikedContext();

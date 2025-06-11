@@ -1,4 +1,3 @@
-import './BraveBrowserGuide.css';
 
 interface BraveBrowserGuideProps {
  onRetry: () => void;

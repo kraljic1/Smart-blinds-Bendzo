@@ -5,7 +5,6 @@ import CustomerSection from './CustomerSection';
 import ItemsTable from './ItemsTable';
 import TotalsSection from './TotalsSection';
 import PaymentSuccessMessage from './PaymentSuccessMessage';
-import './PaymentSuccess.css';
 
 export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ 
  orderDetails, 

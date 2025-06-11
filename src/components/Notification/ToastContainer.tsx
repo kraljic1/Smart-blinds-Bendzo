@@ -1,6 +1,6 @@
 import React from 'react';
 import { Toast, ToastType } from './Toast';
-import './Toast.css';
+
 
 export interface ToastData {
  id: string;

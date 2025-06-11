@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { formatProductOptions, formatDimensions } from '../../utils/productOptionsFormatter';
-import '../../styles/AdminOrderItems.css';
+
 
 // Type for order items
 interface OrderItemDisplay {

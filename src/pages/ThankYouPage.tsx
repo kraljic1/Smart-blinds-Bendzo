@@ -13,7 +13,7 @@ import {
  ActionButtons,
  ContactInfo
 } from '../components/Order';
-import '../styles/print.css';
+
 
 const ThankYouPage: React.FC = () => {
  const { clearBasket } = useBasketContext();

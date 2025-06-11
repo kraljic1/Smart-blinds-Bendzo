@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProductOptions from '../components/Product/ProductOptions';
 import ProductOptionsModal from '../components/Product/ProductOptionsModal';
-import '../styles/ProductOptions/index.css';
+import '../styles/ProductOptions.css';
 
 interface ProductOption {
  label: string;

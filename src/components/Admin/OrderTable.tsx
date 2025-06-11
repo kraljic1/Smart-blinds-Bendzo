@@ -6,7 +6,7 @@ import DeleteOrderDialog from './DeleteOrderDialog';
 import NotificationToast from './NotificationToast';
 import { useOrderDeletion } from './hooks/useOrderDeletion';
 import { useNotification } from './hooks/useNotification';
-import '../../styles/AdminOrderTable.css';
+
 
 interface OrderTableProps {
  orders: OrderData[];

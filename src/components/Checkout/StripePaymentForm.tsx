@@ -1,4 +1,3 @@
-import './StripePaymentForm.css';
 import { useStripePayment } from './hooks/useStripePayment';
 import { useModalBehavior } from './hooks/useModalBehavior';
 import { PaymentHeader } from './components/PaymentHeader';

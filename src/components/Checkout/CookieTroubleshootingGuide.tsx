@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './CookieTroubleshootingGuide.css';
 import {
  CookieTroubleshootingGuideProps,
  BrowserType,

@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { X, ChevronRight, Home, ShoppingBag, HelpCircle, Settings, Heart } from 'lucide-react';
 
 import ModalBackground from '../UI/ModalBackground';
-import './MobileMenu.css';
 
 interface MobileMenuProps {
  isOpen: boolean;

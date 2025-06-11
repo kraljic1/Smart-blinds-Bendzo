@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../ImageZoomModal.module.css';
+
 
 interface ZoomableImageProps {
  imageUrl: string;
@@ -30,11 +30,11 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({
 }) => {
  // Calculate transform styles
  const imageTransform = `translate(${position.x}px, ${position.y}px) scale(${scale})`;
- const cursorClass = isDragging ? styles.grabbingCursor : styles.grabCursor;
+ const cursorClass = isDragging ? 'cursor-grabbing' : 'cursor-grab';
 
  return (
  <div 
- className={`relative overflow-hidden ${styles.imageContainer}`}
+ className="relative overflow-hidden w-full h-full"
  onMouseDown={onMouseDown}
  onMouseMove={onMouseMove}
  onMouseUp={onMouseUp}
@@ -43,7 +43,7 @@ const ZoomableImage: React.FC<ZoomableImageProps> = ({
  <img 
  src={imageUrl} 
  alt={altText}
- className={`${styles.zoomedImage} ${cursorClass}`}
+ className={`w-full h-full object-contain transition-transform ${cursorClass}`}
  style={{ transform: imageTransform }}
  draggable="false"
  />
