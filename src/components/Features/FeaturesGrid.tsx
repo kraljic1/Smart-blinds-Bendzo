@@ -10,23 +10,23 @@ const FeaturesGrid: React.FC<FeaturesGridProps> = ({ sectionRef }) => {
   const features = [
     {
       icon: <Sun size={24} />,
-      title: 'Light Sensing',
-      description: 'Automatically adjusts based on natural light levels throughout the day'
+      title: 'Senzor Svjetla',
+      description: 'Automatski se prilagođava na temelju razine prirodnog svjetla tijekom dana'
     },
     {
       icon: <Smartphone size={24} />,
-      title: 'Smart Control',
-      description: 'Control from anywhere using our intuitive smartphone app'
+      title: 'Pametno Upravljanje',
+      description: 'Upravljajte s bilo kojeg mjesta pomoću naše intuitivne aplikacije za pametni telefon'
     },
     {
       icon: <Battery size={24} />,
-      title: 'Long Battery Life',
-      description: 'Up to 12 months of operation on a single charge'
+      title: 'Dugotrajan Baterijski Život',
+      description: 'Do 12 mjeseci rada na jednom punjenju'
     },
     {
       icon: <Shield size={24} />,
-      title: '5-Year Warranty',
-      description: 'Peace of mind with our comprehensive coverage'
+      title: '5-Godišnje Jamstvo',
+      description: 'Mir u duši s našim sveobuhvatnim pokrivanjem'
     }
   ];
 

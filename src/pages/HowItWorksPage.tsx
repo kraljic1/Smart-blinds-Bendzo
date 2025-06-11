@@ -31,10 +31,10 @@ const HowItWorksPage: React.FC = () => {
         <InfoSection 
           sectionRef={el => sectionsRef.current[2] = el}
           icon={Settings}
-          title="Quick Installation"
-          description="Install your smart blinds in minutes with our easy-to-follow guide and mounting hardware."
+          title="Brza Instalacija"
+          description="Instalirajte vaše pametne rolete u minutama s našim jednostavnim vodičem i montažnim priborom."
           imageUrl="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-          imageAlt="Quick Installation"
+          imageAlt="Brza Instalacija"
           linkTo="/installation-guide"
           scrollY={scrollY}
           inView={sectionsRef.current[2]?.classList.contains('in-view') || false}
@@ -44,10 +44,10 @@ const HowItWorksPage: React.FC = () => {
         <InfoSection 
           sectionRef={el => sectionsRef.current[3] = el}
           icon={Wifi}
-          title="Connect to Home"
-          description="Connect your blinds to your home network using our Smart Hub or direct WiFi connection."
+          title="Povežite s Domom"
+          description="Povežite vaše rolete s kućnom mrežom pomoću našeg Smart Hub-a ili direktne WiFi veze."
           imageUrl="https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-          imageAlt="Connect to Home"
+          imageAlt="Povežite s Domom"
           linkTo="/connectivity-guide"
           isReversed
           scrollY={scrollY}
@@ -58,10 +58,10 @@ const HowItWorksPage: React.FC = () => {
         <InfoSection 
           sectionRef={el => sectionsRef.current[4] = el}
           icon={Smartphone}
-          title="Smart Control"
-          description="Control from anywhere using our app or Apple Home. Set schedules and create scenes."
+          title="Pametno Upravljanje"
+          description="Upravljajte s bilo kojeg mjesta pomoću naše aplikacije ili Apple Home. Postavite raspored i stvorite scene."
           imageUrl="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-          imageAlt="Smart Control"
+          imageAlt="Pametno Upravljanje"
           linkTo="/smart-control-guide"
           scrollY={scrollY}
           inView={sectionsRef.current[4]?.classList.contains('in-view') || false}
