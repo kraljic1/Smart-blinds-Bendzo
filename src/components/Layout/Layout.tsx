@@ -8,8 +8,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
  return (
- <div className="min-h-screen bg-gradient-to-br from-white via-blue-50 to-indigo-50 flex flex-col overflow-x-hidden">
- <div className="w-full h-full absolute top-0 left-0 z-[-1] bg-white"></div>
+ <div className="min-h-screen bg-white flex flex-col overflow-x-hidden">
  {children}
  <ScrollIndicator />
  <BackToTop />
