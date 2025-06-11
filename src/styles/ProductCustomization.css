@@ -63,9 +63,9 @@
 }
 
 .option-selections {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 10px;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: 10px !important;
 }
 
 .color-grid {
@@ -78,17 +78,17 @@
 }
 
 .product-customization .option-item {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-  height: 100%;
-  background-color: #ffffff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex !important;
+  flex-direction: column !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+  position: relative !important;
+  height: 100% !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
 }
 
 .dark .product-customization .option-item {
@@ -97,8 +97,8 @@
 }
 
 .product-customization .option-item:hover {
-  border-color: #93c5fd;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: #93c5fd !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
 .dark .product-customization .option-item:hover {
@@ -107,9 +107,9 @@
 }
 
 .product-customization .option-item.selected {
-  border-color: #2563eb;
-  background-color: rgba(37, 99, 235, 0.05);
-  box-shadow: 0 0 0 1px #2563eb, 0 2px 4px rgba(37, 99, 235, 0.1);
+  border-color: #2563eb !important;
+  background-color: rgba(37, 99, 235, 0.05) !important;
+  box-shadow: 0 0 0 1px #2563eb, 0 2px 4px rgba(37, 99, 235, 0.1) !important;
 }
 
 .dark .product-customization .option-item.selected {
