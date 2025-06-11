@@ -10,7 +10,7 @@ const ProductHero: React.FC = () => {
  alt="Smart blinds showcase"
  className="w-full h-full object-cover"
  />
- <div className="absolute inset-0 bg-gradient-to-r from-blue-900/60 to-blue-800/40"/>
+ <div className="absolute inset-0 bg-black/40"/>
  </div>
  <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
  <div className="max-w-3xl">
