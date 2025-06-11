@@ -17,92 +17,92 @@ import { useAdminAuth } from '../hooks/useAdminAuth';
 import { calculateOrderSubtotal } from '../utils/orderCalculations';
 
 const AdminOrderDetailPage: React.FC = () => {
-  const { orderId } = useParams<{ orderId: string }>();
-  
-  // Use custom hooks
-  const { order, items, isLoading, error, refreshOrder } = useOrderDetails(orderId);
-  const { handleLogout } = useAdminAuth();
-  
-  if (isLoading) {
-    return <LoadingState />;
-  }
-  
-  if (error) {
-    return <ErrorState error={error} />;
-  }
-  
-  if (!order) {
-    return null;
-  }
-  
-  // Calculate order summary
-  const subtotal = calculateOrderSubtotal(items);
-  const shippingCost = order.shippingCost || 0;
-  const totalWithShipping = subtotal + shippingCost;
-  
-  return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <CroatianSEO
-        title={`Order #${orderId} | Admin - Smartblinds`}
-        description="View order details"
-        keywords="admin, order, details, smartblinds"
-        pageType="info"
-        noindex={true}
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
-        <AdminOrderHeader onLogout={handleLogout} />
-        
-        <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden mb-8">
-          <OrderTitle 
-            orderId={orderId} 
-            createdAt={order.createdAt} 
-            status={order.status} 
-          />
-              
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
-            <div className="lg:col-span-2 space-y-6">
-              {/* Order Items */}
-              <OrderItems 
-                items={items} 
-                subtotal={subtotal} 
-                shippingCost={shippingCost}
-                totalAmount={totalWithShipping} 
-              />
-              
-              {/* Customer Notes */}
-              {order.notes && <CustomerNotes notes={order.notes} />}
-              
-              {/* System Information */}
-              {order.notes && <SystemNotes notes={order.notes} />}
-              
-              {/* Order Status Management */}
-              {orderId && (
-                <OrderManagement 
-                  orderId={orderId} 
-                  currentStatus={order.status}
-                  onStatusUpdate={refreshOrder}
-                />
-              )}
-            </div>
-            
-            <div>
-              {/* Customer Information */}
-              <CustomerInfo
-                name={order.customerName}
-                email={order.email}
-                phone={order.phone}
-                billingAddress={order.billingAddress}
-                shippingAddress={order.shippingAddress}
-                paymentMethod={order.paymentMethod}
-                shippingMethod={order.shippingMethod}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+ const { orderId } = useParams<{ orderId: string }>();
+ 
+ // Use custom hooks
+ const { order, items, isLoading, error, refreshOrder } = useOrderDetails(orderId);
+ const { handleLogout } = useAdminAuth();
+ 
+ if (isLoading) {
+ return <LoadingState />;
+ }
+ 
+ if (error) {
+ return <ErrorState error={error} />;
+ }
+ 
+ if (!order) {
+ return null;
+ }
+ 
+ // Calculate order summary
+ const subtotal = calculateOrderSubtotal(items);
+ const shippingCost = order.shippingCost || 0;
+ const totalWithShipping = subtotal + shippingCost;
+ 
+ return (
+ <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+ <CroatianSEO
+ title={`Order #${orderId} | Admin - Smartblinds`}
+ description="View order details"
+ keywords="admin, order, details, smartblinds"
+ pageType="info"
+ noindex={true}
+ />
+ 
+ <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+ <AdminOrderHeader onLogout={handleLogout} />
+ 
+ <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden mb-8">
+ <OrderTitle 
+ orderId={orderId} 
+ createdAt={order.createdAt} 
+ status={order.status} 
+ />
+ 
+ <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+ <div className="lg:col-span-2 space-y-6">
+ {/* Order Items */}
+ <OrderItems 
+ items={items} 
+ subtotal={subtotal} 
+ shippingCost={shippingCost}
+ totalAmount={totalWithShipping} 
+ />
+ 
+ {/* Customer Notes */}
+ {order.notes && <CustomerNotes notes={order.notes} />}
+ 
+ {/* System Information */}
+ {order.notes && <SystemNotes notes={order.notes} />}
+ 
+ {/* Order Status Management */}
+ {orderId && (
+ <OrderManagement 
+ orderId={orderId} 
+ currentStatus={order.status}
+ onStatusUpdate={refreshOrder}
+ />
+ )}
+ </div>
+ 
+ <div>
+ {/* Customer Information */}
+ <CustomerInfo
+ name={order.customerName}
+ email={order.email}
+ phone={order.phone}
+ billingAddress={order.billingAddress}
+ shippingAddress={order.shippingAddress}
+ paymentMethod={order.paymentMethod}
+ shippingMethod={order.shippingMethod}
+ />
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ );
 };
 
 export default AdminOrderDetailPage; 

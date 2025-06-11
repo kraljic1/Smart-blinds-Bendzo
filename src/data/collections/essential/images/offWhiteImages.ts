@@ -10,25 +10,25 @@ import essentialOffWhiteBL3 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTI
 import essentialOffWhiteBL4 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - OFF-WHITEBL/Essential off-whiteBl4.webp';
 
 export const offWhiteImages = {
-  // Light filtering off-white
-  lightFiltering: {
-    main: essentialOffWhiteMain,
-    gallery: [
-      essentialOffWhiteMain,
-      essentialOffWhite1,
-      essentialOffWhite2,
-      essentialOffWhite3
-    ]
-  },
-  // Blackout off-white
-  blackout: {
-    main: essentialOffWhiteBLMain,
-    gallery: [
-      essentialOffWhiteBLMain,
-      essentialOffWhiteBL1,
-      essentialOffWhiteBL2,
-      essentialOffWhiteBL3,
-      essentialOffWhiteBL4
-    ]
-  }
+ // Light filtering off-white
+ lightFiltering: {
+ main: essentialOffWhiteMain,
+ gallery: [
+ essentialOffWhiteMain,
+ essentialOffWhite1,
+ essentialOffWhite2,
+ essentialOffWhite3
+ ]
+ },
+ // Blackout off-white
+ blackout: {
+ main: essentialOffWhiteBLMain,
+ gallery: [
+ essentialOffWhiteBLMain,
+ essentialOffWhiteBL1,
+ essentialOffWhiteBL2,
+ essentialOffWhiteBL3,
+ essentialOffWhiteBL4
+ ]
+ }
 }; 

@@ -7,21 +7,21 @@
 
 // Re-export all functionality from the modular system
 export {
-  detectBrave,
-  getBrowserInfo,
-  checkStripeCompatibility,
-  getPaymentInstructions,
-  // Advanced exports for specific use cases
-  detectBraveByNavigator,
-  detectBraveByUserAgent,
-  detectBraveByChromeFeatures,
-  detectSafari,
-  detectChrome
+ detectBrave,
+ getBrowserInfo,
+ checkStripeCompatibility,
+ getPaymentInstructions,
+ // Advanced exports for specific use cases
+ detectBraveByNavigator,
+ detectBraveByUserAgent,
+ detectBraveByChromeFeatures,
+ detectSafari,
+ detectChrome
 } from './browserDetection/index';
 
 // Re-export types
 export type {
-  BrowserInfo,
-  StripeCompatibilityResult,
-  PaymentInstructions
+ BrowserInfo,
+ StripeCompatibilityResult,
+ PaymentInstructions
 } from './browserDetection/index'; 

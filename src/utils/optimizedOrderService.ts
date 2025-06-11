@@ -13,32 +13,32 @@
 
 // Re-export all types
 export type {
-  OrderItemResponse,
-  PerformanceResult,
-  OptimizedOrderSummary
+ OrderItemResponse,
+ PerformanceResult,
+ OptimizedOrderSummary
 } from './order/types';
 
 // Re-export basic order queries
 export {
-  getOrdersOptimized,
-  getOrderCountOptimized,
-  getOrderByIdOptimized
+ getOrdersOptimized,
+ getOrderCountOptimized,
+ getOrderByIdOptimized
 } from './order/orderQueries';
 
 // Re-export email-related queries
 export {
-  getOrdersByEmailOptimized
+ getOrdersByEmailOptimized
 } from './order/orderEmailQueries';
 
 // Re-export search and statistics
 export {
-  searchOrdersOptimized,
-  getOrderStatsOptimized
+ searchOrdersOptimized,
+ getOrderStatsOptimized
 } from './order/orderSearch';
 
 // Re-export admin and performance functions
 export {
-  refreshOrderSummary,
-  checkQueryPerformance,
-  createOrderOptimized
+ refreshOrderSummary,
+ checkQueryPerformance,
+ createOrderOptimized
 } from './order/orderAdmin'; 

@@ -5,38 +5,38 @@ import CheckoutSuccess from './CheckoutSuccess';
 import './CheckoutForm.css';
 
 export function CheckoutForm() {
-  const {
-    formRef,
-    formData,
-    formStatus,
-    items,
-    getTotalPrice,
-    handleChange,
-    handleSubmit
-  } = useCheckoutFormSubmission();
-  
-  if (formStatus.success) {
-    return <CheckoutSuccess email={formData.email as string} />;
-  }
-  
-  return (
-    <div className="checkout-form-container">
-      <h2>Checkout</h2>
-      
-      <CheckoutFormWrapper
-        formRef={formRef}
-        items={items}
-        getTotalPrice={getTotalPrice}
-        onSubmit={handleSubmit}
-      >
-        <CheckoutFormContent
-          formData={formData}
-          formStatus={formStatus}
-          items={items}
-          getTotalPrice={getTotalPrice}
-          handleChange={handleChange}
-        />
-      </CheckoutFormWrapper>
-    </div>
-  );
+ const {
+ formRef,
+ formData,
+ formStatus,
+ items,
+ getTotalPrice,
+ handleChange,
+ handleSubmit
+ } = useCheckoutFormSubmission();
+ 
+ if (formStatus.success) {
+ return <CheckoutSuccess email={formData.email as string} />;
+ }
+ 
+ return (
+ <div className="checkout-form-container">
+ <h2>Checkout</h2>
+ 
+ <CheckoutFormWrapper
+ formRef={formRef}
+ items={items}
+ getTotalPrice={getTotalPrice}
+ onSubmit={handleSubmit}
+ >
+ <CheckoutFormContent
+ formData={formData}
+ formStatus={formStatus}
+ items={items}
+ getTotalPrice={getTotalPrice}
+ handleChange={handleChange}
+ />
+ </CheckoutFormWrapper>
+ </div>
+ );
 } 

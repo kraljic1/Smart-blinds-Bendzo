@@ -11,26 +11,26 @@ import { Product } from '../../types/product';
 
 // Export all collections
 export {
-  essentialCollection,
-  comfortCollection,
-  comfortCollectionPart2,
-  classicCollection,
-  solarCollection,
-  screenCollection,
-  textureCollection,
-  zebraCollection,
-  curtainCollection
+ essentialCollection,
+ comfortCollection,
+ comfortCollectionPart2,
+ classicCollection,
+ solarCollection,
+ screenCollection,
+ textureCollection,
+ zebraCollection,
+ curtainCollection
 };
 
 // Roller Blinds - combined collections for roller blinds
 export const rollerBlinds: Product[] = [
-  ...essentialCollection,
-  ...comfortCollection,
-  ...comfortCollectionPart2,
-  ...classicCollection,
-  ...solarCollection,
-  ...screenCollection,
-  ...textureCollection
+ ...essentialCollection,
+ ...comfortCollection,
+ ...comfortCollectionPart2,
+ ...classicCollection,
+ ...solarCollection,
+ ...screenCollection,
+ ...textureCollection
 ];
 
 // Re-export individual collections with their original names for backwards compatibility
@@ -39,7 +39,7 @@ export const curtainBlinds = curtainCollection;
 
 // All Products (for search functionality)
 export const allProducts: Product[] = [
-  ...rollerBlinds,
-  ...zebraBlinds,
-  ...curtainBlinds
+ ...rollerBlinds,
+ ...zebraBlinds,
+ ...curtainBlinds
 ]; 

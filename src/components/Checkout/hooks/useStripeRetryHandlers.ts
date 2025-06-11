@@ -1,39 +1,39 @@
 import { useState } from 'react';
 
 interface UseStripeRetryHandlersProps {
-  resetConsent: () => void;
-  resetStripe: () => void;
+ resetConsent: () => void;
+ resetStripe: () => void;
 }
 
 export const useStripeRetryHandlers = ({
-  resetConsent,
-  resetStripe
+ resetConsent,
+ resetStripe
 }: UseStripeRetryHandlersProps) => {
-  const [showTroubleshooting, setShowTroubleshooting] = useState(false);
+ const [showTroubleshooting, setShowTroubleshooting] = useState(false);
 
-  const handleRetry = () => {
-    setShowTroubleshooting(false);
-    resetConsent();
-    resetStripe();
-  };
+ const handleRetry = () => {
+ setShowTroubleshooting(false);
+ resetConsent();
+ resetStripe();
+ };
 
-  const handleRetryFromDeclined = () => {
-    resetConsent();
-  };
+ const handleRetryFromDeclined = () => {
+ resetConsent();
+ };
 
-  const handleShowTroubleshooting = () => {
-    setShowTroubleshooting(true);
-  };
+ const handleShowTroubleshooting = () => {
+ setShowTroubleshooting(true);
+ };
 
-  const handleCloseTroubleshooting = () => {
-    setShowTroubleshooting(false);
-  };
+ const handleCloseTroubleshooting = () => {
+ setShowTroubleshooting(false);
+ };
 
-  return {
-    showTroubleshooting,
-    handleRetry,
-    handleRetryFromDeclined,
-    handleShowTroubleshooting,
-    handleCloseTroubleshooting
-  };
+ return {
+ showTroubleshooting,
+ handleRetry,
+ handleRetryFromDeclined,
+ handleShowTroubleshooting,
+ handleCloseTroubleshooting
+ };
 }; 

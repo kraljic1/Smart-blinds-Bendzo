@@ -4,38 +4,38 @@ import { CheckoutFormSection, PaymentSections } from './EnhancedCheckoutForm/com
 import './CheckoutForm.css';
 
 export function EnhancedCheckoutForm() {
-  const {
-    formData,
-    formStatus,
-    phoneValidation,
-    calculateTotalWithShipping,
-    validationHooks,
-    paymentStateHooks,
-    paymentHandlingHooks,
-    handleEnhancedChange,
-    handleEnhancedBlur,
-    handleEnhancedSubmit,
-    handlePaymentButtonClickWrapper
-  } = useEnhancedCheckout();
+ const {
+ formData,
+ formStatus,
+ phoneValidation,
+ calculateTotalWithShipping,
+ validationHooks,
+ paymentStateHooks,
+ paymentHandlingHooks,
+ handleEnhancedChange,
+ handleEnhancedBlur,
+ handleEnhancedSubmit,
+ handlePaymentButtonClickWrapper
+ } = useEnhancedCheckout();
 
-  return (
-    <div className="checkout-form-container">
-      <CheckoutFormSection
-        formData={formData}
-        formStatus={formStatus}
-        phoneValidation={phoneValidation}
-        handleEnhancedChange={handleEnhancedChange}
-        handleEnhancedBlur={handleEnhancedBlur}
-        handleEnhancedSubmit={handleEnhancedSubmit}
-        handlePaymentButtonClickWrapper={() => handlePaymentButtonClickWrapper(paymentStateHooks.paymentState)}
-        validationHooks={validationHooks}
-      />
-      
-      <PaymentSections
-        paymentStateHooks={paymentStateHooks}
-        paymentHandlingHooks={paymentHandlingHooks}
-        calculateTotalWithShipping={calculateTotalWithShipping}
-      />
-    </div>
-  );
+ return (
+ <div className="checkout-form-container">
+ <CheckoutFormSection
+ formData={formData}
+ formStatus={formStatus}
+ phoneValidation={phoneValidation}
+ handleEnhancedChange={handleEnhancedChange}
+ handleEnhancedBlur={handleEnhancedBlur}
+ handleEnhancedSubmit={handleEnhancedSubmit}
+ handlePaymentButtonClickWrapper={() => handlePaymentButtonClickWrapper(paymentStateHooks.paymentState)}
+ validationHooks={validationHooks}
+ />
+ 
+ <PaymentSections
+ paymentStateHooks={paymentStateHooks}
+ paymentHandlingHooks={paymentHandlingHooks}
+ calculateTotalWithShipping={calculateTotalWithShipping}
+ />
+ </div>
+ );
 } 

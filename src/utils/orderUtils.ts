@@ -5,13 +5,13 @@
 
 // Export types
 export type { 
-  CustomerInfo, 
-  OrderStatus, 
-  OrderItem, 
-  OrderData, 
-  OrderResponse, 
-  SupabaseOrderData,
-  BasketItem 
+ CustomerInfo, 
+ OrderStatus, 
+ OrderItem, 
+ OrderData, 
+ OrderResponse, 
+ SupabaseOrderData,
+ BasketItem 
 } from './orderTypes';
 
 // Export order submission functions

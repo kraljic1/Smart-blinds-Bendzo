@@ -16,6 +16,6 @@ export { useFormState } from './hooks/useFormState';
 
 // Types
 export type {
-  ProductCustomizationFormProps,
-  AdditionalCost
+ ProductCustomizationFormProps,
+ AdditionalCost
 } from './types'; 

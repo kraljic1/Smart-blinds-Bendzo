@@ -16,37 +16,37 @@ import essentialAnthraciteBL3 from '../../../../img/rollerblinds/ESSENTIAL/ESSEN
 import essentialAnthraciteBL4 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - ANTHRACITEBL/4.webp';
 
 export const coloredImages = {
-  // Ocean - blackout
-  oceanBlackout: {
-    main: essentialOceanBLMain,
-    gallery: [
-      essentialOceanBLMain,
-      essentialOceanBL1,
-      essentialOceanBL2,
-      essentialOceanBL3,
-      essentialOceanBL4
-    ]
-  },
-  // Beige - blackout
-  beigeBlackout: {
-    main: essentialBeigeBL0,
-    gallery: [
-      essentialBeigeBL0,
-      essentialBeigeBL1,
-      essentialBeigeBL2,
-      essentialBeigeBL3,
-      essentialBeigeBL4
-    ]
-  },
-  // Anthracite - blackout
-  anthraciteBlackout: {
-    main: essentialAnthraciteBL0,
-    gallery: [
-      essentialAnthraciteBL0,
-      essentialAnthraciteBL1,
-      essentialAnthraciteBL2,
-      essentialAnthraciteBL3,
-      essentialAnthraciteBL4
-    ]
-  }
+ // Ocean - blackout
+ oceanBlackout: {
+ main: essentialOceanBLMain,
+ gallery: [
+ essentialOceanBLMain,
+ essentialOceanBL1,
+ essentialOceanBL2,
+ essentialOceanBL3,
+ essentialOceanBL4
+ ]
+ },
+ // Beige - blackout
+ beigeBlackout: {
+ main: essentialBeigeBL0,
+ gallery: [
+ essentialBeigeBL0,
+ essentialBeigeBL1,
+ essentialBeigeBL2,
+ essentialBeigeBL3,
+ essentialBeigeBL4
+ ]
+ },
+ // Anthracite - blackout
+ anthraciteBlackout: {
+ main: essentialAnthraciteBL0,
+ gallery: [
+ essentialAnthraciteBL0,
+ essentialAnthraciteBL1,
+ essentialAnthraciteBL2,
+ essentialAnthraciteBL3,
+ essentialAnthraciteBL4
+ ]
+ }
 }; 

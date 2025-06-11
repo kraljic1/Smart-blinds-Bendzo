@@ -9,8 +9,8 @@ import { useNotification } from './hooks/useNotification';
 import '../../styles/AdminOrderTable.css';
 
 interface OrderTableProps {
-  orders: OrderData[];
-  onOrderDeleted?: () => void;
+ orders: OrderData[];
+ onOrderDeleted?: () => void;
 }
 
 /**
@@ -19,64 +19,64 @@ interface OrderTableProps {
  * Core admin functionality for order management
  */
 const OrderTable: React.FC<OrderTableProps> = ({ orders, onOrderDeleted }) => {
-  const { notification, showNotification, hideNotification } = useNotification();
-  const { 
-    deleteDialog, 
-    isDeleting, 
-    handleDeleteClick, 
-    handleDeleteConfirm, 
-    handleDeleteCancel 
-  } = useOrderDeletion();
+ const { notification, showNotification, hideNotification } = useNotification();
+ const { 
+ deleteDialog, 
+ isDeleting, 
+ handleDeleteClick, 
+ handleDeleteConfirm, 
+ handleDeleteCancel 
+ } = useOrderDeletion();
 
-  const onDeleteSuccess = () => {
-    showNotification('success', `Narudžba ${deleteDialog.orderId} je uspješno obrisana.`);
-    if (onOrderDeleted) {
-      onOrderDeleted();
-    }
-  };
+ const onDeleteSuccess = () => {
+ showNotification('success', `Narudžba ${deleteDialog.orderId} je uspješno obrisana.`);
+ if (onOrderDeleted) {
+ onOrderDeleted();
+ }
+ };
 
-  const onDeleteError = (message: string) => {
-    showNotification('error', message);
-  };
+ const onDeleteError = (message: string) => {
+ showNotification('error', message);
+ };
 
-  const handleConfirmDeletion = async () => {
-    await handleDeleteConfirm(onDeleteSuccess, onDeleteError);
-  };
+ const handleConfirmDeletion = async () => {
+ await handleDeleteConfirm(onDeleteSuccess, onDeleteError);
+ };
 
-  return (
-    <>
-      <div className="overflow-x-auto">
-        <table className="admin-order-table min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <OrderTableHeader />
-          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            {orders.map((order) => (
-              <OrderTableRow
-                key={order.order_id}
-                order={order}
-                onDeleteClick={handleDeleteClick}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
+ return (
+ <>
+ <div className="overflow-x-auto">
+ <table className="admin-order-table min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+ <OrderTableHeader />
+ <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+ {orders.map((order) => (
+ <OrderTableRow
+ key={order.order_id}
+ order={order}
+ onDeleteClick={handleDeleteClick}
+ />
+ ))}
+ </tbody>
+ </table>
+ </div>
 
-      <DeleteOrderDialog
-        isOpen={deleteDialog.isOpen}
-        orderId={deleteDialog.orderId}
-        customerName={deleteDialog.customerName}
-        onConfirm={handleConfirmDeletion}
-        onCancel={handleDeleteCancel}
-        isDeleting={isDeleting}
-      />
+ <DeleteOrderDialog
+ isOpen={deleteDialog.isOpen}
+ orderId={deleteDialog.orderId}
+ customerName={deleteDialog.customerName}
+ onConfirm={handleConfirmDeletion}
+ onCancel={handleDeleteCancel}
+ isDeleting={isDeleting}
+ />
 
-      <NotificationToast
-        type={notification.type}
-        message={notification.message}
-        isVisible={notification.isVisible}
-        onClose={hideNotification}
-      />
-    </>
-  );
+ <NotificationToast
+ type={notification.type}
+ message={notification.message}
+ isVisible={notification.isVisible}
+ onClose={hideNotification}
+ />
+ </>
+ );
 };
 
 export default OrderTable; 

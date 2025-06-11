@@ -7,7 +7,7 @@ import { accentCollection } from './zebra/accentCollection';
  * Combined collection of all zebra blind products
  */
 export const zebraCollection: Product[] = [
-  ...pureCollection,
-  ...balanceCollection,
-  ...accentCollection
+ ...pureCollection,
+ ...balanceCollection,
+ ...accentCollection
 ]; 

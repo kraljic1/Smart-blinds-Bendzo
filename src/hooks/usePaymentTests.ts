@@ -4,5 +4,5 @@ import { usePaymentTestSuite } from './payment';
 export type { TestResult } from './payment/types';
 
 export const usePaymentTests = () => {
-  return usePaymentTestSuite();
+ return usePaymentTestSuite();
 }; 

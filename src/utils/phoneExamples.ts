@@ -6,5 +6,5 @@ import { phoneExamples } from '../data/phoneCountryData';
  * @returns Example phone number in national format
  */
 export const getExamplePhoneNumber = (countryCode: string): string => {
-  return phoneExamples[countryCode] || '';
+ return phoneExamples[countryCode] || '';
 }; 

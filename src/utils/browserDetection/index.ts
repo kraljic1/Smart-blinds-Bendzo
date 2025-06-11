@@ -6,19 +6,19 @@ export { getPaymentInstructions } from './services/PaymentInstructionService';
 
 // Export types
 export type { 
-  BrowserInfo, 
-  StripeCompatibilityResult, 
-  PaymentInstructions 
+ BrowserInfo, 
+ StripeCompatibilityResult, 
+ PaymentInstructions 
 } from './types/browserTypes';
 
 // Export individual detectors for advanced usage
 export { 
-  detectBraveByNavigator, 
-  detectBraveByUserAgent, 
-  detectBraveByChromeFeatures 
+ detectBraveByNavigator, 
+ detectBraveByUserAgent, 
+ detectBraveByChromeFeatures 
 } from './detectors/braveDetector';
 
 export { 
-  detectSafari, 
-  detectChrome 
+ detectSafari, 
+ detectChrome 
 } from './detectors/browserInfoDetector'; 

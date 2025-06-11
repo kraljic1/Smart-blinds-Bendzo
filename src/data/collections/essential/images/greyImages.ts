@@ -21,48 +21,48 @@ import essentialBlueGreyBL3 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTI
 import essentialBlueGreyBL4 from '../../../../img/rollerblinds/ESSENTIAL/ESSENTIAL - BLUE GREYBL/4.webp';
 
 export const greyImages = {
-  // Light grey - light filtering
-  lightGrey: {
-    main: essentialLightGreyMain,
-    gallery: [
-      essentialLightGreyMain,
-      essentialLightGrey1,
-      essentialLightGrey2,
-      essentialLightGrey3,
-      essentialLightGrey4
-    ]
-  },
-  // Light grey - blackout
-  lightGreyBlackout: {
-    main: essentialLightGreyBL0,
-    gallery: [
-      essentialLightGreyBL0,
-      essentialLightGreyBL1,
-      essentialLightGreyBL2,
-      essentialLightGreyBL3,
-      essentialLightGreyBL4
-    ]
-  },
-  // Dark grey - blackout
-  darkGreyBlackout: {
-    main: essentialDarkGreyBL0,
-    gallery: [
-      essentialDarkGreyBL0,
-      essentialDarkGreyBL1,
-      essentialDarkGreyBL2,
-      essentialDarkGreyBL3,
-      essentialDarkGreyBL4
-    ]
-  },
-  // Blue grey - blackout
-  blueGreyBlackout: {
-    main: essentialBlueGreyBL0,
-    gallery: [
-      essentialBlueGreyBL0,
-      essentialBlueGreyBL1,
-      essentialBlueGreyBL2,
-      essentialBlueGreyBL3,
-      essentialBlueGreyBL4
-    ]
-  }
+ // Light grey - light filtering
+ lightGrey: {
+ main: essentialLightGreyMain,
+ gallery: [
+ essentialLightGreyMain,
+ essentialLightGrey1,
+ essentialLightGrey2,
+ essentialLightGrey3,
+ essentialLightGrey4
+ ]
+ },
+ // Light grey - blackout
+ lightGreyBlackout: {
+ main: essentialLightGreyBL0,
+ gallery: [
+ essentialLightGreyBL0,
+ essentialLightGreyBL1,
+ essentialLightGreyBL2,
+ essentialLightGreyBL3,
+ essentialLightGreyBL4
+ ]
+ },
+ // Dark grey - blackout
+ darkGreyBlackout: {
+ main: essentialDarkGreyBL0,
+ gallery: [
+ essentialDarkGreyBL0,
+ essentialDarkGreyBL1,
+ essentialDarkGreyBL2,
+ essentialDarkGreyBL3,
+ essentialDarkGreyBL4
+ ]
+ },
+ // Blue grey - blackout
+ blueGreyBlackout: {
+ main: essentialBlueGreyBL0,
+ gallery: [
+ essentialBlueGreyBL0,
+ essentialBlueGreyBL1,
+ essentialBlueGreyBL2,
+ essentialBlueGreyBL3,
+ essentialBlueGreyBL4
+ ]
+ }
 }; 

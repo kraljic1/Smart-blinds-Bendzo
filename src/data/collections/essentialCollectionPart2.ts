@@ -5,14 +5,14 @@ export { essentialCollectionPart2 } from './essential/index';
 
 // Re-export individual product groups for flexibility
 export { 
-  greyProducts, 
-  offWhiteProducts, 
-  coloredProducts 
+ greyProducts, 
+ offWhiteProducts, 
+ coloredProducts 
 } from './essential/index';
 
 // Re-export image collections for advanced usage
 export { 
-  greyImages, 
-  offWhiteImages, 
-  coloredImages 
+ greyImages, 
+ offWhiteImages, 
+ coloredImages 
 } from './essential/index'; 
