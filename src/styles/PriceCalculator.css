@@ -1,0 +1,253 @@
+/* Price Calculator Component Styles */
+
+.price-calculator {
+  background-color: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.price-calculator-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.price-calculator-total {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.price-calculator-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.price-calculator-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.price-calculator-toggle {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.price-calculator-toggle:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.price-calculator-details {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
+  margin-top: 16px;
+  space-y: 8px;
+}
+
+.price-calculator-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.price-calculator-item-name {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.price-calculator-item-price {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.price-calculator-subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 8px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.price-calculator-tax {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.price-calculator-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.price-calculator-quantity {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.quantity-button {
+  background-color: #f9fafb;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-button:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.quantity-button:active {
+  background-color: #e5e7eb;
+}
+
+.quantity-input {
+  border: none;
+  padding: 8px 12px;
+  text-align: center;
+  font-weight: 600;
+  color: #1f2937;
+  background-color: white;
+  width: 60px;
+  height: 40px;
+  outline: none;
+}
+
+.checkout-button {
+  flex: 1;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.checkout-button:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+  transform: translateY(-1px);
+}
+
+.checkout-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .price-calculator {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+
+  .price-calculator-amount {
+    color: #f9fafb;
+  }
+
+  .price-calculator-toggle {
+    color: #9ca3af;
+  }
+
+  .price-calculator-toggle:hover {
+    background-color: #374151;
+    color: #d1d5db;
+  }
+
+  .price-calculator-details {
+    border-color: #374151;
+  }
+
+  .price-calculator-item-price,
+  .price-calculator-subtotal {
+    color: #f9fafb;
+  }
+
+  .price-calculator-subtotal {
+    border-color: #374151;
+  }
+
+  .price-calculator-actions {
+    border-color: #374151;
+  }
+
+  .price-calculator-quantity {
+    border-color: #4b5563;
+  }
+
+  .quantity-button {
+    background-color: #374151;
+    color: #d1d5db;
+  }
+
+  .quantity-button:hover {
+    background-color: #4b5563;
+    color: #f9fafb;
+  }
+
+  .quantity-input {
+    background-color: #1f2937;
+    color: #f9fafb;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .price-calculator-actions {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .price-calculator-quantity {
+    order: 2;
+    align-self: center;
+  }
+
+  .checkout-button {
+    order: 1;
+    width: 100%;
+  }
+} 
