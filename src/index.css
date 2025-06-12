@@ -1,5 +1,8 @@
-/* Import custom component styles */
-@import "./styles/ModernComponentsStyles.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './styles/ModernComponentsStyles.css';
 
 /* Global styles */
 * {
