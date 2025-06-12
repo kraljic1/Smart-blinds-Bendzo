@@ -25,7 +25,8 @@ const CurtainTracksPage = () => {
  }, []);
  
  const breadcrumbItems = [
- { label: 'Our Products', path: '/products' },
+ { label: 'Home', path: '/' },
+ { label: 'Products', path: '/products' },
  { label: 'Curtain Tracks', path: '/products/curtain-blinds' }
  ];
 
@@ -62,29 +63,29 @@ const CurtainTracksPage = () => {
  };
 
  return (
- <div className="modern-page-container">
- {/* Static Hero section */}
- <div className={`relative h-[50vh] mb-16 ${isLoaded ? 'fade-in-scale' : 'opacity-0'}`}>
- <div className="absolute inset-0 rounded-3xl overflow-hidden">
+ <div className="pt-24 pb-32 bg-white">
+ {/* Hero Section */}
+ <div className={`relative h-[40vh] mb-16 ${isLoaded ? 'fade-in' : 'opacity-0'}`}>
+ <div className="absolute inset-0">
  <img 
  src={curtainTrackImg} 
  alt="Smart curtain tracks showcase"
  className="w-full h-full object-cover"
  />
- <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"/>
+ <div className="absolute inset-0 bg-black/40"/>
  </div>
  <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
  <div className="max-w-3xl">
- <h2 className="text-5xl font-bold text-white mb-6 animate-text-reveal">
+ <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
  Smart Curtain Tracks
  </h2>
- <p className="text-xl text-blue-50 mb-8">
+ <p className="text-lg sm:text-xl text-blue-50 mb-8">
  Transform your curtains with our premium electric curtain track system. Elegant, quiet, and seamlessly integrated with your smart home.
  </p>
  <a 
  href="#products"
  onClick={scrollToProducts}
- className="light-button px-8 py-3 rounded-full font-medium text-center inline-block w-auto"
+ className="bg-white text-blue-900 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition inline-block shadow-lg"
  >
  Explore Collection
  </a>
@@ -92,15 +93,26 @@ const CurtainTracksPage = () => {
  </div>
  </div>
  
- <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
- <div className="mb-8">
+ <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+ {/* Page Header with Breadcrumb and Title */}
+ <div className={`mb-8 slide-in-up ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
  <Breadcrumb items={breadcrumbItems} />
  </div>
  
- <h1 className="modern-page-title">Smart Curtain Tracks</h1>
- <p className="modern-page-subtitle">Premium electric curtain tracks with modern design and smart home integration</p>
+ <div className="relative">
+ <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-200 rounded-full filter blur-3xl opacity-20 -z-10"></div>
+ <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-200 rounded-full filter blur-3xl opacity-20 -z-10"></div>
+ </div>
+ 
+ <h1 className={`text-5xl font-bold text-gray-900 mb-4 fade-in-scale ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+ Smart Curtain Tracks
+ </h1>
+ 
+ <p className={`text-lg text-gray-600 mb-8 max-w-2xl slide-in-up delay-50 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+ Premium electric curtain tracks with modern design and smart home integration. Control your curtains with precision and style.
+ </p>
 
- <div id="products"className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+ <div id="products" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
  {products.map((product) => (
  <ModernProductCard
  key={product.id}
