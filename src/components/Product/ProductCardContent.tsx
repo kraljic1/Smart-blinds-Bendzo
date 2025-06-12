@@ -25,7 +25,7 @@ const ProductCardContent: React.FC<ProductCardContentProps> = ({
  <div className="flex-grow flex flex-col p-6 pt-8 min-h-[280px]">
  {/* Product title - Fixed height container */}
  <div className="h-16 mb-4 flex items-start">
- <h3 className="text-xl font-bold text-black line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 :from-blue-600 :to-purple-600">
+ <h3 className="text-xl font-bold text-black line-clamp-2 transition-colors group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600">
  {product.name.toUpperCase()}
  </h3>
  </div>
@@ -36,7 +36,7 @@ const ProductCardContent: React.FC<ProductCardContentProps> = ({
  {product.features.map((feature, i) => (
  <span
  key={i}
- className="modern-badge flex items-center text-black "
+ className="modern-badge flex items-center text-black"
  >
  {feature === 'Light filtering' ? (
  <Sun className="w-3 h-3 mr-1 inline"/>
@@ -68,7 +68,7 @@ const ProductCardContent: React.FC<ProductCardContentProps> = ({
  <div className="space-y-3">
  <button
  onClick={onConfigureClick}
- className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 :from-blue-400 :to-indigo-500 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
+ className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium shadow-md hover:shadow-lg flex items-center justify-center"
  >
  <span>{configureButtonText}</span>
  </button>
@@ -76,7 +76,7 @@ const ProductCardContent: React.FC<ProductCardContentProps> = ({
  {onRequestSample && (
  <button
  onClick={onRequestSampleClick}
- className="w-full border border-gray-200 bg-white/60 backdrop-blur-sm text-gray-800 px-6 py-3 rounded-xl hover:bg-gray-50 :bg-gray-600 transition-all duration-300 font-medium flex items-center justify-center"
+ className="w-full border border-gray-200 bg-white/60 backdrop-blur-sm text-gray-800 px-6 py-3 rounded-xl hover:bg-gray-50 transition-all duration-300 font-medium flex items-center justify-center"
  >
  <Package size={16} className="mr-2"/>
  <span>Request Sample</span>
@@ -87,10 +87,10 @@ const ProductCardContent: React.FC<ProductCardContentProps> = ({
  {/* Like button */}
  <button 
  onClick={onToggleLike}
- className={`absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 backdrop-blur-sm shadow-md border border-white/40 /40 flex items-center justify-center ${
+ className={`absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 backdrop-blur-sm shadow-md border border-white/40 flex items-center justify-center ${
  productIsLiked 
- ? 'text-red-500 ' 
- : 'text-gray-500 hover:text-red-500 :text-red-400'
+ ? 'text-red-500' 
+ : 'text-gray-500 hover:text-red-500'
  } transition-colors ${
  productIsLiked ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
  }`}
