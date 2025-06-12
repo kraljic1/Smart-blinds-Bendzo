@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ProductFilterSidebar } from './index';
 import { ChevronDown, ChevronUp, Filter } from 'lucide-react';
 import { Product } from '../../types/product';
+import '../../styles/CollapsibleFilterSidebar.css';
 
 
 interface CollapsibleFilterSidebarProps {

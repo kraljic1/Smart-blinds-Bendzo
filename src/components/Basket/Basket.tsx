@@ -2,6 +2,7 @@ import React from 'react';
 import { useBasketContext } from '../../hooks/useBasketContext';
 import { BasketItem } from './BasketItem';
 import { Link, useNavigate } from 'react-router-dom';
+import './Basket.css';
 
 export function Basket() {
  const { items, clearBasket, getTotalPrice, getItemCount } = useBasketContext();

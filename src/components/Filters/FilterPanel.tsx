@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { FilterState, ProductFilters } from '../../types/filter';
 import { filterGroups } from '../../data/filterData';
 import FilterGroup from './FilterGroup';
+import '../../styles/FilterPanel.css';
 
 
 interface FilterPanelProps {
