@@ -69,8 +69,10 @@
 }
 
 .color-grid {
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  grid-gap: 4px;
+  display: grid !important;
+  grid-template-columns: repeat(4, 100px) !important;
+  gap: 8px !important;
+  justify-content: center;
 }
 
 .text-only-grid {
@@ -431,28 +433,32 @@
 
 /* New styles for fabric swatches */
 .fabric-option {
-  padding: 1px;
+  padding: 0px !important;
   background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  margin: 1px;
+  border: 2px solid #e5e7eb;
   border-radius: 4px;
+  width: 100px !important;
+  height: 100px !important;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .dark .fabric-option {
   background-color: #1f2937;
   border-color: #4b5563;
+  width: 100px !important;
+  height: 100px !important;
+  flex-shrink: 0;
 }
 
 .fabric-swatch-container {
-  width: 90%;
-  height: 0;
-  padding-bottom: 90%;
+  width: 100%;
+  height: 96px;
   border-radius: 4px;
-  margin-bottom: 0;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-shadow: none;
   overflow: hidden;
   position: relative;
 }
@@ -468,7 +474,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center bottom;
+  border-radius: 2px;
 }
 
 .fabric-option .option-content {
@@ -517,7 +524,21 @@
 
 @media (max-width: 640px) {
   .color-grid {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    grid-gap: 3px;
+    grid-template-columns: repeat(4, 70px) !important;
+    gap: 4px !important;
+  }
+  
+  .fabric-option {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  
+  .dark .fabric-option {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  
+  .fabric-swatch-container {
+    height: 66px;
   }
 } 
