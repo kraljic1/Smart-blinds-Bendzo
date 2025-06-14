@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import CroatianSEO from '../components/SEO/CroatianSEO';
-import ProductPageLayout from '../components/Product/ProductPageLayout';
+import RollerBlindsHeroSection from './components/RollerBlindsHeroSection';
+import ProductPageHeader from '../components/Product/ProductPageHeader';
+import ProductGridSection from '../components/Product/ProductGridSection';
 import { usePageAnimations } from '../hooks/usePageAnimations';
 import { useProductGrouping } from '../hooks/useProductGrouping';
 import { rollerBlinds } from '../data/rollerblinds';
 import { Product } from '../types/product';
-import rollerBlindsHero from '../img/rollerblinds/CLASSIC/CLASSIC - BLACK/0.webp';
+import rollerHero1 from '../img/hero-images/roller1.webp';
 
 // Static page data
 const PAGE_DATA = {
@@ -16,8 +18,6 @@ const PAGE_DATA = {
  { label: 'Roller Blinds', path: '/products/roller-blinds' },
  ],
  content: {
- heroTitle:"Smart Roller Blinds",
- heroDescription:"Enhance your windows with our premium smart roller blinds collection. Elegant, functional, and designed to fit seamlessly into your home.",
  pageTitle:"Smart Roller Blinds",
  pageDescription:"Discover our collection of premium smart roller blinds designed for modern homes. Control your blinds with voice, app, or the smart hub."
  },
@@ -47,7 +47,7 @@ const useRollerBlindsPage = () => {
 };
 
 /**
- * Roller Blinds Page - Displays the roller blinds product collection with filtering capabilities
+ * Roller Blinds Page - Displays the roller blinds product collection with carousel hero and filtering capabilities
  */
 const RollerBlindsPage = () => {
  const { filteredProducts, setFilteredProducts, isLoaded, groupedProducts, scrollToProducts } = useRollerBlindsPage();
@@ -60,7 +60,7 @@ const RollerBlindsPage = () => {
  keywords="smart roller blinds, automated blinds, window automation, smart home, motorized blinds"
  pageType="category"
  ogType="product"
- ogImage={rollerBlindsHero}
+ ogImage={rollerHero1}
  productData={{
  name:"Smart Roller Blinds",
  price:"89.99",
@@ -71,20 +71,35 @@ const RollerBlindsPage = () => {
  category:"Smart Blinds"
  }}
  />
- <ProductPageLayout
- {...PAGE_DATA.content}
- heroImage={rollerBlindsHero}
- heroImageAlt="Smart roller blinds showcase"
+ 
+ <div className="pt-24 pb-32 bg-white">
+ {/* Hero Section with Carousel */}
+ <RollerBlindsHeroSection 
+ isLoaded={isLoaded}
+ onScrollToProducts={scrollToProducts}
+ />
+ 
+ <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
+ {/* Page Header */}
+ <ProductPageHeader
+ title={PAGE_DATA.content.pageTitle}
+ description={PAGE_DATA.content.pageDescription}
  breadcrumbItems={PAGE_DATA.breadcrumbs}
+ isLoaded={isLoaded}
+ structuredData={PAGE_DATA.structuredData}
+ />
+ 
+ {/* Products Grid */}
+ <ProductGridSection
  categoryId="roller"
  allProducts={rollerBlinds}
  filteredProducts={filteredProducts}
  groupedProducts={groupedProducts}
  isLoaded={isLoaded}
  onFilteredProductsChange={setFilteredProducts}
- onExploreClick={scrollToProducts}
- structuredData={PAGE_DATA.structuredData}
  />
+ </div>
+ </div>
  </>
  );
 };
