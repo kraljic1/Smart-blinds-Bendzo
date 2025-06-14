@@ -1,5 +1,5 @@
 import React from 'react';
-import zebraBlindHero from '../../img/zebra/ACCENT/ACCENT - ANTHRACITE/0.webp';
+import zebraBlindHero from '../../img/neke slike/zebrablinds.webp';
 
 interface ZebraHeroSectionProps {
  isLoaded: boolean;
