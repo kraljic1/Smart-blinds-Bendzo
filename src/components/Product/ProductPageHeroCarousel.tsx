@@ -73,9 +73,13 @@ const CarouselContent: React.FC<CarouselContentProps> = ({ title, description, o
  {description}
  </p>
  {onExploreClick && (
- <button onClick={onExploreClick} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl">
- Explore Products
- </button>
+ <a 
+ href="#products"
+ onClick={onExploreClick}
+ className="bg-white text-blue-900 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition inline-block shadow-lg"
+ >
+ Explore Collection
+ </a>
  )}
  </div>
  </div>
