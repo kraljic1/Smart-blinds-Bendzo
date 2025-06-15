@@ -177,63 +177,6 @@
   box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
 }
 
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .price-calculator {
-    background-color: #1f2937;
-    border-color: #374151;
-  }
-
-  .price-calculator-amount {
-    color: #f9fafb;
-  }
-
-  .price-calculator-toggle {
-    color: #9ca3af;
-  }
-
-  .price-calculator-toggle:hover {
-    background-color: #374151;
-    color: #d1d5db;
-  }
-
-  .price-calculator-details {
-    border-color: #374151;
-  }
-
-  .price-calculator-item-price,
-  .price-calculator-subtotal {
-    color: #f9fafb;
-  }
-
-  .price-calculator-subtotal {
-    border-color: #374151;
-  }
-
-  .price-calculator-actions {
-    border-color: #374151;
-  }
-
-  .price-calculator-quantity {
-    border-color: #4b5563;
-  }
-
-  .quantity-button {
-    background-color: #374151;
-    color: #d1d5db;
-  }
-
-  .quantity-button:hover {
-    background-color: #4b5563;
-    color: #f9fafb;
-  }
-
-  .quantity-input {
-    background-color: #1f2937;
-    color: #f9fafb;
-  }
-}
-
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .price-calculator-actions {
