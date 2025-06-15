@@ -21,7 +21,7 @@ const HomePage: React.FC = () => {
  return (
  <>
  <CroatianSEO 
- title="Smartblinds Hrvatska - Pametne Rolete za Moderan Dom | Automatske Rolete Zagreb"
+ title="Smartblinds Hrvatska - Pametne Rolete | Zagreb"
  description="Otkrijte najbolje pametne rolete u hrvatskoj! Automatske rolete s daljinskim upravljanjem, smart home integracija, energetska efikasnost. Besplatna dostava po Zagrebu i Hrvatskoj. ⭐ Garancija 5 godina"
  keywords="pametne rolete, automatske rolete, smart home hrvatska, pametni dom, rolete na daljinski, električne rolete, motorizirane rolete"
  pageType="home"
@@ -30,7 +30,14 @@ const HomePage: React.FC = () => {
  { name: 'Početna', item: 'https://bendzosmartblinds.netlify.app/' }
  ]}
  />
- <Hero images={heroImages} autoChangeInterval={4500} />
+ <Hero 
+ images={heroImages} 
+ autoChangeInterval={4500}
+ title="Pametne Rolete za Vaš Dom"
+ description="Automatizacija koja se prilagođava vašem rasporedu, štedi energiju i stvara savršen ambijent kroz cijeli dan."
+ buttonText="Otkrijte pametna rješenja"
+ buttonLink="/how-it-works"
+ />
  <Features />
  <Reviews />
  </>

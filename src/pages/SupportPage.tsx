@@ -1,5 +1,20 @@
+import React from 'react';
+import CroatianSEO from '../components/SEO/CroatianSEO';
+
 const SupportPage = () => {
  return (
+ <>
+ <CroatianSEO 
+ title="Podrška - Smartblinds Hrvatska | Pomoć"
+ description="Potrebna vam je pomoć s pametnim roletama? Kontaktirajte naš tim za podršku. Odgovorimo na sva vaša pitanja o instalaciji, korištenju i održavanju."
+ keywords="podrška, pomoć, kontakt, smartblinds, pametne rolete, instalacija, jamstvo"
+ pageType="support"
+ ogType="website"
+ breadcrumbs={[
+ { name: 'Početna', item: 'https://bendzosmartblinds.netlify.app/' },
+ { name: 'Podrška', item: 'https://bendzosmartblinds.netlify.app/support' }
+ ]}
+ />
  <div className="modern-page-container">
  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
  <h1 className="modern-page-title">Podrška</h1>
@@ -83,6 +98,7 @@ const SupportPage = () => {
  </div>
  </div>
  </div>
+ </>
  );
 };
 
