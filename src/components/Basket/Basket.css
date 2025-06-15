@@ -217,12 +217,12 @@
 .basket-item-subtotal {
   font-size: 1.25rem;
   font-weight: 700;
-  color: rgb(17 24 39);
+  color: rgb(16 185 129);
   text-align: center;
-  background: linear-gradient(135deg, rgb(254 249 195), rgb(254 240 138));
+  background: linear-gradient(135deg, rgb(236 253 245), rgb(209 250 229));
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   min-width: 100px;
 }
 
@@ -276,18 +276,15 @@
   font-size: 1.25rem;
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: linear-gradient(135deg, rgb(254 249 195), rgb(254 240 138));
+  background: linear-gradient(135deg, rgb(236 253 245), rgb(209 250 229));
   border-radius: 1rem;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .basket-total-price {
   font-weight: 700;
   font-size: 2rem;
-  background: linear-gradient(to right, rgb(29 78 216), rgb(147 51 234));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  color: rgb(16 185 129);
 }
 
 .basket-actions {
@@ -383,7 +380,7 @@
 }
 
 .basket-empty .basket-continue-btn {
-  background: linear-gradient(135deg, rgb(59 130 246), rgb(147 51 234));
+  background: linear-gradient(135deg, rgb(16 185 129), rgb(5 150 105));
   color: white;
   padding: 1rem 2rem;
   border-radius: 0.75rem;
@@ -392,13 +389,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
   transition: all 0.3s ease;
 }
 
 .basket-empty .basket-continue-btn:hover {
-  background: linear-gradient(135deg, rgb(37 99 235), rgb(126 34 206));
-  box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, rgb(5 150 105), rgb(4 120 87));
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
   transform: translateY(-1px);
 }
 
