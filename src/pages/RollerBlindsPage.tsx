@@ -55,7 +55,7 @@ const RollerBlindsPage = () => {
  return (
  <>
  <CroatianSEO
- title="Smart Roller Blinds - Premium Window Automation | Smartblinds Croatia"
+ title="Pametne Zavjese | Smartblinds Hrvatska"
  description="Discover our collection of premium smart roller blinds designed for modern homes. Control your blinds with voice, app, or the smart hub. Free shipping on all orders."
  keywords="smart roller blinds, automated blinds, window automation, smart home, motorized blinds"
  pageType="category"

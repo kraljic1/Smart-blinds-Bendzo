@@ -1,0 +1,168 @@
+/* Modern Liked Items Grid Styling - 2025 Design */
+
+.liked-items {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: linear-gradient(to bottom right, white, rgb(239 246 255), rgb(238 242 255));
+  min-height: 100vh;
+}
+
+/* Modern page header */
+.liked-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgb(229 231 235);
+  position: relative;
+}
+
+.liked-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgb(59 130 246), transparent);
+}
+
+.liked-title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: linear-gradient(to right, rgb(29 78 216), rgb(147 51 234));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.liked-clear-btn {
+  background: linear-gradient(135deg, rgb(239 68 68), rgb(220 38 38));
+  border: none;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);
+}
+
+.liked-clear-btn:hover {
+  background: linear-gradient(135deg, rgb(220 38 38), rgb(185 28 28));
+  box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Product card wrapper with modern effects */
+.product-card-wrapper {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.product-card-wrapper:hover {
+  transform: translateY(-2px);
+}
+
+/* Modern empty state */
+.liked-empty {
+  text-align: center;
+  padding: 5rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 25px -5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.liked-empty::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, rgb(219 234 254 / 0.3), rgb(221 214 254 / 0.3));
+  border-radius: 1.5rem;
+  z-index: -1;
+}
+
+/* Modern icon container for empty state */
+.modern-icon-container {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgb(239 68 68), rgb(220 38 38));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.3);
+}
+
+.liked-empty h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: linear-gradient(to right, rgb(29 78 216), rgb(147 51 234));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.liked-empty p {
+  color: rgb(75 85 99);
+  margin-bottom: 2.5rem;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.liked-browse-btn {
+  background: linear-gradient(135deg, rgb(16 185 129), rgb(5 150 105));
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+  transition: all 0.3s ease;
+}
+
+.liked-browse-btn:hover {
+  background: linear-gradient(135deg, rgb(5 150 105), rgb(4 120 87));
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .liked-items {
+    padding: 1rem 0.5rem;
+  }
+  
+  .liked-title {
+    font-size: 2rem;
+  }
+  
+  .liked-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .liked-clear-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+} 

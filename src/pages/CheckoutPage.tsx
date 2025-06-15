@@ -1,28 +1,22 @@
 import React from 'react';
-import CroatianSEO from '../components/SEO/CroatianSEO';
 import { EnhancedCheckoutForm } from '../components/Checkout/EnhancedCheckoutForm';
-import { useBasketContext } from '../hooks/useBasketContext';
-import { Navigate } from 'react-router-dom';
+import SEO from '../components/SEO/SEO';
 import Breadcrumb from '../components/Navigation/Breadcrumb';
 
 export default function CheckoutPage() {
- const { items } = useBasketContext();
- 
- // Redirect if basket is empty
- if (items.length === 0) {
- return <Navigate to="/basket"/>;
- }
- 
  return (
  <>
- <CroatianSEO
- title="Naplata | Smartblinds Croatia"
- description="Sigurna naplata za vaše pametne rolete. Brza dostava po cijeloj Hrvatskoj."
- keywords="naplata, sigurna kupovina, pametne rolete, dostava hrvatska"
- pageType="info"
+ <SEO
+ title="Naplata | Smartblinds"
+ description="Završite svoju narudžbu sigurno i brzo."
  />
- <div className="container mx-auto px-4 pt-24 pb-8">
- <div className="mb-6">
+ <div 
+ className="min-h-screen"
+ style={{
+ background: 'linear-gradient(to bottom right, white, rgb(239 246 255), rgb(238 242 255))'
+ }}
+ >
+ <div className="container mx-auto px-4 py-8">
  <Breadcrumb
  items={[
  { label: 'Početna', path: '/' },
@@ -30,8 +24,10 @@ export default function CheckoutPage() {
  { label: 'Naplata', path: '/checkout' }
  ]}
  />
- </div>
+ <div className="pt-16 pb-16">
  <EnhancedCheckoutForm />
+ </div>
+ </div>
  </div>
  </>
  );

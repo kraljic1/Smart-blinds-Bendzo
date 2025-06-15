@@ -3,6 +3,7 @@ import CheckoutFormFields from './components/CheckoutFormFields';
 import { FormErrorDisplay, CheckoutSubmitButton } from './components';
 import PaymentProcessingSection from './components/PaymentProcessingSection';
 import OrderSummarySection from './OrderSummarySection';
+import './Checkout.css';
 
 export function CheckoutFormMain() {
  console.log('[CHECKOUT] CheckoutFormMain component mounted');

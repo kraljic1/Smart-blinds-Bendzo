@@ -14,8 +14,15 @@
   background: linear-gradient(to right, rgb(29 78 216), rgb(147 51 234));
   background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
+  color: rgb(29 78 216); /* Fallback color for SEO and accessibility */
   margin-bottom: 0.75rem; /* mb-3 */
+}
+
+/* Modern browsers with gradient support */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .modern-page-title {
+    color: transparent;
+  }
 }
 
 /* Modern page subtitle */
@@ -58,7 +65,14 @@
   background: linear-gradient(to right, rgb(37 99 235), rgb(168 85 247));
   background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
+  color: rgb(37 99 235); /* Fallback color for SEO and accessibility */
+}
+
+/* Modern browsers with gradient support */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .modern-card-title {
+    color: transparent;
+  }
 }
 
 /* Modern input field */

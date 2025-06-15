@@ -2,6 +2,8 @@ import React from 'react';
 import { useLikedContext } from '../../hooks/useLikedContext';
 import ModernProductCard from '../Product/ModernProductCard';
 import { Link } from 'react-router-dom';
+import { Heart, ArrowLeft } from 'lucide-react';
+import './LikedItemsGrid.css';
 
 export const LikedItemsGrid: React.FC = () => {
  const { likedItems, clearLikedItems, getLikedItemsCount } = useLikedContext();
@@ -10,9 +12,15 @@ export const LikedItemsGrid: React.FC = () => {
  if (likedItems.length === 0) {
  return (
  <div className="liked-empty">
+ <div className="modern-icon-container" style={{ margin: '0 auto 2rem' }}>
+ <Heart size={32} />
+ </div>
  <h2>Vaš popis omiljenih je prazan</h2>
  <p>Označite proizvode kao omiljene da biste ih vidjeli ovdje.</p>
- <Link to="/products/roller-blinds"className="liked-browse-btn">Pregledajte naše proizvode</Link>
+ <Link to="/products/roller-blinds" className="liked-browse-btn">
+ <ArrowLeft size={20} style={{ marginRight: '0.5rem' }} />
+ Pregledajte naše proizvode
+ </Link>
  </div>
  );
  }

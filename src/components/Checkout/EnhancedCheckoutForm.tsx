@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEnhancedCheckout } from './EnhancedCheckoutForm/hooks';
 import { CheckoutFormSection, PaymentSections } from './EnhancedCheckoutForm/components';
+import './Checkout.css';
 
 export function EnhancedCheckoutForm() {
  const {

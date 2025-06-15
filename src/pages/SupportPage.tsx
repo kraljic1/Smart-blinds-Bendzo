@@ -8,7 +8,7 @@ const SupportPage = () => {
  title="Podrška - Smartblinds Hrvatska | Pomoć"
  description="Potrebna vam je pomoć s pametnim roletama? Kontaktirajte naš tim za podršku. Odgovorimo na sva vaša pitanja o instalaciji, korištenju i održavanju."
  keywords="podrška, pomoć, kontakt, smartblinds, pametne rolete, instalacija, jamstvo"
- pageType="support"
+ pageType="contact"
  ogType="website"
  breadcrumbs={[
  { name: 'Početna', item: 'https://bendzosmartblinds.netlify.app/' },
